@@ -1,29 +1,66 @@
 <template>
 	<view class="container">
-		
-		<view class="intro">本项目已包含uni ui组件，无需import和注册，可直接使用。在代码区键入字母u，即可通过代码助手列出所有可用组件。光标置于组件名称处按F1，即可查看组件文档。</view>
-		<text class="intro">详见：</text>
-		<uni-link :href="href" :text="href"></uni-link>
+		<u--image
+		:src="img_url"
+		width="16rem"
+		height="12rem"
+		></u--image>
+		<view class="btn-container">
+			<u-button type="primary" @click="login()" class='btn'>登录</u-button>
+			<u-button type="primary" @click="register()" class='btn'>注册</u-button>
+		</view>
 	</view>
 </template>
 
 <script>
+	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue"
 	export default {
+		components: {
+			uButton
+		},
 		data() {
 			return {
-				href: 'https://uniapp.dcloud.io/component/README?id=uniui'
+				img_url:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp09%2F210F2130512J47-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1662730360&t=95e52f173a611d284f26155a3ed8b36e"
 			}
 		},
 		methods: {
-
+			login() {
+				uni.redirectTo({
+					url: '/pages/login/login'
+				});
+			},
+			register() {
+				uni.redirectTo({
+					url: '/pages/register/register'
+				});
+			}
 		}
 	}
 </script>
 
 <style>
-	.container {
-		padding: 20px;
-		font-size: 14px;
-		line-height: 24px;
+	.container{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		width: 100%;
+		padding-top: 50rpx;
+	}
+	.btn-container{
+		padding: 100rpx;
+	}
+	.btn {
+		width: 14rem;
+		height: 3rem;
+		line-height: 23rpx;
+		border-radius: 50rpx;
+		border-color: black;
+		background-color: rgba(16, 16, 16, 100);
+		color: rgba(255, 255, 255, 100);
+		font-size: 1rem;
+		text-align: center;
+		font-family: Arial;
+		margin-bottom: 100rpx;
 	}
 </style>
