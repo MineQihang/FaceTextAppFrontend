@@ -23,6 +23,23 @@
 				img_url:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp09%2F210F2130512J47-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1662730360&t=95e52f173a611d284f26155a3ed8b36e"
 			}
 		},
+		// mounted() {
+		// 	uni.request({
+		// 	    url: '/api/user/register', 
+		// 		method: 'POST',
+		// 		header: {
+		// 			"content-type": "application/x-www-form-urlencoded"
+		// 		},
+		// 		data: {
+		// 			phoneNumber: "12345678901",
+		// 			password: "1234567asf"
+		// 		},
+		// 	    success: (res) => {
+		// 	        console.log(res.data);
+		// 	        this.text = 'request success';
+		// 	    }
+		// 	});
+		// },
 		methods: {
 			login() {
 				uni.redirectTo({
@@ -45,13 +62,13 @@
 		align-items: center;
 		flex-direction: column;
 		width: 100%;
-		padding-top: 50rpx;
+		padding-top: 250rpx;
 	}
 	.btn-container{
-		padding: 100rpx;
+		padding: 150rpx;
 	}
 	.btn {
-		width: 14rem;
+		width: 12rem;
 		height: 3rem;
 		line-height: 23rpx;
 		border-radius: 50rpx;

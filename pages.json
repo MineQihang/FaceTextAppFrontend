@@ -2,7 +2,7 @@
 	"pages": [{
 		"path": "pages/index/index",
 		"style": {
-			"navigationBarTitleText": "Project"
+			"navigationBarTitleText": "启动"
 		}
 	}],
 	"globalStyle": {
