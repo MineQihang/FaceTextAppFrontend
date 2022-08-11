@@ -22,7 +22,7 @@
 			<input class="uni-input input-box" type="password" placeholder="请确认密码" v-model="passwordValue2"/>
 		</view>
 		
-			<button class="login-btn" >注册</button>
+			<button class="login-btn" @click="reg()">注册</button>
 
 		
 					
@@ -39,6 +39,24 @@
 		}
 	    },
 	    methods: {
+			reg() {
+				// console.log(this.passwordValue1)
+				uni.request({
+				    url: '/api/user/register', 
+					method: 'POST',
+					header: {
+						"content-type": "application/x-www-form-urlencoded"
+					},
+					data: {
+						phoneNumber: this.iphoneValue,
+						password: this.passwordValue1
+					},
+				    success: (res) => {
+				        console.log(res);
+				        this.text = 'request success';
+				    }
+				});
+			}
 	    }
 	}
 

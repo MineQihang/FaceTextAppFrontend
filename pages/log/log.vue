@@ -17,7 +17,7 @@
 			<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue"/>
 		</view>
 		
-			<button class="login-btn" @click="Login()">登录</button>
+			<button class="login-btn" @click="login()">登录</button>
 
 		
 					
@@ -38,7 +38,7 @@
 				return reg.test(str)
 			},
 			
-			Login(){
+			login(){
 				let that = this
 				console.log(that.iphoneValue)
 				if (!that.iphoneValue || !this.isMobile(that.iphoneValue) ) {
@@ -55,27 +55,22 @@
 					})
 					return false
 				}
-				// uni.request({
-				// 	url: 'http://app/login', // 路径
-				// 	method: 'POST', // 请求方法
-				// 	data: {
-				// 		phone: that.iphoneValue,
-				// 		password: that.passwordValue
-				// 	}, //发送的数据
-				// 	success: (res) => {
-				// 		if (res.data.code == 200) {
-				// 			uni.showToast({
-				// 				title: '登录成功',
-				// 				icon: 'none'
-				// 			})
-				// 		} else {
-				// 			uni.showToast({
-				// 				title: '登录失败',
-				// 				icon: 'none'
-				// 			})
-				// 		}
-				// 	}
-				// })
+				// console.log(this.passwordValue)
+				uni.request({
+				    url: '/api/user/login', 
+					method: 'POST',
+					header: {
+						"content-type": "application/x-www-form-urlencoded"
+					},
+					data: {
+						phoneNumber: this.iphoneValue,
+						password: this.passwordValue
+					},
+				    success: (res) => {
+				        console.log(res.data);
+				        this.text = 'request success';
+				    }
+				});
 		
 			},
 
