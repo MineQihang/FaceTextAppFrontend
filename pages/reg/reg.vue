@@ -9,7 +9,7 @@
 		<!-- 主体 -->
 		<view class="uni-form-item uni-column horViewStyle box">	
 			<image src="../../static/log1.svg" class="picture" mode=""></image>
-			<input class="uni-input input-box" type="number" placeholder="请输入手机号码" :value="iphoneValue" />
+			<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue" />
 		</view>
 				
 		<view class="uni-form-item uni-column horViewStyle box">

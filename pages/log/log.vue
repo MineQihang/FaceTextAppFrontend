@@ -9,7 +9,7 @@
 		<!-- 主体 -->
 		<view class="uni-form-item uni-column horViewStyle box">	
 			<image src="../../static/log1.svg" class="picture" mode=""></image>
-			<input class="uni-input input-box" type="number" placeholder="请输入手机号" :value="iphoneValue" />
+			<input class="uni-input input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" />
 		</view>
 				
 		<view class="uni-form-item uni-column horViewStyle box">
@@ -17,7 +17,7 @@
 			<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue"/>
 		</view>
 		
-			<button class="login-btn" >登录</button>
+			<button class="login-btn" @click="Login()">登录</button>
 
 		
 					
@@ -33,6 +33,52 @@
 		}
 	    },
 	    methods: {
+			isMobile(str) {
+				let reg = /^1\d{10}$/;
+				return reg.test(str)
+			},
+			
+			Login(){
+				let that = this
+				console.log(that.iphoneValue)
+				if (!that.iphoneValue || !this.isMobile(that.iphoneValue) ) {
+					uni.showToast({
+						title: '请输入正确电话号码',
+						icon: 'none'
+					})
+					return false
+				}
+				if (!that.passwordValue) {
+					uni.showToast({
+						title: '请输入密码',
+						icon: 'none'
+					})
+					return false
+				}
+				// uni.request({
+				// 	url: 'http://app/login', // 路径
+				// 	method: 'POST', // 请求方法
+				// 	data: {
+				// 		phone: that.iphoneValue,
+				// 		password: that.passwordValue
+				// 	}, //发送的数据
+				// 	success: (res) => {
+				// 		if (res.data.code == 200) {
+				// 			uni.showToast({
+				// 				title: '登录成功',
+				// 				icon: 'none'
+				// 			})
+				// 		} else {
+				// 			uni.showToast({
+				// 				title: '登录失败',
+				// 				icon: 'none'
+				// 			})
+				// 		}
+				// 	}
+				// })
+		
+			},
+
 			// Login(){
 			// 	uni.request({
 			// 		let that = this
