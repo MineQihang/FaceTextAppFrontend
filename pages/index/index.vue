@@ -45,12 +45,12 @@
 		// },
 		methods: {
 			login() {
-				uni.redirectTo({
+				uni.navigateTo({
 					url: '/pages/log/log'
 				});
 			},
 			register() {
-				uni.redirectTo({
+				uni.navigateTo({
 					url: '/pages/reg/reg'
 				});
 			}
