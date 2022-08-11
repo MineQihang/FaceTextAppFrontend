@@ -30,6 +30,8 @@
 			return {
 				iphoneValue: '', //手机号码
 				passwordValue: '', //密码
+				access_token: '',
+				token_type: '',
 			}
 		},
 		methods: {
@@ -40,7 +42,7 @@
 
 			login() {
 				let that = this
-				if (!that.iphoneValue || !this.isMobile(that.iphoneValue) ) {
+				if (!that.iphoneValue || !this.isMobile(that.iphoneValue)) {
 					uni.showToast({
 						title: '请输入正确电话号码',
 						icon: 'none'
@@ -66,13 +68,30 @@
 						password: this.passwordValue
 					},
 					success: (res) => {
-						console.log(res.data);
+						console.log(res);
 						this.text = 'request success';
+						if (res.statusCode == 200) {
+							//存储token
+							console.log('ddf');
+							that.access_token = res.data.access_token;
+							uni.setStorageSync('access_token', that.access_token); // 将登录信息以token的方式存在硬盘中
+							uni.setStorageSync('token_type', res.data.token_type); // 将用户信息存储在硬盘中
+							uni.showToast({
+								title: '登录成功',
+								icon: 'none'
+							})
+							uni.redirectTo({
+								url: '/pages/homepage/homepage'
+							});
+						} else {
+							uni.showToast({
+								title: res.data.detail,
+								icon: 'none'
+							})
+						}
 					}
 				})
-				uni.redirectTo({
-						url: '/pages/homepage/homepage'
-					});
+
 
 			},
 
