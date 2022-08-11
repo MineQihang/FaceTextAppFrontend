@@ -9,7 +9,7 @@
 		<!-- 主体 -->
 		<view class="uni-form-item uni-column horViewStyle box">	
 			<image src="../../static/log1.svg" class="picture" mode=""></image>
-			<input class="uni-input input-box" type="number" placeholder="请输入手机号" :value="iphoneValue" />
+			<input class="uni-input input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" />
 		</view>
 				
 		<view class="uni-form-item uni-column horViewStyle box">
@@ -17,7 +17,7 @@
 			<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue"/>
 		</view>
 		
-			<button class="login-btn" >登录</button>
+			<button class="login-btn" @click="login()">登录</button>
 
 		
 					
@@ -33,6 +33,24 @@
 		}
 	    },
 	    methods: {
+			login() {
+				console.log(this.passwordValue)
+				uni.request({
+				    url: '/api/user/login', 
+					method: 'POST',
+					header: {
+						"content-type": "application/x-www-form-urlencoded"
+					},
+					data: {
+						phoneNumber: this.iphoneValue,
+						password: this.passwordValue
+					},
+				    success: (res) => {
+				        console.log(res.data);
+				        this.text = 'request success';
+				    }
+				});
+			}
 			// Login(){
 			// 	uni.request({
 			// 		let that = this
