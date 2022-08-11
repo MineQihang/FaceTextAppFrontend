@@ -62,7 +62,7 @@
 			"port": 8080,
 	        "proxy": {
 	            "/api": {
-	                "target": "http://192.168.0.100/",
+	                "target": "http://124.221.253.187:5000/",
 					"changeOrigin": true,
 					"ws": true,
 	                "pathRewrite": {
