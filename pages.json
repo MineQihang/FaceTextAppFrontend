@@ -1,27 +1,38 @@
-"pages":[ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-		    "path" : "pages/message/message",
-		    "style" :
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-
-		},
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
+{
+	"pages": [{
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "启动"
 		}
+	},
+	{
+		"path": "pages/log/log",
+		"style": {
+			"navigationBarTitleText": "登录"
+		}
+	},
+	{
+		"path": "pages/reg/reg",
+		"style": {
+			"navigationBarTitleText": "注册"
+		}
+	}    ,{
+            "path" : "pages/test/test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
-	"tabBar": {
-		"color": "#333333",//51,51,51
-		"selectedColor": "#28C76F",//40,199,111
-		"list":[
-			{
-				"text": "消息",
-				"pagePath": "pages/message/message",
-				"iconPath": "static/tabs/message.png",
-				"selectedIconPath": "static/tabs/message-active.png"
-			}, 
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	}
+}
