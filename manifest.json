@@ -59,7 +59,7 @@
     },
 	"h5": {
 	    "devServer": {
-			"port": 8081,
+			"port": 8080,
 	        "proxy": {
 	            "/api": {
 	                "target": "http://192.168.0.100/",

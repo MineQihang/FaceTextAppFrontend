@@ -40,8 +40,7 @@
 
 			login() {
 				let that = this
-				console.log(that.iphoneValue)
-				if (!that.iphoneValue || !this.isMobile(that.iphoneValue)) {
+				if (!that.iphoneValue || !this.isMobile(that.iphoneValue) ) {
 					uni.showToast({
 						title: '请输入正确电话号码',
 						icon: 'none'
