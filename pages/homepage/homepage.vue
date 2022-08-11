@@ -4,6 +4,7 @@
 		<view>
 			<view>
 				<u--image src="../../static/successful_log.png" width="16rem" height="12rem"></u--image>
+				<view>{{ username }}</view>
 			</view>
 		</view>
 
@@ -21,7 +22,38 @@
 			uButton
 		},
 		data() {
-			return {}
+			return {
+				username: ''
+			}
+		},
+		mounted() {
+			let that = this;
+			try {
+				const authorization = uni.getStorageSync('authorization');
+				if (!authorization) throw DOMException("Nope!");
+				else{
+					uni.request({
+						url: '/api/user/user-info',
+						header:{
+							'Authorization': authorization
+						},
+						success: (res) => {
+							console.log(res);
+							this.text = 'request success';
+							if (res.statusCode == 200) {
+								that.username = res.data.data.username;
+							} else {
+								uni.showToast({
+									title: res.data.detail,
+									icon: 'none'
+								})
+							}
+						}
+					})
+				}
+			} catch (e) {
+				console.log(e)
+			}
 		},
 		methods: {
 			index() {

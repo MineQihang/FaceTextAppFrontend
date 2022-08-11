@@ -18,7 +18,7 @@
 		</view>
 
 		<button class="login-btn" @click="login()">登录</button>
-
+		
 
 
 	</view>
@@ -33,6 +33,9 @@
 				access_token: '',
 				token_type: '',
 			}
+		},
+		mounted() {
+			
 		},
 		methods: {
 			isMobile(str) {
@@ -69,24 +72,25 @@
 					},
 					success: (res) => {
 						console.log(res);
-						this.text = 'request success';
 						if (res.statusCode == 200) {
-							//存储token
-							// console.log('ddf');
-							that.access_token = res.data.access_token;
-							uni.setStorageSync('access_token', that.access_token); // 将登录信息以token的方式存在硬盘中
-							uni.setStorageSync('token_type', res.data.token_type); // 将用户信息存储在硬盘中
+							//存储Authorization
+							uni.setStorageSync('authorization', res.data.token_type + ' ' + res.data
+								.access_token);
 							uni.showToast({
-								title: '登录成功',
-								icon: 'none'
-							})
-							uni.redirectTo({
-								url: '/pages/homepage/homepage'
+								title: res.data.detail,
+								duration: 1000
 							});
+							setTimeout(() => {
+								uni.redirectTo({
+									url: '/pages/homepage/homepage'
+								});
+							}, 500)
+
 						} else {
 							uni.showToast({
 								title: res.data.detail,
-								icon: 'none'
+								duration: 1000,
+								icon: "error"
 							})
 						}
 					}

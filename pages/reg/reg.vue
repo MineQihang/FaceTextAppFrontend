@@ -98,23 +98,21 @@
 								},
 								data: {
 									phoneNumber: that.iphoneValue,
-									password: that.passwordValue
+									password: that.passwordValue1
 								},
-								success: (res) => {
+								success: (res2) => {
 									console.log('登录成功');
-									if (res.statusCode == 200) {
-										that.access_token = res.data.access_token;
-										uni.setStorageSync('access_token', that
-											.access_token); // 将登录信息以token的方式存在硬盘中
-										uni.setStorageSync('token_type', res.data
-											.token_type); // 将用户信息存储在硬盘中
-
+									if (res2.statusCode == 200) {
+										uni.setStorageSync('authorization', res2.data.token_type +
+											' ' + res2.data.access_token);
 									}
 								}
 							})
-							uni.redirectTo({
-								url: '/pages/homepage/homepage',
-							})
+							setTimeout(() => {
+								uni.redirectTo({
+									url: '/pages/homepage/homepage'
+								});
+							}, 400)
 
 						} else {
 							uni.showToast({
@@ -122,7 +120,6 @@
 								icon: 'none'
 							})
 						}
-
 					}
 				});
 			}
