@@ -17,8 +17,7 @@
 			<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue" />
 		</view>
 
-		
-			<button class="login-btn" @click="login()">登录</button>
+		<button class="login-btn" @click="login()">登录</button>
 
 
 
@@ -27,41 +26,6 @@
 
 <script>
 	export default {
-		    data() {
-		        return {
-					iphoneValue: '', //手机号码
-					passwordValue: '',//密码
-			}
-		    },
-	    methods: 
-		{
-			
-			login() 
-			{
-				console.log(this.passwordValue)
-				
-				
-				
-				uni.request({
-				    url: '/api/user/login', 
-					method: 'POST',
-					header: 
-					{
-						"content-type": "application/x-www-form-urlencoded"
-					},
-					data: 
-					{
-						phoneNumber: this.iphoneValue,
-						password: this.passwordValue
-					},
-				    success: (res) => 
-					{
-				        console.log(res.data);
-				        this.text = 'request success';
-				    }
-				});
-				
-			}
 		data() {
 			return {
 				iphoneValue: '', //手机号码
@@ -105,14 +69,13 @@
 						console.log(res.data);
 						this.text = 'request success';
 					}
-				});
+				})
 				uni.redirectTo({
 						url: '/pages/homepage/homepage'
 					});
 
 			},
 
->>>>>>> af31c43bf76cea6d06dd75b400095e934ef0ac05
 			// Login(){
 			// 	uni.request({
 			// 		let that = this

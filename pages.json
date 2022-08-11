@@ -1,44 +1,46 @@
 {
 	"pages": [{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "启动"
-			}
-		},
-		{
-			"path": "pages/log/log",
-			"style": {
-				"navigationBarTitleText": "登录"
-			}
-		},
-		{
-			"path": "pages/reg/reg",
-			"style": {
-				"navigationBarTitleText": "注册"
-			}
-		}, {
-
-			"path": "pages/test/test",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		}, {
-				"path": "pages/homepage/homepage",
-				"style": {
-					"navigationBarTitleText": "成功注册",
-					"enablePullDownRefresh": false
-				}
-
-			}
-		],
-		"globalStyle": {
-			"navigationBarTextStyle": "black",
-			"navigationBarTitleText": "uni-app",
-			"navigationBarBackgroundColor": "#F8F8F8",
-			"backgroundColor": "#F8F8F8",
-			"app-plus": {
-				"background": "#efeff4"
-			}
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "启动"
+		}
+	},
+	{
+		"path": "pages/log/log",
+		"style": {
+			"navigationBarTitleText": "登录"
+		}
+	},
+	{
+		"path": "pages/reg/reg",
+		"style": {
+			"navigationBarTitleText": "注册"
+		}
+	}    ,{
+            "path" : "pages/test/test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },{
+            "path" : "pages/homepage/homepage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "成功登录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
 		}
 	}
+}
