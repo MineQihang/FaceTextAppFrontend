@@ -40,6 +40,13 @@
 	    },
 	    methods: {
 			reg() {
+				if (this.passwordValue1!=this.passwordValue2) {
+					uni.showToast({
+						title: '两次输入密码不一致，请重新输入',
+						icon: 'none'
+					})
+					return false
+				}
 				// console.log(this.passwordValue1)
 				uni.request({
 				    url: '/api/user/register', 
