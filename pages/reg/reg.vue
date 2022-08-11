@@ -39,12 +39,40 @@
 		}
 	    },
 	    methods: {
+			isMobile(str) {
+				let reg = /^1\d{10}$/;
+				return reg.test(str)
+			},
 			reg() {
+				if (!this.iphoneValue || !this.isMobile(this.iphoneValue) ) {
+					uni.showToast({
+						title: '请输入正确的手机号码',
+						icon: 'none'
+					})
+					return false
+				}
+				if(!this.passwordValue1){
+					uni.showToast({
+								title: '请输入密码',
+								icon: 'none'
+							})
+							return false
+				}
+				if(!this.passwordValue2){
+					uni.showToast({
+								title: '请再次输入密码',
+								icon: 'none'
+							})
+							return false
+				}
+				if (this.passwordValue1!=this.passwordValue2) {
+					uni.showToast({
+						title: '两次输入密码不一致，请重新输入',
+						icon: 'none'
+					})
+					return false
+				}
 				// console.log(this.passwordValue1)
-				uni.redirectTo({
-						url: '/pages/homepage/homepage'
-					});
-				
 				uni.request({
 				    url: '/api/user/register', 
 					method: 'POST',
