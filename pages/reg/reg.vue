@@ -36,7 +36,7 @@
 				iphoneValue: '', //手机号码
 				passwordValue1: '',
 				passwordValue2: '',//密码
-		}
+			}
 	    },
 	    methods: {
 			isMobile(str) {
@@ -44,35 +44,36 @@
 				return reg.test(str)
 			},
 			reg() {
-				if (!this.iphoneValue || !this.isMobile(this.iphoneValue) ) {
+				let that = this
+				if (!that.iphoneValue || !that.isMobile(that.iphoneValue) ) {
 					uni.showToast({
 						title: '请输入正确的手机号码',
 						icon: 'none'
 					})
 					return false
 				}
-				if(!this.passwordValue1){
+				if(!that.passwordValue1){
 					uni.showToast({
 								title: '请输入密码',
 								icon: 'none'
 							})
 							return false
 				}
-				if(!this.passwordValue2){
+				if(!that.passwordValue2){
 					uni.showToast({
 								title: '请再次输入密码',
 								icon: 'none'
 							})
 							return false
 				}
-				if (this.passwordValue1!=this.passwordValue2) {
+				if (that.passwordValue1!=that.passwordValue2) {
 					uni.showToast({
 						title: '两次输入密码不一致，请重新输入',
 						icon: 'none'
 					})
 					return false
 				}
-				// console.log(this.passwordValue1)
+
 				uni.request({
 				    url: '/api/user/register', 
 					method: 'POST',
@@ -80,12 +81,32 @@
 						"content-type": "application/x-www-form-urlencoded"
 					},
 					data: {
-						phoneNumber: this.iphoneValue,
-						password: this.passwordValue1
+						phoneNumber: that.iphoneValue,
+						password: that.passwordValue1
 					},
 				    success: (res) => {
-				        console.log(res);
-				        this.text = 'request success';
+						if (res.data.code == 200){
+							uni.showToast({
+								title: '注册成功',
+								icon: 'none'
+							})
+							
+							that.token = res.data.token;
+							setTimeout(function(){
+								},1000)
+							uni.redirectTo({ 
+								url:'/pages/homepage/homepage',
+							})
+							console.log(res);
+							that.text = 'request success';
+						}
+						else{
+							uni.showToast({
+								title: '该账号已存在',
+								icon: 'none'
+							})
+						}
+				        
 				    }
 				});
 			}
