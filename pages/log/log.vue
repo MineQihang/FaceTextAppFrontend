@@ -72,7 +72,7 @@
 						this.text = 'request success';
 						if (res.statusCode == 200) {
 							//存储token
-							console.log('ddf');
+							// console.log('ddf');
 							that.access_token = res.data.access_token;
 							uni.setStorageSync('access_token', that.access_token); // 将登录信息以token的方式存在硬盘中
 							uni.setStorageSync('token_type', res.data.token_type); // 将用户信息存储在硬盘中
