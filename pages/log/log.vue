@@ -1,47 +1,47 @@
 <template>
 	<view class="">
-		
+
 		<!-- 空白部分 -->
 		<view class="blank">
 
 		</view>
-			
+
 		<!-- 主体 -->
-		<view class="uni-form-item uni-column horViewStyle box">	
+		<view class="uni-form-item uni-column horViewStyle box">
 			<image src="../../static/log1.svg" class="picture" mode=""></image>
 			<input class="uni-input input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" />
 		</view>
-				
+
 		<view class="uni-form-item uni-column horViewStyle box">
 			<image src="../../static/log2.svg" class="picture" mode=""></image>
-			<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue"/>
+			<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue" />
 		</view>
-		
-			<button class="login-btn" @click="login()">登录</button>
 
-		
-					
+		<button class="login-btn" @click="login()">登录</button>
+
+
+
 	</view>
 </template>
 
 <script>
 	export default {
-	    data() {
-	        return {
+		data() {
+			return {
 				iphoneValue: '', //手机号码
-				passwordValue: '',//密码
-		}
-	    },
-	    methods: {
+				passwordValue: '', //密码
+			}
+		},
+		methods: {
 			isMobile(str) {
 				let reg = /^1\d{10}$/;
 				return reg.test(str)
 			},
-			
-			login(){
+
+			login() {
 				let that = this
 				console.log(that.iphoneValue)
-				if (!that.iphoneValue || !this.isMobile(that.iphoneValue) ) {
+				if (!that.iphoneValue || !this.isMobile(that.iphoneValue)) {
 					uni.showToast({
 						title: '请输入正确电话号码',
 						icon: 'none'
@@ -57,7 +57,7 @@
 				}
 				// console.log(this.passwordValue)
 				uni.request({
-				    url: '/api/user/login', 
+					url: '/api/user/login',
 					method: 'POST',
 					header: {
 						"content-type": "application/x-www-form-urlencoded"
@@ -66,12 +66,12 @@
 						phoneNumber: this.iphoneValue,
 						password: this.passwordValue
 					},
-				    success: (res) => {
-				        console.log(res.data);
-				        this.text = 'request success';
-				    }
+					success: (res) => {
+						console.log(res.data);
+						this.text = 'request success';
+					}
 				});
-		
+
 			},
 
 			// Login(){
@@ -105,68 +105,73 @@
 			// 		}
 			// 	})
 			// }
-	    }
+		}
 	}
-
 </script>
 <style>
-	
-		.iphone,
-		.password,
-		.test {
-			position: relative;
-			margin-bottom: 30px;
-		}
-		.box {
-			height: 100upx;
-			width: 600upx;
-			margin-top: 10upx;
-			margin-bottom: 20upx;
-			margin-left: 70upx;
-			background-color: #f0f0f0;
-			border-radius: 36px;
-			display: flex;
-		}
-		.picture{
-			height:100%;
-			width: 50upx;
-			margin-left: 20upx;
-			border-radius: 36upx;
-		}
-        .wrap{
-            display: flex;
-            width: 100%;
-            height: 500upx;
-        }
-        .blank{
-            border: 1px  #000;
-			width:100%;
-			height:400upx;
-            flex: 1;
-        }
-		.input-box {
-			margin-top: 25upx;
-			margin-left:10upx;
-		}
-		.input-btn{
-			border-radius: 36px;
-			background-color: #000;
-			height: 100upx;
-			width: 600upx;
-			margin-left: 80upx;
-		}
-		.login-btn {
-			width: 80%;
-			height: 100rpx;
-			background: #000000;
-			border-radius: 36px;
-			color: #ffffff;
-			font-size: 20px;
-			text-align: center;
-			line-height: 45px;
-			position: absolute;
-			margin-bottom: 500rpx;
-			margin-left: 70rpx;
-			margin-right: 70rpx;
-		}
- </style>
+	.iphone,
+	.password,
+	.test {
+		position: relative;
+		margin-bottom: 30px;
+	}
+
+	.box {
+		height: 100upx;
+		width: 600upx;
+		margin-top: 10upx;
+		margin-bottom: 20upx;
+		margin-left: 70upx;
+		background-color: #f0f0f0;
+		border-radius: 36px;
+		display: flex;
+	}
+
+	.picture {
+		height: 100%;
+		width: 50upx;
+		margin-left: 20upx;
+		border-radius: 36upx;
+	}
+
+	.wrap {
+		display: flex;
+		width: 100%;
+		height: 500upx;
+	}
+
+	.blank {
+		border: 1px #000;
+		width: 100%;
+		height: 400upx;
+		flex: 1;
+	}
+
+	.input-box {
+		margin-top: 25upx;
+		margin-left: 10upx;
+	}
+
+	.input-btn {
+		border-radius: 36px;
+		background-color: #000;
+		height: 100upx;
+		width: 600upx;
+		margin-left: 80upx;
+	}
+
+	.login-btn {
+		width: 80%;
+		height: 100rpx;
+		background: #000000;
+		border-radius: 36px;
+		color: #ffffff;
+		font-size: 20px;
+		text-align: center;
+		line-height: 45px;
+		position: absolute;
+		margin-bottom: 500rpx;
+		margin-left: 70rpx;
+		margin-right: 70rpx;
+	}
+</style>
