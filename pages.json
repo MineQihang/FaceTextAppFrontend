@@ -4,7 +4,28 @@
 		"style": {
 			"navigationBarTitleText": "uni-app"
 		}
-	}],
+	},
+	{
+		"path": "pages/log/log",
+		"style": {
+			"navigationBarTitleText": "登录"
+		}
+	},
+	{
+		"path": "pages/reg/reg",
+		"style": {
+			"navigationBarTitleText": "注册"
+		}
+	}    ,{
+            "path" : "pages/test/test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
