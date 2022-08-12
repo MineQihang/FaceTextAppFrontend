@@ -4,12 +4,12 @@
 		<image src="../../static/log_img1.png" class="log_img1"></image>
 		<view class="containerB">
 			<view class="menu">
-				<view class="uni-form-item uni-column horViewStyle box">
+				<view class="box">
 					<image src="../../static/log1.svg" class="picture" mode=""></image>
 					<input class="uni-input input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" />
 				</view>
 
-				<view class="uni-form-item uni-column horViewStyle box">
+				<view class="box">
 					<image src="../../static/log2.svg" class="picture" mode=""></image>
 					<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue" />
 				</view>
