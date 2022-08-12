@@ -15,6 +15,9 @@
 				</view>
 
 				<button class="login-btn" @click="login()">登录</button>
+				<navigator url="../reg/reg" class="reg">
+					需要注册？
+				</navigator>
 			</view>
 		</view>
 
@@ -114,7 +117,7 @@
 	}
 
 	.containerB {
-		width: 375px;
+		width: 100%;
 		height: 540px;
 		top: 272px;
 		left: 0;
@@ -131,8 +134,8 @@
 	.box {
 		height: 100upx;
 		width: 600upx;
-		margin-top: 10upx;
-		margin-bottom: 20upx;
+		margin-top: 30rpx;
+		margin-bottom: 50rpx;
 		margin-left: 70upx;
 		background-color: #f0f0f0;
 		border-radius: 36px;
@@ -146,21 +149,11 @@
 		border-radius: 36upx;
 	}
 
-	.wrap {
-		width: 100%;
-		height: 500upx;
-	}
-
-	.blank {
-		border: 1px #000;
-		width: 100%;
-		height: 400upx;
-		flex: 1;
-	}
-
 	.input-box {
 		margin-top: 25upx;
 		margin-left: 10upx;
+		margin-right: 30upx;
+		width: 100%;
 	}
 
 	.input-btn {
@@ -174,15 +167,25 @@
 	.login-btn {
 		width: 80%;
 		height: 100rpx;
-		background: #000000;
+		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
+		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
 		border-radius: 36px;
 		color: #ffffff;
-		font-size: 20px;
+		font-size: 1rem;
 		text-align: center;
 		line-height: 45px;
 		position: absolute;
 		margin-bottom: 500rpx;
 		margin-left: 70rpx;
 		margin-right: 70rpx;
+	}
+	
+	.reg {
+		position: absolute;
+		top: 550rpx;
+		left: 100rpx;
+		color: rgb(82, 82, 199);
+		font-size: 36rpx;
+		line-height: 54rpx;
 	}
 </style>
