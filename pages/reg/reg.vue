@@ -3,7 +3,7 @@
 
 		<!-- 空白部分 -->
 		<cover-view class="blank" style="background-color: antiquewhite;">
-			<img src="../../static/log_img1.png" alt="" style="width: 100%;height: 650rpx;">
+			<img src="../../static/log_img1.png" alt="" style="width: 100%;height: 600rpx;">
 		</cover-view>
 
 		<!-- 主体 -->
@@ -11,17 +11,17 @@
 			
 			<view class="box" >
 				<image src="../../static/log1.svg" class="picture" mode=""></image>
-				<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue" />
+				<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue" style="width: 100%;"/>
 			</view>
 
 			<view class="box" style="background-color: #f0f0f0;">
 				<image src="../../static/log2.svg" class="picture" mode=""></image>
-				<input class="uni-input input-box" type="password" placeholder="请设置密码" v-model="passwordValue1" />
+				<input class="uni-input input-box" type="password" placeholder="请设置密码" v-model="passwordValue1" style="width: 100%;"/>
 			</view>
 
 			<view class="box">
 				<image src="../../static/log2.svg" class="picture" mode=""></image>
-				<input class="uni-input input-box" type="password" placeholder="请确认密码" v-model="passwordValue2" />
+				<input class="uni-input input-box" type="password" placeholder="请确认密码" v-model="passwordValue2" style="width: 100%;"/>
 			</view>
 		
 			<button class="login-btn" @click="reg()">注册</button>
@@ -152,12 +152,12 @@
 	.white_next{
 		border-radius: 50rpx;
 		background-color: #ffffff;
-		height: 900rpx;
+		height: 1000rpx;
 		width: 100%;
 /* 		top: 544rpx; */
 		z-index: 10！important;
 		position: fixed;
-		margin-top: 560rpx;
+		margin-top: 530rpx;
 
 
 	}
