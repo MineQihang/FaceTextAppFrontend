@@ -1,0 +1,128 @@
+<template>
+	<view>
+		<!-- 头部图片 -->
+		<view class="head_img">
+			<img src="/static/Header_img.svg"  style="width: 100%;" alt="">
+		</view>
+		
+		<!-- 中部图片 -->
+		<cover-view class="mid_img">
+			<img src="/static/mid_img.png" alt="" style="width: 180%;height: 100%;">
+		</cover-view>
+		
+		<!-- 底部 -->
+		<view class="bottom_view">
+				
+				<button class="btn" @click="Reset_information">修改信息</button>
+				<button class="btn" @click="index()">退出登录</button>
+				<button class="btn">注销账户</button>
+				
+		</view>
+		
+		<!-- 用户头像 -->
+		<view class="portrait">
+			<img src="/static/logo.png" alt="" style="border-radius: 100rpx;height: 100rpx;width:100rpx;">
+		</view>
+		
+	</view>
+</template>
+
+<script>
+	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue"
+	export default {
+		components: {
+			uButton
+		},
+		data() {
+			return {
+				username: ''
+			}
+		},
+		mounted() {
+			let that = this;
+			try {
+				const authorization = uni.getStorageSync('authorization');
+				if (!authorization) throw DOMException("Nope!");
+				else{
+					uni.request({
+						url: '/api/user/user-info',
+						header:{
+							'Authorization': authorization
+						},
+						success: (res) => {
+							console.log(res);
+							this.text = 'request success';
+							if (res.statusCode == 200) {
+								that.username = res.data.data.username;
+							} else {
+								uni.showToast({
+									title: res.data.detail,
+									icon: 'none'
+								})
+							}
+						}
+					})
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		methods: {
+			Reset_information(){
+				uni.navigateTo({
+					url:'/pages/reset_inform/reset_inform'
+				})
+			},
+			index() {
+				uni.redirectTo({
+					url: '/pages/index/index'
+				});
+			}
+			
+		}
+	}
+</script>
+
+<style>
+	.head_img{
+		height: 350rpx;
+		background-color: #ffffff;
+		z-index: 1!important;
+	/* 	position: fixed; */
+	}
+	.mid_img{
+		height: 600rpx;
+		z-index: 1!important;
+		/* position: fixed; */
+	}
+	.bottom_view{
+		background-color: #ffffff;
+		 height: 600rpx;
+		 z-index: 1!important;
+/* 		 position:fixed; */
+	}
+	.btn{
+		width: 80%;
+		height: 100rpx;
+		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
+		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
+		border-radius: 36px;
+		color: #ffffff;
+		font-size: 1rem;
+		text-align: center;
+		line-height: 45px;
+		margin-bottom: 100rpx;
+		margin-left: 70rpx;
+		margin-right: 70rpx;
+	}
+	.portrait{
+		border-radius: 100rpx;
+		height: 100rpx;
+		width:100rpx;
+		background-color: red;
+		z-index: 10!important;
+		position:absolute;
+		top:17%;
+		left:45%;
+	}
+</style>
