@@ -3,7 +3,7 @@
 
 		<!-- 空白部分 -->
 		<cover-view class="blank" style="background-color: antiquewhite;">
-			<img src="../../static/log_img1.png" alt="" style="width: 100%;height: 650rpx;">
+			<img src="../../static/log_img1.png" alt="" style="width: 100%;height: 600rpx;">
 		</cover-view>
 
 		<!-- 主体 -->
@@ -157,7 +157,7 @@
 /* 		top: 544rpx; */
 		z-index: 10！important;
 		position: fixed;
-		margin-top: 560rpx;
+		margin-top: 530rpx;
 
 
 	}
@@ -210,5 +210,7 @@
 		margin-bottom: 500rpx;
 		margin-left: 70rpx;
 		margin-right: 70rpx;
+		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
+		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
 	}
 </style>

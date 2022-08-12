@@ -119,7 +119,7 @@
 	.containerB {
 		width: 100%;
 		height: 540px;
-		top: 272px;
+		top: 530rpx;
 		left: 0;
 		background: rgb(255, 255, 255);
 		border-radius: 28px 28px 0px 0px;
