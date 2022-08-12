@@ -93,4 +93,28 @@
 		font-family: Arial;
 		margin-bottom: 100rpx;
 	}
+	.login-btn {
+		width: 80%;
+		height: 100rpx;
+		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
+		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
+		border-radius: 36px;
+		color: #ffffff;
+		font-size: 1rem;
+		text-align: center;
+		line-height: 45px;
+		position: absolute;
+		margin-bottom: 500rpx;
+		margin-left: 70rpx;
+		margin-right: 70rpx;
+	}
+	
+	.reg {
+		position: absolute;
+		top: 550rpx;
+		left: 100rpx;
+		color: rgb(82, 82, 199);
+		font-size: 36rpx;
+		line-height: 54rpx;
+	}
 </style>
