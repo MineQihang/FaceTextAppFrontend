@@ -10,7 +10,7 @@
 
 
 		<view class="btn-container">
-			<u-button type="primary" @click="index()" class='btn'>退出登录</u-button>
+			<u-button type="primary" @click="log()" class='btn'>退出登录</u-button>
 		</view>
 	</view>
 </template>
@@ -56,9 +56,9 @@
 			}
 		},
 		methods: {
-			index() {
+			log() {
 				uni.redirectTo({
-					url: '/pages/index/index'
+					url: '/pages/log/log'
 				});
 			}
 

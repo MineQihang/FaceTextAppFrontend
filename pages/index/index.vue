@@ -58,7 +58,7 @@
 							});
 						}, 5000)
 						uni.showToast({
-							title: "您在一段时间内没有登录账号，请登录",
+							title: "正在启动登录端 请稍后",
 							duration: 1500,
 							icon: "error"
 						})
