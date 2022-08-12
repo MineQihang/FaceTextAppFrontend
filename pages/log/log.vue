@@ -156,14 +156,6 @@
 		width: 100%;
 	}
 
-	.input-btn {
-		border-radius: 36px;
-		background-color: #000;
-		height: 100upx;
-		width: 600upx;
-		margin-left: 80upx;
-	}
-
 	.login-btn {
 		width: 80%;
 		height: 100rpx;
@@ -179,7 +171,7 @@
 		margin-left: 70rpx;
 		margin-right: 70rpx;
 	}
-	
+
 	.reg {
 		position: absolute;
 		top: 550rpx;
