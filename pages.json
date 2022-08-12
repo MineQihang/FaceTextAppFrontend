@@ -34,8 +34,11 @@
 		{
 			"path": "pages/homepage/homepage",
 			"style": {
-				"navigationBarTitleText": "成功登录",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "广场",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+						"bounce": "none"  
+					}  
 			}
 
 		},
