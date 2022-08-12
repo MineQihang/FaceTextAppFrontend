@@ -61,20 +61,5 @@
         },
         "usingComponents" : true
     },
-    "h5" : {
-        "devServer" : {
-            "port" : 8080,
-            "proxy" : {
-                "/api" : {
-                    "target" : "http://124.221.253.187:5000/",
-                    "changeOrigin" : true,
-                    "ws" : true,
-                    "pathRewrite" : {
-                        "^/api" : ""
-                    }
-                }
-            }
-        }
-    },
     "vueVersion" : "2"
 }

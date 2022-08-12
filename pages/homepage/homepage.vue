@@ -63,7 +63,7 @@
 				if (!authorization) throw DOMException("Nope!");
 				else {
 					uni.request({
-						url: '/api/user/user-info',
+						url: 'http://124.221.253.187:5000/user/user-info',
 						header: {
 							'Authorization': authorization
 						},

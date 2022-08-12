@@ -78,7 +78,7 @@
 				}
 
 				uni.request({
-					url: '/api/user/register',
+					url: 'http://124.221.253.187:5000/user/register',
 					method: 'POST',
 					header: {
 						"content-type": "application/x-www-form-urlencoded"
@@ -94,7 +94,7 @@
 								icon: 'none'
 							})
 							uni.request({
-								url: '/api/user/login',
+								url: 'http://124.221.253.187:5000/user/login',
 								method: 'POST',
 								header: {
 									"content-type": "application/x-www-form-urlencoded"

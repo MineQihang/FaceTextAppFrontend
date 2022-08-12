@@ -25,7 +25,7 @@
 		  },
 		mounted() {
 			uni.request({
-				url: '/api/user/login',
+				url: 'http://124.221.253.187:5000/user/login',
 				method: 'POST',
 				header: {
 					"content-type": "application/x-www-form-urlencoded"
@@ -58,6 +58,10 @@
 							});
 						}, 3000)
 					}
+				},
+				fail(res){
+					console.log(res);
+					
 				}
 			});
 		},
