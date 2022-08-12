@@ -1,41 +1,45 @@
 {
 	"pages": [{
-		"path": "pages/index/index",
-		"style": {
-			"navigationBarTitleText": "启动",
-			"backgroundColor": "green"
-			// "app-plus":{"titleNView": false}
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "启动",
+				"backgroundColor": "green",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/log/log",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/reg/reg",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/homepage/homepage",
+			"style": {
+				"navigationBarTitleText": "成功登录",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	},
-	{
-		"path": "pages/log/log",
-		"style": {
-			"navigationBarTitleText": "登录"
-		}
-	},
-	{
-		"path": "pages/reg/reg",
-		"style": {
-			"navigationBarTitleText": "注册"
-		}
-	}    ,{
-            "path" : "pages/test/test",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        },{
-            "path" : "pages/homepage/homepage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "成功登录",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

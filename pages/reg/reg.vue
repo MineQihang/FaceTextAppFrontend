@@ -210,5 +210,7 @@
 		margin-bottom: 500rpx;
 		margin-left: 70rpx;
 		margin-right: 70rpx;
+		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
+		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
 	}
 </style>
