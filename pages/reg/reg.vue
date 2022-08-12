@@ -180,7 +180,6 @@
 		height: 600rpx;
 		z-index: -1！important;
 		position: fixed
-
 	}
 
 	.input-box {

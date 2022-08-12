@@ -4,6 +4,7 @@
 		"style": {
 			"navigationBarTitleText": "启动",
 			"backgroundColor": "green"
+			// "app-plus":{"titleNView": false}
 		}
 	},
 	{
