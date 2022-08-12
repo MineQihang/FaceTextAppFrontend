@@ -39,12 +39,31 @@
 			}
 
 		}
-	],
+	    ,{
+            "path" : "pages/set/set",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设置",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/reset_inform/reset_inform",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "编辑信息",
+				"backgroundColor": "#ffffff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
+		"backgroundColor": "#ffffff",
 		"app-plus": {
 			"background": "#efeff4"
 		}

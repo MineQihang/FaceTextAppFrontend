@@ -158,8 +158,6 @@
 		z-index: 10！important;
 		position: fixed;
 		margin-top: 530rpx;
-
-
 	}
 	.picture {
 		height: 100%;
