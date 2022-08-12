@@ -88,18 +88,18 @@
 				"selectedIconPath": "static/Iconly_Light_Home.svg"
 			},
 			{
+				"text": "上传",
+				"pagePath": "pages/upload/upload",
+				"iconPath": "static/Field_Navigation barr_Group 7010.svg",
+				"selectedIconPath": "static/Field_Navigation barr_Group 7010.svg"
+			},
+			{
 				"text": "个人中心",
 				"pagePath": "pages/personal_center/personal_center",
 				"iconPath": "static/Iconly_Light_Profile.svg",
 				"selectedIconPath": "static/Iconly_Light_Profile (1).svg"
 			}
-		],
+		]
 
-	    "midButton": {
-		    "pagePath": "pages/upload/upload",
-	        "iconPath": "static/Field_Navigation barr_Group 7010.svg",
-	        "text": "上传",
-	        "height": "70px",
-	        "iconWidth": "44px"
-	    }
+	}
 }
