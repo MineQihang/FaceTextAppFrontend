@@ -4,12 +4,12 @@
 		<image src="../../static/log_img1.png" class="log_img1"></image>
 		<view class="containerB">
 			<view class="menu">
-				<view class="uni-form-item uni-column horViewStyle box">
+				<view class="box">
 					<image src="../../static/log1.svg" class="picture" mode=""></image>
 					<input class="uni-input input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" />
 				</view>
 
-				<view class="uni-form-item uni-column horViewStyle box">
+				<view class="box">
 					<image src="../../static/log2.svg" class="picture" mode=""></image>
 					<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue" />
 				</view>
@@ -81,7 +81,7 @@
 								duration: 1000
 							});
 							setTimeout(() => {
-								uni.redirectTo({
+								uni.switchTab({
 									url: '/pages/homepage/homepage'
 								});
 							}, 500)
@@ -95,10 +95,7 @@
 						}
 					}
 				})
-
-
 			},
-
 		}
 	}
 </script>
@@ -156,14 +153,6 @@
 		width: 100%;
 	}
 
-	.input-btn {
-		border-radius: 36px;
-		background-color: #000;
-		height: 100upx;
-		width: 600upx;
-		margin-left: 80upx;
-	}
-
 	.login-btn {
 		width: 80%;
 		height: 100rpx;
@@ -179,7 +168,7 @@
 		margin-left: 70rpx;
 		margin-right: 70rpx;
 	}
-	
+
 	.reg {
 		position: absolute;
 		top: 550rpx;

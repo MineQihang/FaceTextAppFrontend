@@ -1,11 +1,11 @@
 {
-    "name" : "face_frontend",
-    "appid" : "",
+    "name" : "faceplay",
+    "appid" : "__UNI__084D79D",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
-	// manifest.json
+    // manifest.json
     "app-plus" : {
         /* 5+App特有相关 */
         "usingComponents" : true,
@@ -41,9 +41,13 @@
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ]
             },
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             /* ios打包配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {}
+            }
         }
     },
     /* SDK配置 */
@@ -57,20 +61,20 @@
         },
         "usingComponents" : true
     },
-	"h5": {
-	    "devServer": {
-			"port": 8080,
-	        "proxy": {
-	            "/api": {
-	                "target": "http://124.221.253.187:5000/",
-					"changeOrigin": true,
-					"ws": true,
-	                "pathRewrite": {
-	                    "^/api": ""
-	                }
-	            }
-	        }
-	    }
-	},
+    "h5" : {
+        "devServer" : {
+            "port" : 8080,
+            "proxy" : {
+                "/api" : {
+                    "target" : "http://124.221.253.187:5000/",
+                    "changeOrigin" : true,
+                    "ws" : true,
+                    "pathRewrite" : {
+                        "^/api" : ""
+                    }
+                }
+            }
+        }
+    },
     "vueVersion" : "2"
 }

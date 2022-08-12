@@ -34,7 +34,38 @@
 		{
 			"path": "pages/homepage/homepage",
 			"style": {
-				"navigationBarTitleText": "成功登录",
+				"navigationBarTitleText": "广场",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+						"bounce": "none"  
+					}  
+			}
+
+		},
+		{
+			"path": "pages/upload/upload",
+			"style": {
+				"backgroundColor": "transparent",
+				"navigationBarTitleText": "上传",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/personal_center/personal_center",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"enablePullDownRefresh": false
+			}
+
+		}
+
+		, {
+			"path": "pages/personal_center/personal_center",
+			"style": {
+				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 
@@ -67,5 +98,31 @@
 		"app-plus": {
 			"background": "#efeff4"
 		}
+	},
+
+	"tabBar": {
+		"color": "white",
+		"selectedColor": "white",
+		"backgroundColor": "white",
+		"borderStyle": "white",
+		"midButton": {
+			"iconPath": "static/Field_Navigation barr_Group 7010.svg",
+			"height": "80px",
+			"iconWidth": "60px",
+			"text": "发布"
+		},
+		"list": [{
+				"text": "广场",
+				"pagePath": "pages/homepage/homepage",
+				"iconPath": "static/Iconly_Light_Home copy.svg",
+				"selectedIconPath": "static/Iconly_Light_Home.svg"
+			},
+			{
+				"text": "个人中心",
+				"pagePath": "pages/personal_center/personal_center",
+				"iconPath": "static/Iconly_Light_Profile.svg",
+				"selectedIconPath": "static/Iconly_Light_Profile (1).svg"
+			}
+		]
 	}
 }

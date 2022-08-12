@@ -48,7 +48,7 @@
 							uni.redirectTo({
 		 					url: '/pages/homepage/homepage'
 							});
-						}, 5000)
+						}, 3000)
 
 					} else {
 						
@@ -56,12 +56,7 @@
 							uni.redirectTo({
 							url: '/pages/log/log'
 							});
-						}, 5000)
-						uni.showToast({
-							title: "您在一段时间内没有登录账号，请登录",
-							duration: 1500,
-							icon: "error"
-						})
+						}, 3000)
 					}
 				}
 			});
