@@ -1,147 +1,197 @@
 <template>
-	<view @touchstart="start" @touchmove="mid" @touchend="end" style="position: relative;">
-		<view class="all" :style="{width:widthVal + 'px'}">
-			<view class="one" :style="{
-				width:3*widthVal + 'px',
-				left:leftVal + 'px',
-				right:rightVal + 'px',
-				transition:'all' + ' ' + miao + 's'
-			}">
-				<view class="one-li" :style="{width:widthVal + 'px'}" v-for="(item,index) in list">
-					<text v-for="item2 in item.name">{{item2}}</text>
-				</view>
+
+	<view>
+		<view>
+			<view>
+			<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input" @change="change">
+			</uni-search-bar>
+			<!-- 当前输入为：{{ searchValue }} -->
 			</view>
 		</view>
+		<view class="uni-padding-wrap uni-common-mt">
+					<view>
+							<scroll-view class="scroll-view" scroll-y="true" :scroll-top="scrollTop" @scroll="scroll" @scrolltoupper="upper"
+							 @scrolltolower="lower">
+									<view class="scroll-view-item top">注册地址</view>
+									<view class="scroll-view-item center">注册地址</view>
+									<view class="scroll-view-item bottom">注册电话</view>
+									<view class="scroll-view-item top">注册地址</view>
+									<view class="scroll-view-item center">注册地址</view>
+									<view class="scroll-view-item bottom">注册电话</view>
+							</scroll-view>
+						</view>
+				</view>
 	</view>
+
+	<!-- <view class="container">
+		<view>
+			<view>
+				<u--image src="../../static/successful_log.png" width="16rem" height="12rem"></u--image>
+				<view>{{ username }}</view>
+			</view>
+		</view> -->
+
+
+	<!-- <view class="btn-container">
+			<u-button type="primary" @click="log()" class='btn'>退出登录</u-button>
+		</view> -->
+	<!-- </view> -->
 </template>
 
 <script>
-	var subX;
-	var subY;
-	var duShu;
+	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue"
 	export default {
+		components: {
+			uButton
+		},
 		data() {
 			return {
-				startData:{clientX:'',clientY:''},   //滑动
-				widthVal:0,
-				fourVal:0,
-				fiveVal:0,
-				leftVal:0,
-				rightVal:0,
-				miao:0,
-				list:[
-					{
-						
-					},
-					{
-						name:[1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-					},
-					{
-						
-					}
-				],
-				addList:{
-					name:[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
-				},
-				delList:{
-					name:[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
-				}
+				flag: 0,//1向左滑动,2向右滑动,3向上滑动 4向下滑动
+				text: '',//向哪里滑动
+				lastX: 0,
+				lastY: 0,
+				index:0,
+				username: '',
+				searchValue: ''
+				
 			}
 		},
-		onReady:function(){
-			uni.getSystemInfo({
-				success: (res) => {
-					this.widthVal = res.windowWidth;
-					this.fourVal = res.windowWidth / 4;
-					this.fiveVal = res.windowWidth / 5;
+		mounted() {
+			let that = this;
+			try {
+				const authorization = uni.getStorageSync('authorization');
+				if (!authorization) throw DOMException("Nope!");
+				else {
+					uni.request({
+						url: '/api/user/user-info',
+						header: {
+							'Authorization': authorization
+						},
+						success: (res) => {
+							console.log(res);
+							this.text = 'request success';
+							if (res.statusCode == 200) {
+								that.username = res.data.data.username;
+							} else {
+								uni.showToast({
+									title: res.data.detail,
+									icon: 'none'
+								})
+							}
+						}
+					})
 				}
-			})
+			} catch (e) {
+				console.log(e)
+			}
 		},
 		methods: {
-			// 滑动开始
-			start:function(e){	
-				this.miao = 0.3;
-				this.startData.clientX = e.changedTouches[0].clientX;
-				this.startData.clientY = e.changedTouches[0].clientY;
-				
+			 	scroll(event) {
+			 			//距离每个边界距离
+			 			console.log(event.detail)
+			 		},
+			 		//滚动到底部/右边触发
+			 		scrolltolower() {
+			 				console.log(123213213213);
+			 		},
+			 		// 滚动到顶部/左边触发
+			 		scrolltoupper() {
+			 				console.log(2232332);
+			 		}
+			 	},
+			
+			log() {
+				uni.redirectTo({
+					url: '/pages/log/log'
+				});
 			},
-			// 滑动中
-			mid:function(e){
-				subX = e.changedTouches[0].clientX - this.startData.clientX;
-				subY = e.changedTouches[0].clientY - this.startData.clientY;
-				
-				var subXs = Math.abs(subX);
-				var subYs = Math.abs(subY);
-				duShu = getAngle(subXs,subYs);
-				if(duShu < 20){
-					if(subX > 1){
-						this.leftVal = subX;
-						this.rightVal = -subX;
-						this.list[0] = this.addList;
-					}else if(subX < -1){
-						this.leftVal = subX;
-						this.rightVal = -subX;
-						this.list[2] = this.delList;
-					}else{
-						console.log('无效')
-					}
-				}else{
-					this.leftVal = 0;
-					this.rightVal = 0;
-				}
+
+			search(res) {
+				uni.showToast({
+					title: '搜索：' + res.value,
+					icon: 'none'
+				})
 			},
-			// 滑动结束
-			end:function(){
-				if(duShu < 20){
-					if(subX > 0){
-						if(subX < this.fourVal){
-							this.leftVal = 0;
-							this.rightVal = 0;
-						}
-						if(subX >= this.fourVal){
-							this.leftVal = this.widthVal;
-							this.rightVal = -this.widthVal;
-							var timer = setTimeout(() => {
-								this.list.unshift({});
-								this.list.pop();
-								this.miao = 0;
-								this.leftVal = 0;
-								this.rightVal = 0;
-							},500)
-						}
-					}else{
-						let r = Math.abs(subX);
-						if(r < this.fourVal){
-							this.leftVal = 0;
-							this.rightVal = 0;
-						}
-						if(r >= this.fourVal){
-							this.leftVal = -this.widthVal;
-							this.rightVal = this.widthVal;
-							var timer = setTimeout(() => {
-								this.list.push({});
-								this.list.shift();
-								this.miao = 0;
-								this.leftVal = 0;
-								this.rightVal = 0;
-							},500)
-						}
-					}
-				}
-			}
+
+			input(res) {
+				console.log('----input:', res)
+			},
 		}
-	}
+
+
 	
-	//计算角度 判断滑动的手势
-	function getAngle(angx, angy) {
-		return 360 * Math.atan(angy / angx) / (2 * Math.PI);
-	};
 </script>
 
 <style>
-.all{display: flex;align-items: center;justify-content: center;overflow: hidden;}
-.all .one{display: flex;align-content: center;justify-content: center;flex-shrink: 0;position: relative;}
-.all .one .one-li{text-align: center;line-height: 100rpx;border: 1rpx solid #3F536E;}
-.all .one .one-li text{display: block;}
-</style>
+	.scroll-view {
+		white-space: nowrap;
+		height: 550px;
+		width: 100%;
+	}
+	.top {
+		height: 200px;
+		width: 100%;
+		background: red;
+	}
+	.center {
+		height: 200px;
+		width: 100%;
+		background: green;
+	}
+	.bottom {
+		height: 200px;
+		width: 100%;
+		background: blue;
+	}
+	.container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		width: 100%;
+		padding-top: 250rpx;
+	}
 
+	.btn-container {
+		padding: 150rpx;
+	}
+
+	.btn {
+		width: 12rem;
+		height: 3rem;
+		line-height: 23rpx;
+		border-radius: 50rpx;
+		border-color: black;
+		background-color: rgba(16, 16, 16, 100);
+		color: rgba(255, 255, 255, 100);
+		font-size: 1rem;
+		text-align: center;
+		font-family: Arial;
+		margin-bottom: 100rpx;
+	}
+
+	.login-btn {
+		width: 80%;
+		height: 100rpx;
+		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
+		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
+		border-radius: 36px;
+		color: #ffffff;
+		font-size: 1rem;
+		text-align: center;
+		line-height: 45px;
+		position: absolute;
+		margin-bottom: 500rpx;
+		margin-left: 70rpx;
+		margin-right: 70rpx;
+	}
+
+	.reg {
+		position: absolute;
+		top: 550rpx;
+		left: 100rpx;
+		color: rgb(82, 82, 199);
+		font-size: 36rpx;
+		line-height: 54rpx;
+	}
+</style>
