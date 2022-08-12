@@ -1,7 +1,12 @@
 <template>
-	<view class="content" :style="{background: 'url('+imageURL+')'}">
-		<!-- 如果是设置background-image则写成：<view class="content" :style="{backgroundImage: 'url('+imageURL+')'}"> -->
-	</view>
+  <view class="question-wrap" :style="{ height: screenHeight }">
+    <!-- 内容区域 -->
+    <view class="content-wrap">
+      <view class="countdown-wrap"> </view>
+      <view class="question-content-wrap"></view>
+    </view>
+    <!-- 内容区域 -->
+  </view>
 </template>
 
 <script>
@@ -12,9 +17,12 @@
 		},
 		data() {
 			return {
-				imageURL: ""
+				screenHeight: 0,
 			}
 		},
+		onLoad() {
+		    this.screenHeight = uni.getSystemInfoSync().windowHeight;
+		  },
 		mounted() {
 			uni.request({
 				url: '/api/user/login',
@@ -40,19 +48,20 @@
 							uni.redirectTo({
 		 					url: '/pages/homepage/homepage'
 							});
-						}, 500)
+						}, 5000)
 
 					} else {
-						uni.showToast({
-							title: "您在一段时间内没有登录账号，请登录",
-							duration: 2000,
-							icon: "error"
-						})
+						
 						setTimeout(() => {
 							uni.redirectTo({
 							url: '/pages/log/log'
 							});
-						}, 2000)
+						}, 5000)
+						uni.showToast({
+							title: "您在一段时间内没有登录账号，请登录",
+							duration: 1500,
+							icon: "error"
+						})
 					}
 				}
 			});
@@ -72,7 +81,11 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+	page {
+	  width: 100%;
+	  height: 100%;
+	}
 	.container {
 		display: flex;
 		justify-content: center;
@@ -98,5 +111,15 @@
 		text-align: center;
 		font-family: Arial;
 		margin-bottom: 100rpx;
+	}
+	
+	.question-wrap {
+	  background: url("../../static/Boarding.png")
+	    no-repeat;
+	  background-size: 100%;
+	  width: 100%;
+	  min-height: 100%;
+	  .content-wrap {
+	  }
 	}
 </style>
