@@ -1,16 +1,6 @@
 <template>
-	<view class="container">
-		
-		<u--image
-		:src="img_url"
-		width="16rem"
-		height="12rem"
-		></u--image>
-		<view class="btn-container">
-			<u-button type="primary" @click="login()" class='btn'>登录</u-button>
-			<u-button type="primary" @click="register()" class='btn'>注册</u-button>
-		</view>
-
+	<view class="content" :style="{background: 'url('+imageURL+')'}">
+		<!-- 如果是设置background-image则写成：<view class="content" :style="{backgroundImage: 'url('+imageURL+')'}"> -->
 	</view>
 </template>
 
@@ -22,26 +12,51 @@
 		},
 		data() {
 			return {
-				img_url:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp09%2F210F2130512J47-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1662730360&t=95e52f173a611d284f26155a3ed8b36e"
+				imageURL: ""
 			}
 		},
-		// mounted() {
-		// 	uni.request({
-		// 	    url: '/api/user/register', 
-		// 		method: 'POST',
-		// 		header: {
-		// 			"content-type": "application/x-www-form-urlencoded"
-		// 		},
-		// 		data: {
-		// 			phoneNumber: "12345678901",
-		// 			password: "1234567asf"
-		// 		},
-		// 	    success: (res) => {
-		// 	        console.log(res.data);
-		// 	        this.text = 'request success';
-		// 	    }
-		// 	});
-		// },
+		mounted() {
+			uni.request({
+				url: '/api/user/login',
+				method: 'POST',
+				header: {
+					"content-type": "application/x-www-form-urlencoded"
+				},
+				data: {
+					phoneNumber: this.iphoneValue,
+					password: this.passwordValue
+				},
+				success: (res) => {
+					console.log(res);
+					if (res.statusCode == 200) {
+						//存储Authorization
+						uni.setStorageSync('authorization', res.data.token_type + ' ' + res.data
+							.access_token);
+						uni.showToast({
+							title: res.data.detail,
+							duration: 1000
+						});
+						setTimeout(() => {
+							uni.redirectTo({
+		 					url: '/pages/homepage/homepage'
+							});
+						}, 500)
+
+					} else {
+						uni.showToast({
+							title: "您在一段时间内没有登录账号，请登录",
+							duration: 2000,
+							icon: "error"
+						})
+						setTimeout(() => {
+							uni.redirectTo({
+							url: '/pages/log/log'
+							});
+						}, 2000)
+					}
+				}
+			});
+		},
 		methods: {
 			login() {
 				uni.navigateTo({
@@ -58,7 +73,7 @@
 </script>
 
 <style>
-	.container{
+	.container {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -66,9 +81,11 @@
 		width: 100%;
 		padding-top: 250rpx;
 	}
-	.btn-container{
+
+	.btn-container {
 		padding: 150rpx;
 	}
+
 	.btn {
 		width: 12rem;
 		height: 3rem;
