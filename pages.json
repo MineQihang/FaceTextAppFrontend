@@ -2,7 +2,8 @@
 	"pages": [{
 		"path": "pages/index/index",
 		"style": {
-			"navigationBarTitleText": "启动"
+			"navigationBarTitleText": "启动",
+			"backgroundColor": "green"
 		}
 	},
 	{
