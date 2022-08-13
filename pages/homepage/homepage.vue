@@ -89,16 +89,6 @@
 		},
 		methods: {
 			scroll(event) {
-				//距离每个边界距离
-				console.log(event.detail)
-			},
-			//滚动到底部/右边触发
-			scrolltolower() {
-				console.log(123213213213);
-			},
-			// 滚动到顶部/左边触发
-			scrolltoupper() {
-				console.log(2232332);
 			}
 		},
 
