@@ -119,28 +119,16 @@
 				// reader.onload = function(readRes) {
 				// 	console.log('加载完成', readRes.target.result)
 				// }
-
-				const doit = (file_) => {
-					const file = file_ // fileObject
-					console.log(file)
-					console.log(fetch(file.thumb).then(r => r.blob()).constructor.name);
-					console.log(new Blob([fetch(file.thumb).then(r => r.blob())], {
-						endings: "transparent"
-					}))
-					this.cos.sliceUploadFile({
+				const file = file_ // fileObject
+				let blb = Object;
+				fetch(file.thumb).then(r => r.blob()).then(blob => {
+					this.cos.putObject({
 							Bucket: "summer-1306873228",
-							/* 必须 */
 							Region: "ap-chengdu",
 							/* 存储桶所在地域，必须字段 */
 							Key: 'img/' + file.name,
-							/* 必须 */
 							StorageClass: 'STANDARD',
-							Body: file, // 上传文件对象
-							// Body: new Blob(["<html><h2>Hello Semlinker</h2></html>"], {
-							// 	type: 'text/html',
-							// 	endings: "transparent"
-							// }),
-							// FilePath: file.url,
+							Body: blob, // 上传文件对象
 							onProgress: function(progressData) {
 								console.log(JSON.stringify(progressData));
 							}
@@ -148,8 +136,10 @@
 						function(err, data) {
 							console.log(err || data);
 						});
-				}
-				doit(file_);
+				});
+				// console.log(new Blob([fetch(file.thumb).then(r => r.blob())], {
+				// 	endings: "transparent"
+				// }))
 			},
 			publish() {
 
