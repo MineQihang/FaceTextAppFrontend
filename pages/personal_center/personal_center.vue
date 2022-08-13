@@ -3,7 +3,11 @@
 			
 			<!-- 头部图片 -->
 			<view class="head_img">
+<<<<<<< HEAD
 				<image src="/static/Header_img.png"  style="width: 100%;" alt="">
+=======
+				<img src="/static/Header_img.png"  style="width: 100%;" alt="">
+>>>>>>> 1a1c456c84a747da05a3410addbf5120d7d702ed
 			</view>
 			
 			<view class="set" @click="to_set()">
@@ -19,6 +23,7 @@
 				
 			}
 		},
+		
 		methods: {
 			to_set(){
 				uni.navigateTo({
