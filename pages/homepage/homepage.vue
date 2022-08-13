@@ -3,7 +3,7 @@
 	<view>
 		<!-- 搜索框 -->
 		<view>
-			<view>
+			<view class="search-bar">
 				<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input"
 					@change="change">
 				</uni-search-bar>
@@ -134,6 +134,16 @@
 </script>
 
 <style>
+	/* uni-search-bar {
+		position: absolute;
+		top: 0%;
+	} */
+
+	/* .search-bar {
+		position: absolute;
+		top: 0;
+	} */
+
 	@import "../../testCss/flowPanel.css";
 
 	@font-face {
