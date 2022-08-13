@@ -116,13 +116,13 @@
 		margin-right: 70rpx;
 	}
 	.portrait{
-		border-radius: 125rpx;
-		height: 125rpx;
-		width:125rpx;
-		background-color: red;
-		z-index: 10!important;
-		position:absolute;
-		top:20%;
-		left:45%;
-	}
+			border-radius: 100rpx;
+			height: 125rpx;
+			width:125rpx;
+			background-color: blue;
+			z-index: 10!important;
+			position:absolute;
+			top:20%;
+			left:42%;
+			}
 </style>
