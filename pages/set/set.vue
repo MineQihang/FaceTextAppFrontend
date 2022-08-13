@@ -4,26 +4,26 @@
 		<view class="head_img">
 			<image src="/static/Header_img.png" style="width: 100%;height: 350rpx;" alt="">
 		</view>
-		
+
 		<!-- 中部图片 -->
 		<view class="mid_img">
 			<image src="/static/mid_img1.png" alt="" style="width: 100%;height: 100%;">
 		</view>
-		
+
 		<!-- 底部 -->
 		<view class="bottom_view">
-				
-				<button class="btn" @click="Reset_information">修改信息</button>
-				<button class="btn" @click="index()">退出登录</button>
-				<button class="btn">注销账户</button>
-				
+
+			<button class="btn" @click="Reset_information">修改信息</button>
+			<button class="btn" @click="index()">退出登录</button>
+			<button class="btn">注销账户</button>
+
 		</view>
-		
+
 		<!-- 用户头像 -->
 		<view class="portrait">
 			<image src="/static/logo.png" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
-		
+
 	</view>
 </template>
 
@@ -43,10 +43,10 @@
 			try {
 				const authorization = uni.getStorageSync('authorization');
 				if (!authorization) throw DOMException("Nope!");
-				else{
+				else {
 					uni.request({
 						url: '/api/user/user-info',
-						header:{
+						header: {
 							'Authorization': authorization
 						},
 						success: (res) => {
@@ -68,9 +68,9 @@
 			}
 		},
 		methods: {
-			Reset_information(){
+			Reset_information() {
 				uni.navigateTo({
-					url:'/pages/reset_inform/reset_inform'
+					url: '/pages/reset_inform/reset_inform'
 				})
 			},
 			index() {
@@ -78,30 +78,33 @@
 					url: '/pages/index/index'
 				})
 			}
-			
+
 		}
 	}
 </script>
 
 <style>
-	.head_img{
+	.head_img {
 		height: 350rpx;
 		background-color: #ffffff;
-		z-index: 1!important;
-/* 		position: fixed; */
+		z-index: 1 !important;
+		/* 		position: fixed; */
 	}
-	.mid_img{
+
+	.mid_img {
 		height: 600rpx;
-		z-index: -1!important;
+		z-index: -1 !important;
 		/* position: fixed; */
 	}
-	.bottom_view{
+
+	.bottom_view {
 		background-color: #ffffff;
-		 height: 600rpx;
-		 z-index: 1!important;
-/* 		 position:fixed; */
+		height: 600rpx;
+		z-index: 1 !important;
+		/* 		 position:fixed; */
 	}
-	.btn{
+
+	.btn {
 		width: 80%;
 		height: 100rpx;
 		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
@@ -115,14 +118,15 @@
 		margin-left: 70rpx;
 		margin-right: 70rpx;
 	}
-	.portrait{
+
+	.portrait {
 		border-radius: 125rpx;
 		height: 125rpx;
-		width:125rpx;
-		background-color: red;
-		z-index: 10!important;
-		position:absolute;
-		top:20%;
-		left:45%;
+		width: 125rpx;
+		background-color: #ffffff;
+		z-index: 10 !important;
+		position: absolute;
+		top: 20%;
+		left: 42.5%;
 	}
 </style>

@@ -3,11 +3,11 @@
 			
 			<!-- 头部图片 -->
 			<view class="head_img">
-				<img src="/static/Header_img.svg"  style="width: 100%;" alt="">
+				<image src="/static/Header_img.png"  style="width: 100%;" alt="">
 			</view>
 			
 			<view class="set" @click="to_set()">
-				<img src="/static/person_set.png" alt="" style="height: 100%;">
+				<image src="/static/person_set.png" alt="" style="height: 100%;">
 			</view>
 	</view>
 </template>

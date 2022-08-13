@@ -1,4 +1,3 @@
-
 <template>
 
 	<view>
@@ -12,8 +11,8 @@
 		</view>
 		<view class="uni-padding-wrap uni-common-mt">
 			<view>
-				<scroll-view class="scroll-view" scroll-y="true" refresher-enabled="true"  show-scrollbar="true" scroll-top="scrollTop" @scroll="scroll"
-					@scrolltoupper="upper" @scrolltolower="lower">
+				<scroll-view class="scroll-view" scroll-y="true" refresher-enabled="true" show-scrollbar="true"
+					scroll-top="scrollTop" @scroll="scroll" @scrolltoupper="upper" @scrolltolower="lower">
 					<view class="scroll-view-item top">注册地址</view>
 					<view class="scroll-view-item center">注册地址</view>
 					<view class="scroll-view-item bottom">注册电话</view>
@@ -61,7 +60,8 @@
 		mounted() {
 			let that = this;
 			try {
-				const authorization = uni.getStorageSync('authorization');
+				const authorization = uni.getStorageSync('Authorization');
+				console.log(authorization);
 				if (!authorization) throw DOMException("Nope!");
 				else {
 					uni.request({

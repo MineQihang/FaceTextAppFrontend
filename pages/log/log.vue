@@ -74,8 +74,9 @@
 						console.log(res);
 						if (res.statusCode == 200) {
 							//存储Authorization
-							uni.setStorageSync('authorization', res.data.token_type + ' ' + res.data
-								.access_token);
+							uni.setStorageSync('authorization', res.data.token_type + ' ' +
+								res.data.access_token);
+
 							uni.showToast({
 								title: res.data.detail,
 								duration: 1000

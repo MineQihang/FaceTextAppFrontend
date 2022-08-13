@@ -24,15 +24,12 @@
 			this.screenHeight = uni.getSystemInfoSync().windowHeight;
 		},
 		mounted() {
+			const authorization = uni.getStorageSync('authorization');
 			uni.request({
 				url: 'http://124.221.253.187:5000/user/user-info',
 				method: 'GET',
 				header: {
-					"content-type": "application/x-www-form-urlencoded"
-				},
-				data: {
-					phoneNumber: this.iphoneValue,
-					password: this.passwordValue
+					'Authorization': authorization
 				},
 				success: (res) => {
 					console.log(res);
