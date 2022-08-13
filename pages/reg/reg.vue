@@ -116,7 +116,7 @@
 								}
 							})
 							setTimeout(() => {
-								uni.redirectTo({
+								uni.switchTab({
 									url: '/pages/homepage/homepage'
 								});
 							}, 400)
