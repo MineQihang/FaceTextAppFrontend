@@ -1,12 +1,12 @@
 <template>
-  <view class="question-wrap" :style="{ height: screenHeight }">
-    <!-- 内容区域 -->
-    <view class="content-wrap">
-      <view class="countdown-wrap"> </view>
-      <view class="question-content-wrap"></view>
-    </view>
-    <!-- 内容区域 -->
-  </view>
+	<view class="question-wrap" :style="{ height: screenHeight }">
+		<!-- 内容区域 -->
+		<view class="content-wrap">
+			<view class="countdown-wrap"> </view>
+			<view class="question-content-wrap"></view>
+		</view>
+		<!-- 内容区域 -->
+	</view>
 </template>
 
 <script>
@@ -21,11 +21,11 @@
 			}
 		},
 		onLoad() {
-		    this.screenHeight = uni.getSystemInfoSync().windowHeight;
-		  },
+			this.screenHeight = uni.getSystemInfoSync().windowHeight;
+		},
 		mounted() {
 			uni.request({
-				url: 'http://124.221.253.187:5000/user/login',
+				url: 'http://124.221.253.187:5000/user/user-info',
 				method: 'POST',
 				header: {
 					"content-type": "application/x-www-form-urlencoded"
@@ -46,22 +46,22 @@
 						});
 						setTimeout(() => {
 							uni.redirectTo({
-		 					url: '/pages/homepage/homepage'
+								url: '/pages/homepage/homepage'
 							});
 						}, 3000)
 
 					} else {
-						
+
 						setTimeout(() => {
 							uni.redirectTo({
-							url: '/pages/log/log'
+								url: '/pages/log/log'
 							});
 						}, 3000)
 					}
 				},
-				fail(res){
+				fail(res) {
 					console.log(res);
-					
+
 				}
 			});
 		},
@@ -82,9 +82,10 @@
 
 <style lang="scss">
 	page {
-	  width: 100%;
-	  height: 100%;
+		width: 100%;
+		height: 100%;
 	}
+
 	.container {
 		display: flex;
 		justify-content: center;
@@ -111,14 +112,13 @@
 		font-family: Arial;
 		margin-bottom: 100rpx;
 	}
-	
+
 	.question-wrap {
-	  background: url("../../static/Boarding.png")
-	    no-repeat;
-	  background-size: 100%;
-	  width: 100%;
-	  min-height: 100%;
-	  .content-wrap {
-	  }
+		background: url("../../static/Boarding.png") no-repeat;
+		background-size: 100%;
+		width: 100%;
+		min-height: 100%;
+
+		.content-wrap {}
 	}
 </style>

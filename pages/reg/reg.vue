@@ -97,7 +97,7 @@
 								icon: 'none'
 							})
 							uni.request({
-								url: 'http://124.221.253.187:5000/user/login',
+								url: 'http://124.221.253.187:5000/user/register',
 								method: 'POST',
 								header: {
 									"content-type": "application/x-www-form-urlencoded"
@@ -107,8 +107,9 @@
 									password: that.passwordValue1
 								},
 								success: (res2) => {
-									console.log('登录成功');
+
 									if (res2.statusCode == 200) {
+										console.log('登录成功');
 										uni.setStorageSync('authorization', res2.data.token_type +
 											' ' + res2.data.access_token);
 									}
