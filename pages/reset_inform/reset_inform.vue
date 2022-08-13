@@ -9,7 +9,7 @@
 
 			<!-- 用户头像 -->
 			<view class="portrait">
-				<image src="/static/logo.png" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
+				<image src="icon" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 			</view>
 
 			<!-- 修改信息区 -->
@@ -97,6 +97,7 @@
 				age: '',
 				mail: '',
 				motto: '',
+				icon: '',
 			}
 		},
 		mounted() {
@@ -120,6 +121,7 @@
 								that.age = res.data.data.age;
 								that.motto = res.data.data.motto;
 								that.mail = res.data.data.mail;
+								that.icon = res.data.data.iconUrl;
 							} else {
 								uni.showToast({
 									title: res.data.detail,

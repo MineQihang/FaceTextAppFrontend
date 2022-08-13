@@ -1,18 +1,14 @@
 <template>
 	<view>
-			
-			<!-- 头部图片 -->
-			<view class="head_img">
-<<<<<<< HEAD
-				<image src="/static/Header_img.png"  style="width: 100%;" alt="">
-=======
-				<img src="/static/Header_img.png"  style="width: 100%;" alt="">
->>>>>>> 1a1c456c84a747da05a3410addbf5120d7d702ed
-			</view>
-			
-			<view class="set" @click="to_set()">
-				<image src="/static/person_set.png" alt="" style="height: 100%;">
-			</view>
+
+		<!-- 头部图片 -->
+		<view class="head_img">
+			<image src="/static/Header_img.png" style="width: 100%;" alt="">
+		</view>
+
+		<view class="set" @click="to_set()">
+			<image src="/static/person_set.png" alt="" style="height: 100%;">
+		</view>
 	</view>
 </template>
 
@@ -20,14 +16,14 @@
 	export default {
 		data() {
 			return {
-				
+
 			}
 		},
-		
+
 		methods: {
-			to_set(){
+			to_set() {
 				uni.navigateTo({
-					url:'/pages/set/set'
+					url: '/pages/set/set'
 				})
 			}
 		}
@@ -35,18 +31,19 @@
 </script>
 
 <style>
-	.set{
+	.set {
 		height: 50rpx;
 		width: 50rpx;
-		position:absolute;
-		right:3%;
-		top:3%;
+		position: absolute;
+		right: 3%;
+		top: 3%;
 		/* background-color: green; */
 	}
-	.head_img{
+
+	.head_img {
 		height: 350rpx;
 		background-color: #ffffff;
-		z-index: 1!important;
-	/* 	position: fixed; */
+		z-index: 1 !important;
+		/* 	position: fixed; */
 	}
 </style>
