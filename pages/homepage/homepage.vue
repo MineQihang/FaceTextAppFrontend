@@ -1,7 +1,7 @@
-
 <template>
 
 	<view>
+		<!-- 搜索框 -->
 		<view>
 			<view>
 				<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input"
@@ -10,58 +10,47 @@
 				<!-- 当前输入为：{{ searchValue }} -->
 			</view>
 		</view>
-		<view class="uni-padding-wrap uni-common-mt">
-			<view>
-				<scroll-view class="scroll-view" scroll-y=true  show-scrollbar=true scroll-top="scrollTop" @scroll="scroll"
-					@scrolltoupper="upper" @scrolltolower="lower">
-					<view class="scroll-view-item top">注册地址</view>
-					<view class="scroll-view-item center">注册地址</view>
-					<view class="scroll-view-item bottom">注册电话</view>
-					<view class="scroll-view-item top">注册地址</view>
-					<view class="scroll-view-item center">注册地址</view>
-					<view class="scroll-view-item bottom">注册电话</view>
-				</scroll-view>
+
+		<!-- 帖子展示 -->
+		<view class="content">
+			<view class="flowPanel">
+				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
+					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
+						<img :src="url" mode="widthFix">
+					</view>
+					<view class="title">{{item.title}}</view>
+					<view class="info">
+						<view class="left">
+							<view class="date">{{item.updatedDate}}</view>
+							<view class="commentNum">{{item.commentNum}}</view>
+						</view>
+						<view class="right">
+							<view class="clickNum">{{item.likeNum}}</view>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
+
 	</view>
-
-	<!-- <view class="container">
-		<view>
-			<view>
-				<u--image src="../../static/successful_log.png" width="16rem" height="12rem"></u--image>
-				<view>{{ username }}</view>
-			</view>
-		</view> -->
-
-
-	<!-- <view class="btn-container">
-			<u-button type="primary" @click="log()" class='btn'>退出登录</u-button>
-		</view> -->
-	<!-- </view> -->
 </template>
 
 <script>
-	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue"
+	import dataJson from "../../testData/data.js";
+	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue";
 	export default {
 		components: {
 			uButton
 		},
 		data() {
 			return {
-				flag: 0, //1向左滑动,2向右滑动,3向上滑动 4向下滑动
-				text: '', //向哪里滑动
-				lastX: 0,
-				lastY: 0,
-				index: 0,
 				username: '',
-				searchValue: ''
-
+				searchValue: '',
+				uid: 79,
+				flowList: []
 			}
 		},
-		onPullDownRefresh() {
-		           console.log("我要刷新了");
-		           //此处写开始刷新的代码
-		       },
+
 		mounted() {
 			let that = this;
 			try {
@@ -78,6 +67,8 @@
 							this.text = 'request success';
 							if (res.statusCode == 200) {
 								that.username = res.data.data.username;
+								that.uid = res.data.data.uid;
+								console.log(res);
 							} else {
 								uni.showToast({
 									title: res.data.detail,
@@ -92,30 +83,74 @@
 			}
 		},
 		methods: {
-			scroll(event) {
-			}
-		},
+			log() {
+				uni.redirectTo({
+					url: '/pages/log/log'
+				});
+			},
 
-		log() {
-			uni.redirectTo({
-				url: '/pages/log/log'
-			});
-		},
+			search(res) {
+				uni.showToast({
+					title: '搜索：' + res.value,
+					icon: 'none'
+				})
+			},
 
-		search(res) {
-			uni.showToast({
-				title: '搜索：' + res.value,
-				icon: 'none'
-			})
-		},
+			input(res) {
+				console.log('----input:', res)
+			},
 
-		input(res) {
-			console.log('----input:', res)
+			onLoad() {
+				// load data
+				// this.flowList = dataJson.flowList;
+				let that = this;
+				console.log("check");
+				console.log(that.uid);
+				uni.request({
+					url: 'http://124.221.253.187:5000/post/get_all',
+					method: 'GET',
+					data: {
+						uid: that.uid
+					},
+					success: (res1) => {
+						console.log(res1);
+						console.log("check");
+						if (res1.statusCode == 200) {
+							// 获取的data有问题
+							// let datas = res1.data;
+							// that.flowList = datas;
+							this.flowList = dataJson.flowList;
+						} else {
+							this.flowList = dataJson.flowList;
+							console.log("获取帖子失败");
+						}
+					}
+				})
+			},
 		},
 	}
 </script>
 
 <style>
+	@import "../../testCss/flowPanel.css";
+
+	@font-face {
+		font-family: "myfont";
+		src: url("https://at.alicdn.com/t/font_1985981_791yzf7neql.ttf") format('truetype');
+	}
+
+	view {
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+	}
+
+	.content {
+		width: 100%;
+		background-color: #ffffff;
+		padding: 0 15px;
+	}
+
 	.scroll-view {
 		white-space: nowrap;
 		height: 800px;
