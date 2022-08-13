@@ -53,8 +53,10 @@
 
 		mounted() {
 			let that = this;
+			console.log("mounted");
 			try {
 				const authorization = uni.getStorageSync('authorization');
+				console.log(authorization);
 				if (!authorization) throw DOMException("Nope!");
 				else {
 					uni.request({
@@ -68,6 +70,7 @@
 							if (res.statusCode == 200) {
 								that.username = res.data.data.username;
 								that.uid = res.data.data.uid;
+								console.log("check");
 								console.log(res);
 							} else {
 								uni.showToast({
@@ -81,7 +84,33 @@
 			} catch (e) {
 				console.log(e)
 			}
+
+			console.log("check");
+			console.log(that.uid);
+			uni.request({
+				url: 'http://124.221.253.187:5000/post/get_all',
+				method: 'GET',
+				data: {
+					uid: that.uid
+				},
+				success: (res1) => {
+					console.log(res1);
+					console.log("check");
+					if (res1.statusCode == 200) {
+						// 获取的data有问题
+						let datas = res1.data.data;
+						console.log(datas);
+						that.flowList = datas;
+						// this.flowList = dataJson.flowList;
+					} else {
+						this.flowList = dataJson.flowList;
+						console.log("获取帖子失败");
+					}
+				}
+			})
+
 		},
+
 		methods: {
 			log() {
 				uni.redirectTo({
@@ -100,33 +129,6 @@
 				console.log('----input:', res)
 			},
 
-			onLoad() {
-				// load data
-				// this.flowList = dataJson.flowList;
-				let that = this;
-				console.log("check");
-				console.log(that.uid);
-				uni.request({
-					url: 'http://124.221.253.187:5000/post/get_all',
-					method: 'GET',
-					data: {
-						uid: that.uid
-					},
-					success: (res1) => {
-						console.log(res1);
-						console.log("check");
-						if (res1.statusCode == 200) {
-							// 获取的data有问题
-							// let datas = res1.data;
-							// that.flowList = datas;
-							this.flowList = dataJson.flowList;
-						} else {
-							this.flowList = dataJson.flowList;
-							console.log("获取帖子失败");
-						}
-					}
-				})
-			},
 		},
 	}
 </script>
