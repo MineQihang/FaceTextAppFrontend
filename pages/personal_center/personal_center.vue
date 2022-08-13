@@ -19,6 +19,7 @@
 				
 			}
 		},
+		
 		methods: {
 			to_set(){
 				uni.navigateTo({

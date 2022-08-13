@@ -12,7 +12,7 @@
 		</view>
 		<view class="uni-padding-wrap uni-common-mt">
 			<view>
-				<scroll-view class="scroll-view" scroll-y="true" refresher-enabled="true"  show-scrollbar="true" scroll-top="scrollTop" @scroll="scroll"
+				<scroll-view class="scroll-view" scroll-y=true  show-scrollbar=true scroll-top="scrollTop" @scroll="scroll"
 					@scrolltoupper="upper" @scrolltolower="lower">
 					<view class="scroll-view-item top">注册地址</view>
 					<view class="scroll-view-item center">注册地址</view>
@@ -58,6 +58,10 @@
 
 			}
 		},
+		onPullDownRefresh() {
+		           console.log("我要刷新了");
+		           //此处写开始刷新的代码
+		       },
 		mounted() {
 			let that = this;
 			try {
