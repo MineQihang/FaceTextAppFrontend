@@ -1,6 +1,7 @@
 <template>
 
 	<view>
+		<!-- 搜索框 -->
 		<view>
 			<view>
 				<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input"
@@ -9,39 +10,35 @@
 				<!-- 当前输入为：{{ searchValue }} -->
 			</view>
 		</view>
-		<view class="uni-padding-wrap uni-common-mt">
-			<view>
-				<scroll-view class="scroll-view" scroll-y="true" refresher-enabled="true" show-scrollbar="true"
-					scroll-top="scrollTop" @scroll="scroll" @scrolltoupper="upper" @scrolltolower="lower">
 
-					<view class="scroll-view-item top">注册地址</view>
-					<view class="scroll-view-item center">注册地址</view>
-					<view class="scroll-view-item bottom">注册电话</view>
-					<view class="scroll-view-item top">注册地址</view>
-					<view class="scroll-view-item center">注册地址</view>
-					<view class="scroll-view-item bottom">注册电话</view>
-				</scroll-view>
+
+		<!-- 帖子展示 -->
+		<view class="content">
+			<view class="flowPanel">
+				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
+					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
+						<img :src="url" mode="widthFix">
+					</view>
+					<view class="title">{{item.title}}</view>
+					<view class="info">
+						<view class="left">
+							<view class="date">{{item.updatedDate}}</view>
+							<view class="commentNum">{{item.commentNum}}</view>
+						</view>
+						<view class="right">
+							<view class="clickNum">{{item.likeNum}}</view>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
+
 	</view>
-
-	<!-- <view class="container">
-		<view>
-			<view>
-				<u--image src="../../static/successful_log.png" width="16rem" height="12rem"></u--image>
-				<view>{{ username }}</view>
-			</view>
-		</view> -->
-
-
-	<!-- <view class="btn-container">
-			<u-button type="primary" @click="log()" class='btn'>退出登录</u-button>
-		</view> -->
-	<!-- </view> -->
 </template>
 
 <script>
-	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue"
+	import dataJson from "../../testData/data.js";
+	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue";
 	export default {
 		components: {
 			uButton
@@ -54,19 +51,20 @@
 				lastY: 0,
 				index: 0,
 				username: '',
-				searchValue: ''
-
+				searchValue: '',
+				uid: 79,
+				searchValue: '',
+				flowList: []
 			}
 		},
-		onPullDownRefresh() {
-			console.log("我要刷新了");
-			//此处写开始刷新的代码
-		},
+		// onPullDownRefresh() {
+		//            console.log("我要刷新了");
+		//            //此处写开始刷新的代码
+		//        },
 		mounted() {
 			let that = this;
 			try {
-				const authorization = uni.getStorageSync('Authorization');
-				console.log(authorization);
+				const authorization = uni.getStorageSync('authorization');
 				if (!authorization) throw DOMException("Nope!");
 				else {
 					uni.request({
@@ -79,6 +77,8 @@
 							this.text = 'request success';
 							if (res.statusCode == 200) {
 								that.username = res.data.data.username;
+								that.uid = res.data.data.uid;
+								console.log(res);
 							} else {
 								uni.showToast({
 									title: res.data.detail,
@@ -93,20 +93,65 @@
 			}
 		},
 		methods: {
-			scroll(event) {
+			// <<<<<<< HEAD
+			// 			scroll(event) {
+			// 			}
+			// 		},
 
-				//距离每个边界距离
-				console.log(event.detail)
+			log() {
+				uni.redirectTo({
+					url: '/pages/log/log'
+				});
 			},
-			//滚动到底部/右边触发
-			scrolltolower() {
-				console.log(123213213213);
-			},
-			// 滚动到顶部/左边触发
-			scrolltoupper() {
-				console.log(2232332);
 
-			}
+			search(res) {
+				uni.showToast({
+					title: '搜索：' + res.value,
+					icon: 'none'
+				})
+			},
+
+			// =======
+			onLoad() {
+				// load data
+				// this.flowList = dataJson.flowList;
+				let that = this;
+				console.log("check");
+				console.log(that.uid);
+				uni.request({
+					url: 'http://124.221.253.187:5000/post/get_all',
+					method: 'GET',
+					data: {
+						uid: that.uid
+					},
+					success: (res1) => {
+						console.log(res1);
+						console.log("check");
+						if (res1.statusCode == 200) {
+							// 获取的data有问题
+							// let datas = res1.data;
+							// that.flowList = datas;
+							this.flowList = dataJson.flowList;
+						} else {
+							this.flowList = dataJson.flowList;
+							console.log("获取帖子失败");
+						}
+					}
+				})
+			},
+
+			// scroll(event) {
+			// 	//距离每个边界距离
+			// 	console.log(event.detail)
+			// },
+			// //滚动到底部/右边触发
+			// scrolltolower() {
+			// 	console.log(123213213213);
+			// },
+			// // 滚动到顶部/左边触发
+			// scrolltoupper() {
+			// 	console.log(2232332);
+			// }
 		},
 
 		log() {
@@ -129,6 +174,29 @@
 </script>
 
 <style>
+	@import "../../testCss/flowPanel.css";
+
+	@font-face {
+		font-family: "myfont";
+		src: url("https://at.alicdn.com/t/font_1985981_791yzf7neql.ttf") format('truetype');
+	}
+
+	/* page {
+		height: 100%;
+	} */
+
+	view {
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+	}
+
+	.content {
+		width: 100%;
+		background-color: #ffffff;
+		padding: 0 15px;
+	}
+
 	.scroll-view {
 		white-space: nowrap;
 		height: 800px;
