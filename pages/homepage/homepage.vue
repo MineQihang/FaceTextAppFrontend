@@ -11,7 +11,6 @@
 			</view>
 		</view>
 
-
 		<!-- 帖子展示 -->
 		<view class="content">
 			<view class="flowPanel">
@@ -45,22 +44,13 @@
 		},
 		data() {
 			return {
-				flag: 0, //1向左滑动,2向右滑动,3向上滑动 4向下滑动
-				text: '', //向哪里滑动
-				lastX: 0,
-				lastY: 0,
-				index: 0,
 				username: '',
 				searchValue: '',
 				uid: 79,
-				searchValue: '',
 				flowList: []
 			}
 		},
-		// onPullDownRefresh() {
-		//            console.log("我要刷新了");
-		//            //此处写开始刷新的代码
-		//        },
+
 		mounted() {
 			let that = this;
 			try {
@@ -93,11 +83,6 @@
 			}
 		},
 		methods: {
-			// <<<<<<< HEAD
-			// 			scroll(event) {
-			// 			}
-			// 		},
-
 			log() {
 				uni.redirectTo({
 					url: '/pages/log/log'
@@ -111,7 +96,10 @@
 				})
 			},
 
-			// =======
+			input(res) {
+				console.log('----input:', res)
+			},
+
 			onLoad() {
 				// load data
 				// this.flowList = dataJson.flowList;
@@ -139,36 +127,6 @@
 					}
 				})
 			},
-
-			// scroll(event) {
-			// 	//距离每个边界距离
-			// 	console.log(event.detail)
-			// },
-			// //滚动到底部/右边触发
-			// scrolltolower() {
-			// 	console.log(123213213213);
-			// },
-			// // 滚动到顶部/左边触发
-			// scrolltoupper() {
-			// 	console.log(2232332);
-			// }
-		},
-
-		log() {
-			uni.redirectTo({
-				url: '/pages/log/log'
-			});
-		},
-
-		search(res) {
-			uni.showToast({
-				title: '搜索：' + res.value,
-				icon: 'none'
-			})
-		},
-
-		input(res) {
-			console.log('----input:', res)
 		},
 	}
 </script>
@@ -180,10 +138,6 @@
 		font-family: "myfont";
 		src: url("https://at.alicdn.com/t/font_1985981_791yzf7neql.ttf") format('truetype');
 	}
-
-	/* page {
-		height: 100%;
-	} */
 
 	view {
 		display: flex;
