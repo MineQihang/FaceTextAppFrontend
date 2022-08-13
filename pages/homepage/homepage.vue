@@ -3,24 +3,25 @@
 	<view>
 		<view>
 			<view>
-			<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input" @change="change">
-			</uni-search-bar>
-			<!-- 当前输入为：{{ searchValue }} -->
+				<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input"
+					@change="change">
+				</uni-search-bar>
+				<!-- 当前输入为：{{ searchValue }} -->
 			</view>
 		</view>
 		<view class="uni-padding-wrap uni-common-mt">
-					<view>
-							<scroll-view class="scroll-view" scroll-y="true" :scroll-top="scrollTop" @scroll="scroll" @scrolltoupper="upper"
-							 @scrolltolower="lower">
-									<view class="scroll-view-item top">注册地址</view>
-									<view class="scroll-view-item center">注册地址</view>
-									<view class="scroll-view-item bottom">注册电话</view>
-									<view class="scroll-view-item top">注册地址</view>
-									<view class="scroll-view-item center">注册地址</view>
-									<view class="scroll-view-item bottom">注册电话</view>
-							</scroll-view>
-						</view>
-				</view>
+			<view>
+				<scroll-view class="scroll-view" scroll-y="true" :scroll-top="scrollTop" @scroll="scroll"
+					@scrolltoupper="upper" @scrolltolower="lower">
+					<view class="scroll-view-item top">注册地址</view>
+					<view class="scroll-view-item center">注册地址</view>
+					<view class="scroll-view-item bottom">注册电话</view>
+					<view class="scroll-view-item top">注册地址</view>
+					<view class="scroll-view-item center">注册地址</view>
+					<view class="scroll-view-item bottom">注册电话</view>
+				</scroll-view>
+			</view>
+		</view>
 	</view>
 
 	<!-- <view class="container">
@@ -46,14 +47,14 @@
 		},
 		data() {
 			return {
-				flag: 0,//1向左滑动,2向右滑动,3向上滑动 4向下滑动
-				text: '',//向哪里滑动
+				flag: 0, //1向左滑动,2向右滑动,3向上滑动 4向下滑动
+				text: '', //向哪里滑动
 				lastX: 0,
 				lastY: 0,
-				index:0,
+				index: 0,
 				username: '',
 				searchValue: ''
-				
+
 			}
 		},
 		mounted() {
@@ -86,63 +87,64 @@
 			}
 		},
 		methods: {
-			 	scroll(event) {
-			 			//距离每个边界距离
-			 			console.log(event.detail)
-			 		},
-			 		//滚动到底部/右边触发
-			 		scrolltolower() {
-			 				console.log(123213213213);
-			 		},
-			 		// 滚动到顶部/左边触发
-			 		scrolltoupper() {
-			 				console.log(2232332);
-			 		}
-			 	},
-			
-			log() {
-				uni.redirectTo({
-					url: '/pages/log/log'
-				});
+			scroll(event) {
+				//距离每个边界距离
+				console.log(event.detail)
 			},
-
-			search(res) {
-				uni.showToast({
-					title: '搜索：' + res.value,
-					icon: 'none'
-				})
+			//滚动到底部/右边触发
+			scrolltolower() {
+				console.log(123213213213);
 			},
+			// 滚动到顶部/左边触发
+			scrolltoupper() {
+				console.log(2232332);
+			}
+		},
 
-			input(res) {
-				console.log('----input:', res)
-			},
-		}
+		log() {
+			uni.redirectTo({
+				url: '/pages/log/log'
+			});
+		},
 
+		search(res) {
+			uni.showToast({
+				title: '搜索：' + res.value,
+				icon: 'none'
+			})
+		},
 
-	
+		input(res) {
+			console.log('----input:', res)
+		},
+	}
 </script>
 
 <style>
 	.scroll-view {
 		white-space: nowrap;
-		height: 550px;
+		height: 800px;
 		width: 100%;
 	}
+
 	.top {
 		height: 200px;
 		width: 100%;
 		background: red;
 	}
+
 	.center {
 		height: 200px;
 		width: 100%;
 		background: green;
 	}
+
 	.bottom {
 		height: 200px;
 		width: 100%;
 		background: blue;
 	}
+
 	.container {
 		display: flex;
 		justify-content: center;
