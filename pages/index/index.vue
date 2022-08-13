@@ -26,7 +26,7 @@
 		mounted() {
 			uni.request({
 				url: 'http://124.221.253.187:5000/user/user-info',
-				method: 'POST',
+				method: 'GET',
 				header: {
 					"content-type": "application/x-www-form-urlencoded"
 				},
