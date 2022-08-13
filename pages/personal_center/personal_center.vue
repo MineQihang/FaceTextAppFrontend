@@ -3,7 +3,7 @@
 			
 			<!-- 头部图片 -->
 			<view class="head_img">
-				<img src="/static/Header_img.svg"  style="width: 100%;" alt="">
+				<img src="/static/Header_img.png"  style="width: 100%;" alt="">
 			</view>
 			
 			<view class="set" @click="to_set()">

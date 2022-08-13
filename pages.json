@@ -106,7 +106,7 @@
 		"backgroundColor": "white",
 		"borderStyle": "white",
 		"midButton": {
-			"iconPath": "static/Field_Navigation barr_Group 7010.svg",
+			"iconPath": "static/Field_Navigation barr_Group 7010.png",
 			"height": "80px",
 			"iconWidth": "60px",
 			"text": "发布"
@@ -114,14 +114,14 @@
 		"list": [{
 				"text": "广场",
 				"pagePath": "pages/homepage/homepage",
-				"iconPath": "static/Iconly_Light_Home copy.svg",
-				"selectedIconPath": "static/Iconly_Light_Home.svg"
+				"iconPath": "static/Iconly_Light_Home copy.png",
+				"selectedIconPath": "static/Iconly_Light_Home.png"
 			},
 			{
 				"text": "个人中心",
 				"pagePath": "pages/personal_center/personal_center",
-				"iconPath": "static/Iconly_Light_Profile.svg",
-				"selectedIconPath": "static/Iconly_Light_Profile (1).svg"
+				"iconPath": "static/Iconly_Light_Profile.png",
+				"selectedIconPath": "static/Iconly_Light_Profile (1).png"
 			}
 		]
 	}
