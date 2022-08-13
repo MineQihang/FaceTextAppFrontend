@@ -76,7 +76,7 @@
 			index() {
 				uni.redirectTo({
 					url: '/pages/index/index'
-				});
+				})
 			}
 			
 		}
