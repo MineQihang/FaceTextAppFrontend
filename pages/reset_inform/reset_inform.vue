@@ -6,12 +6,12 @@
 		<view class="course">
 		<!-- 头部图片 -->
 		<view class="head_img">
-			<img src="/static/Header_img.svg"  style="width: 100%;" alt="">
+			<image src="/static/Header_img.png"  style="width: 100%;height: 350rpx;" alt="">
 		</view>
 		
 		<!-- 用户头像 -->
 		<view class="portrait">
-			<img src="/static/logo.png" alt="" style="border-radius: 100rpx;height: 100rpx;width:100rpx;">
+			<image src="/static/logo.png" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 		
 		<view class="blank">
@@ -21,8 +21,23 @@
 		<view class="mid_view">
 			
 			<view class="">
+				<view class="hanzi0">
+					用户名
+					<view class="input_btn">
+						<input type="text" class="input" placeholder="uesrname" v-model="username">
+					</view>
+				</view>
+			</view>
+			
+			<view class="gaa">
 				<view class="hanzi">
-					名称
+					性别
+					<view class="input_btn">
+						<input type="text" class="input">
+					</view>
+				</view>
+				<view class="hanzi">
+					年龄
 					<view class="input_btn">
 						<input type="text" class="input">
 					</view>
@@ -31,7 +46,7 @@
 			
 			<view class="">
 				<view class="hanzi1">
-					简介
+					签名
 					<view class="input_btn">
 						<input type="text" class="input">
 					</view>
@@ -71,6 +86,9 @@
 </script>
 
 <style>
+	.gaa{
+		display: flex;
+	}
 	.head_img{
 		height: 300rpx;
 		background-color: #ffffff;
@@ -78,13 +96,13 @@
 	/* 	position: fixed; */
 	}	
 	.portrait{
-		border-radius: 100rpx;
-		height: 100rpx;
-		width:100rpx;
+		border-radius: 125rpx;
+		height: 125rpx;
+		width:125rpx;
 		background-color: red;
 		z-index: 10!important;
 		position:absolute;
-		top:26.1%;
+		top:26%;
 		left:45%;
 	}
 	.blank{
@@ -94,8 +112,16 @@
 	.mid_view{
 		background-color:#ffffff;
 	}
+	.hanzi0{
+		margin-left: 50rpx;
+		margin-right: 50rpx;
+		font-size: 30rpx;
+		font-weight: 200;
+		background-color: #ffffff;
+	}
 	.hanzi{
-	
+		width: 50%;
+		margin-top:50rpx ;
 		margin-left: 50rpx;
 		margin-right: 50rpx;
 		font-size: 30rpx;

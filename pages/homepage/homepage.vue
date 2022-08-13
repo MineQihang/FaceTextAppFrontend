@@ -57,6 +57,10 @@
 
 			}
 		},
+		onPullDownRefresh() {
+			console.log("我要刷新了");
+			//此处写开始刷新的代码
+		},
 		mounted() {
 			let that = this;
 			try {
@@ -88,6 +92,8 @@
 		},
 		methods: {
 			scroll(event) {
+				<<
+				<< << < HEAD
 				//距离每个边界距离
 				console.log(event.detail)
 			},
@@ -97,7 +103,9 @@
 			},
 			// 滚动到顶部/左边触发
 			scrolltoupper() {
-				console.log(2232332);
+				console.log(2232332); ===
+				=== = >>>
+				>>> > 9 eddb2db195b1782decc9b8f1b845aa10c768c16
 			}
 		},
 

@@ -1,6 +1,14 @@
 <template>
 	<view>
-		这是个人中心页面
+			
+			<!-- 头部图片 -->
+			<view class="head_img">
+				<img src="/static/Header_img.png"  style="width: 100%;" alt="">
+			</view>
+			
+			<view class="set" @click="to_set()">
+				<img src="/static/person_set.png" alt="" style="height: 100%;">
+			</view>
 	</view>
 </template>
 
@@ -11,12 +19,30 @@
 				
 			}
 		},
+		
 		methods: {
-			
+			to_set(){
+				uni.navigateTo({
+					url:'/pages/set/set'
+				})
+			}
 		}
 	}
 </script>
 
 <style>
-
+	.set{
+		height: 50rpx;
+		width: 50rpx;
+		position:absolute;
+		right:3%;
+		top:3%;
+		/* background-color: green; */
+	}
+	.head_img{
+		height: 350rpx;
+		background-color: #ffffff;
+		z-index: 1!important;
+	/* 	position: fixed; */
+	}
 </style>

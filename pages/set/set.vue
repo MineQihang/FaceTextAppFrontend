@@ -2,13 +2,13 @@
 	<view>
 		<!-- 头部图片 -->
 		<view class="head_img">
-			<img src="/static/Header_img.svg"  style="width: 100%;" alt="">
+			<image src="/static/Header_img.png" style="width: 100%;height: 350rpx;" alt="">
 		</view>
 		
 		<!-- 中部图片 -->
-		<cover-view class="mid_img">
-			<img src="/static/mid_img.png" alt="" style="width: 180%;height: 100%;">
-		</cover-view>
+		<view class="mid_img">
+			<image src="/static/mid_img1.png" alt="" style="width: 100%;height: 100%;">
+		</view>
 		
 		<!-- 底部 -->
 		<view class="bottom_view">
@@ -21,7 +21,7 @@
 		
 		<!-- 用户头像 -->
 		<view class="portrait">
-			<img src="/static/logo.png" alt="" style="border-radius: 100rpx;height: 100rpx;width:100rpx;">
+			<image src="/static/logo.png" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 		
 	</view>
@@ -76,7 +76,7 @@
 			index() {
 				uni.redirectTo({
 					url: '/pages/index/index'
-				});
+				})
 			}
 			
 		}
@@ -88,11 +88,11 @@
 		height: 350rpx;
 		background-color: #ffffff;
 		z-index: 1!important;
-	/* 	position: fixed; */
+/* 		position: fixed; */
 	}
 	.mid_img{
 		height: 600rpx;
-		z-index: 1!important;
+		z-index: -1!important;
 		/* position: fixed; */
 	}
 	.bottom_view{
@@ -116,13 +116,13 @@
 		margin-right: 70rpx;
 	}
 	.portrait{
-		border-radius: 100rpx;
-		height: 100rpx;
-		width:100rpx;
+		border-radius: 125rpx;
+		height: 125rpx;
+		width:125rpx;
 		background-color: red;
 		z-index: 10!important;
 		position:absolute;
-		top:17%;
+		top:20%;
 		left:45%;
 	}
 </style>
