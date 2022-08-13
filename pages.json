@@ -35,8 +35,7 @@
 			"path": "pages/homepage/homepage",
 			"style": {
 				"navigationBarTitleText": "广场",
-				"enablePullDownRefresh": false,
-				"enablePullDownRefresh":true,
+				"enablePullDownRefresh": true,
 				"app-plus": {
 						"bounce": "none"  
 					}  

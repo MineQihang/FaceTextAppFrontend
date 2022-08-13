@@ -127,6 +127,6 @@
 		z-index: 10 !important;
 		position: absolute;
 		top: 20%;
-		left: 42.5%;
+		left: 42%;
 	}
 </style>

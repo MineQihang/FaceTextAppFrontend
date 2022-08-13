@@ -3,11 +3,14 @@
 
 		<!-- 头部图片 -->
 		<view class="head_img">
-			<image src="/static/Header_img.png" style="width: 100%;" alt="">
+			<image src="/static/Header background.png" style="width: 100%;" alt="">
 		</view>
 
 		<view class="set" @click="to_set()">
-			<image src="/static/person_set.png" alt="" style="height: 100%;">
+			<image src="/static/Frame 7064_Iconly_Light_Setting.png" alt="" style="height: 100%;">
+		</view>
+		<view class="portrait">
+			<image src="/static/Ellipse 194.png" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 	</view>
 </template>
@@ -45,5 +48,16 @@
 		background-color: #ffffff;
 		z-index: 1 !important;
 		/* 	position: fixed; */
+	}
+	
+	.portrait {
+		border-radius: 125rpx;
+		height: 125rpx;
+		width: 125rpx;
+		background-color: #ffffff;
+		z-index: 10 !important;
+		position: absolute;
+		top: 30%;
+		left: 42%;
 	}
 </style>
