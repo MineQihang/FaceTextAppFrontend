@@ -76,7 +76,7 @@
 							//存储Authorization
 							uni.setStorageSync('authorization', res.data.token_type + ' ' +
 								res.data.access_token);
-
+							console.log(uni.getStorageSync('authorization'))
 							uni.showToast({
 								title: res.data.detail,
 								duration: 1000

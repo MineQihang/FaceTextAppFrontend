@@ -9,7 +9,7 @@
 
 			<!-- 用户头像 -->
 			<view class="portrait">
-				<image src="icon" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
+				<image :src="icon" alt="" v-model="icon" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 			</view>
 
 			<!-- 修改信息区 -->
@@ -92,12 +92,14 @@
 						name: '保密'
 					}
 				],
-				studentIndex: '',
+				studentIndex: 0,
 				username: '',
 				age: '',
 				mail: '',
 				motto: '',
-				icon: '',
+				icon: '/static/Header_img.png',
+				uid: '',
+
 			}
 		},
 		mounted() {
@@ -113,7 +115,7 @@
 							'Authorization': authorization
 						},
 						success: (res) => {
-							console.log(res);
+
 							this.text = 'request success';
 							if (res.statusCode == 200) {
 								that.username = res.data.data.username;
@@ -122,6 +124,7 @@
 								that.motto = res.data.data.motto;
 								that.mail = res.data.data.mail;
 								that.icon = res.data.data.iconUrl;
+								that.uid = res.data.data.uid;
 							} else {
 								uni.showToast({
 									title: res.data.detail,
@@ -141,34 +144,43 @@
 			},
 			save_inf() {
 				let that = this
-				const authorization = uni.getStorageSync('authorization');
-				uni.request({
-					url: 'http://127.0.0.1:4523/m1/1431653-0-default/user/change', // 路径
-					method: 'POST', // 请求方法
-					header: {
-						'Authorization': authorization
-					},
-					data: {
-						username: that.username,
-						gender: this.formatSex1(that.gender),
-						age: that.age,
-						mail: that.mail,
-						motto: that.motto
-					}, //发送的数据
-					success: (res) => {
-						if (res.data.code == 200) {
-							uni.showToast({
-								title: '保存成功',
-								icon: 'none'
-							})
-						} else {
-							uni.showToast({
-								title: '保存失败',
-								icon: 'none'
-							})
+				try {
+					const authorization = uni.getStorageSync('authorization');
+					uni.request({
+						url: 'http://124.221.253.187:5000/user/change', // 路径
+						method: 'POST', // 请求方法
+						header: {
+							'Authorization': authorization,
+							"content-type": "application/json"
+						},
+						data: {
+							uid: that.uid,
+							username: that.username,
+							gender: that.studentIndex,
+							age: that.age,
+							mail: that.mail,
+							motto: that.motto,
+							iconUrl: that.icon
+						}, //发送的数据
+						success: (res) => {
+
+							if (res.data.code == 200) {
+								uni.showToast({
+									title: '保存成功',
+									icon: 'none'
+								})
+							} else {
+								uni.showToast({
+									title: '保存失败',
+									icon: 'none'
+								})
+							}
 						}
-					}
-				})
+					})
+
+				} catch (e) {
+					console.log(e)
+				}
 			}
 		}
 	}

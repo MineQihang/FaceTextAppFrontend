@@ -1,71 +1,62 @@
 <template>
 
 	<view>
+		<!-- 搜索框 -->
 		<view>
-			<view>
+			<view class="search-bar">
 				<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input"
 					@change="change">
 				</uni-search-bar>
 				<!-- 当前输入为：{{ searchValue }} -->
 			</view>
 		</view>
-		<view class="uni-padding-wrap uni-common-mt">
-			<view>
-				<scroll-view class="scroll-view" scroll-y="true" refresher-enabled="true" show-scrollbar="true"
-					scroll-top="scrollTop" @scroll="scroll" @scrolltoupper="upper" @scrolltolower="lower">
 
-					<view class="scroll-view-item top">注册地址</view>
-					<view class="scroll-view-item center">注册地址</view>
-					<view class="scroll-view-item bottom">注册电话</view>
-					<view class="scroll-view-item top">注册地址</view>
-					<view class="scroll-view-item center">注册地址</view>
-					<view class="scroll-view-item bottom">注册电话</view>
-				</scroll-view>
+		<!-- 帖子展示 -->
+		<view class="content">
+			<view class="flowPanel">
+				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
+					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
+						<img :src="url" mode="widthFix">
+					</view>
+					<view class="title">{{item.title}}</view>
+					<view class="info">
+						<view class="left">
+							<view class="myfont icon-shijian"></view>
+							<view class="date">{{item.updatedDate}}</view>
+							<view class="commentNum">{{item.commentNum}}</view>
+						</view>
+						<view class="right">
+							<view class="clickNum">{{item.likeNum}}</view>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
+
 	</view>
-
-	<!-- <view class="container">
-		<view>
-			<view>
-				<u--image src="../../static/successful_log.png" width="16rem" height="12rem"></u--image>
-				<view>{{ username }}</view>
-			</view>
-		</view> -->
-
-
-	<!-- <view class="btn-container">
-			<u-button type="primary" @click="log()" class='btn'>退出登录</u-button>
-		</view> -->
-	<!-- </view> -->
 </template>
 
 <script>
-	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue"
+	import dataJson from "../../testData/data.js";
+	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue";
 	export default {
 		components: {
 			uButton
 		},
 		data() {
 			return {
-				flag: 0, //1向左滑动,2向右滑动,3向上滑动 4向下滑动
-				text: '', //向哪里滑动
-				lastX: 0,
-				lastY: 0,
-				index: 0,
 				username: '',
-				searchValue: ''
-
+				searchValue: '',
+				uid: 79,
+				flowList: []
 			}
 		},
-		onPullDownRefresh() {
-			console.log("我要刷新了");
-			//此处写开始刷新的代码
-		},
+
 		mounted() {
 			let that = this;
+			console.log("mounted");
 			try {
-				const authorization = uni.getStorageSync('Authorization');
+				const authorization = uni.getStorageSync('authorization');
 				console.log(authorization);
 				if (!authorization) throw DOMException("Nope!");
 				else {
@@ -79,6 +70,9 @@
 							this.text = 'request success';
 							if (res.statusCode == 200) {
 								that.username = res.data.data.username;
+								that.uid = res.data.data.uid;
+								console.log("check");
+								console.log(res);
 							} else {
 								uni.showToast({
 									title: res.data.detail,
@@ -91,44 +85,87 @@
 			} catch (e) {
 				console.log(e)
 			}
-		},
-		methods: {
-			scroll(event) {
 
-				//距离每个边界距离
-				console.log(event.detail)
-			},
-			//滚动到底部/右边触发
-			scrolltolower() {
-				console.log(123213213213);
-			},
-			// 滚动到顶部/左边触发
-			scrolltoupper() {
-				console.log(2232332);
-
-			}
-		},
-
-		log() {
-			uni.redirectTo({
-				url: '/pages/log/log'
-			});
-		},
-
-		search(res) {
-			uni.showToast({
-				title: '搜索：' + res.value,
-				icon: 'none'
+			console.log("check");
+			console.log(that.uid);
+			uni.request({
+				url: 'http://124.221.253.187:5000/post/get_all',
+				method: 'GET',
+				data: {
+					uid: that.uid
+				},
+				success: (res1) => {
+					console.log(res1);
+					console.log("check");
+					if (res1.statusCode == 200) {
+						// 获取的data有问题
+						let datas = res1.data.data;
+						console.log(datas);
+						that.flowList = datas;
+						console.log(flowList);
+						// this.flowList = dataJson.flowList;
+					} else {
+						this.flowList = dataJson.flowList;
+						console.log("获取帖子失败");
+					}
+				}
 			})
+
 		},
 
-		input(res) {
-			console.log('----input:', res)
+		methods: {
+			log() {
+				uni.redirectTo({
+					url: '/pages/log/log'
+				});
+			},
+
+			search(res) {
+				uni.showToast({
+					title: '搜索：' + res.value,
+					icon: 'none'
+				})
+			},
+
+			input(res) {
+				console.log('----input:', res)
+			},
+
 		},
 	}
 </script>
 
 <style>
+	/* uni-search-bar {
+		position: absolute;
+		top: 0%;
+	} */
+
+	/* .search-bar {
+		position: absolute;
+		top: 0;
+	} */
+
+	@import "../../testCss/flowPanel.css";
+
+	@font-face {
+		font-family: "myfont";
+		src: url('https://at.alicdn.com/t/c/font_3587359_4gnvrajxdln.ttf?t=1660441794186') format('truetype');
+		/* url生成方式：https://cloud.tencent.com/developer/article/1590373?from=article.detail.1848497 */
+	}
+
+	view {
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+	}
+
+	.content {
+		width: 100%;
+		background-color: #ffffff;
+		padding: 0 15px;
+	}
+
 	.scroll-view {
 		white-space: nowrap;
 		height: 800px;
