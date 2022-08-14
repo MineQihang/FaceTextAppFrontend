@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "egg-cors": "^2.2.3"
+    "cos-nodejs-sdk-v5": "^2.11.12",
+    "egg-cors": "^2.2.3",
+    "fs": "^0.0.1-security"
   }
 }
