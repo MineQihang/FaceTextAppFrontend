@@ -55,7 +55,7 @@
 					})
 				})
 				for (let i = 0; i < lists.length; i++) {
-					// console.log(lists[i]);
+					console.log(this);
 					const result = await this.uploadFilePromise(lists[i].url)
 					let item = this[`fileList${event.name}`][fileListLen]
 					this[`fileList${event.name}`].splice(fileListLen, 1, Object.assign(item, {
@@ -67,15 +67,16 @@
 				}
 			},
 
+			// #ifdef APP-PLUS
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
-					let url_tmp;
+					// console.log("up")
 					uni.compressImage({
 						src: url,
 						quality: 50,
 						success: res => {
-							// console.log(res.tempFilePath)
-							let a = uni.uploadFile({
+							console.log(res.tempFilePath)
+							uni.uploadFile({
 								url: 'http://124.221.253.187:5000/service/upload_img',
 								filePath: res.tempFilePath,
 								name: "img",
@@ -89,9 +90,28 @@
 							});
 						}
 					})
-
 				})
 			},
+			// #endif
+
+			// #ifdef H5
+			uploadFilePromise(url) {
+				return new Promise((resolve, reject) => {
+					// console.log("ok");
+					let a = uni.uploadFile({
+						url: 'http://124.221.253.187:5000/service/upload_img',
+						filePath: url,
+						name: "img",
+						success: (res) => {
+							setTimeout(() => {
+								resolve(res.data.data)
+							}, 1000)
+						}
+					});
+				})
+			},
+			// #endif
+
 			publish() {
 				const authorization = uni.getStorageSync('authorization');
 				uni.request({
