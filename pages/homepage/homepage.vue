@@ -170,8 +170,8 @@
 		position: fixed;
 		top: 2rem;
 		width: 100%;
-	}
- */
+	}*/
+
 	@import "../../testCss/flowPanel.css";
 
 	@font-face {
