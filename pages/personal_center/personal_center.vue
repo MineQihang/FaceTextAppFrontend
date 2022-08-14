@@ -12,7 +12,7 @@
 			<image src="iconUrl" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 		<view class="testText1">
-			<text selectable='true'>{{this.username}}</text>
+			<text selectable='true'>{{username}}</text>
 		</view>
 		<view class="testText2">
 			<text selectable='true'>{{motto}}</text>
@@ -65,7 +65,7 @@
 			let that = this;
 			that.authorization = uni.getStorageSync("authorization");
 			uni.request({
-				url: 'http://124.221.253.187:5000/post/get_all',
+				url: 'http://124.221.253.187:5000/post/get_self_posts',
 				method: 'GET',
 				header: {
 					'Authorization': that.authorization
