@@ -37,9 +37,9 @@
 				"navigationBarTitleText": "广场",
 				"enablePullDownRefresh": true,
 				"app-plus": {
-						"bounce": "none"  
-					},
-					"navigationStyle":"custom"
+					"bounce": "none"
+				},
+				"navigationStyle": "custom"
 			}
 
 		},
@@ -96,7 +96,6 @@
 					"titleNView": false
 				}
 			}
-
 		}
 	],
 	"globalStyle": {
