@@ -36,13 +36,17 @@
 		<!-- 帖子的评论数和点赞数 -->
 		<view class="com_like">
 			<!-- 评论数 -->
-			<view class="" style="margin-top: 30rpx;margin-left: 300rpx;">
-				{{numberComment}}
+			<view class="" style="margin-top: 20rpx;margin-left: 200rpx;margin-right:100rpx;display: flex;">
+				<view class="" style="margin-left: 50rpx;">
+					{{numberComment}}
+				</view>
 				<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
 			</view>
 			<!-- 点赞数 -->
-			<view class="" style="margin-top: 30rpx; margin-left:190rpx">
-				{{numberLike}}
+			<view class="" style="margin-top: 20rpx; display: flex;">
+				<view class="" style="margin-left: 50rpx;">
+					{{numberLike}}
+				</view>
 				<uni-icons type="heart" size="30" class="like-icon"></uni-icons>
 			</view>
 		</view>
@@ -139,15 +143,16 @@
 	}
 
 	.comment-icon {
-		position: absolute;
-		top: 55%;
-		left: 30%;
+		// position: absolute;
+		// top: 55%;
+		// left: 30%;
+
 	}
 
 	.like-icon {
-		position: absolute;
-		top: 55%;
-		right: 35%;
+		// position: absolute;
+		// top: 55%;
+		// right: 35%;
 	}
 
 	.infor_time {
