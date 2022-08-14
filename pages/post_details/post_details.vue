@@ -20,7 +20,7 @@
 			</view>
 			<!-- 发帖时间 -->
 			<view class="post_time">
-				时间：两年半之前
+				{{time}}
 			</view>
 		</view>
 
@@ -107,7 +107,7 @@
 				like: 0, //是否给这篇帖子点赞了
 				icon: '/static/Header_img.png', //发帖人头像
 				username: 'ikun', //发帖用户名
-				time: '', //发帖时间
+				time: '两年半之前', //发帖时间
 				numberComment: 0, //评论数
 				numberLike: 0, //点赞数
 				post_title: '滕王阁序', //帖子标题
@@ -127,6 +127,7 @@
 
 <style lang="scss">
 	.head {
+		// position: fixed;
 		height: 100rpx;
 	}
 
