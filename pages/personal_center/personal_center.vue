@@ -49,7 +49,7 @@
 		z-index: 1 !important;
 		/* 	position: fixed; */
 	}
-	
+
 	.portrait {
 		border-radius: 125rpx;
 		height: 125rpx;

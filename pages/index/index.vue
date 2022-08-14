@@ -34,31 +34,31 @@
 				success: (res) => {
 					console.log(res);
 					if (res.statusCode == 200) {
-						//存储Authorization
-						uni.setStorageSync('authorization', res.data.token_type + ' ' + res.data
-							.access_token);
-						uni.showToast({
-							title: res.data.detail,
-							duration: 1000
-						});
+
 						setTimeout(() => {
-							uni.redirectTo({
+							uni.switchTab({
 								url: '/pages/homepage/homepage'
-							});
-						}, 3000)
+							})
+						}, 2000)
 
 					} else {
+						setTimeout(() => {
+							uni.showToast({
+								title: '请登录或注册',
+								icon: 'none',
+								duration: 1000
+							});
+						}, 2000)
 
 						setTimeout(() => {
 							uni.redirectTo({
 								url: '/pages/log/log'
-							});
+							})
 						}, 3000)
 					}
 				},
 				fail(res) {
 					console.log(res);
-
 				}
 			});
 		},

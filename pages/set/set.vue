@@ -86,8 +86,13 @@
 				})
 			},
 			index() {
+				try {
+					uni.removeStorageSync('authorization');
+				} catch (e) {
+					console.log(e)
+				}
 				uni.redirectTo({
-					url: '/pages/index/index'
+					url: '/pages/log/log'
 				})
 			}
 
