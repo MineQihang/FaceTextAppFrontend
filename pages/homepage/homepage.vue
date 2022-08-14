@@ -43,14 +43,27 @@
 				username: '', //用户信息
 				searchValue: '', //搜索栏数据
 				uid: 79,
-				flowList: []
+				flowList: [],
+				authorization: ""
 			}
 		},
+		onLoad: function(option) {
+			setTimeout(function() {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
+		},
+		onPullDownRefresh() {
+			console.log('refresh');
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
 		mounted() {
-			this.onload();
+			this.loadData();
 		},
 		methods: {
-			onload() {
+			loadData() {
 				this.getUser();
 				this.getPost();
 			},
@@ -59,7 +72,7 @@
 				// return new Promise(() => {
 				let that = this;
 				try {
-					const authorization = uni.getStorageSync('authorization');
+					that.authorization = uni.getStorageSync('authorization');
 					// console.log(authorization);
 					if (!authorization) throw DOMException("Nope!");
 					else {
@@ -96,8 +109,8 @@
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/get_all',
 					method: 'GET',
-					data: {
-						uid: that.uid
+					header: {
+						'Authorization': that.authorization
 					},
 					success: (res1) => {
 						// console.log(res1);
