@@ -37,8 +37,8 @@
 				"navigationBarTitleText": "广场",
 				"enablePullDownRefresh": true,
 				"app-plus": {
-						"bounce": "none"  
-					}  
+					"bounce": "none"
+				}
 			}
 
 		},
@@ -69,27 +69,35 @@
 				"enablePullDownRefresh": false
 			}
 
-		}
-	    ,{
-            "path" : "pages/set/set",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "设置",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/reset_inform/reset_inform",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "编辑信息",
+		}, {
+			"path": "pages/set/set",
+			"style": {
+				"navigationBarTitleText": "设置",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/reset_inform/reset_inform",
+			"style": {
+				"navigationBarTitleText": "编辑信息",
 				"backgroundColor": "#ffffff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/post_details/post_details",
+			"style": {
+				"backgroundColor": "transparent",
+				"navigationBarTitleText": "帖子详情",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

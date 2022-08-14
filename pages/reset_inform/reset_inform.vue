@@ -9,7 +9,7 @@
 
 			<!-- 用户头像 -->
 			<view class="portrait">
-				<image src="icon" alt="" v-model="icon" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
+				<image :src="icon" alt="" v-model="icon" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 			</view>
 
 			<!-- 修改信息区 -->
