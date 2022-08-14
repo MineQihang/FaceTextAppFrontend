@@ -38,7 +38,8 @@
 				"enablePullDownRefresh": true,
 				"app-plus": {
 						"bounce": "none"  
-					}  
+					},
+					"navigationStyle":"custom"
 			}
 
 		},

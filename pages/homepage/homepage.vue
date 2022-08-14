@@ -117,9 +117,9 @@
 						console.log("check");
 						if (res1.statusCode == 200) {
 							// 获取的data有问题
-							// let datas = res1.data;
-							// that.flowList = datas;
-							this.flowList = dataJson.flowList;
+							let datas = res1.data;
+							that.flowList = datas;
+							//this.flowList = dataJson.flowList;
 						} else {
 							this.flowList = dataJson.flowList;
 							console.log("获取帖子失败");
