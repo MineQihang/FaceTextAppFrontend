@@ -209,6 +209,7 @@
 
 .uniui-calendar:before {
 	content: "\e6a0";
+	color: #6161d3;
 }
 
 .uniui-fire:before {
