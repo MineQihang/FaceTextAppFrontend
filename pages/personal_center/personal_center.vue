@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<view class="head_img">
-			<image src="/static/Header background.png" style="width: 100%" mode="widthFix">
+			<image src="/static/Header_background.png" style="width: 100%" mode="widthFix">
 		</view>
 
 		<view class="set" @click="to_set()">
-			<image src="/static/Frame 7064_Iconly_Light_Setting (2).png"
+			<image src="/static/Frame_7064_Iconly_Light_Setting2.png"
 				style="border-radius: 12rpx;height: 50rpx;width:50rpx;">
 		</view>
 		<view class="portrait">
@@ -63,14 +63,14 @@
 		onShow() {
 			this.onload();
 		},
-        mounted(){
+		mounted() {
 			let that = this;
 			uni.request({
 				url: 'http://124.221.253.187:5000/post/get_all',
 				method: 'GET',
 				data: {
 					uid: that.uid,
-			
+
 				},
 				success: (res1) => {
 					console.log(res1);
@@ -88,7 +88,7 @@
 					}
 				}
 			})
-			
+
 		},
 
 		methods: {
@@ -106,7 +106,7 @@
 								'Authorization': authorization
 							},
 							success: (res) => {
-								console.log(res);
+								// console.log(res);
 								this.text = 'request success';
 								if (res.statusCode == 200) {
 									that.username = res.data.data.username;
@@ -127,7 +127,7 @@
 				} catch (e) {
 					console.log(e)
 				};
-				
+
 			},
 
 			to_set() {
