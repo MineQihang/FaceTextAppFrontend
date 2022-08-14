@@ -9,19 +9,19 @@
 				style="border-radius: 12rpx;height: 50rpx;width:50rpx;">
 		</view>
 		<view class="portrait">
-			<image src="/static/Ellipse 194.png" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
+			<image src="iconUrl" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 		<view class="testText1">
-			<text selectable='true'>俺的名字捏</text>
+			<text selectable='true'>{{username}}</text>
 		</view>
 		<view class="testText2">
-			<text selectable='true'>这是俺的id</text>
+			<text selectable='true'>{{uid}}</text>
 		</view>
 		<view class="middle_a">
-			<view class="btn">发帖数:0</view>
+			<view class="btn">发帖数:{{postNum}}</view>
 		</view>
-		
-		
+
+
 		<view class="content">
 			<view class="flowPanel">
 				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
@@ -55,51 +55,22 @@
 		},
 		data() {
 			return {
-				uid: 79,
+				username: '',
+				uid: 0,
 				flowList: []
 			}
 		},
-		mounted() {
+		onShow() {
+			this.onload();
+		},
+        mounted(){
 			let that = this;
-			console.log("mounted");
-			try {
-				const authorization = uni.getStorageSync('authorization');
-				console.log(authorization);
-				if (!authorization) throw DOMException("Nope!");
-				else {
-					uni.request({
-						url: 'http://124.221.253.187:5000/user/user-info',
-						header: {
-							'Authorization': authorization
-						},
-						success: (res) => {
-							console.log(res);
-							this.text = 'request success';
-							if (res.statusCode == 200) {
-								that.username = res.data.data.username;
-								that.uid = res.data.data.uid;
-								console.log("check");
-								console.log(res);
-							} else {
-								uni.showToast({
-									title: res.data.detail,
-									icon: 'none'
-								})
-							}
-						}
-					})
-				}
-			} catch (e) {
-				console.log(e)
-			}
-		
-			console.log("check");
-			console.log(that.uid);
 			uni.request({
 				url: 'http://124.221.253.187:5000/post/get_all',
 				method: 'GET',
 				data: {
-					uid: that.uid
+					uid: that.uid,
+			
 				},
 				success: (res1) => {
 					console.log(res1);
@@ -109,7 +80,7 @@
 						let datas = res1.data.data;
 						console.log(datas);
 						that.flowList = datas;
-						console.log(flowList);
+						console.log(that.flowList);
 						// this.flowList = dataJson.flowList;
 					} else {
 						this.flowList = dataJson.flowList;
@@ -117,10 +88,48 @@
 					}
 				}
 			})
-		
+			
 		},
 
 		methods: {
+			onload() {
+				let that = this;
+				console.log("mounted");
+				try {
+					const authorization = uni.getStorageSync('authorization');
+					console.log(authorization);
+					if (!authorization) throw DOMException("Nope!");
+					else {
+						uni.request({
+							url: 'http://124.221.253.187:5000/user/user-info',
+							header: {
+								'Authorization': authorization
+							},
+							success: (res) => {
+								console.log(res);
+								this.text = 'request success';
+								if (res.statusCode == 200) {
+									that.username = res.data.data.username;
+									that.uid = res.data.data.uid;
+									that.iconUrl = res.data.data.iconUrl;
+									that.postNum = res.data.data.postNum;
+									console.log("check");
+									console.log(res);
+								} else {
+									uni.showToast({
+										title: res.data.detail,
+										icon: 'none'
+									})
+								}
+							}
+						})
+					}
+				} catch (e) {
+					console.log(e)
+				};
+				
+			},
+
 			to_set() {
 				uni.navigateTo({
 					url: '/pages/set/set'
@@ -221,7 +230,7 @@
 		width: 100%;
 		background-color: #ffffff;
 		padding: 0px;
-		height:400px;
-		margin-top:150px;
+		height: 400px;
+		margin-top: 150px;
 	}
 </style>

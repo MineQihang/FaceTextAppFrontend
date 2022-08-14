@@ -20,7 +20,6 @@
 	align-items: center;
 	flex: 1;
 	margin: 16px 0px;
-	background-color: #ffffff;
 	display: flex;
 }
 
@@ -28,7 +27,7 @@
 	width: 80%;
 	/* height: 250px; */
 	/* border: 2px solid red; */
-	display: flex;
+	
 }
 
 .flowPanel .itemContainer .itemContent img {
