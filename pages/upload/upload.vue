@@ -110,7 +110,7 @@
 					success: (res) => {
 						console.log(res);
 						if (res.statusCode == 200) {
-							console.log(res)
+							console.log(res.data.pid)
 							uni.redirectTo({
 								url: "../post_details/post_details?pid=" + res.data.pid
 							})

@@ -37,9 +37,9 @@
 				"navigationBarTitleText": "广场",
 				"enablePullDownRefresh": true,
 				"app-plus": {
-						"bounce": "none"  
-					},
-					"navigationStyle":"custom"
+					"bounce": "none"
+				},
+				"navigationStyle": "custom"
 			}
 
 		},
@@ -96,7 +96,6 @@
 					"titleNView": false
 				}
 			}
-
 		}
 	],
 	"globalStyle": {
@@ -115,7 +114,7 @@
 		"backgroundColor": "white",
 		"borderStyle": "white",
 		"midButton": {
-			"iconPath": "static/Field_Navigation barr_Group 7010.png",
+			"iconPath": "static/Field_Navigation_barr_Group_7010.png",
 			"height": "80px",
 			"iconWidth": "60px",
 			"text": "发布"
@@ -123,7 +122,7 @@
 		"list": [{
 				"text": "广场",
 				"pagePath": "pages/homepage/homepage",
-				"iconPath": "static/Iconly_Light_Home copy.png",
+				"iconPath": "static/Iconly_Light_Home_copy.png",
 				"selectedIconPath": "static/Iconly_Light_Home.png"
 			},
 			{
