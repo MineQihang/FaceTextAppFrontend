@@ -138,10 +138,11 @@
 		top: 0%;
 	} */
 
-	/* .search-bar {
-		position: absolute;
-		top: 0;
-	} */
+	.search-bar {
+		position: fixed;
+		top: 2rem;
+		width: 100%;
+	}
 
 	@import "../../testCss/flowPanel.css";
 
@@ -158,6 +159,7 @@
 	}
 
 	.content {
+		margin-top: 3rem;
 		width: 100%;
 		background-color: #ffffff;
 		padding: 0 15px;
