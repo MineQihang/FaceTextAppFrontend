@@ -156,7 +156,7 @@
 
 	.back-icon {
 		position: fixed;
-		top: 90rpx;
+		top: 100rpx;
 		left: 34rpx;
 	}
 

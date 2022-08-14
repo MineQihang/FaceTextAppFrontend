@@ -50,7 +50,11 @@
 				"navigationBarTitleText": "上传",
 				"enablePullDownRefresh": false,
 				"app-plus": {
+					"bounce": "none",
 					"titleNView": false
+				},
+				"style": {
+					"navigationStyle": "custom"
 				}
 			}
 		},
@@ -59,18 +63,15 @@
 			"style": {
 				"navigationBarTitleText": "个人中心",
 				"enablePullDownRefresh": false
-			}
-
-		}
-
-		, {
-			"path": "pages/personal_center/personal_center",
+			},
+			"app-plus": {
+				"titleNView": false
+			},
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"navigationStyle": "custom"
 			}
-
-		}, {
+		},
+		{
 			"path": "pages/set/set",
 			"style": {
 				"navigationBarTitleText": "设置",
