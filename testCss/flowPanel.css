@@ -68,7 +68,7 @@
 
 .flowPanel .itemContainer .info .left .date:before {
 	font-family: myfont;
-	content: "\e63a";
+	content: "\e772";
 	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-stroke-width: .2px;
@@ -84,7 +84,7 @@
 
 .flowPanel .itemContainer .info .left .commentNum:before {
 	font-family: myfont;
-	content: "\e635";
+	content: "\e773";
 	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-stroke-width: .2px;
@@ -103,7 +103,7 @@
 
 .flowPanel .itemContainer .info .right .clickNum:before {
 	font-family: myfont;
-	content: "\e633";
+	content: "\e771";
 	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-stroke-width: .2px;
