@@ -14,19 +14,21 @@
 	width: 100%;
 	/* height: 318px; */
 	border-radius: 10px;
-	display: flex;
+
 	flex-direction: column;
 	padding: 0px;
 	align-items: center;
 	flex: 1;
 	margin: 16px 0px;
 	background-color: #ffffff;
+	display: flex;
 }
 
 .flowPanel .itemContainer .itemContent {
-	width: 75%;
+	width: 80%;
 	/* height: 250px; */
 	/* border: 2px solid red; */
+	display: flex;
 }
 
 .flowPanel .itemContainer .itemContent img {
@@ -45,6 +47,7 @@
 	color: #333;
 	text-align: left;
 	padding: 0.2em 0.5em;
+
 }
 
 .flowPanel .itemContainer .info {
@@ -53,11 +56,13 @@
 	padding: 10px;
 	border-top: 1px #e9e9e9 solid;
 	flex-direction: row;
+	display: flex;
 	justify-content: space-between;
 }
 
 .flowPanel .itemContainer .info .left {
 	flex-direction: row;
+	display: flex;
 }
 
 .flowPanel .itemContainer .info .left .date {

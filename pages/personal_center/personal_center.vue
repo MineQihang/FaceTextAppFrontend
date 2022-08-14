@@ -32,7 +32,7 @@
 					<view class="info">
 						<view class="left">
 							<view class="myfont icon-shijian"></view>
-							<view class="date">{{item.updatedDate}}</view>
+							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
 						<view class="right">
