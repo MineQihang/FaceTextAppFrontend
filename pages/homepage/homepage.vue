@@ -3,9 +3,8 @@
 	<view>
 		<!-- 搜索框 -->
 		<view>
-			<view>
-				<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input"
-					@change="change">
+			<view class="search-bar">
+				<uni-search-bar placeholder=" " @confirm="search" v-model="searchValue" @input="input" @change="change">
 				</uni-search-bar>
 				<!-- 当前输入为：{{ searchValue }} -->
 			</view>
@@ -21,7 +20,8 @@
 					<view class="title">{{item.title}}</view>
 					<view class="info">
 						<view class="left">
-							<view class="date">{{item.updatedDate}}</view>
+							<view class="myfont icon-shijian"></view>
+							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
 						<view class="right">
@@ -53,8 +53,10 @@
 
 		mounted() {
 			let that = this;
+			console.log("mounted");
 			try {
 				const authorization = uni.getStorageSync('authorization');
+				console.log(authorization);
 				if (!authorization) throw DOMException("Nope!");
 				else {
 					uni.request({
@@ -68,6 +70,7 @@
 							if (res.statusCode == 200) {
 								that.username = res.data.data.username;
 								that.uid = res.data.data.uid;
+								console.log("check");
 								console.log(res);
 							} else {
 								uni.showToast({
@@ -81,7 +84,34 @@
 			} catch (e) {
 				console.log(e)
 			}
+
+			console.log("check");
+			console.log(that.uid);
+			uni.request({
+				url: 'http://124.221.253.187:5000/post/get_all',
+				method: 'GET',
+				data: {
+					uid: that.uid
+				},
+				success: (res1) => {
+					console.log(res1);
+					console.log("check");
+					if (res1.statusCode == 200) {
+						// 获取的data有问题
+						let datas = res1.data.data;
+						console.log(datas);
+						that.flowList = datas;
+						console.log(flowList);
+						// this.flowList = dataJson.flowList;
+					} else {
+						this.flowList = dataJson.flowList;
+						console.log("获取帖子失败");
+					}
+				}
+			})
+
 		},
+
 		methods: {
 			log() {
 				uni.redirectTo({
@@ -100,43 +130,27 @@
 				console.log('----input:', res)
 			},
 
-			onLoad() {
-				// load data
-				// this.flowList = dataJson.flowList;
-				let that = this;
-				console.log("check");
-				console.log(that.uid);
-				uni.request({
-					url: 'http://124.221.253.187:5000/post/get_all',
-					method: 'GET',
-					data: {
-						uid: that.uid
-					},
-					success: (res1) => {
-						console.log(res1);
-						console.log("check");
-						if (res1.statusCode == 200) {
-							// 获取的data有问题
-							let datas = res1.data;
-							that.flowList = datas;
-							//this.flowList = dataJson.flowList;
-						} else {
-							this.flowList = dataJson.flowList;
-							console.log("获取帖子失败");
-						}
-					}
-				})
-			},
 		},
 	}
 </script>
 
 <style>
+	/* uni-search-bar {
+		position: absolute;
+		top: 0%;
+	} */
+
+	/* .search-bar {
+		position: absolute;
+		top: 0;
+	} */
+
 	@import "../../testCss/flowPanel.css";
 
 	@font-face {
 		font-family: "myfont";
-		src: url("https://at.alicdn.com/t/font_1985981_791yzf7neql.ttf") format('truetype');
+		src: url('https://at.alicdn.com/t/c/font_3587359_4gnvrajxdln.ttf?t=1660441794186') format('truetype');
+		/* url生成方式：https://cloud.tencent.com/developer/article/1590373?from=article.detail.1848497 */
 	}
 
 	view {

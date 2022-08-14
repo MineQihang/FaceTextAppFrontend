@@ -21,7 +21,7 @@
 
 		<!-- 用户头像 -->
 		<view class="portrait">
-			<image src="/static/logo.png" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
+			<image src="icon" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 
 	</view>
@@ -35,7 +35,13 @@
 		},
 		data() {
 			return {
-				username: ''
+				gender: 0,
+				username: '',
+				age: '',
+				mail: '',
+				motto: '',
+				icon: '/static/Header_img.png',
+				uid: '',
 			}
 		},
 		mounted() {
@@ -54,6 +60,12 @@
 							this.text = 'request success';
 							if (res.statusCode == 200) {
 								that.username = res.data.data.username;
+								that.studentIndex = res.data.data.gender;
+								that.age = res.data.data.age;
+								that.motto = res.data.data.motto;
+								that.mail = res.data.data.mail;
+								that.icon = res.data.data.iconUrl;
+								that.uid = res.data.data.uid;
 							} else {
 								uni.showToast({
 									title: res.data.detail,
