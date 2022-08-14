@@ -12,10 +12,10 @@
 			<image src="iconUrl" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 		<view class="testText1">
-			<text selectable='true'>{{username}}</text>
+			<text selectable='true'>{{this.username}}</text>
 		</view>
 		<view class="testText2">
-			<text selectable='true'>{{uid}}</text>
+			<text selectable='true'>{{motto}}</text>
 		</view>
 		<view class="middle_a">
 			<view class="btn">发帖数:{{postNum}}</view>
@@ -32,7 +32,7 @@
 					<view class="info">
 						<view class="left">
 							<view class="myfont icon-shijian"></view>
-							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
+							<view class="date">{{item.updatedTime}}</view>
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
 						<view class="right">
@@ -47,30 +47,28 @@
 </template>
 
 <script>
-	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue";
 	import dataJson from "../../testData/data.js";
 	export default {
-		components: {
-			uButton
-		},
 		data() {
 			return {
 				username: '',
 				uid: 0,
-				flowList: []
+				flowList: [],
+				authorization: ""
 			}
 		},
-		onShow() {
+		
+		onShow(){
 			this.onload();
 		},
 		mounted() {
 			let that = this;
+			that.authorization = uni.getStorageSync("authorization");
 			uni.request({
 				url: 'http://124.221.253.187:5000/post/get_all',
 				method: 'GET',
-				data: {
-					uid: that.uid,
-
+				header: {
+					'Authorization': that.authorization
 				},
 				success: (res1) => {
 					console.log(res1);
@@ -113,6 +111,7 @@
 									that.uid = res.data.data.uid;
 									that.iconUrl = res.data.data.iconUrl;
 									that.postNum = res.data.data.postNum;
+									that.motto =res.data.data.motto;
 									console.log("check");
 									console.log(res);
 								} else {

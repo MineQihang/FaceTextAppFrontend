@@ -119,7 +119,7 @@
 							let datas = res1.data.data;
 							// console.log(datas);
 							that.flowList = datas;
-							// console.log(flowList);
+							console.log(flowList);
 							// this.flowList = dataJson.flowList;
 						} else {
 							that.flowList = dataJson.flowList;
