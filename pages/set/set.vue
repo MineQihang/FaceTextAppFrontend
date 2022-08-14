@@ -21,7 +21,7 @@
 
 		<!-- 用户头像 -->
 		<view class="portrait">
-			<image src="icon" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
+			<image :src="icon" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 
 	</view>
@@ -40,7 +40,7 @@
 				age: '',
 				mail: '',
 				motto: '',
-				icon: '/static/Header_img.png',
+				icon: '',
 				uid: '',
 			}
 		},
@@ -51,7 +51,8 @@
 				if (!authorization) throw DOMException("Nope!");
 				else {
 					uni.request({
-						url: '/api/user/user-info',
+						url: 'http://124.221.253.187:5000/user/user-info',
+						method: 'GET',
 						header: {
 							'Authorization': authorization
 						},

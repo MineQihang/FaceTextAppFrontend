@@ -100,6 +100,7 @@
 
 .uniui-arrow-left:before {
 	content: "\e6bc";
+	color: #6161d3;
 }
 
 .uniui-arrowthinleft:before {
@@ -476,6 +477,7 @@
 
 .uniui-chat:before {
 	content: "\e65d";
+	color: #6161d3;
 }
 
 .uniui-circle-filled:before {
@@ -621,6 +623,7 @@
 
 .uniui-heart:before {
 	content: "\e639";
+	color: #6161d3;
 }
 
 .uniui-loop:before {
