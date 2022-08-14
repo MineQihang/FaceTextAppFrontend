@@ -3,7 +3,7 @@
 	<view>
 		<!-- 搜索框 -->
 		<view>
-			<view>
+			<view class="search-bar">
 				<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input"
 					@change="change">
 				</uni-search-bar>
@@ -21,6 +21,7 @@
 					<view class="title">{{item.title}}</view>
 					<view class="info">
 						<view class="left">
+							<view class="myfont icon-shijian"></view>
 							<view class="date">{{item.updatedDate}}</view>
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
@@ -101,6 +102,7 @@
 						let datas = res1.data.data;
 						console.log(datas);
 						that.flowList = datas;
+						console.log(flowList);
 						// this.flowList = dataJson.flowList;
 					} else {
 						this.flowList = dataJson.flowList;
@@ -134,11 +136,22 @@
 </script>
 
 <style>
+	/* uni-search-bar {
+		position: absolute;
+		top: 0%;
+	} */
+
+	/* .search-bar {
+		position: absolute;
+		top: 0;
+	} */
+
 	@import "../../testCss/flowPanel.css";
 
 	@font-face {
 		font-family: "myfont";
-		src: url("https://at.alicdn.com/t/font_1985981_791yzf7neql.ttf") format('truetype');
+		src: url('https://at.alicdn.com/t/c/font_3587359_4gnvrajxdln.ttf?t=1660441794186') format('truetype');
+		/* url生成方式：https://cloud.tencent.com/developer/article/1590373?from=article.detail.1848497 */
 	}
 
 	view {
