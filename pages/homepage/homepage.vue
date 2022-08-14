@@ -25,6 +25,8 @@
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
 						<view class="right">
+							<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
+							<uni-icons type="heart" size="20" v-else></uni-icons>
 							<view class="clickNum">{{item.likeNum}}</view>
 						</view>
 					</view>
@@ -47,75 +49,67 @@
 				username: '',
 				searchValue: '',
 				uid: 79,
-				flowList: []
+				flowList: [],
+				index: 0,
+				pid: 0
 			}
 		},
-
 		mounted() {
-			let that = this;
-			console.log("mounted");
-			try {
-				const authorization = uni.getStorageSync('authorization');
-				console.log(authorization);
-				if (!authorization) throw DOMException("Nope!");
-				else {
-					uni.request({
-						url: 'http://124.221.253.187:5000/user/user-info',
-						header: {
-							'Authorization': authorization
-						},
-						success: (res) => {
-							console.log(res);
-							this.text = 'request success';
-							if (res.statusCode == 200) {
-								that.username = res.data.data.username;
-								that.uid = res.data.data.uid;
-								console.log("check");
-								console.log(res);
-							} else {
-								uni.showToast({
-									title: res.data.detail,
-									icon: 'none'
-								})
-							}
-						}
-					})
-				}
-			} catch (e) {
-				console.log(e)
-			}
-
-			console.log("check");
-			console.log(that.uid);
-			uni.request({
-				url: 'http://124.221.253.187:5000/post/get_all',
-				method: 'GET',
-				data: {
-					uid: that.uid
-				},
-				success: (res1) => {
-					console.log(res1);
-					console.log("check");
-					if (res1.statusCode == 200) {
-						// 获取的data有问题
-						let datas = res1.data.data;
-						console.log(datas);
-						that.flowList = datas;
-						console.log(flowList);
-						// this.flowList = dataJson.flowList;
-					} else {
-						this.flowList = dataJson.flowList;
-						console.log("获取帖子失败");
-					}
-				}
-			})
-
+			this.onload();
 		},
-
 		methods: {
-			Todetail() {
-				uni.navigateTo({
-					url: '/pages/post_details/post_details'
+			onload() {
+				let that = this;
+				try {
+					const authorization = uni.getStorageSync('authorization');
+					console.log(authorization);
+					if (!authorization) throw DOMException("Nope!");
+					else {
+						uni.request({
+							url: 'http://124.221.253.187:5000/user/user-info',
+							header: {
+								'Authorization': authorization
+							},
+							success: (res) => {
+								console.log(res);
+								this.text = 'request success';
+								if (res.statusCode == 200) {
+									that.username = res.data.data.username;
+									that.uid = res.data.data.uid;
+									console.log("check");
+									console.log(res);
+								} else {
+									uni.showToast({
+										title: res.data.detail,
+										icon: 'none'
+									})
+								}
+							}
+						})
+					}
+				} catch (e) {
+					console.log(e)
+				};
+				uni.request({
+					url: 'http://124.221.253.187:5000/post/get_all',
+					method: 'GET',
+					data: {
+						uid: that.uid
+					},
+					success: (res1) => {
+						// console.log(res1);
+						// console.log("check");
+						if (res1.statusCode == 200) {
+							let datas = res1.data.data;
+							// console.log(datas);
+							that.flowList = datas;
+							// console.log(flowList);
+							// this.flowList = dataJson.flowList;
+						} else {
+							that.flowList = dataJson.flowList;
+							console.log("获取帖子失败");
+						}
+					}
 				})
 			},
 			log() {
@@ -134,7 +128,6 @@
 			input(res) {
 				console.log('----input:', res)
 			},
-
 		},
 	}
 </script>
