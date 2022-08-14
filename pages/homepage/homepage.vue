@@ -2,12 +2,10 @@
 
 	<view>
 		<!-- 搜索框 -->
-		<view>
-			<view class="search-bar">
-				<uni-search-bar placeholder=" " @confirm="search" v-model="searchValue" @input="input" @change="change">
-				</uni-search-bar>
-				<!-- 当前输入为：{{ searchValue }} -->
-			</view>
+		<view class="search-bar">
+			<uni-search-bar placeholder=" " @confirm="search" v-model="searchValue" @input="input" @change="change">
+			</uni-search-bar>
+			<!-- 			当前输入为：{{ searchValue }} -->
 		</view>
 
 		<!-- 帖子展示 -->
@@ -38,31 +36,44 @@
 </template>
 
 <script>
-	import dataJson from "../../testData/data.js";
-	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue";
+	import dataJson from "../../testData/data.js"; // 测试用数据
 	export default {
-		components: {
-			uButton
-		},
 		data() {
 			return {
-				username: '',
-				searchValue: '',
+				username: '', //用户信息
+				searchValue: '', //搜索栏数据
 				uid: 79,
 				flowList: [],
-				index: 0,
-				pid: 0
+				authorization: ""
 			}
 		},
+		onLoad: function(option) {
+			setTimeout(function() {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
+		},
+		onPullDownRefresh() {
+			console.log('refresh');
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
 		mounted() {
-			this.onload();
+			this.loadData();
 		},
 		methods: {
-			onload() {
+			loadData() {
+				this.getUser();
+				this.getPost();
+			},
+
+			getUser() {
+				// return new Promise(() => {
 				let that = this;
 				try {
-					const authorization = uni.getStorageSync('authorization');
-					console.log(authorization);
+					that.authorization = uni.getStorageSync('authorization');
+					// console.log(authorization);
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						uni.request({
@@ -71,13 +82,12 @@
 								'Authorization': authorization
 							},
 							success: (res) => {
-								console.log(res);
+								// console.log(res);
 								this.text = 'request success';
 								if (res.statusCode == 200) {
 									that.username = res.data.data.username;
 									that.uid = res.data.data.uid;
-									console.log("check");
-									console.log(res);
+									console.log("收到的", that.uid);
 								} else {
 									uni.showToast({
 										title: res.data.detail,
@@ -90,11 +100,17 @@
 				} catch (e) {
 					console.log(e)
 				};
+				// })
+			},
+
+			getPost() {
+				let that = this;
+				console.log("发送的", that.uid);
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/get_all',
 					method: 'GET',
-					data: {
-						uid: that.uid
+					header: {
+						'Authorization': that.authorization
 					},
 					success: (res1) => {
 						// console.log(res1);
