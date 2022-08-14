@@ -13,7 +13,7 @@
 		<view class="upload">
 			<view class="">
 				<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
-					:multiple="false">
+					multiple>
 				</u-upload>
 			</view>
 		</view>
@@ -21,7 +21,6 @@
 </template>
 
 <script>
-	import COS from '@/labs/cos-js-sdk-v5.min.js';
 	export default {
 		data() {
 			return {
@@ -30,55 +29,9 @@
 				files: [],
 				fileList1: [],
 				imgUrls: [],
-				cos: Object,
+				tags: [],
 				// lists: []
 			}
-		},
-		mounted() {
-			// 存储桶名称，由bucketname-appid 组成，appid必须填入，可以在COS控制台查看存储桶名称。 https://console.cloud.tencent.com/cos5/bucket
-			var Bucket = 'summer-1306873228'; /* 存储桶，必须字段 */
-
-			// 存储桶region可以在COS控制台指定存储桶的概览页查看 https://console.cloud.tencent.com/cos5/bucket/ 
-			// 关于地域的详情见 https://cloud.tencent.com/document/product/436/6224
-			var Region = 'ap-chengdu'; /* 存储桶所在地域，必须字段 */
-
-			// 接下来可以通过 cos 实例调用 COS 请求。
-
-			// var COS = require('cos-js-sdk-v5');
-			this.cos = new COS({
-				// getAuthorization 必选参数
-				getAuthorization: function(options, callback) {
-					// 服务端例子：https://github.com/tencentyun/qcloud-cos-sts-sdk/blob/master/scope.md
-					// 异步获取临时密钥
-					var url = 'http://124.221.253.187:5000/service/cos'; // url替换成您自己的后端服务
-					var xhr = new XMLHttpRequest();
-					xhr.open('POST', url, true);
-					xhr.setRequestHeader('Content-Type', 'application/json');
-					xhr.onload = function(e) {
-						try {
-							var data = JSON.parse(e.target.responseText);
-							var credentials = data.credentials;
-							// console.log(credentials)
-						} catch (e) {}
-						// console.log(typeof(data))
-						// console.log(credentials)
-						if (!data || !credentials) {
-							return console.error('credentials invalid:\n' + JSON.stringify(data,
-								null, 2))
-						};
-						callback({
-							TmpSecretId: credentials.tmpSecretId,
-							TmpSecretKey: credentials.tmpSecretKey,
-							SecurityToken: credentials.sessionToken,
-							// 建议返回服务器时间作为签名的开始时间，避免用户浏览器本地时间偏差过大导致签名错误
-							StartTime: data.startTime, // 时间戳，单位秒，如：1580000000
-							ExpiredTime: data.expiredTime, // 时间戳，单位秒，如：1580000000
-							ScopeLimit: true, // 细粒度控制权限需要设为 true，会限制密钥只在相同请求时重复使用
-						});
-					};
-					xhr.send(JSON.stringify(options.Scope));
-				}
-			});
 		},
 		methods: {
 
@@ -90,12 +43,6 @@
 				this[`fileList${event.name}`].splice(event.index, 1)
 			},
 			// 新增图片
-			// async afterRead(event) {
-			// 	// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-			// 	this.files.push(event.file);
-
-
-			// },
 			async afterRead(event) {
 				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
 				let lists = [].concat(event.file)
@@ -108,6 +55,7 @@
 					})
 				})
 				for (let i = 0; i < lists.length; i++) {
+					// console.log(lists[i]);
 					const result = await this.uploadFilePromise(lists[i].url)
 					let item = this[`fileList${event.name}`][fileListLen]
 					this[`fileList${event.name}`].splice(fileListLen, 1, Object.assign(item, {
@@ -121,45 +69,55 @@
 
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
-					let a = uni.uploadFile({
-						url: 'http://192.168.23.21:4701', // 仅为示例，非真实的接口地址
-						filePath: url,
-						name: 'file',
-						formData: {
-							user: 'test'
-						},
-						success: (res) => {
-							setTimeout(() => {
-								resolve(res.data.data)
-							}, 1000)
+					let url_tmp;
+					uni.compressImage({
+						src: url,
+						quality: 50,
+						success: res => {
+							// console.log(res.tempFilePath)
+							let a = uni.uploadFile({
+								url: 'http://124.221.253.187:5000/service/upload_img',
+								filePath: res.tempFilePath,
+								name: "img",
+								success: (res) => {
+									this.imgUrls.push(JSON.parse(res.data)["url"]);
+									// console.log(this.imgUrls);
+									setTimeout(() => {
+										resolve(res.data.data)
+									}, 1000)
+								}
+							});
 						}
-					});
+					})
+
 				})
 			},
 			publish() {
+				const authorization = uni.getStorageSync('authorization');
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/create',
 					method: 'POST',
 					header: {
-						"content-type": "json"
+						"content-type": "application/json",
+						"Authorization": authorization
 					},
 					data: {
-						title: this.title,
-						context: this.context,
+						"title": this.title,
+						"context": this.context,
+						"imgUrls": this.imgUrls,
+						"tags": this.tags
 					},
 					success: (res) => {
 						console.log(res);
 						if (res.statusCode == 200) {
-							setTimeout(() => {
-								uni.switchTab({
-									url: '/pages/homepage/homepage'
-								});
-							}, 500)
+							console.log(res)
+							uni.redirectTo({
+								url: "../post_details/post_details?pid=" + res.data.pid
+							})
 
 						} else {
 							uni.showToast({
 								title: res.data.detail,
-								duration: 1000,
 								icon: "error"
 							})
 						}
@@ -186,7 +144,7 @@
 		position: fixed;
 		width: 89px;
 		height: 37px;
-		top: 80rpx;
+		top: 100rpx;
 		right: 44rpx;
 		color: white;
 		border-radius: 36px;
