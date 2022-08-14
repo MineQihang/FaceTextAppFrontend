@@ -15,7 +15,7 @@
 			<view class="flowPanel">
 				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
 					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
-						<img :src="url" mode="widthFix" @click='Todetail()'>
+						<img :src="url" mode="widthFix">
 					</view>
 					<view class="title">{{item.title}}</view>
 					<view class="info">
@@ -112,6 +112,7 @@
 					}
 				})
 			},
+
 			log() {
 				uni.redirectTo({
 					url: '/pages/log/log'
@@ -138,12 +139,12 @@
 		top: 0%;
 	} */
 
-	.search-bar {
+	/* .search-bar {
 		position: fixed;
 		top: 2rem;
 		width: 100%;
 	}
-
+ */
 	@import "../../testCss/flowPanel.css";
 
 	@font-face {
@@ -159,10 +160,12 @@
 	}
 
 	.content {
-		margin-top: 3rem;
+		/* margin-top: 3rem; */
+		align-self: center;
 		width: 100%;
 		background-color: #ffffff;
 		padding: 0 15px;
+		/* border: 2px solid red; */
 	}
 
 	.scroll-view {
