@@ -4,8 +4,7 @@
 		<!-- 搜索框 -->
 		<view>
 			<view class="search-bar">
-				<uni-search-bar placeholder=" " @confirm="search" :focus="true" v-model="searchValue" @input="input"
-					@change="change">
+				<uni-search-bar placeholder=" " @confirm="search" v-model="searchValue" @input="input" @change="change">
 				</uni-search-bar>
 				<!-- 当前输入为：{{ searchValue }} -->
 			</view>
@@ -22,7 +21,7 @@
 					<view class="info">
 						<view class="left">
 							<view class="myfont icon-shijian"></view>
-							<view class="date">{{item.updatedDate}}</view>
+							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
 						<view class="right">
