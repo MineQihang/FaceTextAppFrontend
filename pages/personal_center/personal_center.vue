@@ -180,7 +180,7 @@
 		font-size: 32rpx;
 		font-weight: bold;
 		width: 100%;
-		top: 30%;
+		top: 27%;
 		height: 50px;
 
 		text-align: center;
@@ -192,7 +192,7 @@
 		font-size: 30rpx;
 		font-weight: bold;
 		width: 100%;
-		top: 34%;
+		top: 30%;
 		height: 50px;
 		font-weight: 300;
 		text-align: center;
@@ -208,10 +208,11 @@
 		color: #ffffff;
 		font-size: 1.5rem;
 		text-align: center;
-		line-height: 45px;
+		line-height: 50px;
 		margin-bottom: 100rpx;
 		margin-left: 75rpx;
 		margin-right: 70rpx;
+		
 	}
 
 	.middle_a {
@@ -219,7 +220,7 @@
 		font-size: 30rpx;
 		font-weight: bold;
 		width: 100%;
-		top: 38%;
+		top: 33%;
 		height: 50px;
 		font-weight: 300;
 		text-align: center;
