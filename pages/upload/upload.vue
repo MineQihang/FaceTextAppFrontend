@@ -1,9 +1,14 @@
 <template>
 	<view class="container">
 		<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
-		<button size="30" class="publish" @click="publish()"></button>
-		<view class="text_con">
-			<textarea class="text" cols="30" rows="10" v-model="text" placeholder="编辑内容"></textarea>
+		<button size="30" class="publish" @click="publish()">发布</button>
+		<view class="text">
+			<view class="">
+				<textarea class="title" v-model="title" placeholder="编辑标题"></textarea>
+			</view>
+			<view class="">
+				<textarea class="context" v-model="context" placeholder="编辑内容"></textarea>
+			</view>
 		</view>
 		<view class="upload">
 			<view class="">
@@ -16,13 +21,15 @@
 </template>
 
 <script>
-	import COS from '@/labs/cos-js-sdk-v5.min.js.js';
+	import COS from '@/labs/cos-js-sdk-v5.min.js';
 	export default {
 		data() {
 			return {
-				text: "",
+				context: "",
+				title: "",
 				files: [],
 				fileList1: [],
+				imgUrls: [],
 				cos: Object,
 				// lists: []
 			}
@@ -92,7 +99,6 @@
 			async afterRead(event) {
 				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
 				let lists = [].concat(event.file)
-				console.log(event.file.constructor.name);
 				let fileListLen = this[`fileList${event.name}`].length
 				lists.map((item) => {
 					this[`fileList${event.name}`].push({
@@ -102,8 +108,7 @@
 					})
 				})
 				for (let i = 0; i < lists.length; i++) {
-					const result = await this.uploadFile(lists[i])
-					// console.log("上传完成");
+					const result = await this.uploadFilePromise(lists[i].url)
 					let item = this[`fileList${event.name}`][fileListLen]
 					this[`fileList${event.name}`].splice(fileListLen, 1, Object.assign(item, {
 						status: 'success',
@@ -113,37 +118,53 @@
 					fileListLen++
 				}
 			},
-			uploadFile(file_) {
-				// const reader = new FileReader();
-				// reader.readAsDataURL(file_["blob"]); //发起异步请求
-				// reader.onload = function(readRes) {
-				// 	console.log('加载完成', readRes.target.result)
-				// }
-				const file = file_ // fileObject
-				let blb = Object;
-				fetch(file.thumb).then(r => r.blob()).then(blob => {
-					this.cos.putObject({
-							Bucket: "summer-1306873228",
-							Region: "ap-chengdu",
-							/* 存储桶所在地域，必须字段 */
-							Key: 'img/' + file.name,
-							StorageClass: 'STANDARD',
-							Body: blob, // 上传文件对象
-							onProgress: function(progressData) {
-								console.log(JSON.stringify(progressData));
-							}
+
+			uploadFilePromise(url) {
+				return new Promise((resolve, reject) => {
+					let a = uni.uploadFile({
+						url: 'http://192.168.23.21:4701', // 仅为示例，非真实的接口地址
+						filePath: url,
+						name: 'file',
+						formData: {
+							user: 'test'
 						},
-						function(err, data) {
-							console.log(err || data);
-						});
-				});
-				// console.log(new Blob([fetch(file.thumb).then(r => r.blob())], {
-				// 	endings: "transparent"
-				// }))
+						success: (res) => {
+							setTimeout(() => {
+								resolve(res.data.data)
+							}, 1000)
+						}
+					});
+				})
 			},
 			publish() {
+				uni.request({
+					url: 'http://124.221.253.187:5000/post/create',
+					method: 'POST',
+					header: {
+						"content-type": "json"
+					},
+					data: {
+						title: this.title,
+						context: this.context,
+					},
+					success: (res) => {
+						console.log(res);
+						if (res.statusCode == 200) {
+							setTimeout(() => {
+								uni.switchTab({
+									url: '/pages/homepage/homepage'
+								});
+							}, 500)
 
-
+						} else {
+							uni.showToast({
+								title: res.data.detail,
+								duration: 1000,
+								icon: "error"
+							})
+						}
+					}
+				})
 			}
 		}
 	}
@@ -165,24 +186,42 @@
 		position: fixed;
 		width: 89px;
 		height: 37px;
-		top: 44px;
-		left: 269px;
+		top: 80rpx;
+		right: 44rpx;
+		color: white;
+		border-radius: 36px;
+		text-align: center;
+		line-height: 200%;
+		background-color: rgb(85, 92, 253)
 	}
 
-	.text_con {
+	.text {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-top: 40rpx;
 	}
 
-	.text {
-		width: 337px;
+	.title {
+		display: flex;
+		width: 650rpx;
+		height: 1.5rem;
+		top: 92px;
+		margin-bottom: 1rem;
+		background: rgba(196, 196, 196, 0.14);
+		border-radius: 16px;
+		padding: 0.5rem;
+	}
+
+	.context {
+		width: 650rpx;
 		height: 230px;
 		top: 92px;
 		background: rgba(196, 196, 196, 0.14);
 		border-radius: 16px;
 		padding: 18rpx;
+		overflow-x: scroll;
 	}
 
 	.upload {
