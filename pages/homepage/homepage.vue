@@ -15,7 +15,7 @@
 			<view class="flowPanel">
 				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
 					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
-						<img :src="url" mode="widthFix">
+						<img :src="url" mode="widthFix" @click='Todetail()'>
 					</view>
 					<view class="title">{{item.title}}</view>
 					<view class="info">
@@ -113,6 +113,11 @@
 		},
 
 		methods: {
+			Todetail() {
+				uni.navigateTo({
+					url: '/pages/post_details/post_details'
+				})
+			},
 			log() {
 				uni.redirectTo({
 					url: '/pages/log/log'
