@@ -5,8 +5,7 @@
 		</view>
 
 		<view class="set" @click="to_set()">
-			<image src="/static/Frame_7064_Iconly_Light_Setting2.png"
-				style="border-radius: 12rpx;height: 50rpx;width:50rpx;">
+			<image src="/static/Frame_7064_Iconly_Light_Setting2.png" style="height: 60rpx;width:60rpx;">
 		</view>
 		<view class="portrait">
 			<image src="iconUrl" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
@@ -15,7 +14,7 @@
 			<text selectable='true'>{{username}}</text>
 		</view>
 		<view class="testText2">
-			<text selectable='true'>{{uid}}</text>
+			<text selectable='true'>{{motto}}</text>
 		</view>
 		<view class="middle_a">
 			<view class="btn">发帖数:{{postNum}}</view>
@@ -32,7 +31,7 @@
 					<view class="info">
 						<view class="left">
 							<view class="myfont icon-shijian"></view>
-							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
+							<view class="date">{{item.updatedTime}}</view>
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
 						<view class="right">
@@ -47,17 +46,14 @@
 </template>
 
 <script>
-	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue";
 	import dataJson from "../../testData/data.js";
 	export default {
-		components: {
-			uButton
-		},
 		data() {
 			return {
 				username: '',
 				uid: 0,
-				flowList: []
+				flowList: [],
+				authorization: ""
 			}
 		},
 		onShow() {
@@ -65,12 +61,12 @@
 		},
 		mounted() {
 			let that = this;
+			that.authorization = uni.getStorageSync("authorization");
 			uni.request({
-				url: 'http://124.221.253.187:5000/post/get_all',
+				url: 'http://124.221.253.187:5000/post/get_self_posts',
 				method: 'GET',
-				data: {
-					uid: that.uid,
-
+				header: {
+					'Authorization': that.authorization
 				},
 				success: (res1) => {
 					console.log(res1);
@@ -113,6 +109,7 @@
 									that.uid = res.data.data.uid;
 									that.iconUrl = res.data.data.iconUrl;
 									that.postNum = res.data.data.postNum;
+									that.motto = res.data.data.motto;
 									console.log("check");
 									console.log(res);
 								} else {
@@ -152,8 +149,8 @@
 		height: 5rpx;
 		width: 5rpx;
 		position: absolute;
-		right: 8%;
-		top: 4%;
+		right: 11%;
+		top: 7%;
 		/* background-color: green; */
 	}
 
@@ -181,7 +178,7 @@
 		font-size: 32rpx;
 		font-weight: bold;
 		width: 100%;
-		top: 30%;
+		top: 27%;
 		height: 50px;
 
 		text-align: center;
@@ -193,7 +190,7 @@
 		font-size: 30rpx;
 		font-weight: bold;
 		width: 100%;
-		top: 34%;
+		top: 30%;
 		height: 50px;
 		font-weight: 300;
 		text-align: center;
@@ -209,10 +206,11 @@
 		color: #ffffff;
 		font-size: 1.5rem;
 		text-align: center;
-		line-height: 45px;
+		line-height: 50px;
 		margin-bottom: 100rpx;
 		margin-left: 75rpx;
 		margin-right: 70rpx;
+		
 	}
 
 	.middle_a {
@@ -220,7 +218,7 @@
 		font-size: 30rpx;
 		font-weight: bold;
 		width: 100%;
-		top: 38%;
+		top: 33%;
 		height: 50px;
 		font-weight: 300;
 		text-align: center;

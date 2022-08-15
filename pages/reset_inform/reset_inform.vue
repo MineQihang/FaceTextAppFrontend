@@ -163,7 +163,7 @@
 							iconUrl: that.icon
 						}, //发送的数据
 						success: (res) => {
-
+							console.log(res)
 							if (res.data.code == 200) {
 								uni.showToast({
 									title: '保存成功',

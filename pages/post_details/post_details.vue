@@ -8,106 +8,107 @@
 			</uni-icons>
 		</view>
 
-		<!-- 发帖人信息和发帖时间 -->
-		<view class="infor_time">
-			<!-- 发帖人头像	 -->
-			<view class="portrait">
-				<image :src="icon" alt="" v-model="icon" style=" border-radius: 80rpx;height: 80rpx;width:80rpx;">
-			</view>
-			<!-- 发帖人昵称 -->
-			<view class="nickname">
-				{{username}}
-			</view>
-			<!-- 发帖时间 -->
-			<view class="post_time">
-				{{time}}
-			</view>
-		</view>
-
-		<!-- 帖子的图片 -->
-		<view class="photo_">
-			<swiper circular indicator-dots>
-				<swiper-item v-for="item in swipers">
-					<image :src="item" class="photo"></image>
-				</swiper-item>
-			</swiper>
-		</view>
-
-		<!-- 帖子的评论数和点赞数 -->
-		<view class="com_like">
-			<!-- 评论数 -->
-			<view class="" style="margin-top: 20rpx;margin-left: 200rpx;margin-right:100rpx;display: flex;">
-				<view class="" style="margin-left: 50rpx;">
-					{{numberComment}}
+		<view class="main_con">
+			<!-- 发帖人信息和发帖时间 -->
+			<view class="infor_time">
+				<!-- 发帖人头像	 -->
+				<view class="portrait">
+					<image :src="icon" alt="" v-model="icon" style=" border-radius: 80rpx;height: 80rpx;width:80rpx;">
 				</view>
-				<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
-			</view>
-			<!-- 点赞数 -->
-			<view class="" style="margin-top: 20rpx; display: flex;">
-				<view class="" style="margin-left: 50rpx;">
-					{{numberLike}}
+				<!-- 发帖人昵称 -->
+				<view class="nickname">
+					{{username}}
 				</view>
-				<uni-icons type="heart" size="30" class="like-icon"></uni-icons>
-			</view>
-		</view>
-
-		<!-- 帖子 -->
-		<view class="main">
-			<!-- 标题 -->
-			<view class="title">
-				{{post_title}}
-			</view>
-			<!-- 正文 -->
-			<view class="mainText">
-				{{post_main}}
-			</view>
-			<image src="../../static/laba.png" mode="" class="smallLaba"></image>
-		</view>
-
-		<!-- 评论区 -->
-		<view class="">
-
-			<view class="" style="background-color: #f1f1fe;margin-left: 10rpx;margin-right: 10rpx;">
-				<text style="color:#888bf4; font-size:35rpx; font-weight:550; margin-left:10rpx">评论</text>
+				<!-- 发帖时间 -->
+				<view class="post_time">
+					{{time}}
+				</view>
 			</view>
 
-			<view class="" style="height: 300rpx;">
-				<view class="comment1" v-for="(item,index) in allComments" :key="index"
-					style="margin-left: 1rpx;margin-top: 5rpx;">
-					<view class="" style="display:flex;background-color: antiquewhite;width: 750rpx;">
-						<image :src="item.user.iconUrl" style="width: 100rpx;height: 100rpx;" mode="">
-						</image>
-						<view class="">
-							<view class="" style="position:relative;background-color: #888bf4;height: 50rpx;">
-								{{item.user.username}}
-							</view>
-							<view class="" style="position:relative;background-color: aqua;height: 50rpx;">
-								{{item.context}}
-							</view>
-						</view>
+			<!-- 帖子的图片 -->
+			<view class="photo_">
+				<swiper circular indicator-dots>
+					<swiper-item v-for="item in swipers">
+						<image :src="item" class="photo"></image>
+					</swiper-item>
+				</swiper>
+			</view>
 
-
-
-
+			<!-- 帖子的评论数和点赞数 -->
+			<view class="com_like">
+				<!-- 评论数 -->
+				<view class="" style="margin-top: 20rpx;margin-left: 200rpx;margin-right:100rpx;display: flex;">
+					<view class="" style="margin-left: 50rpx;">
+						{{numberComment}}
 					</view>
-					<!-- <view class="" v-for="(item1,index1) in allComments" :key="index">
+					<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
+				</view>
+				<!-- 点赞数 -->
+				<view class="" style="margin-top: 20rpx; display: flex;">
+					<view class="" style="margin-left: 50rpx;">
+						{{numberLike}}
+					</view>
+					<uni-icons type="heart" size="30" class="like-icon"></uni-icons>
+				</view>
+			</view>
+
+			<!-- 帖子 -->
+			<view class="main">
+				<!-- 标题 -->
+				<view class="title">
+					{{post_title}}
+				</view>
+				<!-- 正文 -->
+				<view class="mainText">
+					{{post_main}}
+				</view>
+				<image src="../../static/laba.png" mode="" class="smallLaba"></image>
+			</view>
+
+			<!-- 评论区 -->
+			<view class="">
+
+				<view class="" style="background-color: #f1f1fe;margin-left: 10rpx;margin-right: 10rpx;">
+					<text style="color:#888bf4; font-size:35rpx; font-weight:550; margin-left:10rpx">评论</text>
+				</view>
+
+				<view class="" style="height: 300rpx;">
+					<view class="comment1" v-for="(item,index) in allComments" :key="index"
+						style="margin-left: 1rpx;margin-top: 5rpx;">
+						<view class="" style="display:flex;background-color: antiquewhite;width: 750rpx;">
+							<image :src="item.user.iconUrl" style="width: 100rpx;height: 100rpx;" mode="">
+							</image>
+							<view class="">
+								<view class="" style="position:relative;background-color: #888bf4;height: 50rpx;">
+									{{item.user.username}}
+								</view>
+								<view class="" style="position:relative;background-color: aqua;height: 50rpx;">
+									{{item.context}}
+								</view>
+							</view>
+
+
+
+
+						</view>
+						<!-- <view class="" v-for="(item1,index1) in allComments" :key="index">
 						
 					</view> -->
+					</view>
 				</view>
-			</view>
-			<!-- 写评论 -->
-			<view class="give_comment">
-				<view class=""
-					style="border-radius: 50rpx;width: 84%;height:100rpx;background-color: gainsboro;display: flex;">
-					<input type="text" placeholder="添加评论" style="height: 100rpx;margin-left: 30rpx;"
-						v-model="comment_text">
-					<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
+				<!-- 写评论 -->
+				<view class="give_comment">
+					<view class=""
+						style="border-radius: 50rpx;width: 84%;height:100rpx;background-color: gainsboro;display: flex;">
+						<input type="text" placeholder="添加评论" style="height: 100rpx;margin-left: 30rpx;"
+							v-model="comment_text">
+						<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
 						 ;" @click="send_comment()">发表</button>
-				</view>
+					</view>
 
+				</view>
 			</view>
 		</view>
-
 	</view>
 </template>
 
@@ -278,20 +279,28 @@
 
 <style lang="scss">
 	.head {
-		// position: fixed;
-		height: 100rpx;
-		margin-top: 50rpx;
+		position: fixed;
+		height: 158rpx;
+		width: 100%;
+		background-color: rgb(238, 238, 238);
+		z-index: 10;
+	}
+
+	.main_con {
+		position: relative;
+		padding-top: 158rpx;
+
 	}
 
 	.back-icon {
 		position: absolute;
-		top: 30rpx;
+		top: 82rpx;
 		left: 34rpx;
 	}
 
 	.heart-icon {
 		position: absolute;
-		top: 30rpx;
+		top: 82rpx;
 		right: 34rpx;
 	}
 

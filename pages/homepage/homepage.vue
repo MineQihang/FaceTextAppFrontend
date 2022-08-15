@@ -1,6 +1,6 @@
 <template>
 
-	<view>
+	<view class="container">
 		<!-- 搜索框 -->
 		<view class="search-bar">
 			<uni-search-bar placeholder=" " @confirm="search" v-model="searchValue" @input="input" @change="change">
@@ -12,25 +12,35 @@
 		<view class="content">
 			<view class="flowPanel">
 				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
+					<!-- <view class="top">
+
+					</view> -->
 					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
 						<img :src="url" mode="widthFix">
 					</view>
 					<view class="title">{{item.title}}</view>
 					<view class="info">
-						<view class="left">
-							<view class="myfont icon-shijian"></view>
-							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
-							<view class="commentNum">{{item.commentNum}}</view>
+						<view class="info-up">
+							<view class="comment">
+								<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
+								<view class="commentNum">{{item.commentNum}}</view>
+							</view>
+							<view class="zan">
+								<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
+								<uni-icons type="heart" size="20" v-else></uni-icons>
+								<view class="likeNum">{{item.likeNum}}</view>
+							</view>
 						</view>
-						<view class="right">
-							<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
-							<uni-icons type="heart" size="20" v-else></uni-icons>
-							<view class="clickNum">{{item.likeNum}}</view>
+
+						<view class="info-down">
+							<uni-icons type="calendar" size="20"></uni-icons>
+							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
+	</view>
 
 	</view>
 </template>
@@ -55,6 +65,7 @@
 		},
 		onPullDownRefresh() {
 			console.log('refresh');
+			this.getPost();
 			setTimeout(function() {
 				uni.stopPullDownRefresh();
 			}, 1000);
@@ -159,8 +170,8 @@
 		position: fixed;
 		top: 2rem;
 		width: 100%;
-	}
- */
+	}*/
+
 	@import "../../testCss/flowPanel.css";
 
 	@font-face {
@@ -175,6 +186,13 @@
 		box-sizing: border-box;
 	}
 
+	.container {
+		/* 		border-radius: 12px; */
+		/* background: linear-gradient(145deg, #e0ffe9, #bce6c4);
+		box-shadow: 6px 6px 12px #b2d9b9,
+			-6px -6px 12px #f0fffb; */
+	}
+
 	.content {
 		/* margin-top: 3rem; */
 		align-self: center;
@@ -182,81 +200,10 @@
 		background-color: #ffffff;
 		padding: 0 15px;
 		/* border: 2px solid red; */
-	}
 
-	.scroll-view {
-		white-space: nowrap;
-		height: 800px;
-		width: 100%;
-	}
-
-	.top {
-		height: 200px;
-		width: 100%;
-		background: red;
-	}
-
-	.center {
-		height: 200px;
-		width: 100%;
-		background: green;
-	}
-
-	.bottom {
-		height: 200px;
-		width: 100%;
-		background: blue;
-	}
-
-	.container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		width: 100%;
-		padding-top: 250rpx;
-	}
-
-	.btn-container {
-		padding: 150rpx;
-	}
-
-	.btn {
-		width: 12rem;
-		height: 3rem;
-		line-height: 23rpx;
-		border-radius: 50rpx;
-		border-color: black;
-		background-color: rgba(16, 16, 16, 100);
-		color: rgba(255, 255, 255, 100);
-		font-size: 1rem;
-		text-align: center;
-		font-family: Arial;
-		margin-bottom: 100rpx;
-	}
-
-	.login-btn {
-		width: 80%;
-		height: 100rpx;
-		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
-		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
-		border-radius: 36px;
-		color: #ffffff;
-		font-size: 1rem;
-		text-align: center;
-		line-height: 45px;
-		position: absolute;
-		margin-bottom: 500rpx;
-		margin-left: 70rpx;
-		margin-right: 70rpx;
-	}
-
-	.reg {
-		position: absolute;
-		top: 550rpx;
-		left: 100rpx;
-		color: rgb(82, 82, 199);
-		font-size: 36rpx;
-		line-height: 54rpx;
+		/* border-radius: 12px;
+		background: linear-gradient(145deg, #e0ffe9, #bce6c4);
+		box-shadow: 6px 6px 12px #b2d9b9,
+			-6px -6px 12px #f0fffb; */
 	}
 </style>
