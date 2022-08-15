@@ -17,6 +17,7 @@
 				</u-upload>
 			</view>
 		</view>
+		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
 </template>
 
@@ -67,50 +68,42 @@
 				}
 			},
 
-			// #ifdef APP-PLUS
+
 			uploadFilePromise(url) {
+				let that = this;
 				return new Promise((resolve, reject) => {
 					// console.log("up")
-					uni.compressImage({
+					that.$refs.helangCompress.compress({
 						src: url,
-						quality: 50,
-						success: res => {
-							// console.log(res.tempFilePath)
-							uni.uploadFile({
-								url: 'http://124.221.253.187:5000/service/upload_img',
-								filePath: res.tempFilePath,
-								name: "img",
-								success: (res) => {
-									this.imgUrls.push(JSON.parse(res.data)["url"]);
-									console.log(this.imgUrls);
-									setTimeout(() => {
-										resolve(res.data.data)
-									}, 1000)
-								}
-							});
-						}
+						maxSize: 1920,
+						fileType: "jpg",
+						minSize: 1920
+					}).then((res2) => {
+						// console.log(res2);
+						// this.compressPaths = [res];
+						uni.uploadFile({
+							url: 'http://124.221.253.187:5000/service/upload_img',
+							filePath: res2,
+							name: "img",
+							success: (res3) => {
+								console.log(JSON.parse(res3.data)["url"])
+								that.imgUrls.push(JSON.parse(res3.data)["url"]);
+								// console.log(that.imgUrls);
+								setTimeout(() => {
+									resolve(res3.data.data)
+								}, 1000)
+							},
+							fail(res3) {
+								console.log(res3);
+							}
+						});
+					}).catch((err) => {
+						console.log(err);
 					})
 				})
 			},
-			// #endif
 
-			// #ifdef H5
-			uploadFilePromise(url) {
-				return new Promise((resolve, reject) => {
-					// console.log("ok");
-					let a = uni.uploadFile({
-						url: 'http://124.221.253.187:5000/service/upload_img',
-						filePath: url,
-						name: "img",
-						success: (res) => {
-							setTimeout(() => {
-								resolve(res.data.data)
-							}, 1000)
-						}
-					});
-				})
-			},
-			// #endif
+
 
 			publish() {
 				const authorization = uni.getStorageSync('authorization');
