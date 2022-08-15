@@ -31,10 +31,14 @@
 					<view class="info">
 						<view class="left">
 							<view class="myfont icon-shijian"></view>
-							<view class="date">{{item.updatedTime}}</view>
+							<uni-icons type="calendar" size="20"></uni-icons>
+							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
+							<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
 						<view class="right">
+							<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
+							<uni-icons type="heart" size="20" v-else></uni-icons>
 							<view class="clickNum">{{item.likeNum}}</view>
 						</view>
 					</view>
@@ -230,7 +234,7 @@
 
 	.content {
 		width: 100%;
-		background-color: #ffffff;
+		background-color: #f5f5f5;
 		padding: 0px;
 		height: 400px;
 		margin-top: 150px;
