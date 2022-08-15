@@ -105,7 +105,7 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#ffffff",
-		"enablePullDownRefresh": true,
+		// "enablePullDownRefresh": true,
 		"app-plus": {
 			"background": "#efeff4"
 		}
