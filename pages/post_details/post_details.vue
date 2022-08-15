@@ -83,7 +83,7 @@
 								<view class="" style="position:relative;height: 50rpx;">
 									{{item.user.username}}
 								</view>
-								<view class="" style="position:relative;height: 50rpx;">
+								<view class="" style="position:relative;height: 50rpx;" @click="com2com()">
 									{{item.context}}
 								</view>
 								<view class="" v-for="(item1,index1) in item.comments" :key="index1"
@@ -103,8 +103,6 @@
 
 										</view>
 									</view>
-
-
 
 								</view>
 							</view>
@@ -162,7 +160,10 @@
 				allComments: [], //所有评论
 				comment_text: '', //给这个帖子的评论
 				post_title: '', //帖子标题
-				post_main: ''
+				post_main: '',
+				comuser_1: '',
+				comuser_2: '',
+				comuser_3: '',
 			}
 		},
 		mounted() {
@@ -197,6 +198,8 @@
 								that.like = res.data.data.is_liked == true ? 1 : 0;
 								that.uid = res.data.data.uid;
 								that.len = that.swipers.length;
+								that.comuser_1 = that.data.comments.user.username;
+								that.comuser_2 = that.data.comments.comments.user.username;
 							} else {
 								uni.showToast({
 									title: res.data.detail,
@@ -212,7 +215,13 @@
 		},
 		methods: {
 			back() {
-				uni.navigateBack();
+				let pages = getCurrentPages(); // 当前页面
+				let beforePage = pages[pages.length - 2]; // 上一页
+				uni.navigateBack({
+					success: function() {
+						beforePage.mounted(); // 执行上一页的onLoad方法
+					}
+				});
 			},
 			send_comment() {
 				let that = this;
