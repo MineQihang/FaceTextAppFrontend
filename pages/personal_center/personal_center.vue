@@ -25,21 +25,26 @@
 			<view class="flowPanel">
 				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
 					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
-						<img :src="url" mode="widthFix">
+						<img class="postPhoto" :src="url" mode="widthFix">
 					</view>
 					<view class="title">{{item.title}}</view>
 					<view class="info">
-						<view class="left">
-							<view class="myfont icon-shijian"></view>
+						<view class="info-up">
+							<view class="comment">
+								<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
+								<view class="commentNum">{{item.commentNum}}</view>
+							</view>
+							<view class="zan">
+								<!-- {{item.is_liked}} -->
+								<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
+								<uni-icons type="heart" size="20" v-else></uni-icons>
+								<view class="likeNum">{{item.likeNum}}</view>
+							</view>
+						</view>
+
+						<view class="info-down">
 							<uni-icons type="calendar" size="20"></uni-icons>
 							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
-							<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
-							<view class="commentNum">{{item.commentNum}}</view>
-						</view>
-						<view class="right">
-							<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
-							<uni-icons type="heart" size="20" v-else></uni-icons>
-							<view class="clickNum">{{item.likeNum}}</view>
 						</view>
 					</view>
 				</view>
@@ -147,11 +152,11 @@
 <style>
 	@import "../../testCss/personal_flowpanel.css";
 
-	@font-face {
+	/* @font-face {
 		font-family: "myfont";
-		src: url('https://at.alicdn.com/t/c/font_3587359_4gnvrajxdln.ttf?t=1660441794186') format('truetype');
-		/* url生成方式：https://cloud.tencent.com/developer/article/1590373?from=article.detail.1848497 */
-	}
+		src: url('https://at.alicdn.com/t/c/font_3587359_4gnvrajxdln.ttf?t=1660441794186') format('truetype'); */
+	/* url生成方式：https://cloud.tencent.com/developer/article/1590373?from=article.detail.1848497 */
+	/* } */
 
 	.set {
 		height: 5rpx;
@@ -235,7 +240,7 @@
 	.content {
 		width: 100%;
 		background-color: #f5f5f5;
-		padding: 0px;
+		padding: 0 15px;
 		height: 400px;
 		margin-top: 150px;
 	}

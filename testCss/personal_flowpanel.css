@@ -4,30 +4,60 @@
 	justify-content: space-between;
 	width: 100%;
 	overflow: hidden;
-
 }
 
 .flowPanel .itemContainer {
 	border: 2px solid;
 	border-color: #f8f8f8;
 	width: 100%;
+	/* display: flex; */
 	flex-direction: column;
 	padding: 0px;
-	align-items: center;
+	/* align-items: center; */
 	flex: 1;
-	margin: 15px 0px;
+	margin: 16px 0px;
+
+	/* border-radius: 12px;
+	background: linear-gradient(145deg, #e0ffe9, #bce6c4);
+	box-shadow: 6px 6px 12px #b2d9b9,
+		-6px -6px 12px #f0fffb; */
 }
 
 .flowPanel .itemContainer .itemContent {
 	width: 80%;
-	
 }
 
-.flowPanel .itemContainer .itemContent img {
+.flowPanel .itemContainer .top {
+	flex-direction: row;
+	justify-content: start;
+}
+
+.flowPanel .itemContainer .top .userIcon {
+	border-radius: 80rpx;
+	height: 70rpx;
+	width: 70rpx;
+	margin-top: 10rpx;
+	margin-left: 30rpx;
+}
+
+.flowPanel .itemContainer .top .username {
+	font-weight: 200;
+	font-size: 35rpx;
+	margin-top: 30rpx;
+	margin-left: 20rpx;
+}
+
+.flowPanel .itemContainer .itemContent {
+	align-items: center;
 	width: 100%;
+	/* border: red solid 10px; */
+}
+
+.flowPanel .itemContainer .itemContent .postPhoto {
+	width: 90%;
 	object-fit: scale-down;
 	padding-top: 10px;
-	
+	align-self: center;
 }
 
 .flowPanel .itemContainer .title {
@@ -38,48 +68,57 @@
 	word-wrap: break-word;
 	word-break: break-all;
 	color: #333;
-	text-align: left;
-	padding: 0.2em 1.2em;
-
+	text-align: center;
+	padding: 0.2em 0.5em;
+	font-size: 20px;
 }
 
 .flowPanel .itemContainer .info {
+	width: 100%;
 	color: #8a8a8a;
 	overflow: hidden;
-	padding: 3px;
+	padding: 10px;
 	border-top: 1px #e9e9e9 solid;
-	flex-direction: row;
-	display: flex;
-	justify-content: space-between;
 }
 
-.flowPanel .itemContainer .info .left {
-	flex-direction: row;
+.flowPanel .itemContainer .info .info-up {
 	display: flex;
+	flex-direction: row;
 }
 
-.flowPanel .itemContainer .info .left .date {
+
+.flowPanel .itemContainer .info .info-up .comment {
+	flex-direction: row;
+}
+
+.flowPanel .itemContainer .info .info-up .comment-icons {}
+
+.flowPanel .itemContainer .info .info-up .commentNum {
 	flex-direction: row;
 	font-size: 15px;
-	line-height: 21px;
+	line-height: center;
+	float: right;
 }
 
-.flowPanel .itemContainer .info .left .commentNum {
-	padding-left: 5px;
+
+.flowPanel .itemContainer .info .info-up .zan {
 	flex-direction: row;
-	font-size: 16px;
-	line-height: 21px;
+	padding-left: 40%;
 }
 
-.flowPanel .itemContainer .info .right {
+.flowPanel .itemContainer .info .info-up .likeNum {
+	flex-direction: row;
+	font-size: 15px;
+	line-height: center;
+	float: right;
+}
+
+.flowPanel .itemContainer .info .info-down {
 	flex-direction: row;
 }
 
-.flowPanel .itemContainer .info .right .clickNum {
-	font-size: 11px;
-	line-height: 0px;
-	padding-top: 0px;
-	padding: 6px;
+.flowPanel .itemContainer .info .info-down .date {
+	flex-direction: row;
+	font-size: 15px;
+	line-height: center;
 }
-
-
