@@ -26,10 +26,10 @@
 			</view>
 
 			<!-- 帖子的图片 -->
-			<view class="photo_">
+			<view class="photo_" v-show="len">
 				<swiper circular indicator-dots>
 					<swiper-item v-for="item in swipers">
-						<image :src="item" class="photo"></image>
+						<image :src="item" class="" mode="aspectFit"></image>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -75,20 +75,39 @@
 				<view class="" style="height: 300rpx;">
 					<view class="comment1" v-for="(item,index) in allComments" :key="index"
 						style="margin-left: 1rpx;margin-top: 5rpx;">
-						<view class="" style="display:flex;background-color: antiquewhite;width: 750rpx;">
-							<image :src="item.user.iconUrl" style="width: 100rpx;height: 100rpx;" mode="">
+						<view class="" style="display:flex;width: 750rpx;">
+							<image :src="item.user.iconUrl" style="width: 100rpx;height: 100rpx;border-radius: 100rpx;"
+								mode="">
 							</image>
 							<view class="">
-								<view class="" style="position:relative;background-color: #888bf4;height: 50rpx;">
+								<view class="" style="position:relative;height: 50rpx;">
 									{{item.user.username}}
 								</view>
-								<view class="" style="position:relative;background-color: aqua;height: 50rpx;">
+								<view class="" style="position:relative;height: 50rpx;">
 									{{item.context}}
 								</view>
+								<view class="" v-for="(item1,index1) in item.comments" :key="index1"
+									style=" margin-left: 1rpx;margin-top: 5rpx;">
+
+									<view class="" style="display: flex;">
+										<image :src="item1.user.iconUrl"
+											style="width: 80rpx;height: 80rpx;border-radius: 80rpx;" mode="">
+										</image>
+										<view class="">
+											<view class="" style="height: 40rpx;">
+												{{item1.user.username}}
+											</view>
+											<view class="" style="height: 40rpx;">
+												{{item1.context}}
+											</view>
+
+										</view>
+									</view>
+
+
+
+								</view>
 							</view>
-
-
-
 
 						</view>
 						<!-- <view class="" v-for="(item1,index1) in allComments" :key="index">
@@ -130,12 +149,8 @@
 						name: 'heart-filled'
 					}
 				],
-				lon: false,
-				swipers: [
-					'/static/Header_img.png',
-					'/static/Header_img.png',
-					'/static/Header_img.png',
-				],
+				swipers: [],
+				len: 0,
 				uid: 0,
 				pid: 0, //帖子的id
 				like: 0, //是否给这篇帖子点赞了
@@ -164,7 +179,7 @@
 							"content-type": "application/x-www-form-urlencoded"
 						},
 						data: {
-							pid: 1660373121686
+							pid: that.pid
 						},
 						success: (res) => {
 							console.log(res)
@@ -179,8 +194,9 @@
 								that.allComments = res.data.data.comments;
 								that.icon = res.data.data.iconUrl;
 								that.username = res.data.data.username;
-								that.like = res.data.data.is_liked = true ? 0 : 1;
+								that.like = res.data.data.is_liked == true ? 1 : 0;
 								that.uid = res.data.data.uid;
+								that.len = that.swipers.length;
 							} else {
 								uni.showToast({
 									title: res.data.detail,
@@ -202,6 +218,7 @@
 				let that = this;
 				try {
 					const authorization = uni.getStorageSync('authorization');
+					console.log(authorization)
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						uni.request({
@@ -235,13 +252,14 @@
 				}
 			},
 			like_it() {
-				this.like = (this.like + 1) % 2;
-				if (this.like) {
-					this.numberLike++;
-				} else {
-					this.numberLike--;
-				}
 				let that = this;
+				if (that.like == 0) {
+					that.numberLike++;
+					that.like = that.like + 1;
+				} else {
+					that.numberLike--;
+					that.like = that.like - 1;
+				}
 				try {
 					const authorization = uni.getStorageSync('authorization');
 					if (!authorization) throw DOMException("Nope!");
