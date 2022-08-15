@@ -36,6 +36,7 @@
 			"style": {
 				"navigationBarTitleText": "广场",
 				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 400,
 				"app-plus": {
 					"bounce": "none"
 				},
