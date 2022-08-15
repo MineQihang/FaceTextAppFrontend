@@ -219,7 +219,7 @@
 				let beforePage = pages[pages.length - 2]; // 上一页
 				uni.navigateBack({
 					success: function() {
-						beforePage.mounted(); // 执行上一页的onLoad方法
+						beforePage.autoRefesh(); // 执行上一页的onLoad方法
 					}
 				});
 			},
