@@ -222,7 +222,7 @@
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						uni.request({
-							url: 'http://124.221.253.187:5000/comment/comment_for_post/',
+							url: 'http://124.221.253.187:5000/comment/comment_for_post',
 							method: 'POST',
 							header: {
 								'Authorization': authorization,
