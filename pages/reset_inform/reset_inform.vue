@@ -125,7 +125,7 @@
 								that.motto = res.data.data.motto;
 								that.mail = res.data.data.mail;
 								that.icon = res.data.data.iconUrl;
-								console.log(res.data.data);
+								// console.log(res.data.data);
 								that.uid = res.data.data.uid;
 							} else {
 								uni.showToast({

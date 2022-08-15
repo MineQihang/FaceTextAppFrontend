@@ -53,7 +53,10 @@
 				username: '',
 				uid: 0,
 				flowList: [],
-				authorization: ""
+				authorization: "",
+				iconUrl: "",
+				motto: "",
+				postNum: ""
 			}
 		},
 		onShow() {
@@ -73,8 +76,8 @@
 					console.log("check");
 					if (res1.statusCode == 200) {
 						// 获取的data有问题
-						let datas = res1.data.data;
-						console.log(datas);
+						// let datas = res1.data.data;
+						// console.log(datas);
 						that.flowList = datas;
 						console.log(that.flowList);
 						// this.flowList = dataJson.flowList;
