@@ -118,7 +118,9 @@
 						<!-- <view class="" v-for="(item1,index1) in allComments" :key="index">
 						
 					</view> -->
+
 					</view>
+					<view style="height: 120rpx; width: 100%;"></view>
 				</view>
 			</view>
 		</view>
@@ -187,65 +189,72 @@
 				replycid: 0
 			}
 		},
+		onPullDownRefresh() {
+			this.sendRequest();
+			uni.stopPullDownRefresh()
+		},
 		mounted() {
-			let that = this;
-			try {
-				const authorization = uni.getStorageSync('authorization');
-				console.log(authorization)
-				if (!authorization) throw DOMException("Nope!");
-				else {
-					uni.request({
-						url: 'http://124.221.253.187:5000/post/get_post_by_pid',
-						method: 'POST',
-						header: {
-							'Authorization': authorization,
-							"content-type": "application/x-www-form-urlencoded"
-						},
-						data: {
-							pid: that.pid
-						},
-						success: (res) => {
-							console.log(res)
-							this.text = 'request success';
-							if (res.statusCode == 200) {
-								that.numberComment = res.data.data.commentNum;
-								that.numberLike = res.data.data.likeNum;
-								that.post_title = res.data.data.title;
-								that.post_main = res.data.data.context;
-								that.time = res.data.data.createdTime;
-								that.swipers = res.data.data.imgUrls;
-								that.allComments = res.data.data.comments;
-								that.icon = res.data.data.iconUrl;
-								that.username = res.data.data.username;
-								that.like = res.data.data.is_liked == true ? 1 : 0;
-								that.uid = res.data.data.uid;
-								that.len = that.swipers.length;
-								console.log(1)
-								if (res.data.data.comments && res.data.data.comments.length) {
-									if (res.data.data.comments.user) {
-										that.comment1_cid = res.data.data.comments.cid;
-										that.comuser_1 = res.data.data.comments.user.username;
-									}
-									if (res.data.data.comments.comments && res.data.data.comments.comments
-										.length) {
-										that.comuser_2 = res.data.data.comments.comments.user.username;
-										that.comment2_cid = res.data.data.comments.comment.cid;
-									}
-								}
-							} else {
-								uni.showToast({
-									title: res.data.detail,
-									icon: 'none'
-								})
-							}
-						}
-					})
-				}
-			} catch (e) {
-				console.log(e)
-			}
+			this.sendRequest();
 		},
 		methods: {
+			sendRequest() {
+				let that = this;
+				try {
+					const authorization = uni.getStorageSync('authorization');
+					console.log(authorization)
+					if (!authorization) throw DOMException("Nope!");
+					else {
+						uni.request({
+							url: 'http://124.221.253.187:5000/post/get_post_by_pid',
+							method: 'POST',
+							header: {
+								'Authorization': authorization,
+								"content-type": "application/x-www-form-urlencoded"
+							},
+							data: {
+								pid: that.pid
+							},
+							success: (res) => {
+								console.log(res)
+								this.text = 'request success';
+								if (res.statusCode == 200) {
+									that.numberComment = res.data.data.commentNum;
+									that.numberLike = res.data.data.likeNum;
+									that.post_title = res.data.data.title;
+									that.post_main = res.data.data.context;
+									that.time = res.data.data.createdTime;
+									that.swipers = res.data.data.imgUrls;
+									that.allComments = res.data.data.comments;
+									that.icon = res.data.data.iconUrl;
+									that.username = res.data.data.username;
+									that.like = res.data.data.is_liked == true ? 1 : 0;
+									that.uid = res.data.data.uid;
+									that.len = that.swipers.length;
+									console.log(1)
+									if (res.data.data.comments && res.data.data.comments.length) {
+										if (res.data.data.comments.user) {
+											that.comment1_cid = res.data.data.comments.cid;
+											that.comuser_1 = res.data.data.comments.user.username;
+										}
+										if (res.data.data.comments.comments && res.data.data.comments.comments
+											.length) {
+											that.comuser_2 = res.data.data.comments.comments.user.username;
+											that.comment2_cid = res.data.data.comments.comment.cid;
+										}
+									}
+								} else {
+									uni.showToast({
+										title: res.data.detail,
+										icon: 'none'
+									})
+								}
+							}
+						})
+					}
+				} catch (e) {
+					console.log(e)
+				}
+			},
 			pushUpCommentInput(item) {
 				this.postOrComment = !this.postOrComment;
 				this.replyUser = "回复: " + item.user.username;
@@ -274,41 +283,8 @@
 								console.log(res)
 								this.text = 'request success';
 								if (res.statusCode == 200) {
-									that.comment_text = '',
-										uni.request({
-											url: 'http://124.221.253.187:5000/post/get_post_by_pid',
-											method: 'POST',
-											header: {
-												'Authorization': authorization,
-												"content-type": "application/x-www-form-urlencoded"
-											},
-											data: {
-												pid: that.pid
-											},
-											success: (res) => {
-												console.log(res)
-												this.text = 'request success';
-												if (res.statusCode == 200) {
-													that.numberComment = res.data.data.commentNum;
-													that.numberLike = res.data.data.likeNum;
-													that.post_title = res.data.data.title;
-													that.post_main = res.data.data.context;
-													that.time = res.data.data.createdTime;
-													that.swipers = res.data.data.imgUrls;
-													that.allComments = res.data.data.comments;
-													that.icon = res.data.data.iconUrl;
-													that.username = res.data.data.username;
-													that.like = res.data.data.is_liked == true ? 1 : 0;
-													that.uid = res.data.data.uid;
-													that.len = that.swipers.length;
-												} else {
-													uni.showToast({
-														title: res.data.detail,
-														icon: 'none'
-													})
-												}
-											}
-										})
+									that.comment_text = '';
+									this.sendRequest();
 									console.log(res.detail)
 								} else {
 									uni.showToast({
