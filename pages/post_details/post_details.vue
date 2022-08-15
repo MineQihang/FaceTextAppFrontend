@@ -487,8 +487,8 @@
 
 	.nickname {
 		font-weight: 200;
-		font-size: 50rpx;
-		margin-top: 30rpx;
+		font-size: 38rpx;
+		margin-top: 20rpx;
 		margin-left: 20rpx;
 	}
 
@@ -497,6 +497,7 @@
 		right: 5%;
 		margin-top: 25rpx;
 		font-weight: 150;
+		font-size: 20rpx;
 	}
 
 	.com_like {
