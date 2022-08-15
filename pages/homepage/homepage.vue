@@ -12,11 +12,12 @@
 		<view class="content">
 			<view class="flowPanel">
 				<view class="itemContainer" v-for="(item,index) in flowList" :key="index" @click="turnToPost(item.pid)">
-					<!-- <view class="top">
-
-					</view> -->
+					<view class="top">
+						<img class="userIcon" :src="item.user.iconUrl"></image>
+						<view class="username">{{item.user.username}}</view>
+					</view>
 					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
-						<img :src="url" mode="widthFix">
+						<img class="postPhoto" :src="url" mode="widthFix">
 					</view>
 					<view class="title">{{item.title}}</view>
 					<view class="info">
@@ -54,6 +55,7 @@
 				searchValue: '', //搜索栏数据
 				uid: 79,
 				flowList: [],
+				bpid: 9660530943306,
 				authorization: ""
 			}
 		},
@@ -132,6 +134,10 @@
 					header: {
 						'Authorization': that.authorization
 					},
+					data: {
+						limit: 10,
+						bpid: 9660530943306
+					},
 					success: (res1) => {
 						// console.log(res1);
 						// console.log("check");
@@ -139,10 +145,12 @@
 							let datas = res1.data.data;
 							// console.log(datas);
 							that.flowList = datas;
+							// that.bpid = that.flowList[8].bpid;
 							// console.log(flowList);
 							// this.flowList = dataJson.flowList;
 						} else {
 							that.flowList = dataJson.flowList;
+							that.bpid = 9660530943306;
 							console.log("获取帖子失败");
 						}
 					}
