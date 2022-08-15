@@ -74,8 +74,8 @@
 					'Authorization': that.authorization
 				},
 				success: (res1) => {
-					console.log(res1);
-					console.log("check");
+					// console.log(res1);
+					// console.log("check");
 					if (res1.statusCode == 200) {
 						// 获取的data有问题
 						let datas = res1.data.data;
@@ -98,10 +98,10 @@
 		methods: {
 			onload() {
 				let that = this;
-				console.log("mounted");
+				// console.log("mounted");
 				try {
 					const authorization = uni.getStorageSync('authorization');
-					console.log(authorization);
+					// console.log(authorization);
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						uni.request({
@@ -118,8 +118,8 @@
 									that.iconUrl = res.data.data.iconUrl;
 									that.postNum = res.data.data.postNum;
 									that.motto = res.data.data.motto;
-									console.log("check");
-									console.log(res);
+									// console.log("check");
+									// console.log(res);
 								} else {
 									uni.showToast({
 										title: res.data.detail,

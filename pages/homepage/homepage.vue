@@ -3,7 +3,7 @@
 	<view class="container">
 		<!-- 搜索框 -->
 		<view class="search-bar">
-			<uni-search-bar placeholder=" " @confirm="search" v-model="searchValue" @input="input" @change="change">
+			<uni-search-bar placeholder=" " @confirm="search" v-model="searchValue" @input="input">
 			</uni-search-bar>
 			<!-- 			当前输入为：{{ searchValue }} -->
 		</view>
@@ -136,7 +136,7 @@
 
 			getPost() {
 				let that = this;
-				console.log("发送的", that.uid);
+				// console.log("发送的", that.uid);
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/get_all',
 					method: 'GET',
