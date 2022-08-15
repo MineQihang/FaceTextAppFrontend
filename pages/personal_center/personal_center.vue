@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="head_img">
+		<view class="head_img" style="background-color: #f5f5f5;">
 			<image src="/static/Header_background.png" style="width: 100%" mode="widthFix">
 		</view>
 

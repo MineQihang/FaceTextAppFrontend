@@ -1,12 +1,16 @@
 <template>
 
 	<view class="container">
-		<!-- 搜索框 -->
-		<view class="search-bar">
-			<uni-search-bar placeholder=" " @confirm="search" v-model="searchValue" @input="input">
-			</uni-search-bar>
-			<!-- 			当前输入为：{{ searchValue }} -->
+		<view class="fake_top" style="width:100%; height=50rpx;padding-top: 50rpx">
+			<!-- 搜索框 -->
+			<view class="search-con">
+				<uni-search-bar class="search-bar" placeholder=" " @confirm="search" v-model="searchValue"
+					@input="input">
+				</uni-search-bar>
+				<!-- 			当前输入为：{{ searchValue }} -->
+			</view>
 		</view>
+
 
 		<!-- 帖子展示 -->
 		<view class="content">
@@ -81,7 +85,7 @@
 			this.getMore();
 		},
 		onShow() {
-			this.flowList = [];
+			// this.flowList = [];
 			this.getUser();
 			this.getPost();
 		},
@@ -233,11 +237,11 @@
 		top: 0%;
 	} */
 
-	/* .search-bar {
+	/* .search-con {
 		position: fixed;
 		top: 2rem;
 		width: 100%;
-	}*/
+	} */
 
 	@import "../../testCss/flowPanel.css";
 
@@ -250,7 +254,7 @@
 	view {
 		display: flex;
 		flex-direction: column;
-		box-sizing: border-box;
+		/* box-sizing: border-box; */
 	}
 
 	.container {
