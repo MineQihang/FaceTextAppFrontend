@@ -10,10 +10,10 @@
 	border: 2px solid;
 	border-color: #f8f8f8;
 	width: 100%;
-	display: flex;
+	/* display: flex; */
 	flex-direction: column;
 	padding: 0px;
-	align-items: center;
+	/* align-items: center; */
 	flex: 1;
 	margin: 16px 0px;
 
@@ -27,10 +27,37 @@
 	width: 80%;
 }
 
-.flowPanel .itemContainer .itemContent img {
+.flowPanel .itemContainer .top {
+	flex-direction: row;
+	justify-content: start;
+}
+
+.flowPanel .itemContainer .top .userIcon {
+	border-radius: 80rpx;
+	height: 70rpx;
+	width: 70rpx;
+	margin-top: 10rpx;
+	margin-left: 30rpx;
+}
+
+.flowPanel .itemContainer .top .username {
+	font-weight: 200;
+	font-size: 35rpx;
+	margin-top: 30rpx;
+	margin-left: 20rpx;
+}
+
+.flowPanel .itemContainer .itemContent {
+	align-items: center;
 	width: 100%;
+	/* border: red solid 10px; */
+}
+
+.flowPanel .itemContainer .itemContent .postPhoto {
+	width: 90%;
 	object-fit: scale-down;
 	padding-top: 10px;
+	align-self: center;
 }
 
 .flowPanel .itemContainer .title {
@@ -41,9 +68,9 @@
 	word-wrap: break-word;
 	word-break: break-all;
 	color: #333;
-	text-align: left;
+	text-align: center;
 	padding: 0.2em 0.5em;
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .flowPanel .itemContainer .info {
