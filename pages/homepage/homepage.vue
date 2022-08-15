@@ -61,6 +61,7 @@
 			}
 		},
 		onLoad: function(option) {
+			this.getUser();
 			this.getPost();
 			setTimeout(function() {
 				console.log('start pulldown');
