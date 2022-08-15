@@ -4,8 +4,8 @@
 		<!-- 顶部返回和点赞 -->
 		<view class="head">
 			<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
-			<uni-icons :type="like_or_not[like].name" size="30" class="heart-icon" @click="like_it()">
-			</uni-icons>
+			<!-- <uni-icons :type="like_or_not[like].name" size="30" class="heart-icon" @click="like_it()"> -->
+			<!-- </uni-icons> -->
 		</view>
 
 		<view class="main_con">
@@ -21,7 +21,8 @@
 				</view>
 				<!-- 发帖时间 -->
 				<view class="post_time">
-					{{time}}
+					{{time.split("T").join(" ")}}
+
 				</view>
 			</view>
 
@@ -48,7 +49,8 @@
 					<view class="" style="margin-left: 50rpx;">
 						{{numberLike}}
 					</view>
-					<uni-icons type="heart" size="30" class="like-icon"></uni-icons>
+					<uni-icons :type="like_or_not[like].name" size="30" class="like-icon" @click="like_it()">
+					</uni-icons>
 				</view>
 			</view>
 
