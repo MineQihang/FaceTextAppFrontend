@@ -8,7 +8,7 @@
 			<image src="/static/Frame_7064_Iconly_Light_Setting2.png" style="height: 60rpx;width:60rpx;">
 		</view>
 		<view class="portrait">
-			<image src="iconUrl" alt="" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
+			<image :src="iconUrl" mode="aspectFill" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 		<view class="testText1">
 			<text selectable='true'>{{username}}</text>
@@ -53,7 +53,10 @@
 				username: '',
 				uid: 0,
 				flowList: [],
-				authorization: ""
+				authorization: "",
+				iconUrl: "",
+				motto: "",
+				postNum: ""
 			}
 		},
 		onShow() {
@@ -73,8 +76,8 @@
 					console.log("check");
 					if (res1.statusCode == 200) {
 						// 获取的data有问题
-						let datas = res1.data.data;
-						console.log(datas);
+						// let datas = res1.data.data;
+						// console.log(datas);
 						that.flowList = datas;
 						console.log(that.flowList);
 						// this.flowList = dataJson.flowList;
@@ -210,7 +213,7 @@
 		margin-bottom: 100rpx;
 		margin-left: 75rpx;
 		margin-right: 70rpx;
-		
+
 	}
 
 	.middle_a {

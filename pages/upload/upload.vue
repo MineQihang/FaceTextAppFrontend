@@ -75,14 +75,14 @@
 						src: url,
 						quality: 50,
 						success: res => {
-							console.log(res.tempFilePath)
+							// console.log(res.tempFilePath)
 							uni.uploadFile({
 								url: 'http://124.221.253.187:5000/service/upload_img',
 								filePath: res.tempFilePath,
 								name: "img",
 								success: (res) => {
 									this.imgUrls.push(JSON.parse(res.data)["url"]);
-									// console.log(this.imgUrls);
+									console.log(this.imgUrls);
 									setTimeout(() => {
 										resolve(res.data.data)
 									}, 1000)
