@@ -118,19 +118,19 @@
 			"iconPath": "static/Field_Navigation_barr_Group_7010.png",
 			"height": "80px",
 			"iconWidth": "60px",
-			"text": "发布"
+			"text": ""
 		},
 		"list": [{
-				"text": "广场",
+				"text": "",
 				"pagePath": "pages/homepage/homepage",
 				"iconPath": "static/Iconly_Light_Home_copy.png",
 				"selectedIconPath": "static/Iconly_Light_Home.png"
 			},
 			{
-				"text": "个人中心",
+				"text": "",
 				"pagePath": "pages/personal_center/personal_center",
 				"iconPath": "static/Iconly_Light_Profile.png",
-				"selectedIconPath": "static/Iconly_Light_Profile (1).png"
+				"selectedIconPath": "static/Iconly_Light_Profile_(1).png"
 			}
 		]
 	}
