@@ -322,14 +322,7 @@
 				}
 			},
 			back() {
-				let pages = getCurrentPages(); // 当前页面
-				let beforePage = pages[pages.length - 2]; // 上一页
-				uni.navigateTo({
-					// url: '/pages/homepage/homepage'
-					success: function() {
-						beforePage.onLoad(); // 执行上一页的onLoad方法
-					}
-				});
+				uni.navigateBack()
 			},
 			send_comment() {
 				let that = this;
