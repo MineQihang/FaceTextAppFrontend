@@ -11,7 +11,7 @@
 		<!-- 帖子展示 -->
 		<view class="content">
 			<view class="flowPanel">
-				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
+				<view class="itemContainer" v-for="(item,index) in flowList" :key="index" @click="turnToPost(item.pid)">
 					<!-- <view class="top">
 
 					</view> -->
@@ -74,6 +74,15 @@
 			this.loadData();
 		},
 		methods: {
+			turnToPost(pid) {
+				console.log(pid);
+				let url1 = '/pages/post_details/post_details?pid=' + pid;
+				console.log(url1);
+				uni.navigateTo({
+					url: url1
+				})
+			},
+
 			loadData() {
 				this.getUser();
 				this.getPost();
