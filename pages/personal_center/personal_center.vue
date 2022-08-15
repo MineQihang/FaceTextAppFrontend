@@ -8,7 +8,7 @@
 			<image src="/static/Frame_7064_Iconly_Light_Setting2.png" style="height: 60rpx;width:60rpx;">
 		</view>
 		<view class="portrait">
-			<<image :src="iconUrl" mode="aspectFill" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
+			<image :src="iconUrl" mode="aspectFill" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 		</view>
 		<view class="testText1">
 			<text selectable='true'>{{username}}</text>
@@ -31,10 +31,14 @@
 					<view class="info">
 						<view class="left">
 							<view class="myfont icon-shijian"></view>
-							<view class="date">{{item.updatedTime}}</view>
+							<uni-icons type="calendar" size="20"></uni-icons>
+							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
+							<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
 							<view class="commentNum">{{item.commentNum}}</view>
 						</view>
 						<view class="right">
+							<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
+							<uni-icons type="heart" size="20" v-else></uni-icons>
 							<view class="clickNum">{{item.likeNum}}</view>
 						</view>
 					</view>
@@ -61,8 +65,6 @@
 		},
 		onShow() {
 			this.onload();
-		},
-		mounted() {
 			let that = this;
 			that.authorization = uni.getStorageSync("authorization");
 			uni.request({
@@ -77,9 +79,9 @@
 					if (res1.statusCode == 200) {
 						// 获取的data有问题
 						let datas = res1.data.data;
-						//console.log(datas);
+						// console.log(datas);
 						that.flowList = datas;
-						//console.log(that.flowList);
+						// console.log(that.flowList);
 						// this.flowList = dataJson.flowList;
 					} else {
 						this.flowList = dataJson.flowList;
@@ -87,6 +89,9 @@
 					}
 				}
 			})
+		},
+		mounted() {
+
 
 		},
 
@@ -213,7 +218,7 @@
 		margin-bottom: 100rpx;
 		margin-left: 75rpx;
 		margin-right: 70rpx;
-		
+
 	}
 
 	.middle_a {
@@ -229,7 +234,7 @@
 
 	.content {
 		width: 100%;
-		background-color: #ffffff;
+		background-color: #f5f5f5;
 		padding: 0px;
 		height: 400px;
 		margin-top: 150px;

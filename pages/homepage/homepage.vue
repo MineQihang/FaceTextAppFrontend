@@ -61,6 +61,8 @@
 			}
 		},
 		onLoad: function(option) {
+			this.flowList = [];
+			this.getUser();
 			this.getPost();
 			setTimeout(function() {
 				console.log('start pulldown');
@@ -74,9 +76,14 @@
 				uni.stopPullDownRefresh();
 			}, 1000);
 		},
-		mounted() {
-			this.loadData();
+		onShow() {
+			this.flowList = [];
+			this.getUser();
+			this.getPost();
 		},
+		// mounted() {
+		// 	this.loadData();
+		// },
 		methods: {
 			turnToPost(pid) {
 				console.log(pid);
@@ -87,10 +94,10 @@
 				})
 			},
 
-			loadData() {
-				this.getUser();
-				this.getPost();
-			},
+			// loadData() {
+			// 	this.getUser();
+			// 	this.getPost();
+			// },
 
 			getUser() {
 				// return new Promise(() => {
