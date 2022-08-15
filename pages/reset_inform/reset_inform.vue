@@ -9,7 +9,7 @@
 
 			<!-- 用户头像 -->
 			<view class="portrait">
-				<image :src="icon" alt="" @click="setIcon()" mode="aspectFill"
+				<image :src="iconUrl" alt="" @click="setIcon()" mode="aspectFill"
 					style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
 			</view>
 
@@ -72,7 +72,7 @@
 			<button class="btn" @click="save_inf()">保存信息</button>
 
 		</view>
-
+		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
 </template>
 
@@ -98,7 +98,6 @@
 				age: '',
 				mail: '',
 				motto: '',
-				icon: '',
 				uid: '',
 				iconUrl: ''
 			}
@@ -124,7 +123,7 @@
 								that.age = res.data.data.age;
 								that.motto = res.data.data.motto;
 								that.mail = res.data.data.mail;
-								that.icon = res.data.data.iconUrl;
+								that.iconUrl = res.data.data.iconUrl;
 								// console.log(res.data.data);
 								that.uid = res.data.data.uid;
 							} else {
@@ -162,7 +161,7 @@
 							age: that.age,
 							mail: that.mail,
 							motto: that.motto,
-							iconUrl: that.iconUrl ? that.iconUrl : that.icon
+							iconUrl: that.iconUrl
 						}, //发送的数据
 						success: (res) => {
 							console.log(res)
@@ -187,18 +186,17 @@
 					console.log(e)
 				}
 			},
+
+			// #ifdef APP-PLUS
 			setIcon() {
 				let that = this;
 				uni.chooseImage({
 					count: 1,
-
 					sourceType: ['album'], //从相册选择
-					// #ifdef APP-PLUS
 					crop: {
-						quality: 40
+						width: "250px",
+						height: "250px"
 					},
-					// #endif
-
 					success: function(res) {
 						// console.log(res.tempFilePaths[0])
 						that.icon = res.tempFilePaths[0];
@@ -218,8 +216,46 @@
 						});
 					}
 				});
-			}
+			},
+			// #endif
 
+			// #ifdef H5
+			setIcon() {
+				let that = this;
+				uni.chooseImage({
+					count: 1,
+					sourceType: ['album'], //从相册选择
+					success: function(res) {
+						// console.log(res.tempFilePaths[0])
+						that.$refs.helangCompress.compress({
+							src: res.tempFilePaths[0],
+							maxSize: 250,
+							fileType: "jpg",
+							minSize: 250
+						}).then((res2) => {
+							// console.log(res2);
+							// this.compressPaths = [res];
+							uni.uploadFile({
+								url: 'http://124.221.253.187:5000/service/upload_img',
+								filePath: res2,
+								name: "img",
+								success: (res3) => {
+									// console.log(JSON.parse(res3.data)["url"])
+									that.iconUrl = JSON.parse(res3.data)["url"];
+									console.log("头像上传成功")
+								},
+								fail(res3) {
+									console.log(res3);
+									console.log("头像上传失败")
+								}
+							});
+						}).catch((err) => {
+							console.log(err);
+						})
+					}
+				});
+			},
+			// #endif
 		},
 	}
 </script>
