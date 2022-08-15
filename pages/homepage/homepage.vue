@@ -109,12 +109,12 @@
 				try {
 					that.authorization = uni.getStorageSync('authorization');
 					// console.log(authorization);
-					if (!that.authorization) throw DOMException("Nope!");
+					if (!authorization) throw DOMException("Nope!");
 					else {
 						uni.request({
 							url: 'http://124.221.253.187:5000/user/user-info',
 							header: {
-								'Authorization': that.authorization
+								'Authorization': authorization
 							},
 							success: (res) => {
 								// console.log(res);
@@ -122,7 +122,7 @@
 								if (res.statusCode == 200) {
 									that.username = res.data.data.username;
 									that.uid = res.data.data.uid;
-									// console.log("收到的", that.uid);
+									console.log("收到的", that.uid);
 								} else {
 									uni.showToast({
 										title: res.data.detail,
