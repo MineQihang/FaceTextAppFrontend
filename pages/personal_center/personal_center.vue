@@ -23,7 +23,7 @@
 
 		<view class="content">
 			<view class="flowPanel">
-				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
+				<view class="itemContainer" v-for="(item,index) in flowList" :key="index" @click="turnToPost(item.pid)">
 					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
 						<img class="postPhoto" :src="url" mode="widthFix">
 					</view>
@@ -43,7 +43,7 @@
 						</view>
 
 						<view class="info-down">
-							<uni-icons type="calendar" size="20"></uni-icons>
+							<uni-icons class="dateIcon" type="calendar" size="20"></uni-icons>
 							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
 						</view>
 					</view>
@@ -101,6 +101,15 @@
 		},
 
 		methods: {
+			turnToPost(pid) {
+				console.log(pid);
+				let url1 = '/pages/post_details/post_details?pid=' + pid;
+				console.log(url1);
+				uni.navigateTo({
+					url: url1
+				})
+			},
+
 			onload() {
 				let that = this;
 				// console.log("mounted");
@@ -241,7 +250,7 @@
 		width: 100%;
 		background-color: #f5f5f5;
 		padding: 0 15px;
-		height: 400px;
+		/* height: 400px; */
 		margin-top: 150px;
 	}
 </style>

@@ -9,7 +9,7 @@
 .flowPanel .itemContainer {
 	border: 2px solid;
 	border-color: #f8f8f8;
-	width: 100%;
+	width: 85%;
 	/* display: flex; */
 	flex-direction: column;
 	padding: 0px;
@@ -25,6 +25,7 @@
 
 .flowPanel .itemContainer .itemContent {
 	width: 80%;
+	text-align: center;
 }
 
 .flowPanel .itemContainer .top {
@@ -114,11 +115,20 @@
 }
 
 .flowPanel .itemContainer .info .info-down {
+	display: flex;
 	flex-direction: row;
+	/* border: red solid 10px; */
+}
+
+.flowPanel .itemContainer .info .info-down .dateIcon {
+	/* border: yellow solid 10px; */
+	line-height: center;
 }
 
 .flowPanel .itemContainer .info .info-down .date {
 	flex-direction: row;
 	font-size: 15px;
 	line-height: center;
+	/* border: yellow solid 10px; */
+	/* float: left; */
 }
