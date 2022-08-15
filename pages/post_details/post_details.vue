@@ -161,8 +161,8 @@
 				numberLike: 0, //点赞数
 				allComments: [], //所有评论
 				comment_text: '', //给这个帖子的评论
-				post_title: '滕王阁序', //帖子标题
-				post_main: '豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖騑于上路，访风景于崇阿。临帝子之长洲，得天人之旧馆。层峦耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势', //帖子正文
+				post_title: '', //帖子标题
+				post_main: ''
 			}
 		},
 		mounted() {
@@ -222,7 +222,7 @@
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						uni.request({
-							url: 'http://124.221.253.187:5000/comment/comment_for_post/',
+							url: 'http://124.221.253.187:5000/comment/comment_for_post',
 							method: 'POST',
 							header: {
 								'Authorization': authorization,
@@ -237,7 +237,41 @@
 								this.text = 'request success';
 								if (res.statusCode == 200) {
 									that.comment_text = '',
-										console.log(res.detail)
+										uni.request({
+											url: 'http://124.221.253.187:5000/post/get_post_by_pid',
+											method: 'POST',
+											header: {
+												'Authorization': authorization,
+												"content-type": "application/x-www-form-urlencoded"
+											},
+											data: {
+												pid: that.pid
+											},
+											success: (res) => {
+												console.log(res)
+												this.text = 'request success';
+												if (res.statusCode == 200) {
+													that.numberComment = res.data.data.commentNum;
+													that.numberLike = res.data.data.likeNum;
+													that.post_title = res.data.data.title;
+													that.post_main = res.data.data.context;
+													that.time = res.data.data.createdTime;
+													that.swipers = res.data.data.imgUrls;
+													that.allComments = res.data.data.comments;
+													that.icon = res.data.data.iconUrl;
+													that.username = res.data.data.username;
+													that.like = res.data.data.is_liked == true ? 1 : 0;
+													that.uid = res.data.data.uid;
+													that.len = that.swipers.length;
+												} else {
+													uni.showToast({
+														title: res.data.detail,
+														icon: 'none'
+													})
+												}
+											}
+										})
+									console.log(res.detail)
 								} else {
 									uni.showToast({
 										title: res.data.detail,
