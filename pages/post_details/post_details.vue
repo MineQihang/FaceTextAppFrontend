@@ -80,21 +80,26 @@
 								mode="">
 							</image>
 							<view class="">
-								<view class="" style="position:relative;height: 50rpx;">
-									{{item.user.username}}
-								</view>
-								<view class="" style="position:relative;height: 50rpx;">
-									{{item.context}}
+								<view @click="pushUpCommentInput(item)">
+									<view class="" style="position:relative;height: 50rpx;font-weight: 800;">
+										{{item.user.username}}
+									</view>
+									<view class="" style="position:relative;height: 50rpx;" @click="com2com()">
+										{{item.context}}
+									</view>
 								</view>
 								<view class="" v-for="(item1,index1) in item.comments" :key="index1"
-									style=" margin-left: 1rpx;margin-top: 5rpx;">
+									style=" margin-left: 1rpx;margin-top: 5rpx;" @click="pushUpCommentInput(item1)">
 
 									<view class="" style="display: flex;">
 										<image :src="item1.user.iconUrl"
 											style="width: 80rpx;height: 80rpx;border-radius: 80rpx;" mode="">
 										</image>
 										<view class="">
-											<view class="" style="height: 40rpx;">
+											<view class="" style="height: 40rpx;font-weight: 800;" v-if="item1.reply">
+												{{item1.user.username}}回复{{item1.reply.username}}
+											</view>
+											<view class="" style="height: 40rpx;font-weight: 800;" v-else>
 												{{item1.user.username}}
 											</view>
 											<view class="" style="height: 40rpx;">
@@ -103,8 +108,6 @@
 
 										</view>
 									</view>
-
-
 
 								</view>
 							</view>
@@ -115,17 +118,26 @@
 					</view> -->
 					</view>
 				</view>
-				<!-- 写评论 -->
-				<view class="give_comment">
-					<view class=""
-						style="border-radius: 50rpx;width: 84%;height:100rpx;background-color: gainsboro;display: flex;">
-						<input type="text" placeholder="添加评论" style="height: 100rpx;margin-left: 30rpx;"
-							v-model="comment_text">
-						<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
-						 ;" @click="send_comment()">发表</button>
-					</view>
-
-				</view>
+			</view>
+		</view>
+		<!-- 写评论 -->
+		<view class="give_comment" v-show="postOrComment">
+			<view class=""
+				style="border-radius: 50rpx;width: 84%;height:100rpx;background-color: gainsboro;display: flex;">
+				<input type="text" placeholder="发一条友善的评论" style="height: 100rpx;margin-left: 30rpx;"
+					v-model="comment_text">
+				<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
+				 ;" @click="send_comment()">发表</button>
+			</view>
+		</view>
+		<!-- 对评论发表评论 -->
+		<view class="give_comment" v-show="!postOrComment">
+			<view class=""
+				style="border-radius: 50rpx;width: 84%;height:100rpx;background-color: gainsboro;display: flex;">
+				<input type="text" :placeholder="replyUser" style="height: 100rpx;margin-left: 30rpx;"
+					v-model="comment_text" :focus="!postOrComment">
+				<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
+				 ;" @click="send_comment_for_comment()">发表</button>
 			</view>
 		</view>
 	</view>
@@ -153,6 +165,8 @@
 				len: 0,
 				uid: 0,
 				pid: 0, //帖子的id
+				comment1_cid: 0,
+				comment2_cid: 0, //评论的id
 				like: 0, //是否给这篇帖子点赞了
 				icon: '/static/Header_img.png', //发帖人头像
 				username: 'ikun', //发帖用户名
@@ -162,13 +176,20 @@
 				allComments: [], //所有评论
 				comment_text: '', //给这个帖子的评论
 				post_title: '', //帖子标题
-				post_main: ''
+				post_main: '',
+				comuser_1: '',
+				comuser_2: '',
+				comuser_3: '',
+				postOrComment: true,
+				replyUser: '',
+				replycid: 0
 			}
 		},
 		mounted() {
 			let that = this;
 			try {
 				const authorization = uni.getStorageSync('authorization');
+				console.log(authorization)
 				if (!authorization) throw DOMException("Nope!");
 				else {
 					uni.request({
@@ -197,6 +218,18 @@
 								that.like = res.data.data.is_liked == true ? 1 : 0;
 								that.uid = res.data.data.uid;
 								that.len = that.swipers.length;
+								console.log(1)
+								if (res.data.data.comments && res.data.data.comments.length) {
+									if (res.data.data.comments.user) {
+										that.comment1_cid = res.data.data.comments.cid;
+										that.comuser_1 = res.data.data.comments.user.username;
+									}
+									if (res.data.data.comments.comments && res.data.data.comments.comments
+										.length) {
+										that.comuser_2 = res.data.data.comments.comments.user.username;
+										that.comment2_cid = res.data.data.comments.comment.cid;
+									}
+								}
 							} else {
 								uni.showToast({
 									title: res.data.detail,
@@ -211,8 +244,85 @@
 			}
 		},
 		methods: {
+			pushUpCommentInput(item) {
+				this.postOrComment = !this.postOrComment;
+				this.replyUser = "回复: " + item.user.username;
+				this.replycid = item.cid;
+			},
+			send_comment_for_comment() {
+				let that = this;
+				try {
+					const authorization = uni.getStorageSync('authorization');
+					console.log(authorization)
+					if (!authorization) throw DOMException("Nope!");
+					else {
+						uni.request({
+							url: 'http://124.221.253.187:5000/comment/comment_for_comment',
+							method: 'POST',
+							header: {
+								'Authorization': authorization,
+								"content-type": "application/x-www-form-urlencoded"
+							},
+							data: {
+								pid: that.pid,
+								context: that.comment_text,
+								parent: that.replycid
+							},
+							success: (res) => {
+								console.log(res)
+								this.text = 'request success';
+								if (res.statusCode == 200) {
+									that.comment_text = '',
+										uni.request({
+											url: 'http://124.221.253.187:5000/post/get_post_by_pid',
+											method: 'POST',
+											header: {
+												'Authorization': authorization,
+												"content-type": "application/x-www-form-urlencoded"
+											},
+											data: {
+												pid: that.pid
+											},
+											success: (res) => {
+												console.log(res)
+												this.text = 'request success';
+												if (res.statusCode == 200) {
+													that.numberComment = res.data.data.commentNum;
+													that.numberLike = res.data.data.likeNum;
+													that.post_title = res.data.data.title;
+													that.post_main = res.data.data.context;
+													that.time = res.data.data.createdTime;
+													that.swipers = res.data.data.imgUrls;
+													that.allComments = res.data.data.comments;
+													that.icon = res.data.data.iconUrl;
+													that.username = res.data.data.username;
+													that.like = res.data.data.is_liked == true ? 1 : 0;
+													that.uid = res.data.data.uid;
+													that.len = that.swipers.length;
+												} else {
+													uni.showToast({
+														title: res.data.detail,
+														icon: 'none'
+													})
+												}
+											}
+										})
+									console.log(res.detail)
+								} else {
+									uni.showToast({
+										title: res.data.detail,
+										icon: 'none'
+									})
+								}
+							}
+						})
+					}
+				} catch (e) {
+					console.log(e)
+				}
+			},
 			back() {
-				uni.navigateBack();
+				uni.navigateBack()
 			},
 			send_comment() {
 				let that = this;
