@@ -162,7 +162,7 @@
 							age: that.age,
 							mail: that.mail,
 							motto: that.motto,
-							iconUrl: that.iconUrl
+							iconUrl: that.iconUrl ? that.iconUrl : that.icon
 						}, //发送的数据
 						success: (res) => {
 							console.log(res)
@@ -191,10 +191,14 @@
 				let that = this;
 				uni.chooseImage({
 					count: 1,
+
 					sourceType: ['album'], //从相册选择
+					// #ifdef APP-PLUS
 					crop: {
 						quality: 40
 					},
+					// #endif
+
 					success: function(res) {
 						// console.log(res.tempFilePaths[0])
 						that.icon = res.tempFilePaths[0];
@@ -202,11 +206,13 @@
 							url: 'http://124.221.253.187:5000/service/upload_img',
 							filePath: res.tempFilePaths[0],
 							name: "img",
-							success: (res) => {
-								that.iconUrl = JSON.parse(res.data)["url"]
+							success: (res2) => {
+
+								that.iconUrl = JSON.parse(res2.data)["url"]
 								console.log("头像上传成功")
 							},
-							fail() {
+							fail(res2) {
+								console.log(res2);
 								console.log("头像上传失败")
 							}
 						});

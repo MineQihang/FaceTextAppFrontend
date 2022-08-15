@@ -61,8 +61,6 @@
 		},
 		onShow() {
 			this.onload();
-		},
-		mounted() {
 			let that = this;
 			that.authorization = uni.getStorageSync("authorization");
 			uni.request({
@@ -87,6 +85,9 @@
 					}
 				}
 			})
+		},
+		mounted() {
+
 
 		},
 
