@@ -170,7 +170,10 @@
 								uni.showToast({
 									title: '保存成功',
 									icon: 'none'
-								})
+								});
+								setTimeout(() => {
+									uni.navigateBack();
+								}, 800)
 							} else {
 								uni.showToast({
 									title: '保存失败',
