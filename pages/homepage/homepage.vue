@@ -76,6 +76,10 @@
 				uni.stopPullDownRefresh();
 			}, 1000);
 		},
+		onReachBottom() {
+			// 触底的时候请求数据，即为上拉加载更多
+			this.getMore();
+		},
 		onShow() {
 			this.flowList = [];
 			this.getUser();
@@ -154,11 +158,48 @@
 							let datas = res1.data.data;
 							// console.log(datas);
 							that.flowList = datas;
-							// that.bpid = that.flowList[8].bpid;
+							that.bpid = that.flowList[that.flowList.length - 1].pid;
+							console.log(that.flowList[that.flowList.length - 1].pid);
 							// console.log(flowList);
 							// this.flowList = dataJson.flowList;
 						} else {
 							that.flowList = dataJson.flowList;
+							that.bpid = 9660530943306;
+							console.log("获取帖子失败");
+						}
+					}
+				})
+			},
+
+			getMore() {
+				let that = this;
+				console.log("发送的", that.uid);
+				uni.request({
+					url: 'http://124.221.253.187:5000/post/get_all',
+					method: 'GET',
+					header: {
+						'Authorization': that.authorization
+					},
+					data: {
+						limit: 10,
+						bpid: that.bpid
+					},
+					success: (res1) => {
+						// console.log(res1);
+						// console.log("check");
+						if (res1.statusCode == 200) {
+							let datas = res1.data.data;
+							console.log(datas);
+							// that.flowList = datas;
+							if (datas && datas.length != 0) {
+								that.flowList.push.apply(that.flowList, datas);
+								that.bpid = that.flowList[that.flowList.length - 1].pid;
+							}
+							// that.bpid = that.flowList[8].bpid;
+							// console.log(flowList);
+							// this.flowList = dataJson.flowList;
+						} else {
+							// that.flowList = dataJson.flowList;
 							that.bpid = 9660530943306;
 							console.log("获取帖子失败");
 						}
