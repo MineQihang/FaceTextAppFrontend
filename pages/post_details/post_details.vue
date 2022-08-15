@@ -200,7 +200,7 @@
 							"content-type": "application/x-www-form-urlencoded"
 						},
 						data: {
-							pid: 1660373121686
+							pid: that.pid
 						},
 						success: (res) => {
 							console.log(res)
