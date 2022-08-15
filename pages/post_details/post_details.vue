@@ -29,7 +29,7 @@
 			<view class="photo_">
 				<swiper circular indicator-dots>
 					<swiper-item v-for="item in swipers">
-						<image :src="item" class="photo"></image>
+						<image :src="item" class="photo" mode="aspectFit"></image>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -164,7 +164,7 @@
 							"content-type": "application/x-www-form-urlencoded"
 						},
 						data: {
-							pid: 1660373121686
+							pid: that.pid
 						},
 						success: (res) => {
 							console.log(res)
