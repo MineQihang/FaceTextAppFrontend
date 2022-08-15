@@ -27,6 +27,7 @@
 								<view class="commentNum">{{item.commentNum}}</view>
 							</view>
 							<view class="zan">
+								<!-- {{item.is_liked}} -->
 								<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
 								<uni-icons type="heart" size="20" v-else></uni-icons>
 								<view class="likeNum">{{item.likeNum}}</view>
@@ -58,6 +59,9 @@
 				bpid: 9660530943306,
 				authorization: ""
 			}
+		},
+		autoRefesh() {
+			this.getPost();
 		},
 		onLoad: function(option) {
 			setTimeout(function() {
