@@ -60,10 +60,9 @@
 				authorization: ""
 			}
 		},
-		autoRefesh() {
-			this.getPost();
-		},
 		onLoad: function(option) {
+			this.getUser();
+			this.getPost();
 			setTimeout(function() {
 				console.log('start pulldown');
 			}, 1000);
