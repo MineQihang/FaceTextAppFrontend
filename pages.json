@@ -132,7 +132,7 @@
 				"text": "个人中心",
 				"pagePath": "pages/personal_center/personal_center",
 				"iconPath": "static/Iconly_Light_Profile.png",
-				"selectedIconPath": "static/Iconly_Light_Profile (1).png"
+				"selectedIconPath": "static/Iconly_Light_Profile_(1).png"
 			}
 		]
 	}
