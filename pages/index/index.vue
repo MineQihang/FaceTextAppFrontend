@@ -32,7 +32,7 @@
 					'Authorization': authorization
 				},
 				success: (res) => {
-					console.log(res);
+					// console.log(res);
 					if (res.statusCode == 200) {
 
 						setTimeout(() => {

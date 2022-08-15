@@ -23,23 +23,28 @@
 
 		<view class="content">
 			<view class="flowPanel">
-				<view class="itemContainer" v-for="(item,index) in flowList" :key="index">
+				<view class="itemContainer" v-for="(item,index) in flowList" :key="index" @click="turnToPost(item.pid)">
 					<view class="itemContent" v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
-						<img :src="url" mode="widthFix">
+						<img class="postPhoto" :src="url" mode="widthFix">
 					</view>
 					<view class="title">{{item.title}}</view>
 					<view class="info">
-						<view class="left">
-							<view class="myfont icon-shijian"></view>
-							<uni-icons type="calendar" size="20"></uni-icons>
-							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
-							<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
-							<view class="commentNum">{{item.commentNum}}</view>
+						<view class="info-up">
+							<view class="comment">
+								<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
+								<view class="commentNum">{{item.commentNum}}</view>
+							</view>
+							<view class="zan">
+								<!-- {{item.is_liked}} -->
+								<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
+								<uni-icons type="heart" size="20" v-else></uni-icons>
+								<view class="likeNum">{{item.likeNum}}</view>
+							</view>
 						</view>
-						<view class="right">
-							<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
-							<uni-icons type="heart" size="20" v-else></uni-icons>
-							<view class="clickNum">{{item.likeNum}}</view>
+
+						<view class="info-down">
+							<uni-icons class="dateIcon" type="calendar" size="20"></uni-icons>
+							<view class="date">{{item.updatedTime.split("T").join(" ")}}</view>
 						</view>
 					</view>
 				</view>
@@ -74,8 +79,8 @@
 					'Authorization': that.authorization
 				},
 				success: (res1) => {
-					console.log(res1);
-					console.log("check");
+					// console.log(res1);
+					// console.log("check");
 					if (res1.statusCode == 200) {
 						// 获取的data有问题
 						let datas = res1.data.data;
@@ -96,12 +101,21 @@
 		},
 
 		methods: {
+			turnToPost(pid) {
+				console.log(pid);
+				let url1 = '/pages/post_details/post_details?pid=' + pid;
+				console.log(url1);
+				uni.navigateTo({
+					url: url1
+				})
+			},
+
 			onload() {
 				let that = this;
-				console.log("mounted");
+				// console.log("mounted");
 				try {
 					const authorization = uni.getStorageSync('authorization');
-					console.log(authorization);
+					// console.log(authorization);
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						uni.request({
@@ -118,8 +132,8 @@
 									that.iconUrl = res.data.data.iconUrl;
 									that.postNum = res.data.data.postNum;
 									that.motto = res.data.data.motto;
-									console.log("check");
-									console.log(res);
+									// console.log("check");
+									// console.log(res);
 								} else {
 									uni.showToast({
 										title: res.data.detail,
@@ -147,11 +161,11 @@
 <style>
 	@import "../../testCss/personal_flowpanel.css";
 
-	@font-face {
+	/* @font-face {
 		font-family: "myfont";
-		src: url('https://at.alicdn.com/t/c/font_3587359_4gnvrajxdln.ttf?t=1660441794186') format('truetype');
-		/* url生成方式：https://cloud.tencent.com/developer/article/1590373?from=article.detail.1848497 */
-	}
+		src: url('https://at.alicdn.com/t/c/font_3587359_4gnvrajxdln.ttf?t=1660441794186') format('truetype'); */
+	/* url生成方式：https://cloud.tencent.com/developer/article/1590373?from=article.detail.1848497 */
+	/* } */
 
 	.set {
 		height: 5rpx;
@@ -235,8 +249,8 @@
 	.content {
 		width: 100%;
 		background-color: #f5f5f5;
-		padding: 0px;
-		height: 400px;
+		padding: 0 15px;
+		/* height: 400px; */
 		margin-top: 150px;
 	}
 </style>
