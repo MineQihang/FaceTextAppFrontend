@@ -1,13 +1,13 @@
 <template>
 	<!-- 帖子详情界面 -->
 	<view style="">
-
 		<!-- 顶部返回和点赞 -->
 		<view class="head">
 			<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
 			<uni-icons :type="like_or_not[like].name" size="30" class="heart-icon" @click="like_it()">
 			</uni-icons>
 		</view>
+
 		<view class="main_con">
 			<!-- 发帖人信息和发帖时间 -->
 			<view class="infor_time">
@@ -26,10 +26,10 @@
 			</view>
 
 			<!-- 帖子的图片 -->
-			<view class="photo_">
+			<view class="photo_" v-show="len">
 				<swiper circular indicator-dots>
 					<swiper-item v-for="item in swipers">
-						<image :src="item" class="photo"></image>
+						<image :src="item" class="" mode="aspectFit"></image>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -71,14 +71,58 @@
 				<view class="" style="background-color: #f1f1fe;margin-left: 10rpx;margin-right: 10rpx;">
 					<text style="color:#888bf4; font-size:35rpx; font-weight:550; margin-left:10rpx">评论</text>
 				</view>
+
 				<view class="" style="height: 300rpx;">
-					这是评论区
+					<view class="comment1" v-for="(item,index) in allComments" :key="index"
+						style="margin-left: 1rpx;margin-top: 5rpx;">
+						<view class="" style="display:flex;width: 750rpx;">
+							<image :src="item.user.iconUrl" style="width: 100rpx;height: 100rpx;border-radius: 100rpx;"
+								mode="">
+							</image>
+							<view class="">
+								<view class="" style="position:relative;height: 50rpx;">
+									{{item.user.username}}
+								</view>
+								<view class="" style="position:relative;height: 50rpx;">
+									{{item.context}}
+								</view>
+								<view class="" v-for="(item1,index1) in item.comments" :key="index1"
+									style=" margin-left: 1rpx;margin-top: 5rpx;">
+
+									<view class="" style="display: flex;">
+										<image :src="item1.user.iconUrl"
+											style="width: 80rpx;height: 80rpx;border-radius: 80rpx;" mode="">
+										</image>
+										<view class="">
+											<view class="" style="height: 40rpx;">
+												{{item1.user.username}}
+											</view>
+											<view class="" style="height: 40rpx;">
+												{{item1.context}}
+											</view>
+
+										</view>
+									</view>
+
+
+
+								</view>
+							</view>
+
+						</view>
+						<!-- <view class="" v-for="(item1,index1) in allComments" :key="index">
+						
+					</view> -->
+					</view>
 				</view>
 				<!-- 写评论 -->
 				<view class="give_comment">
 					<view class=""
-						style="border-radius: 50rpx;width: 80%;height:100rpx;background-color: gainsboro;margin-left: 80rpx;">
-						<input type="text" placeholder="添加评论" style="height: 100rpx;margin-left: 30rpx;">
+						style="border-radius: 50rpx;width: 84%;height:100rpx;background-color: gainsboro;display: flex;">
+						<input type="text" placeholder="添加评论" style="height: 100rpx;margin-left: 30rpx;"
+							v-model="comment_text">
+						<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
+						 ;" @click="send_comment()">发表</button>
 					</view>
 
 				</view>
@@ -105,13 +149,10 @@
 						name: 'heart-filled'
 					}
 				],
-				lon: false,
-				swipers: [
-					'/static/Header_img.png',
-					'/static/Header_img.png',
-					'/static/Header_img.png',
-				],
-				pid: 1660373121686, //帖子的id
+				swipers: [],
+				len: 0,
+				uid: 0,
+				pid: 0, //帖子的id
 				like: 0, //是否给这篇帖子点赞了
 				icon: '/static/Header_img.png', //发帖人头像
 				username: 'ikun', //发帖用户名
@@ -119,6 +160,7 @@
 				numberComment: 0, //评论数
 				numberLike: 0, //点赞数
 				allComments: [], //所有评论
+				comment_text: '', //给这个帖子的评论
 				post_title: '滕王阁序', //帖子标题
 				post_main: '豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖騑于上路，访风景于崇阿。临帝子之长洲，得天人之旧馆。层峦耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势', //帖子正文
 			}
@@ -137,7 +179,7 @@
 							"content-type": "application/x-www-form-urlencoded"
 						},
 						data: {
-							pid: 1660471475672
+							pid: that.pid
 						},
 						success: (res) => {
 							console.log(res)
@@ -152,6 +194,9 @@
 								that.allComments = res.data.data.comments;
 								that.icon = res.data.data.iconUrl;
 								that.username = res.data.data.username;
+								that.like = res.data.data.is_liked == true ? 1 : 0;
+								that.uid = res.data.data.uid;
+								that.len = that.swipers.length;
 							} else {
 								uni.showToast({
 									title: res.data.detail,
@@ -169,8 +214,82 @@
 			back() {
 				uni.navigateBack();
 			},
+			send_comment() {
+				let that = this;
+				try {
+					const authorization = uni.getStorageSync('authorization');
+					console.log(authorization)
+					if (!authorization) throw DOMException("Nope!");
+					else {
+						uni.request({
+							url: 'http://124.221.253.187:5000/comment/comment_for_post/',
+							method: 'POST',
+							header: {
+								'Authorization': authorization,
+								"content-type": "application/x-www-form-urlencoded"
+							},
+							data: {
+								pid: that.pid,
+								context: that.comment_text
+							},
+							success: (res) => {
+								console.log(res)
+								this.text = 'request success';
+								if (res.statusCode == 200) {
+									that.comment_text = '',
+										console.log(res.detail)
+								} else {
+									uni.showToast({
+										title: res.data.detail,
+										icon: 'none'
+									})
+								}
+							}
+						})
+					}
+				} catch (e) {
+					console.log(e)
+				}
+			},
 			like_it() {
-				this.like = (this.like + 1) % 2;
+				let that = this;
+				if (that.like == 0) {
+					that.numberLike++;
+					that.like = that.like + 1;
+				} else {
+					that.numberLike--;
+					that.like = that.like - 1;
+				}
+				try {
+					const authorization = uni.getStorageSync('authorization');
+					if (!authorization) throw DOMException("Nope!");
+					else {
+						uni.request({
+							url: 'http://124.221.253.187:5000/post/like',
+							method: 'POST',
+							header: {
+								'Authorization': authorization,
+								"content-type": "application/x-www-form-urlencoded"
+							},
+							data: {
+								pid: that.pid,
+								uid: that.uid
+							},
+							success: (res) => {
+								console.log(res)
+								this.text = 'request success';
+								if (res.statusCode == 200) {} else {
+									uni.showToast({
+										title: res.data.detail,
+										icon: 'none'
+									})
+								}
+							}
+						})
+					}
+				} catch (e) {
+					console.log(e)
+				}
 			}, //给这个帖子点赞
 		}
 	}
@@ -293,5 +412,10 @@
 		height: 100rpx;
 		width: 750rpx;
 		// background-color: sandybrown;
+	}
+
+	.comment1 {
+		background-color: rgb(246, 240, 249);
+		display: flex;
 	}
 </style>

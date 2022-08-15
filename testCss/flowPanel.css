@@ -1,43 +1,63 @@
 @charset "utf-8";
 
 .flowPanel {
-	/* flex-direction: row; */
 	justify-content: space-between;
 	width: 100%;
 	overflow: hidden;
-	/* background-color: #f8f8f8; */
 }
 
 .flowPanel .itemContainer {
 	border: 2px solid;
 	border-color: #f8f8f8;
 	width: 100%;
-	/* height: 318px; */
-	/* border-radius: 10px; */
-	display: flex;
+	/* display: flex; */
 	flex-direction: column;
 	padding: 0px;
-	align-items: center;
+	/* align-items: center; */
 	flex: 1;
 	margin: 16px 0px;
-	/* background-color: #ffffff; */
 
-	border-radius: 12px;
-	background: linear-gradient(145deg, #dcc5e6, #ffeaff);
-	box-shadow: 6px 6px 12px #cfbad9,
-		-6px -6px 12px #fffcff;
+	/* border-radius: 12px;
+	background: linear-gradient(145deg, #e0ffe9, #bce6c4);
+	box-shadow: 6px 6px 12px #b2d9b9,
+		-6px -6px 12px #f0fffb; */
 }
 
 .flowPanel .itemContainer .itemContent {
 	width: 80%;
-	/* height: 250px; */
-	/* border: 2px solid red; */
 }
 
-.flowPanel .itemContainer .itemContent img {
+.flowPanel .itemContainer .top {
+	flex-direction: row;
+	justify-content: start;
+}
+
+.flowPanel .itemContainer .top .userIcon {
+	border-radius: 80rpx;
+	height: 70rpx;
+	width: 70rpx;
+	margin-top: 10rpx;
+	margin-left: 30rpx;
+}
+
+.flowPanel .itemContainer .top .username {
+	font-weight: 200;
+	font-size: 35rpx;
+	margin-top: 30rpx;
+	margin-left: 20rpx;
+}
+
+.flowPanel .itemContainer .itemContent {
+	align-items: center;
 	width: 100%;
+	/* border: red solid 10px; */
+}
+
+.flowPanel .itemContainer .itemContent .postPhoto {
+	width: 90%;
 	object-fit: scale-down;
 	padding-top: 10px;
+	align-self: center;
 }
 
 .flowPanel .itemContainer .title {
@@ -48,9 +68,9 @@
 	word-wrap: break-word;
 	word-break: break-all;
 	color: #333;
-	text-align: left;
+	text-align: center;
 	padding: 0.2em 0.5em;
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .flowPanel .itemContainer .info {
@@ -64,7 +84,6 @@
 .flowPanel .itemContainer .info .info-up {
 	display: flex;
 	flex-direction: row;
-	/* justify-content: space-between; */
 }
 
 
