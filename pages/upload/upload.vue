@@ -56,7 +56,6 @@
 					})
 				})
 				for (let i = 0; i < lists.length; i++) {
-					console.log(this);
 					const result = await this.uploadFilePromise(lists[i].url)
 					let item = this[`fileList${event.name}`][fileListLen]
 					this[`fileList${event.name}`].splice(fileListLen, 1, Object.assign(item, {
@@ -90,7 +89,7 @@
 								that.imgUrls.push(JSON.parse(res3.data)["url"]);
 								// console.log(that.imgUrls);
 								setTimeout(() => {
-									resolve(res3.data.data)
+									resolve("")
 								}, 1000)
 							},
 							fail(res3) {
