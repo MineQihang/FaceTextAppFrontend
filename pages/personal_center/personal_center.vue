@@ -234,7 +234,7 @@
 
 	.content {
 		width: 100%;
-		background-color: #ffffff;
+		background-color: #f5f5f5;
 		padding: 0px;
 		height: 400px;
 		margin-top: 150px;
