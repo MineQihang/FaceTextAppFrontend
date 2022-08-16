@@ -1,9 +1,14 @@
 <template>
 	<view class="container">
 		<view class="navibar">
-			<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
-			<view class="publish"><button size="30" class="pub-but" @click="publish()">发布</button></view>
+			<view class="">
+				<view class="back">
+					<uni-icons type="arrow-left" size="30" @click="back()"></uni-icons>
+				</view>
+				<view class="publish"><button size="30" @click="publish()">发布</button></view>
+			</view>
 		</view>
+
 		<view class="content">
 			<view class="text">
 				<view class="title">
@@ -13,6 +18,7 @@
 					<textarea v-model="context" placeholder="编辑内容"></textarea>
 				</view>
 			</view>
+
 			<view class="upload">
 				<view class="">
 					<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
@@ -35,7 +41,6 @@
 				fileList1: [],
 				imgUrls: [],
 				tags: [],
-				// lists: []
 			}
 		},
 		methods: {
@@ -43,11 +48,11 @@
 			back() {
 				uni.navigateBack();
 			},
-			// 删除图片
+
 			deletePic(event) {
 				this[`fileList${event.name}`].splice(event.index, 1)
 			},
-			// 新增图片
+
 			async afterRead(event) {
 				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
 				let lists = [].concat(event.file)
@@ -75,7 +80,6 @@
 			uploadFilePromise(url) {
 				let that = this;
 				return new Promise((resolve, reject) => {
-					// console.log("up")
 					that.$refs.helangCompress.compress({
 						src: url,
 						maxSize: 1920,
@@ -83,7 +87,6 @@
 						minSize: 1920
 					}).then((res2) => {
 						// console.log(res2);
-						// this.compressPaths = [res];
 						uni.uploadFile({
 							url: 'http://124.221.253.187:5000/service/upload_img',
 							filePath: res2,
@@ -91,7 +94,6 @@
 							success: (res3) => {
 								console.log(JSON.parse(res3.data)["url"])
 								that.imgUrls.push(JSON.parse(res3.data)["url"]);
-								// console.log(that.imgUrls);
 								setTimeout(() => {
 									resolve("")
 								}, 1000)
@@ -152,20 +154,27 @@
 
 	.navibar {
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
 	}
 
-	.back-icon {
-		padding: 40rpx;
+	.navibar>view {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 90%;
+	}
+
+	.back {
+		padding: 30rpx;
 	}
 
 	.publish {
-		padding: 40rpx;
+		padding: 30rpx;
 
 	}
 
-	.pub-but {
+	.publish button {
 		width: 89px;
 		height: 37px;
 		color: white;
@@ -175,31 +184,49 @@
 		background-color: rgb(85, 92, 253)
 	}
 
-	.content {}
-
-	.text textarea {
+	.content {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		/* margin-top: 40rpx; */
+	}
+
+	.text {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 80%;
+	}
+
+	.title {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 1rem;
+		width: 100%;
 	}
 
 	.title textarea {
-		display: flex;
-		width: 650rpx;
+		width: 100%;
 		height: 1.5rem;
-		/* top: 92px; */
-		margin-bottom: 1rem;
 		background: rgba(196, 196, 196, 0.14);
 		border-radius: 16px;
 		padding: 0.5rem;
 	}
 
 	.context {
-		width: 650rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+
+	.context textarea {
+		width: 100%;
 		height: 230px;
-		top: 92px;
 		background: rgba(196, 196, 196, 0.14);
 		border-radius: 16px;
 		padding: 18rpx;
@@ -207,7 +234,7 @@
 	}
 
 	.upload {
-		margin-top: 250rpx;
-		margin-left: 50rpx;
+		margin-top: 30rpx;
+		width: 80%;
 	}
 </style>
