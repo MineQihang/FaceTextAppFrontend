@@ -55,7 +55,7 @@
 </template>
 
 <script>
-	import dataJson from "../../testData/data.js";
+	// import dataJson from "../../testData/data.js";
 	export default {
 		data() {
 			return {
@@ -159,7 +159,7 @@
 </script>
 
 <style>
-	@import "../../testCss/personal_flowpanel.css";
+	/* @import "../../testCss/personal_flowpanel.css"; */
 
 	/* @font-face {
 		font-family: "myfont";

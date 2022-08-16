@@ -1,2 +1,10 @@
 @import '@/uni_modules/uni-scss/variables.scss';
 @import '@/uni_modules/uview-ui/theme.scss';
+
+/* 全局css */
+.icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50rpx;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);;
+}
