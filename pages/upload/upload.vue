@@ -1,20 +1,24 @@
 <template>
 	<view class="container">
-		<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
-		<button size="30" class="publish" @click="publish()">发布</button>
-		<view class="text">
-			<view class="">
-				<textarea class="title" v-model="title" placeholder="编辑标题"></textarea>
-			</view>
-			<view class="">
-				<textarea class="context" v-model="context" placeholder="编辑内容"></textarea>
-			</view>
+		<view class="navibar">
+			<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
+			<view class="publish"><button size="30" class="pub-but" @click="publish()">发布</button></view>
 		</view>
-		<view class="upload">
-			<view class="">
-				<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
-					multiple>
-				</u-upload>
+		<view class="content">
+			<view class="text">
+				<view class="title">
+					<textarea v-model="title" placeholder="编辑标题"></textarea>
+				</view>
+				<view class="context">
+					<textarea v-model="context" placeholder="编辑内容"></textarea>
+				</view>
+			</view>
+			<view class="upload">
+				<view class="">
+					<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
+						multiple>
+					</u-upload>
+				</view>
 			</view>
 		</view>
 		<helang-compress ref="helangCompress"></helang-compress>
@@ -146,18 +150,24 @@
 		flex-direction: column;
 	}
 
+	.navibar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	.back-icon {
-		position: fixed;
-		top: 100rpx;
-		left: 34rpx;
+		padding: 40rpx;
 	}
 
 	.publish {
-		position: fixed;
+		padding: 40rpx;
+
+	}
+
+	.pub-but {
 		width: 89px;
 		height: 37px;
-		top: 100rpx;
-		right: 44rpx;
 		color: white;
 		border-radius: 36px;
 		text-align: center;
@@ -165,19 +175,21 @@
 		background-color: rgb(85, 92, 253)
 	}
 
-	.text {
+	.content {}
+
+	.text textarea {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin-top: 40rpx;
+		/* margin-top: 40rpx; */
 	}
 
-	.title {
+	.title textarea {
 		display: flex;
 		width: 650rpx;
 		height: 1.5rem;
-		top: 92px;
+		/* top: 92px; */
 		margin-bottom: 1rem;
 		background: rgba(196, 196, 196, 0.14);
 		border-radius: 16px;
