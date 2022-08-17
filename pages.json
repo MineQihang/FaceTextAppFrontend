@@ -27,24 +27,6 @@
 			}
 		},
 		{
-			"path": "pages/homepage/focus/focus",
-			"style": {
-				"navigationBarTitleText": "关注",
-				"enablePullDownRefresh": true,
-				"onReachBottomDistance": 400,
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/homepage/my/my",
-			"style": {
-				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": true,
-				"onReachBottomDistance": 400,
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/publish/publish",
 			"style": {
 				"backgroundColor": "transparent",
@@ -76,7 +58,7 @@
 			}
 		},
 		{
-			"path": "pages/homepage/post-details/post-details",
+			"path": "pages/post-details/post-details",
 			"style": {
 				"backgroundColor": "transparent",
 				"navigationBarTitleText": "帖子详情",
@@ -94,6 +76,15 @@
 			"style": {
 				"navigationBarTitleText": "收藏",
 				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/collect/focus",
+			"style": {
+				"navigationBarTitleText": "关注",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 400,
 				"navigationStyle": "custom"
 			}
 		}

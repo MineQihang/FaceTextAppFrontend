@@ -119,7 +119,7 @@
 				});
 			},
 			turnToPost(pid) {
-				let url1 = '/pages/homepage/post-details/post-details?pid=' + pid;
+				let url1 = '/pages/post-details/post-details?pid=' + pid;
 				uni.navigateTo({
 					url: url1
 				})

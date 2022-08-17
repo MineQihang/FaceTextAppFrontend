@@ -93,7 +93,7 @@
 		methods: {
 			turnToPost(pid) {
 				console.log(pid);
-				let url1 = '@/pages/homepage/post-details/post-details?pid=' + pid;
+				let url1 = '/pages/post-details/post-details?pid=' + pid;
 				console.log(url1);
 				uni.navigateTo({
 					url: url1
