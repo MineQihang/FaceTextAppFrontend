@@ -63,7 +63,8 @@
 			"style": {
 				"backgroundColor": "transparent",
 				"navigationBarTitleText": "帖子详情",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/search/search",

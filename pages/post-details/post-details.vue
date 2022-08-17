@@ -151,7 +151,7 @@
 	export default {
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 			this.pid = parseInt(option.pid);
-			// console.log(this.pid) //打印出上个页面传递的参数。//打印出上个页面传递的参数。
+			this.lastIndex = parseInt(option.index);
 		},
 		data() {
 			return {
@@ -280,9 +280,16 @@
 				}
 			},
 			back() {
-				uni.switchTab({
-					url: "/pages/homepage/explore/explore"
-				});
+				var pages = getCurrentPages(); // 获取页面栈
+				var prevPage = pages[pages.length - 2]; // 上一个页面
+				let obj = {
+					numberLike: this.numberLike,
+					is_liked: this.like,
+					index: this.lastIndex
+				}
+				// 调用$vm 注册一个自定义方法 将参数传入进去
+				prevPage.$vm.pass2explore(obj)
+				uni.navigateBack();
 			},
 			send_comment() {
 				let that = this;
