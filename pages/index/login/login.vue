@@ -1,16 +1,16 @@
 <template>
 	<view class="container">
-		<image src="@/static/log_img1.png" class="log_img"></image>
+		<image src="@/static/icons/info.svg" class="log_img1"></image>
 
 		<view class="content">
 			<view class="menu">
 				<view class="box">
-					<image src="@/static/log1.svg" class="picture" mode=""></image>
+					<image src="@/static/icons/info.svg" class="picture" mode=""></image>
 					<input class="input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" maxlength=11 />
 				</view>
 
 				<view class="box">
-					<image src="@/static/log2.svg" class="picture" mode=""></image>
+					<image src="@/static/icons/info.svg" class="picture" mode=""></image>
 					<input class="input-box" type="password" placeholder="请输入密码" v-model="passwordValue" />
 				</view>
 
