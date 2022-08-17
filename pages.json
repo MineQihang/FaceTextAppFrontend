@@ -14,7 +14,8 @@
 		{
 			"path": "pages/index/register/register",
 			"style": {
-				"navigationBarTitleText": "注册"
+				"navigationBarTitleText": "注册",
+				"backgroundColor": "#ffffff"
 			}
 		},
 		{
@@ -87,6 +88,16 @@
 				"onReachBottomDistance": 400,
 				"navigationStyle": "custom"
 			}
+		}, {
+			"path": "pages/sidebar/personal-space/personal-space",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+
 		}
 	],
 	"globalStyle": {
