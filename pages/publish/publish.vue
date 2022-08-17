@@ -110,6 +110,14 @@
 
 
 			publish() {
+				let title_p = /^\s+$/;
+				if (this.title == '' || title_p.test(this.title)) {
+					uni.showToast({
+						title: '请输入标题',
+						icon: 'none'
+					})
+					return
+				}
 				const authorization = uni.getStorageSync('authorization');
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/create',
