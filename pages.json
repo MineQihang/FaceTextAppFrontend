@@ -83,13 +83,19 @@
 				"enablePullDownRefresh": true
 			}
 		}, {
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		}, {
 			"path": "pages/collect/collect",
 			"style": {
 				"navigationBarTitleText": "收藏",
 				"enablePullDownRefresh": false,
 				"navigationStyle": "custom"
 			}
-
 		}
 	],
 	"globalStyle": {
