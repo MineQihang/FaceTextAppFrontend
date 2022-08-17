@@ -13,7 +13,14 @@
 		</view>
 		<view class="drawer-container">
 			<uni-drawer ref="showLeft" mode="left" :width="320" @change="change($event,'showLeft')">
-				
+				<view class = "user-info">
+					
+				</view>
+				<view  class = "sidebar">
+					<view class="" v-for="(item,index) in items">
+						{{item}}
+					</view>
+				</view>
 			</uni-drawer>
 		</view>
 	</view>
@@ -26,8 +33,9 @@
 			return {
 				username: "",
 				userIcon: "",
+				showLeft: false,
+				items: ["个人空间","个人信息修改","设置"],
 				defaultUserIcon: "/static/icons/user.svg",
-				showLeft: false
 			};
 		},
 		mounted() {
