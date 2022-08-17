@@ -5,16 +5,18 @@
 				<view class="back">
 					<uni-icons type="arrow-left" size="30" @click="back()"></uni-icons>
 				</view>
-				<view class="publish"><button size="30" @click="publish()">发布</button></view>
+				<view class="publish title-font" @click="publish()">发布</view>
 			</view>
 		</view>
 
 		<view class="content">
 			<view class="text">
 				<view class="title">
+					<view class="title-font" style="align-self: flex-start;; margin-bottom:20rpx">标题</view>
 					<textarea v-model="title" placeholder="编辑标题"></textarea>
 				</view>
 				<view class="context">
+					<view class="title-font" style="align-self: flex-start; margin-bottom:20rpx">正文</view>
 					<textarea v-model="context" placeholder="编辑内容"></textarea>
 				</view>
 			</view>
@@ -26,6 +28,7 @@
 					</u-upload>
 				</view>
 			</view>
+			<button class="publish-btn">确认发布</button>
 		</view>
 		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
@@ -107,8 +110,6 @@
 				})
 			},
 
-
-
 			publish() {
 				let title_p = /^\s+$/;
 				if (this.title == '' || title_p.test(this.title)) {
@@ -153,9 +154,9 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	.container {
-		position: flex;
+		display: flex;
 		flex-direction: column;
 	}
 
@@ -163,32 +164,28 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		background: white;
+		height: 126rpx;
 	}
 
 	.navibar>view {
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
+		height: 100rpx;
 		width: 90%;
 	}
 
 	.back {
-		padding: 30rpx;
+		display: flex;
+		align-items: center;
 	}
 
 	.publish {
-		padding: 30rpx;
-
-	}
-
-	.publish button {
-		width: 89px;
-		height: 37px;
-		color: white;
-		border-radius: 36px;
+		margin-left: 40rpx;
+		size: 30px;
+		color: $our-purple;
 		text-align: center;
-		line-height: 200%;
-		background-color: rgb(85, 92, 253)
+		background-color: white;
 	}
 
 	.content {
@@ -196,6 +193,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-top: 30rpx;
 	}
 
 	.text {
@@ -243,5 +241,13 @@
 	.upload {
 		margin-top: 30rpx;
 		width: 80%;
+	}
+
+	.publish-btn {
+		width: 70%;
+		background-color: $our-purple;
+		color: white;
+		font-weight: 400;
+		border-radius: 40rpx;
 	}
 </style>
