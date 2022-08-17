@@ -22,4 +22,37 @@
 	font-size: 43.2rpx;
 }
 
-$hhh: #dd524d;   //使用方法: <style lang="scss">
+//标准灰色
+$our-gray: rgb(242, 243, 245);
+.our-gray{
+	color:rgb(242, 243, 245);
+}
+//标准紫色
+$our-purple: rgb(70, 5, 173);
+.our-purple{
+	color:rgb(70, 5, 173);
+}
+//用户名字体
+.username-font{
+	font-size: 24px;
+	font-weight: 700;
+	color: black;
+}
+//发帖时间、正文、评论、点赞数、评论数的字体
+.text-font{
+	font-size: 18px;
+	font-weight: 400;
+	color: black;
+}
+//标题
+.title-font{
+	font-size: 20px;
+	font-weight: 700;
+	color: black;
+}
+//评论楼里的用户名
+.comment-username-font{
+	font-size: 18px;
+	font-weight: 700;
+}
+
