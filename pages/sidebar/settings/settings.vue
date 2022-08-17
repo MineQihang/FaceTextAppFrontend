@@ -12,11 +12,9 @@
 
 		<!-- 底部 -->
 		<view class="bottom_view">
-
 			<button class="btn" @click="Reset_information">修改信息</button>
 			<button class="btn" @click="index()">退出登录</button>
 			<button class="btn">注销账户</button>
-
 		</view>
 
 		<!-- 用户头像 -->
@@ -28,11 +26,7 @@
 </template>
 
 <script>
-	import uButton from "../../uni_modules/uview-ui/components/u-button/u-button.vue"
 	export default {
-		components: {
-			uButton
-		},
 		data() {
 			return {
 				gender: 0,
@@ -51,34 +45,24 @@
 		},
 		methods: {
 			get_inf() {
-				console.log("inf");
 				let that = this;
 				try {
 					const authorization = uni.getStorageSync('authorization');
 					if (!authorization) throw DOMException("Nope!");
 					else {
-						uni.request({
-							url: 'http://124.221.253.187:5000/user/user-info',
+						that.sendRequest({
+							url: '/user/user-info',
 							method: 'GET',
-							header: {
-								'Authorization': authorization
-							},
 							success: (res) => {
-								console.log(res);
 								this.text = 'request success';
-								if (res.statusCode == 200) {
-									that.username = res.data.data.username;
-									that.studentIndex = res.data.data.gender;
-									that.age = res.data.data.age;
-									that.motto = res.data.data.motto;
-									that.mail = res.data.data.mail;
-									that.icon = res.data.data.iconUrl;
-									that.uid = res.data.data.uid;
-								} else {
-									uni.showToast({
-										title: res.data.detail,
-										icon: 'none'
-									})
+								if (res.code == 200) {
+									that.username = res.data.username;
+									that.studentIndex = res.data.gender;
+									that.age = res.data.age;
+									that.motto = res.data.motto;
+									that.mail = res.data.mail;
+									that.icon = res.data.iconUrl;
+									that.uid = res.data.uid;
 								}
 							}
 						})
@@ -89,7 +73,7 @@
 			},
 			Reset_information() {
 				uni.navigateTo({
-					url: '/pages/reset_inform/reset_inform'
+					url: '/pages/sidebar/reset-user-info/reset-user-info'
 				})
 			},
 			index() {
@@ -99,7 +83,7 @@
 					console.log(e)
 				}
 				uni.redirectTo({
-					url: '/pages/log/log'
+					url: '/pages/index/login/login'
 				})
 			}
 

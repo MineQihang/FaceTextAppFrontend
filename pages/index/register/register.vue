@@ -3,26 +3,26 @@
 
 		<!-- 空白部分 -->
 		<view class="blank" style="background-color: antiquewhite;">
-			<image src="../../static/log_img1.png" alt="" style="width: 100%;height: 600rpx;">
+			<image src="@/static/log_img1.png" alt="" style="width: 100%;height: 600rpx;">
 		</view>
 
 		<!-- 主体 -->
 		<view class="white_next">
 
 			<view class="box">
-				<image src="../../static/log1.svg" class="picture" mode=""></image>
+				<image src="@/static/log1.svg" class="picture" mode=""></image>
 				<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue"
 					style="width: 100%;" />
 			</view>
 
 			<view class="box" style="background-color: #f0f0f0;">
-				<image src="../../static/log2.svg" class="picture" mode=""></image>
+				<image src="@/static/log2.svg" class="picture" mode=""></image>
 				<input class="uni-input input-box" type="password" placeholder="请设置密码" v-model="passwordValue1"
 					style="width: 100%;" />
 			</view>
 
 			<view class="box">
-				<image src="../../static/log2.svg" class="picture" mode=""></image>
+				<image src="@/static/log2.svg" class="picture" mode=""></image>
 				<input class="uni-input input-box" type="password" placeholder="请确认密码" v-model="passwordValue2"
 					style="width: 100%;" />
 			</view>
@@ -80,52 +80,39 @@
 					return false
 				}
 
-				uni.request({
-					url: 'http://124.221.253.187:5000/user/register',
+				this.sendRequest({
+					url: '/user/register',
 					method: 'POST',
-					header: {
-						"content-type": "application/x-www-form-urlencoded"
-					},
+					requestDataType: 'form',
 					data: {
 						phoneNumber: that.iphoneValue,
 						password: that.passwordValue1
 					},
 					success: (res) => {
-						if (res.data.code == 200) {
+						if (res.code == 200) {
 							uni.showToast({
 								title: '注册成功',
 								icon: 'none'
 							})
-							uni.request({
-								url: 'http://124.221.253.187:5000/user/login',
+							this.sendRequest({
+								url: '/user/register',
 								method: 'POST',
-								header: {
-									"content-type": "application/x-www-form-urlencoded"
-								},
+								requestDataType: 'form',
 								data: {
 									phoneNumber: that.iphoneValue,
 									password: that.passwordValue1
 								},
 								success: (res2) => {
-									console.log(res2);
-									if (res2.statusCode == 200) {
-										console.log('登录成功');
-										uni.setStorageSync('authorization', res2.data.token_type +
-											' ' + res2.data.access_token);
-									}
+									// console.log('登录成功');
+									uni.setStorageSync('authorization', res2.data.token_type +
+										' ' + res2.data.access_token);
 								}
 							})
 							setTimeout(() => {
 								uni.switchTab({
-									url: '/pages/homepage/homepage'
+									url: '/pages/homepage/explore/explore'
 								});
 							}, 400)
-
-						} else {
-							uni.showToast({
-								title: '该账号已存在',
-								icon: 'none'
-							})
 						}
 					}
 				});

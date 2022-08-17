@@ -130,7 +130,7 @@
 						if (res.statusCode == 200) {
 							console.log("成功发布");
 							uni.redirectTo({
-								url: "../post_details/post_details?pid=" + res.data.pid
+								url: "/pages/homepage/post-details/post-details?pid=" + res.data.pid
 							})
 
 						} else {

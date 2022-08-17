@@ -108,29 +108,19 @@
 				const authorization = uni.getStorageSync('authorization');
 				if (!authorization) throw DOMException("Nope!");
 				else {
-					uni.request({
-						url: 'http://124.221.253.187:5000/user/user-info',
-						method: 'GET',
-						header: {
-							'Authorization': authorization
-						},
+					this.sendRequest({
+						url: '/user/user-info',
 						success: (res) => {
-
-							this.text = 'request success';
-							if (res.statusCode == 200) {
-								that.username = res.data.data.username;
-								that.studentIndex = res.data.data.gender;
-								that.age = res.data.data.age;
-								that.motto = res.data.data.motto;
-								that.mail = res.data.data.mail;
-								that.iconUrl = res.data.data.iconUrl;
+							// this.text = 'request success';
+							if (res.code == 200) {
+								that.username = res.data.username;
+								that.studentIndex = res.data.gender;
+								that.age = res.data.age;
+								that.motto = res.data.motto;
+								that.mail = res.data.mail;
+								that.iconUrl = res.data.iconUrl;
 								// console.log(res.data.data);
-								that.uid = res.data.data.uid;
-							} else {
-								uni.showToast({
-									title: res.data.detail,
-									icon: 'none'
-								})
+								that.uid = res.data.uid;
 							}
 						}
 					})
@@ -147,13 +137,10 @@
 				let that = this
 				try {
 					const authorization = uni.getStorageSync('authorization');
-					uni.request({
-						url: 'http://124.221.253.187:5000/user/change', // 路径
+					this.sendRequest({
+						url: '/user/change', // 路径
 						method: 'POST', // 请求方法
-						header: {
-							'Authorization': authorization,
-							"content-type": "application/json"
-						},
+						requestDataType: 'json',
 						data: {
 							uid: that.uid,
 							username: that.username,
@@ -164,21 +151,13 @@
 							iconUrl: that.iconUrl
 						}, //发送的数据
 						success: (res) => {
-							console.log(res)
-							if (res.data.code == 200) {
-								uni.showToast({
-									title: '保存成功',
-									icon: 'none'
-								});
-								setTimeout(() => {
-									uni.navigateBack();
-								}, 800)
-							} else {
-								uni.showToast({
-									title: '保存失败',
-									icon: 'none'
-								})
-							}
+							uni.showToast({
+								title: '保存成功',
+								icon: 'none'
+							});
+							setTimeout(() => {
+								uni.navigateBack();
+							}, 800)
 						}
 					})
 

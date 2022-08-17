@@ -6,10 +6,16 @@ export const sendRequest = (_data) => {
     let headers = _data.headers || {};  // 请求头, 例如{"Authorization": "xxx"}
     let requestDataType = _data.requestDataType || "";  // 请求数据传输的类型
     let data = _data.data || {}; // 要传输的数据
-    let success = _data.success || function(){}; // 请求成功后的回调函数
-    let fail = _data.fail || function(){}; // 请求失败后的回调函数
-    let complete = _data.complete || function(){}; // 请求完成后的回调函数
+    let success = _data.success || function(res){}; // 请求成功后的回调函数
+    let fail = _data.fail || function(res){}; // 请求失败后的回调函数
+    let complete = _data.complete || function(res){}; // 请求完成后的回调函数
     let successCode = _data.successCode || 200; // 成功请求时的代码
+		let failRequest = _data.failRequest || function(res){
+			uni.showToast({
+			    title: res.data.detail,
+			    icon: 'none'
+			})
+		};
     let contentType = ""
     switch (requestDataType) {
         case "form":
@@ -33,10 +39,7 @@ export const sendRequest = (_data) => {
             if (res.statusCode == 200) {
                 success(res.data);
             }else{
-                uni.showToast({
-                    title: res.data.detail,
-                    icon: 'none'
-                })
+                failRequest(res);
             }
         },
         fail: fail,

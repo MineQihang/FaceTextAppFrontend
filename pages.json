@@ -2,102 +2,94 @@
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "启动",
-				"backgroundColor": "green",
-				"app-plus": {
-					"titleNView": false
-				}
+				"navigationBarTitleText": "启动界面"
 			}
 		},
 		{
-			"path": "pages/log/log",
+			"path": "pages/index/login/login",
 			"style": {
-				"navigationBarTitleText": "登录",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
+				"navigationBarTitleText": "登录"
 			}
 		},
 		{
-			"path": "pages/reg/reg",
+			"path": "pages/index/register/register",
 			"style": {
-				"navigationBarTitleText": "注册",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
+				"navigationBarTitleText": "注册"
 			}
 		},
 		{
-			"path": "pages/homepage/homepage",
+			"path": "pages/homepage/explore/explore",
 			"style": {
-				"navigationBarTitleText": "广场",
+				"navigationBarTitleText": "发现",
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 400,
-				"app-plus": {
-					"bounce": "none"
-				},
 				"navigationStyle": "custom"
 			}
-
 		},
 		{
-			"path": "pages/upload/upload",
+			"path": "pages/homepage/focus/focus",
+			"style": {
+				"navigationBarTitleText": "关注",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 400,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/homepage/my/my",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 400,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/publish/publish",
 			"style": {
 				"backgroundColor": "transparent",
-				"navigationBarTitleText": "上传",
+				"navigationBarTitleText": "发布",
 				"enablePullDownRefresh": false,
-				"app-plus": {
-					"bounce": "none",
-					"titleNView": false
-				},
-				"style": {
-					"navigationStyle": "custom"
-				}
-			}
-		},
-		{
-			"path": "pages/personal_center/personal_center",
-			"style": {
-				"navigationBarTitleText": "个人中心",
-				"enablePullDownRefresh": false
-			},
-			"app-plus": {
-				"titleNView": false
-			},
-			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path": "pages/set/set",
+			"path": "pages/sidebar/personal-center/personal-center",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/sidebar/settings/settings",
 			"style": {
 				"navigationBarTitleText": "设置",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
-			"path": "pages/reset_inform/reset_inform",
+			"path": "pages/sidebar/reset-user-info/reset-user-info",
 			"style": {
 				"navigationBarTitleText": "编辑信息",
 				"backgroundColor": "#ffffff",
 				"enablePullDownRefresh": false
 			}
-
 		},
 		{
-			"path": "pages/post_details/post_details",
+			"path": "pages/homepage/post-details/post-details",
 			"style": {
 				"backgroundColor": "transparent",
 				"navigationBarTitleText": "帖子详情",
-				"enablePullDownRefresh": true,
-				"app-plus": {
-					"titleNView": false
-				}
+				"enablePullDownRefresh": true
 			}
+		}, {
+			"path": "pages/collect/collect",
+			"style": {
+				"navigationBarTitleText": "收藏",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
 		}
 	],
 	"globalStyle": {
@@ -113,26 +105,32 @@
 
 	"tabBar": {
 		"color": "white",
-		"selectedColor": "white",
+		"selectedColor": "purple",
 		"backgroundColor": "white",
 		"borderStyle": "white",
-		"midButton": {
-			"iconPath": "static/Field_Navigation_barr_Group_7010.png",
-			"height": "80px",
-			"iconWidth": "60px",
-			"text": "发布"
-		},
 		"list": [{
-				"text": "广场",
-				"pagePath": "pages/homepage/homepage",
-				"iconPath": "static/Iconly_Light_Home_copy.png",
-				"selectedIconPath": "static/Iconly_Light_Home.png"
+				"text": "发现",
+				"pagePath": "pages/homepage/explore/explore",
+				"iconPath": "static/log1.svg",
+				"selectedIconPath": "static/log2.svg"
 			},
 			{
-				"text": "个人中心",
-				"pagePath": "pages/personal_center/personal_center",
-				"iconPath": "static/Iconly_Light_Profile.png",
-				"selectedIconPath": "static/Iconly_Light_Profile_(1).png"
+				"text": "收藏",
+				"pagePath": "pages/collect/collect",
+				"iconPath": "static/log1.svg",
+				"selectedIconPath": "static/log2.svg"
+			},
+			{
+				"text": "搜索",
+				"pagePath": "pages/search/search",
+				"iconPath": "static/log1.svg",
+				"selectedIconPath": "static/log2.svg"
+			},
+			{
+				"text": "发布",
+				"pagePath": "pages/publish/publish",
+				"iconPath": "static/log1.svg",
+				"selectedIconPath": "static/log2.svg"
 			}
 		]
 	}

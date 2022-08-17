@@ -2,9 +2,22 @@
 @import '@/uni_modules/uview-ui/theme.scss';
 
 /* 全局css */
-.icon {
-    width: 3rem;
-    height: 3rem;
+.self-icon {
+    width: 108rpx;
+    height: 108rpx;
     border-radius: 50rpx;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);;
+}
+
+.icon {
+    width: 81rpx;
+    height: 81rpx;
+    border-radius: 50rpx;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);;
+}
+
+.self-username {
+	padding-left: 18rpx;
+	font-weight: 700;
+	font-size: 43.2rpx;
 }
