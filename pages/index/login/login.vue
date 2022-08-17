@@ -1,21 +1,21 @@
 <template>
 	<view class="container">
+		<image src="@/static/icons/logo.svg" class="log_img"></image>
 
-		<image src="@/static/log_img1.png" class="log_img1"></image>
-		<view class="containerB">
+		<view class="content">
 			<view class="menu">
 				<view class="box">
-					<image src="@/static/log1.svg" class="picture" mode=""></image>
-					<input class="uni-input input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" />
+					<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
+					<input class="input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" maxlength=11 />
 				</view>
 
 				<view class="box">
-					<image src="@/static/log2.svg" class="picture" mode=""></image>
-					<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue" />
+					<image src="@/static/icons/info.svg" class="picture" mode=""></image>
+					<input class="input-box" type="password" placeholder="请输入密码" v-model="passwordValue" />
 				</view>
 
 				<button class="login-btn" @click="login()">登录</button>
-				<navigator url="../reg/reg" class="reg">
+				<navigator url="/pages/index/register/register" class="reg">
 					需要注册？
 				</navigator>
 			</view>
@@ -59,48 +59,34 @@
 					})
 					return false
 				}
-				// console.log(this.passwordValue)
-				uni.request({
-					url: 'http://124.221.253.187:5000/user/login',
+				this.sendRequest({
+					url: "/user/login",
 					method: 'POST',
-					header: {
-						"content-type": "application/x-www-form-urlencoded"
-					},
+					requestDataType: "form",
 					data: {
 						phoneNumber: this.iphoneValue,
 						password: this.passwordValue
 					},
 					success: (res) => {
-						console.log(res);
-						if (res.statusCode == 200) {
-							//存储Authorization
-							uni.setStorageSync('authorization', res.data.token_type + ' ' +
-								res.data.access_token);
-							console.log(uni.getStorageSync('authorization'))
-							uni.showToast({
-								title: res.data.detail,
-								duration: 1000
+						uni.setStorageSync('authorization', res.token_type + ' ' +
+							res.access_token);
+						// console.log(uni.getStorageSync('authorization'))
+						uni.showToast({
+							title: res.detail,
+							duration: 1000
+						});
+						setTimeout(() => {
+							uni.switchTab({
+								url: '/pages/homepage/explore/explore'
 							});
-							setTimeout(() => {
-								uni.switchTab({
-									url: '/pages/homepage/explore/explore'
-								});
-							}, 500)
-
-						} else {
-							uni.showToast({
-								title: res.data.detail,
-								duration: 1000,
-								icon: "error"
-							})
-						}
+						}, 500)
 					}
-				})
+				});
 			},
 		}
 	}
 </script>
-<style>
+<style lang="scss">
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -109,12 +95,12 @@
 		position: relative;
 	}
 
-	.log_img1 {
+	.log_img {
 		width: 100%;
 		height: 600rpx;
 	}
 
-	.containerB {
+	.content {
 		width: 100%;
 		height: 540px;
 		top: 530rpx;
@@ -132,7 +118,6 @@
 	.box {
 		height: 100upx;
 		width: 600upx;
-		margin-top: 30rpx;
 		margin-bottom: 50rpx;
 		margin-left: 70upx;
 		background-color: #f0f0f0;

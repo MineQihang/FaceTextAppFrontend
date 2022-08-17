@@ -37,7 +37,6 @@
 			return {
 				context: "",
 				title: "",
-				files: [],
 				fileList1: [],
 				imgUrls: [],
 				tags: [],

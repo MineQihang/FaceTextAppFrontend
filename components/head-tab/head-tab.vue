@@ -1,6 +1,6 @@
 <template>
-	<view class="container">
-		<view>
+	<view style="width: 100%;">
+		<view class="container">
 			<view class="user-container" @click="showDrawer('showLeft')">
 				<view class="icon-container">
 					<image class="self-icon" :src="userIcon ? userIcon : defaultUserIcon"></image>
@@ -8,6 +8,7 @@
 				<view class="self-username">{{ username }}</view>
 			</view>
 		</view>
+		<view style="height: calc(108rpx + 2 * 36rpx); "></view>
 		<view class="swiper">
 		</view>
 		<view class="drawer-container">
@@ -32,9 +33,14 @@
 			return {
 				username: "",
 				userIcon: "",
+<<<<<<< HEAD
 				defaultUserIcon: "/static/Iconly_Light_Profile.svg",
 				showLeft: false,
 				items: ["个人空间","个人信息修改","设置"]
+=======
+				defaultUserIcon: "/static/icons/user.svg",
+				showLeft: false
+>>>>>>> bfb0409a386e2fa9eb401e25abda19a91aa92f94
 			};
 		},
 		mounted() {
@@ -83,6 +89,10 @@
 <style>
 	.container {
 		background-color: white;
+		position: fixed; 
+		width: 100%; 
+		z-index: 999;
+		border-bottom: solid #F2F3F5;
 	}
 
 	.user-container {
