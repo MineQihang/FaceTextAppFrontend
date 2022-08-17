@@ -1,6 +1,11 @@
 <template>
-	<view class="container" :style="{ height: screenHeight }">
-		<view class=""></view>
+	<view class="container">
+		<view class="content-container">
+			<image src="/static/icons/logo.svg" style="width:270rpx; height:270rpx;"></image>
+			<text class="app-name">
+				看看你的
+			</text>
+		</view>
 	</view>
 </template>
 
@@ -8,11 +13,7 @@
 	export default {
 		data() {
 			return {
-				screenHeight: 0,
 			}
-		},
-		onLoad() {
-			this.screenHeight = uni.getSystemInfoSync().windowHeight;
 		},
 		mounted() {
 			this.sendRequest({
@@ -22,7 +23,7 @@
 						uni.switchTab({
 							url: '/pages/homepage/explore/explore'
 						})
-					}, 2000)
+					}, 1000)
 				},
 				failRequest: () => {
 					setTimeout(() => {
@@ -31,13 +32,13 @@
 							icon: 'none',
 							duration: 1000
 						});
-					}, 2000)
+					}, 500)
 					
 					setTimeout(() => {
 						uni.redirectTo({
 							url: '/pages/index/login/login'
 						})
-					}, 3000)
+					}, 1000)
 				}
 			});
 		},
@@ -58,10 +59,23 @@
 
 <style lang="scss">
 	.container {
-		width: 100%;
+		width: 100vw;
+		height: 100vh;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		background-color: $our-purple;
+	}
+	.content-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+	.app-name{
+		margin-top: 342rpx;
+		color: white;
+		font-size: 115.2rpx;
+		font-weight: 700;
 	}
 </style>
