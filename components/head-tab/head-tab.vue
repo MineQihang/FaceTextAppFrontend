@@ -33,14 +33,9 @@
 			return {
 				username: "",
 				userIcon: "",
-<<<<<<< HEAD
-				defaultUserIcon: "/static/Iconly_Light_Profile.svg",
 				showLeft: false,
-				items: ["个人空间","个人信息修改","设置"]
-=======
+				items: ["个人空间","个人信息修改","设置"],
 				defaultUserIcon: "/static/icons/user.svg",
-				showLeft: false
->>>>>>> bfb0409a386e2fa9eb401e25abda19a91aa92f94
 			};
 		},
 		mounted() {
