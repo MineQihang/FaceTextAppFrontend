@@ -1,20 +1,30 @@
 <template>
 	<view class="container">
-		<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
-		<button size="30" class="publish" @click="publish()">发布</button>
-		<view class="text">
+		<view class="navibar">
 			<view class="">
-				<textarea class="title" v-model="title" placeholder="编辑标题"></textarea>
-			</view>
-			<view class="">
-				<textarea class="context" v-model="context" placeholder="编辑内容"></textarea>
+				<view class="back">
+					<uni-icons type="arrow-left" size="30" @click="back()"></uni-icons>
+				</view>
+				<view class="publish"><button size="30" @click="publish()">发布</button></view>
 			</view>
 		</view>
-		<view class="upload">
-			<view class="">
-				<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
-					multiple>
-				</u-upload>
+
+		<view class="content">
+			<view class="text">
+				<view class="title">
+					<textarea v-model="title" placeholder="编辑标题"></textarea>
+				</view>
+				<view class="context">
+					<textarea v-model="context" placeholder="编辑内容"></textarea>
+				</view>
+			</view>
+
+			<view class="upload">
+				<view class="">
+					<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
+						multiple>
+					</u-upload>
+				</view>
 			</view>
 		</view>
 		<helang-compress ref="helangCompress"></helang-compress>
@@ -31,7 +41,6 @@
 				fileList1: [],
 				imgUrls: [],
 				tags: [],
-				// lists: []
 			}
 		},
 		methods: {
@@ -39,11 +48,11 @@
 			back() {
 				uni.navigateBack();
 			},
-			// 删除图片
+
 			deletePic(event) {
 				this[`fileList${event.name}`].splice(event.index, 1)
 			},
-			// 新增图片
+
 			async afterRead(event) {
 				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
 				let lists = [].concat(event.file)
@@ -71,7 +80,6 @@
 			uploadFilePromise(url) {
 				let that = this;
 				return new Promise((resolve, reject) => {
-					// console.log("up")
 					that.$refs.helangCompress.compress({
 						src: url,
 						maxSize: 1920,
@@ -79,7 +87,6 @@
 						minSize: 1920
 					}).then((res2) => {
 						// console.log(res2);
-						// this.compressPaths = [res];
 						uni.uploadFile({
 							url: 'http://124.221.253.187:5000/service/upload_img',
 							filePath: res2,
@@ -87,7 +94,6 @@
 							success: (res3) => {
 								console.log(JSON.parse(res3.data)["url"])
 								that.imgUrls.push(JSON.parse(res3.data)["url"]);
-								// console.log(that.imgUrls);
 								setTimeout(() => {
 									resolve("")
 								}, 1000)
@@ -146,18 +152,31 @@
 		flex-direction: column;
 	}
 
-	.back-icon {
-		position: fixed;
-		top: 100rpx;
-		left: 34rpx;
+	.navibar {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.navibar>view {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 90%;
+	}
+
+	.back {
+		padding: 30rpx;
 	}
 
 	.publish {
-		position: fixed;
+		padding: 30rpx;
+
+	}
+
+	.publish button {
 		width: 89px;
 		height: 37px;
-		top: 100rpx;
-		right: 44rpx;
 		color: white;
 		border-radius: 36px;
 		text-align: center;
@@ -165,29 +184,49 @@
 		background-color: rgb(85, 92, 253)
 	}
 
+	.content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
 	.text {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin-top: 40rpx;
+		width: 80%;
 	}
 
 	.title {
 		display: flex;
-		width: 650rpx;
-		height: 1.5rem;
-		top: 92px;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		margin-bottom: 1rem;
+		width: 100%;
+	}
+
+	.title textarea {
+		width: 100%;
+		height: 1.5rem;
 		background: rgba(196, 196, 196, 0.14);
 		border-radius: 16px;
 		padding: 0.5rem;
 	}
 
 	.context {
-		width: 650rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+
+	.context textarea {
+		width: 100%;
 		height: 230px;
-		top: 92px;
 		background: rgba(196, 196, 196, 0.14);
 		border-radius: 16px;
 		padding: 18rpx;
@@ -195,7 +234,7 @@
 	}
 
 	.upload {
-		margin-top: 250rpx;
-		margin-left: 50rpx;
+		margin-top: 30rpx;
+		width: 80%;
 	}
 </style>
