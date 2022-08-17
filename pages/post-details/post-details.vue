@@ -64,7 +64,7 @@
 				<view class="mainText">
 					{{post_main}}
 				</view>
-				<image src="@/static/laba.png" mode="" class="smallLaba"></image>
+				<image src="@/static/icons/info.svg" mode="" class="smallLaba"></image>
 			</view>
 
 			<!-- 评论区 -->
@@ -171,7 +171,7 @@
 				comment1_cid: 0,
 				comment2_cid: 0, //评论的id
 				like: 0, //是否给这篇帖子点赞了
-				icon: '/static/Header_img.png', //发帖人头像
+				icon: '@/static/icons/info.svg', //发帖人头像
 				username: 'ikun', //发帖用户名
 				time: '两年半之前', //发帖时间
 				numberComment: 0, //评论数
