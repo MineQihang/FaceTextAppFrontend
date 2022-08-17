@@ -3,26 +3,26 @@
 
 		<!-- 空白部分 -->
 		<view class="blank" style="background-color: antiquewhite;">
-			<image src="@/static/log_img1.png" alt="" style="width: 100%;height: 600rpx;">
+			<image src="@/static/icons/info.svg" alt="" style="width: 100%;height: 600rpx;">
 		</view>
 
 		<!-- 主体 -->
 		<view class="white_next">
 
 			<view class="box">
-				<image src="@/static/log1.svg" class="picture" mode=""></image>
+				<image src="@/static/icons/info.svg" class="picture" mode=""></image>
 				<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue"
 					style="width: 100%;" />
 			</view>
 
 			<view class="box" style="background-color: #f0f0f0;">
-				<image src="@/static/log2.svg" class="picture" mode=""></image>
+				<image src="@/static/icons/info.svg" class="picture" mode=""></image>
 				<input class="uni-input input-box" type="password" placeholder="请设置密码" v-model="passwordValue1"
 					style="width: 100%;" />
 			</view>
 
 			<view class="box">
-				<image src="@/static/log2.svg" class="picture" mode=""></image>
+				<image src="@/static/icons/info.svg" class="picture" mode=""></image>
 				<input class="uni-input input-box" type="password" placeholder="请确认密码" v-model="passwordValue2"
 					style="width: 100%;" />
 			</view>
