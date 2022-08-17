@@ -2,7 +2,7 @@
 
 	<view class="container">
 		<!-- 头部个人信息 -->
-		<head-tab style="position: fixed; z-index: 999; width: 100%; "></head-tab>
+		<head-tab></head-tab>
 		<!-- 帖子展示 -->
 		<view class="content-container">
 			<view class="post-container" v-for="(post, index) in postList" :key="index" @click="turnToPost(post.pid)">
