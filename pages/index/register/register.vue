@@ -9,11 +9,14 @@
 		<!-- 主体 -->
 		<view class="white_next">
 
-			<view class="box">
-				<image src="@/static/log1.svg" class="picture" mode=""></image>
-				<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue"
-					style="width: 100%;" />
+			<view class="" style="margin-top: 100rpx; ">
+				<view class="box">
+					<image src="@/static/log1.svg" class="picture" mode=""></image>
+					<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue"
+						style="width: 100%;" />
+				</view>
 			</view>
+
 
 			<view class="box" style="background-color: #f0f0f0;">
 				<image src="@/static/log2.svg" class="picture" mode=""></image>
@@ -27,7 +30,7 @@
 					style="width: 100%;" />
 			</view>
 
-			<button class="login-btn" @click="reg()">注册</button>
+			<button class="login-btn " @click="reg()">注册</button>
 
 		</view>
 
@@ -189,8 +192,8 @@
 	.login-btn {
 		width: 80%;
 		height: 100rpx;
-		background: #aa55ff;
-		border-radius: 36px;
+		border-radius: 15px;
+		background-color: rgb(70, 5, 173);
 		color: #ffffff;
 		font-size: 20px;
 		text-align: center;
@@ -200,7 +203,6 @@
 		margin-bottom: 500rpx;
 		margin-left: 70rpx;
 		margin-right: 70rpx;
-		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
-		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
+
 	}
 </style>
