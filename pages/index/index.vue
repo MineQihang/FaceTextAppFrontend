@@ -56,10 +56,12 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	.container {
+		width: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		background-color: $our-purple;
 	}
 </style>

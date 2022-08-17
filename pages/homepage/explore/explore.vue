@@ -31,10 +31,6 @@
 							<view class="likeNum">{{ post.likeNum }}</view>
 						</view>
 					</view>
-
-					<view class="info-down">
-						<uni-icons type="calendar" size="20"></uni-icons>
-					</view>
 				</view>
 			</view>
 		</view>
@@ -55,7 +51,7 @@
 			}
 		},
 		onLoad: function(option) {
-			this.init();
+			// this.init();
 			setTimeout(function() {
 				console.log('start pulldown');
 			}, 1000);
@@ -69,13 +65,26 @@
 		},
 		onReachBottom() {
 			// 触底的时候请求数据，即为上拉加载更多
-			this.getPost();
+			this.getMore();
 		},
 		onShow() {
-			this.init();
+			this.getPost();
 		},
 		methods: {
 			getPost(limit = 10) {
+				let that = this;
+				this.sendRequest({
+					url: "/post/get_all",
+					data: {
+						limit: limit,
+						bpid: 9660530943306
+					},
+					success: (res) => {
+						that.postList = res.data;
+					}
+				});
+			},
+			getMore(limit = 10) {
 				let that = this;
 				this.sendRequest({
 					url: "/post/get_all",
@@ -205,10 +214,5 @@
 		display: flex;
 		flex-direction: row;
 		padding-left: 40%;
-	}
-
-	.container .content-container .post-container .info .info-down {
-		display: flex;
-		flex-direction: row;
 	}
 </style>
