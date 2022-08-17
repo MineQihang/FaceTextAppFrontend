@@ -1,11 +1,11 @@
 <template>
 	<view class="container">
-		<image src="@/static/icons/info.svg" class="log_img1"></image>
+		<image src="@/static/icons/logo.svg" class="log_img"></image>
 
 		<view class="content">
 			<view class="menu">
 				<view class="box">
-					<image src="@/static/icons/info.svg" class="picture" mode=""></image>
+					<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
 					<input class="input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" maxlength=11 />
 				</view>
 
@@ -15,7 +15,7 @@
 				</view>
 
 				<button class="login-btn" @click="login()">登录</button>
-				<navigator url="../reg/reg" class="reg">
+				<navigator url="/pages/index/register/register" class="reg">
 					需要注册？
 				</navigator>
 			</view>
@@ -86,7 +86,7 @@
 		}
 	}
 </script>
-<style>
+<style lang="scss">
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -118,7 +118,6 @@
 	.box {
 		height: 100upx;
 		width: 600upx;
-		margin-top: 30rpx;
 		margin-bottom: 50rpx;
 		margin-left: 70upx;
 		background-color: #f0f0f0;
