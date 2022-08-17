@@ -1,12 +1,12 @@
 /*鸿蒙字体*/
 @font-face {
+	font-family: 'Meslo LG';
 	font-style: normal;
-	font-family: 'Harmony_Medium';
-	/*引入HarmonyOS_Sans_SC，目录别搞错*/
-	src: url('/static/fonts/HarmonyOS_Sans_Medium.ttf') format('truetype');
+	font-size: 18px;
+	src: local('Meslo LG S'), url("/static/fonts/hm.woff2") format('woff2')
 }
 
 /*设置整个项目的字体*/
 * {
-	font-family: "Harmony_Medium", sans-serif;
+	font-family: Meslo LG, sans-serif;
 }
