@@ -130,7 +130,7 @@
 				});
 			},
 			turnToPost(pid, index) {
-				let url1 = '/pages/post-dsetails/post-details?pid=' + pid + '&index=' + index;
+				let url1 = '/pages/post-details/post-details?pid=' + pid + '&index=' + index;
 				uni.navigateTo({
 					url: url1,
 				})
