@@ -74,6 +74,13 @@
 							// that.username = res.data.username;
 							// that.uid = res.data.uid;
 							// console.log("收到的", that.uid);
+						},
+						failRequest: (res) => {
+							if (res.statusCode == 401) {
+								uni.reLaunch({
+									url: '/pages/index/login/login'
+								})
+							}
 						}
 					})
 				} catch (e) {
