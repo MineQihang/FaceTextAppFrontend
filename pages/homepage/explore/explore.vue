@@ -24,6 +24,7 @@
 
 				<view class="info text-font">
 					<view class="comment">
+						<!-- <i -->
 						<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
 						<view class="commentNum">{{ post.commentNum }}</view>
 					</view>
