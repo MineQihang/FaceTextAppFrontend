@@ -11,14 +11,77 @@
 		<view style="height: calc(108rpx + 2 * 36rpx); "></view>
 		<view class="swiper">
 		</view>
-		<view class="drawer-container">
-			<uni-drawer ref="showLeft" mode="left" :width="320" @change="change($event,'showLeft')">
-				<view class = "user-info">
-					
-				</view>
-				<view  class = "sidebar">
-					<view class="" v-for="(item,index) in items">
-						{{item}}
+		<view>
+			<uni-drawer ref="showLeft" mode="left" :width="280" @change="change($event,'showLeft')">
+				<view class="drawer-container">
+					<view class="user-info">
+						<!-- 发帖人头像	 -->
+						<view class="user-icon">
+							<image :src="icon" alt="" v-model="icon">
+						</view>
+						<!-- 发帖人昵称 -->
+						<view class="username">
+							{{"username"}}
+						</view>
+						<!-- 个性签名 -->
+						<view class="user-motto">
+							{{"motto"}}
+						</view>
+					</view>
+					<view class="sidebar-list">
+						<view class="title">
+							<view style="color:rgb(70, 5, 173);">
+								{{"发帖数"}}
+							</view>
+							<view style="color:rgb(70, 5, 173);">
+								{{"粉丝数"}}
+							</view>
+							<view style="color:rgb(70, 5, 173);">
+								{{"我的关注"}}
+							</view>
+						</view>
+						<view class="number">
+							<view>
+								{{"1"}}
+							</view>
+							<view>
+								{{"1"}}
+							</view>
+							<view>
+								{{"1"}}
+							</view>
+						</view>
+						<view class="line">
+
+						</view>
+						<view class="button">
+							<view>
+								图片
+							</view>
+							<view>
+								个人空间
+							</view>
+						</view>
+						<view class="line"></view>
+						<view class="button">
+							<view>
+								图片
+							</view>
+							<view>
+								个人信息修改
+							</view>
+						</view>
+						<view class="line"></view>
+
+						<view class="button">
+							<view>
+								图片
+							</view>
+							<view>
+								设置
+							</view>
+						</view>
+						<view class="line"></view>
 					</view>
 				</view>
 			</uni-drawer>
@@ -33,14 +96,9 @@
 			return {
 				username: "",
 				userIcon: "",
-<<<<<<< HEAD
-				defaultUserIcon: "/static/Iconly_Light_Profile.svg",
+				userMotto: "",
 				showLeft: false,
-				items: ["个人空间","个人信息修改","设置"]
-=======
 				defaultUserIcon: "/static/icons/user.svg",
-				showLeft: false
->>>>>>> bfb0409a386e2fa9eb401e25abda19a91aa92f94
 			};
 		},
 		mounted() {
@@ -86,11 +144,11 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	.container {
 		background-color: white;
-		position: fixed; 
-		width: 100%; 
+		position: fixed;
+		width: 100%;
 		z-index: 999;
 		border-bottom: solid #F2F3F5;
 	}
@@ -99,5 +157,109 @@
 		display: flex;
 		align-items: center;
 		padding: 36rpx;
+	}
+
+	.drawer-container {
+		display: flex;
+		flex-direction: column;
+		background-color: white;
+		height: 100vh;
+	}
+
+	.sidebar-list {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		padding: 30.6rpx 16.2rpx 43.2rpx 16.2rpx;
+		margin: 0rpx 36rpx 0 36rpx;
+		background-color: white;
+	}
+
+	.title {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		background-color: white;
+
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 21px;
+		height: 70.2rpx;
+		flex-direction: row;
+		width: 100%;
+	}
+
+	.number {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		background-color: white;
+
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 21px;
+		height: 70.2rpx;
+		flex-direction: row;
+		width: 100%;
+	}
+
+	.line {
+		margin: 0 0 15rpx 0;
+		width: 100%;
+		height: 0;
+		border: 1px solid rgb(0, 0, 0);
+	}
+
+	.button {
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-start;
+		background-color: white;
+		width: 100%;
+		height: 136.8rpx;
+		padding: 0 0 40rpx 25.2rpx;
+		font-size: 18px;
+		font-weight: 400;
+		line-height: 21px;
+		
+	}
+
+
+	.user-info {
+		/* 矩形 7 */
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		padding: 30.6rpx 34.2rpx 43.2rpx 34.2rpx;
+		margin: 82.8rpx 36rpx 0 36rpx;
+		background-color: $our-gray;
+		border-radius: 25px;
+	}
+
+
+	.user-icon {
+		/* 头像 */
+		justify-content: center;
+
+		width: 162rpx;
+		height: 162rpx;
+		border-radius: 162rpx;
+		background: rgb(72, 189, 79);
+	}
+
+	.username {
+		font-size: 24px;
+		font-weight: 700;
+		line-height: 70.2rpx;
+	}
+
+	.user-motto {
+		/* motto */
+		font-size: 18px;
+		font-weight: 400;
+		line-height: 21px;
+		// letter-spacing: 0.1rpx;
 	}
 </style>
