@@ -26,7 +26,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="bottom-picture">
+		<view class="bottom-picture" v-if="flowList.length<6">
 			<image src="@/static/icons/fansBackground.svg"></image>
 		</view>
 	</view>
@@ -38,63 +38,56 @@
 	export default {
 		data() {
 			return {
-				like_or_not: [{
-						id: 0,
-						name: '+关注'
-					},
-					{
-						id: 1,
-						name: '取消关注'
-					}
-				],
 				flowList: [{
-						index: "1",
-						username: 'Frank Smith',
-						motto: "mottomotto",
-						attention: 1
-					}, {
-						index: "2",
-						username: 'yhr',
-						motto: "mottomotto"
-					}, {
-						index: "3",
-						username: 'llll',
-						motto: "真的不会"
-					}, {
-						index: "4",
-						username: 'lll',
-						motto: "真的不会"
-					}, {
-						index: "5",
-						username: '纯纯不懂',
-						motto: "真的不会"
-					}, {
-						index: "6",
-						username: '回去',
-						motto: "真的不会"
-					},
-					{
-						index: "7",
-						username: 'Frank Smith',
-						motto: "不懂哦"
-					}, {
-						index: "8",
-						username: 'yhr',
-						motto: "太难了"
-					}, {
-						index: "9",
-						username: 'llll',
-						motto: "真的不会"
-					}, {
-						index: "10",
-						username: 'lll',
-						motto: "真的不会"
-					}, {
-						index: "11",
-						username: '纯纯不懂',
-						motto: "真的不会"
-					},
-				]
+					index: "1",
+					username: 'Frank Smith',
+					motto: "mottomotto",
+					attention: 1
+				}, {
+					index: "2",
+					username: 'yhr',
+					motto: "mottomotto",
+					attention: 1
+				}, {
+					index: "3",
+					username: 'llll',
+					motto: "真的不会",
+					attention: 1
+				}, {
+					index: "4",
+					username: 'lll',
+					motto: "真的不会",
+					attention: 0
+				}, {
+					index: "5",
+					username: '纯纯不懂',
+					motto: "真的不会"
+
+				}, {
+					index: "6",
+					username: '回去',
+					motto: "真的不会"
+				}, {
+					index: "7",
+					username: 'Frank Smith',
+					motto: "不懂哦"
+				}, {
+					index: "8",
+					username: 'yhr',
+					motto: "太难了"
+				}, {
+					index: "9",
+					username: 'llll',
+					motto: "真的不会"
+				}, {
+					index: "10",
+					username: 'lll',
+					motto: "真的不会"
+				}, {
+					index: "11",
+					username: '纯纯不懂',
+					motto: "真的不会"
+				} ]
 			}
 
 		}
@@ -201,13 +194,14 @@
 		margin-bottom: 46.8rpx;
 		margin-left: 142.2rpx;
 		color: rgb(0, 0, 0);
-		font-weight: 700;
+		font-weight: 400;
 		line-height: 50.4rpx;
 		letter-spacing: 0rpx;
 		text-align: left;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		// text-shadow: 1rpx 1rpx #21;
 	}
 
 	.list-content-motto {
@@ -218,8 +212,7 @@
 		height: 70.2rpx;
 		margin-top: 46.8rpx;
 		margin-left: 142.2rpx;
-		color: rgb(0, 0, 0);
-		font-weight: 400;
+		color: #212121;
 		line-height: 37.8rpx;
 		letter-spacing: 0rpx;
 		text-align: right;
