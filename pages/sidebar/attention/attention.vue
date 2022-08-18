@@ -112,7 +112,7 @@
 	// 		this.getPost();
 	// 	},
 
-	// 	methods: {
+		methods: {
 	// 		getUser() {
 	// 			let that = this;
 	// 			try {
@@ -135,7 +135,10 @@
 	// 		init() {
 	// 			this.getUser();
 	// 		}
-	// 	},
+		}
+		uni.navigateBack({
+			
+		})
 </script>
 
 <style lang="scss">
