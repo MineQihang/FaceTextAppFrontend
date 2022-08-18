@@ -34,7 +34,7 @@
 
 
 			<!-- 帖子 -->
-			<view class="text">
+			<view class="text" @click="com2post()">
 				<!-- 标题 -->
 				<view class="title">
 					{{post_title}}
@@ -51,98 +51,93 @@
 			<view class="com_like">
 				<!-- 评论数 -->
 				<view style="margin-right:60rpx; display: flex;">
-					<view style="margin-left: 50rpx;">
+					<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
+					<view style="">
 						{{numberComment}}
 					</view>
-					<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
+
 				</view>
 				<!-- 点赞数 -->
 				<view style="display:flex; justify-content: flex-end; align-items: center; 
 					margin-right: 20rpx; width: 100rpx;">
-					<view style="">
-						{{numberLike}}
-					</view>
 					<uni-icons :type="like_or_not[like].name" color="rgb(97, 97, 211)" size="30" class="like-icon"
 						@click="like_it()">
 					</uni-icons>
+					<view style="width: 40rpx;">
+						{{numberLike}}
+					</view>
+
 				</view>
 			</view>
-
-
 		</view>
-		<!-- 评论区 -->
-		<view class="">
 
-			<view class="" style="background-color: #f1f1fe;margin-left: 10rpx;margin-right: 10rpx;">
-				<text style="color:#888bf4; font-size:35rpx; font-weight:550; margin-left:10rpx">评论</text>
+		<!-- 评论区 -->
+		<view class="" @click="com2post()">
+
+			<view class="" style="background-color: white; margin-top: 8px; padding:14rpx">
+				<!-- <text style="font-size:20px; font-weight:550;">评论</text> -->
 			</view>
 
-			<view class="" style="height: 300rpx;">
+			<view class="" style="background-color: #fff;">
 				<view class="comment1" v-for="(item,index) in allComments" :key="index"
-					style="margin-left: 1rpx;margin-top: 5rpx;">
-					<view class="" style="display:flex;width: 750rpx;">
-						<image :src="item.user.iconUrl" style="width: 100rpx;height: 100rpx;border-radius: 100rpx;"
-							mode="">
+					style="margin-left: 1rpx;padding-top: 0;">
+					<view class="" style="display:flex;width: 100%;">
+						<image :src="item.user.iconUrl"
+							style="width: 74rpx;height: 74rpx;border-radius: 50%;margin: 10rpx 10rpx 10rpx 18rpx; ">
 						</image>
-						<view class="">
+						<view class="" style="flex: 1 0;">
 							<view @click="pushUpCommentInput(item)">
-								<view class="" style="position:relative;height: 50rpx;font-weight: 800;">
+								<view class=""
+									style="position:relative; height: 40rpx;font-weight: 700;margin-top: 4px;">
 									{{item.user.username}}
 								</view>
-								<view class="" style="position:relative;height: 50rpx;" @click="com2com()">
+								<view @click="com2com()"
+									style="position:relative;padding-bottom:10rpx; color: rgb(70, 70, 70); padding-right: 10rpx;">
 									{{item.context}}
 								</view>
 							</view>
-							<view class="" v-for="(item1,index1) in item.comments" :key="index1"
-								style=" margin-left: 1rpx;margin-top: 5rpx;" @click="pushUpCommentInput(item1)">
 
+							<view class="" v-for="(item1,index1) in item.comments" :key="index1"
+								style="margin-top: 5rpx;">
 								<view class="" style="display: flex;">
-									<image :src="item1.user.iconUrl"
-										style="width: 80rpx;height: 80rpx;border-radius: 80rpx;" mode="">
+									<image :src="item1.user.iconUrl" class="head-icon1">
 									</image>
-									<view class="">
-										<view class="" style="height: 40rpx;font-weight: 800;" v-if="item1.reply">
-											{{item1.user.username}}回复{{item1.reply.username}}
+									<view @click="pushUpCommentInput(item1)" style="flex: 1 0;">
+										<view class="" style="height: 20px;font-weight: 400;" v-if="item1.reply">
+											<text style="font-weight: bold;">{{item1.user.username+' '}}</text>
+											<text style="color: rgb(70, 70, 70);">回复</text>
+											<text style="font-weight: bold;">{{' '+item1.reply.username}}</text>
 										</view>
-										<view class="" style="height: 40rpx;font-weight: 800;" v-else>
+										<view style="height: 20px;font-weight: bold;" v-else>
 											{{item1.user.username}}
 										</view>
-										<view class="" style="height: 40rpx;">
+										<view style="padding-bottom:5px; padding-right: 10rpx; color: rgb(70, 70, 70);">
 											{{item1.context}}
 										</view>
-
 									</view>
 								</view>
-
 							</view>
 						</view>
 
 					</view>
-					<!-- <view class="" v-for="(item1,index1) in allComments" :key="index">
-						
-					</view> -->
-
 				</view>
-				<view style="height: 120rpx; width: 100%;"></view>
+				<view style="height: 64px; width: 100%;"></view>
 			</view>
 		</view>
 
 		<!-- 写评论 -->
 		<view class="give_comment" v-show="postOrComment">
 			<view class="">
-				<input type="text" placeholder="发一条友善的评论" style="height: 100rpx;margin-left: 30rpx;"
-					v-model="comment_text">
-				<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
-				 ;" @click="send_comment()">发表</button>
+				<input type="text" placeholder="发一条友善的评论" v-model="comment_text" />
+				<button @click="send_comment()">发表</button>
 			</view>
 		</view>
 		<!-- 对评论发表评论 -->
 		<view class="give_comment" v-show="!postOrComment">
 			<view class="">
-				<input type="text" :placeholder="replyUser" style="height: 100rpx;margin-left: 30rpx;"
-					v-model="comment_text" :focus="!postOrComment">
-				<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
-				 ;" @click="send_comment_for_comment()">发表</button>
+				<input type="text" :placeholder="replyUser" v-model="comment_text" :focus="!postOrComment"
+					maxlength=50 />
+				<button @click="send_comment_for_comment()">发表</button>
 			</view>
 		</view>
 	</view>
@@ -187,6 +182,7 @@
 				comuser_1: '',
 				comuser_2: '',
 				postOrComment: true,
+				inner_click: false,
 				replyUser: '',
 				replycid: 0
 			}
@@ -197,6 +193,9 @@
 		},
 		mounted() {
 			this.sendRequest_();
+		},
+		onBackPress() {
+			this.back();
 		},
 		methods: {
 			sendRequest_() {
@@ -249,8 +248,15 @@
 			},
 			pushUpCommentInput(item) {
 				this.postOrComment = !this.postOrComment;
+				this.inner_click = true;
+				// this.postOrComment = false;
 				this.replyUser = "回复: " + item.user.username;
 				this.replycid = item.cid;
+			},
+			com2post() {
+				if (!this.postOrComment && !this.inner_click)
+					this.postOrComment = true;
+				this.inner_click = false;
 			},
 			send_comment_for_comment() {
 				let that = this;
@@ -293,7 +299,7 @@
 				}
 				// 调用$vm 注册一个自定义方法 将参数传入进去
 				prevPage.$vm.pass2explore(obj)
-				uni.navigateBack();
+				// uni.navigateBack();
 			},
 			send_comment() {
 				let that = this;
@@ -328,7 +334,7 @@
 												that.numberLike = res.data.likeNum;
 												that.post_title = res.data.title;
 												that.post_main = res.data.context;
-												that.time = res.data.createdTime;
+												that.time = getTimeAgo(res.data.createdTime);
 												that.swipers = res.data.imgUrls;
 												that.allComments = res.data.comments;
 												that.icon = res.data.iconUrl;
@@ -396,6 +402,7 @@
 	.post-content {
 		position: relative;
 		padding-top: 10px;
+		background-color: #fff;
 	}
 
 	.poster-head {
@@ -472,8 +479,8 @@
 	.title {
 		padding-top: 20rpx;
 		padding-left: 20rpx;
-		font-weight: 500;
-		font-size: 40rpx;
+		font-size: 19px;
+		line-height: 1.4em;
 	}
 
 	.mainText {
@@ -482,24 +489,54 @@
 		padding-right: 20rpx;
 		font-size: 30rpx;
 		font-weight: 200;
+		line-height: 1.5em;
+		color: rgb(40, 40, 40);
 	}
 
+	.head-icon1 {
+		width: 60rpx;
+		height: 60rpx;
+		border-radius: 50%;
+		margin: 5rpx 10rpx 10rpx 0rpx;
+	}
 
 
 	.give_comment {
 		position: fixed;
 		bottom: 0;
-		height: 100rpx;
-		width: 750rpx;
-		// background-color: sandybrown;
+		height: 76rpx;
+		width: 100%;
+		background-color: white;
+		padding-top: 4rpx;
+		padding-bottom: 4rpx;
 	}
 
 	.give_comment>view {
-		border-radius: 50rpx;
-		width: 84%;
-		height: 100rpx;
+		position: fixed;
+		width: 100%;
+		height: 76rpx;
+		// background-color: gainsboro;
+	}
+
+	.give_comment input {
+		position: fixed;
+		border-radius: 40rpx;
+		padding-left: 24rpx;
+		height: 76rpx;
+		width: 500rpx;
+		margin-left: 20rpx;
 		background-color: gainsboro;
-		display: flex;
+	}
+
+	.give_comment button {
+		position: fixed;
+		right: 20rpx;
+		height: 76rpx;
+		width: 150rpx;
+		line-height: 76rpx;
+		background-color: #8b8ef9;
+		border-radius: 50rpx;
+		color: #fff;
 	}
 
 	.comment1 {
