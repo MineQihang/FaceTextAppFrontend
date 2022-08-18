@@ -24,14 +24,16 @@
 
 					<view class="info text-font">
 						<view class="comment">
-							<image class="comment-icons" src="../../static/icons/comment.svg"
+							<image class="comment-icons" src="../../static/icons/comment_grey.svg"
 								style="width: 36rpx; height:36rpx"></image>
 							<view class="commentNum">{{ post.commentNum }}</view>
 						</view>
 
 						<view class="like">
-							<uni-icons type="heart-filled" size="20" v-if="post.is_liked"></uni-icons>
-							<uni-icons type="heart" size="20" v-else></uni-icons>
+							<image class="comment-icons" src="../../static/icons/like_purple.svg"
+								style="width: 36rpx; height:36rpx" v-if="post.is_liked"></image>
+							<image class="comment-icons" src="../../static/icons/like_grey.svg"
+								style="width: 36rpx; height:36rpx" v-else></image>
 							<view class="likeNum">{{ post.likeNum }}</view>
 						</view>
 					</view>
