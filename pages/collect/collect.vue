@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<!-- 头部个人信息 -->
-		<head-tab></head-tab>
+		<head-tab :userInfo="userInfo"></head-tab>
 
 		<view class="white-header"></view>
 
@@ -47,6 +47,7 @@
 				uid: 79,
 				postList: [],
 				bpid: 9660530943306,
+				userInfo: {}
 			}
 		},
 		onLoad: function(option) {
@@ -102,11 +103,12 @@
 				try {
 					this.sendRequest({
 						url: "/user/user-info",
-						// success: (res) => {
+						success: (res) => {
+							that.userInfo = res.data;
 						// 	that.username = res.data.username;
 						// 	that.uid = res.data.uid;
 						// 	console.log("收到的", that.uid);
-						// }
+						}
 					})
 				} catch (e) {
 					console.log(e)
