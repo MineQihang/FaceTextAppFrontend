@@ -386,7 +386,6 @@
 	.post-content {
 		position: relative;
 		padding-top: 10px;
-
 	}
 
 	.poster-head {

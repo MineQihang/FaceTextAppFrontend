@@ -6,7 +6,7 @@
 
 		<view class="set" @click="to_set()">
 			<image src="/static/Frame_7064_Iconly_Light_Setting2.png" style="height: 60rpx;width:60rpx;">
-		</view> 
+		</view>
 		<view class="personal-icon">
 			<image :src="iconUrl" mode="aspectFill" style="border-radius: 125rpx;height: 125rpx; width:125rpx;">
 		</view>
@@ -70,16 +70,16 @@
 				postNum: "",
 			}
 		},
-		onLoad: function (option) {
+		onLoad: function(option) {
 			this.init();
-			setTimeout(function () {
+			setTimeout(function() {
 				console.log('start pulldown');
 			}, 1000);
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
 			this.init();
-			setTimeout(function () {
+			setTimeout(function() {
 				uni.stopPullDownRefresh();
 			}, 1000);
 		},
@@ -99,7 +99,7 @@
 					url: url1
 				})
 			},
-            getselfpost(limit = 10){
+			getselfpost(limit = 10) {
 				let that = this;
 				this.sendRequest({
 					url: "/post/get_self_posts",
@@ -134,18 +134,18 @@
 					console.log(e)
 				};
 			},
-            init() {
-            	this.bpid = 9660530943306;
-            	this.flowList = [];
-            	this.getselfuser();
-            	this.getselfpost();
-            },
+			init() {
+				this.bpid = 9660530943306;
+				this.flowList = [];
+				this.getselfuser();
+				this.getselfpost();
+			},
 			to_set() {
 				uni.navigateTo({
 					url: '@/pages/sidebar/settings/settings'
 				})
 			},
-			getFormatDate(data){
+			getFormatDate(data) {
 				return getTimeAgo(data);
 			}
 		},
@@ -216,7 +216,7 @@
 	.postnum-class {
 		width: 80%;
 		height: 50px;
-		top:33%;
+		top: 33%;
 		position: absolute;
 		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
 		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
@@ -229,6 +229,7 @@
 		margin-right: 70rpx;
 
 	}
+
 	.content {
 		width: 100%;
 		background-color: #f5f5f5;
@@ -236,8 +237,9 @@
 		/* height: 400px; */
 		margin-top: 180px;
 	}
+
 	@charset "utf-8";
-	
+
 	.flowPanel {
 		/* flex-direction: row; */
 		justify-content: space-between;
@@ -245,7 +247,7 @@
 		overflow: hidden;
 		/* background-color: #f8f8f8; */
 	}
-	
+
 	.flowPanel .itemContainer {
 		border: 2px solid;
 		border-color: #f8f8f8;
@@ -261,24 +263,24 @@
 		background-color: #ffffff;
 		/* border: 2px solid red; */
 	}
-	
+
 	.flowPanel .itemContainer .itemContent {
-		width:90%;
+		width: 90%;
 		display: block;
 		margin: 0px;
 		/* height: 250px; */
 		/* border: 2px solid red; */
 	}
-	
+
 	.flowPanel .itemContainer .itemContent img {
 		width: 100%;
 		display: block;
-		margin:-2px;
+		margin: -2px;
 		object-fit: scale-down;
 		padding-top: 10px;
 		/* border: 2px solid blue; */
 	}
-	
+
 	.flowPanel .itemContainer .title {
 		overflow: hidden;
 		display: -webkit-box;
@@ -290,54 +292,54 @@
 		text-align: left;
 		padding: 0.3em 0.5em;
 	}
-	
+
 	.flowPanel .itemContainer .info {
 		width: 100%;
 		color: #8a8a8a;
 		overflow: hidden;
 		padding: 0px;
 		border-top: 1px #e9e9e9 solid;
-		
+
 	}
-	
+
 	.flowPanel .itemContainer .info .info-up {
 		display: flex;
 		flex-direction: row;
 		/* justify-content: space-between; */
 	}
-	
-	
+
+
 	.flowPanel .itemContainer .info .info-up .comment {
 		flex-direction: row;
 	}
-	
+
 	.flowPanel .itemContainer .info .info-up .comment-icons {}
-	
+
 	.flowPanel .itemContainer .info .info-up .commentNum {
 		flex-direction: row;
 		font-size: 15px;
 		line-height: center;
 		float: right;
 	}
-	
-	
+
+
 	.flowPanel .itemContainer .info .info-up .like {
 		flex-direction: row;
 		padding-left: 40%;
 	}
-	
+
 	.flowPanel .itemContainer .info .info-up .likeNum {
 		flex-direction: row;
 		font-size: 15px;
 		line-height: center;
 		float: right;
 	}
-	
+
 	.flowPanel .itemContainer .info .info-down {
 		display: flex;
 		flex-direction: row;
 	}
-	
+
 	.flowPanel .itemContainer .info .info-down .date {
 		flex-direction: row;
 		font-size: 15px;
