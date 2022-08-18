@@ -3,7 +3,7 @@
 
 		<!-- 空白部分 -->
 		<view class="blank" style="background-color:#4605AD;">
-			<image src="@/static/icons/logo.svg" alt="" style="width:30%;margin-top: 10%;margin-left: 38%;">
+			<image src="@/static/icons/logo.svg" alt="" style="width:30%;top: 7%;margin-left: 38%;">
 		</view>
 
 		<!-- 主体 -->
@@ -139,13 +139,6 @@
 	}
 </script>
 <style>
-	.iphone,
-	.password,
-	.test {
-		position: relative;
-		margin-bottom: 30rpx;
-	}
-
 	.box {
 		height: 115.2rpx;
 		margin-left: 84.6rpx;
@@ -173,12 +166,12 @@
 
 	.white_next {
 		border-radius: 90rpx;
-		height: 1500rpx;
+		height: 1100rpx;
 		background-color: #ffffff;
 		width: 100%;
 		/* 		top: 544rpx; */
 		z-index: 10！important;
-		position: fixed;
+		position: absolute;
 		margin-top: 532.8rpx;
 	}
 
@@ -200,7 +193,7 @@
 		width: 100%;
 		height: 700rpx;
 		z-index: -1！important;
-		position: fixed
+		position: absolute
 	}
 
 	.input-box {

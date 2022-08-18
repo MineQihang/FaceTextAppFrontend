@@ -2,11 +2,9 @@
 	<!-- 帖子详情界面 -->
 	<view style="">
 		<!-- 顶部返回和点赞 -->
-		<view class="head">
+		<!-- <view class="head">
 			<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
-			<!-- <uni-icons :type="like_or_not[like].name" size="30" class="heart-icon" @click="like_it()"> -->
-			<!-- </uni-icons> -->
-		</view>
+		</view> -->
 
 		<view class="main_con">
 			<!-- 发帖人信息和发帖时间 -->
@@ -392,7 +390,6 @@
 
 	.main_con {
 		position: relative;
-		padding-top: 158rpx;
 
 	}
 
