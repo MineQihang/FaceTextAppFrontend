@@ -17,25 +17,25 @@
 					<view class="user-info">
 						<!-- 发帖人头像	 -->
 						<view>
-							<image class="user-icon" :src="icon" alt="" v-model="icon">
+							<image class="user-icon" :src="userIcon">
 						</view>
 						<!-- 发帖人昵称 -->
 						<view class="username">
-							{{"username"}}
+							{{username}}
 						</view>
 						<!-- 个性签名 -->
 						<view class="user-motto">
-							{{"motto"}}
+							{{userMotto}}
 						</view>
 					</view>
 					<view class="sidebar-list">
 						<view class="title">
-							<view class="title-detail" @click="turnToPost()">
+							<view class="title-detail" @click="turnToPersonalSpace()">
 								<view style="color:rgb(70, 5, 173);">
 									{{"发帖数"}}
 								</view>
 								<view class="number">
-									{{"1"}}
+									{{postNum}}
 								</view>
 							</view>
 							<view class="title-detail" @click="turnToFans()">
@@ -43,7 +43,7 @@
 									{{"粉丝数"}}
 								</view>
 								<view class="number">
-									{{"12"}}
+									{{fansNum}}
 								</view>
 							</view>
 							<view class="title-detail" @click="turnToAttention()">
@@ -51,12 +51,12 @@
 									{{"我的关注"}}
 								</view>
 								<view class="number">
-									{{"1"}}
+									{{mySubscribe}}
 								</view>
 							</view>
 						</view>
 						<view class="line"></view>
-						<view class="button">
+						<view class="button" @click="turnToPersonalSpace()">
 							<view>
 								<image src="/static/icons/personalSpace.svg" class="image-style"></image>
 							</view>
@@ -65,7 +65,7 @@
 							</view>
 						</view>
 						<view class="line"></view>
-						<view class="button">
+						<view class="button" @click="turnToSetting()">
 							<view>
 								<image src="/static/icons/settings.svg" class="image-style"></image>
 							</view>
@@ -86,13 +86,14 @@
 		name: "head-tab",
 		data() {
 			return {
-				username: "",
+				username: "这个人没有姓名",
 				userIcon: "",
-				userMotto: "",
+				userMotto: "这个人没有遗言",
+				postNum: "0",
+				fansNum: "0",
+				mySubscribe: "0",
 				showLeft: false,
-				items: ["个人空间", "个人信息修改", "设置"],
 				defaultUserIcon: "/static/icons/user.svg",
-				icon: ""
 			};
 		},
 		mounted() {
@@ -100,12 +101,16 @@
 			this.sendRequest({
 				url: "/user/user-info",
 				success: (res) => {
+					console.log(res.data)
 					that.username = res.data.username;
-					that.userIcon = res.data.iconUrl;
+					that.userIcon= res.data.iconUrl;
+					that.userMotto = res.data.motto;
+					that.postNum = res.data.postNum;
 				}
 			});
 		},
 		methods: {
+
 			// 打开窗口
 			showDrawer(e) {
 				this.$refs[e].open()
@@ -126,9 +131,9 @@
 				})
 			},
 			//跳转到个人空间-帖子页面
-			turnToPost() {
+			turnToPersonalSpace() {
 				uni.navigateTo({
-					url: '/pages/sidebar/fans/fans'
+					url: '/pages/sidebar/personal-space/personal-space'
 				})
 			},
 			//跳转到我的关注
@@ -137,6 +142,19 @@
 					url: '/pages/sidebar/attention/attention'
 				})
 			},
+			//跳转到个人空间-个人信息页面
+			turnToPersonalSpace() {
+				uni.navigateTo({
+					url: '/pages/sidebar/personal-space/personal-space'
+				})
+			},
+			//跳转到设置
+			turnToSetting() {
+				uni.navigateTo({
+					url: '/pages/sidebar/settings/settings'
+				})
+			},
+
 			onNavigationBarButtonTap(e) {
 				if (this.showLeft) {
 					this.$refs.showLeft.close()
@@ -144,6 +162,8 @@
 					this.$refs.showLeft.open()
 				}
 			},
+
+
 			// app端拦截返回事件 ，仅app端生效
 			onBackPress() {
 				if (this.showRight || this.showLeft) {
@@ -273,7 +293,6 @@
 		width: 162rpx;
 		height: 162rpx;
 		border-radius: 162rpx;
-		background: rgb(72, 189, 79);
 	}
 
 	.username {
