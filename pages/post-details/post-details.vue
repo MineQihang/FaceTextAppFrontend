@@ -128,7 +128,7 @@
 		<!-- 写评论 -->
 		<view class="give_comment" v-show="postOrComment">
 			<view class="">
-				<input type="text" placeholder="发一条友善的评论" v-model="comment_text" />
+				<input type="text" placeholder="发一条友善的评论" v-model="comment_text" maxlength=100 />
 				<button @click="send_comment()">发表</button>
 			</view>
 		</view>
@@ -136,7 +136,7 @@
 		<view class="give_comment" v-show="!postOrComment">
 			<view class="">
 				<input type="text" :placeholder="replyUser" v-model="comment_text" :focus="!postOrComment"
-					maxlength=50 />
+					maxlength=100 />
 				<button @click="send_comment_for_comment()">发表</button>
 			</view>
 		</view>

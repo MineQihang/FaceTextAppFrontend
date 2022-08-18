@@ -1,16 +1,16 @@
 <template>
 	<view>
-			<view class="top">
-				<view class="return-path" @click="back()">
-					<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
-				</view>
-				<view class="focusme our-purple">设置</view>
+		<view class="top">
+			<view class="return-path" @click="back()">
+				<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
 			</view>
-
-			<view class="bottom_view">
-				<button class="btn" @click="index()">退出登录</button>
-			</view>
+			<view class="focusme our-purple">设置</view>
 		</view>
+
+		<view class="bottom_view">
+			<button class="btn" @click="index()">退出登录</button>
+		</view>
+	</view>
 	</view>
 </template>
 
@@ -66,17 +66,11 @@
 				} catch (e) {
 					console.log(e)
 				}
-				uni.redirectTo({
+				uni.reLaunch({
 					url: '/pages/index/login/login'
 				})
-				uni.navigateBack(
-				{
-					
-				}
-				)
 			},
-			back()
-			{
+			back() {
 				uni.navigateBack()
 			}
 
@@ -91,19 +85,21 @@
 		height: 126rpx;
 		background-color: white;
 	}
+
 	.focusme {
 		font-size: 24px;
 		font-weight: 700;
 	}
-	
+
 	.return-path {}
-	
+
 	.path-icon {
 		width: 54rpx;
 		height: 54rpx;
 		margin: 40rpx 40rpx 27rpx 28.8rpx;
 		background-color: white;
 	}
+
 	.bottom_view {
 		background-color: our-gray;
 		height: 1488.6rpx;
@@ -112,7 +108,7 @@
 	}
 
 	.btn {
-		position:absolute;
+		position: absolute;
 		width: 576rpx;
 		height: 115.2rpx;
 		background: $our-purple;

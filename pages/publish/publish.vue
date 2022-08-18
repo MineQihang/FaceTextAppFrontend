@@ -17,7 +17,7 @@
 				</view>
 				<view class="context">
 					<view class="title-font" style="align-self: flex-start; margin-bottom:20rpx">正文</view>
-					<textarea v-model="context" placeholder="编辑内容" maxlength=300></textarea>
+					<textarea v-model="context" placeholder="编辑内容" maxlength=500></textarea>
 				</view>
 			</view>
 
