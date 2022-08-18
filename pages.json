@@ -78,8 +78,9 @@
 		}, {
 			"path": "pages/collect/collect",
 			"style": {
+				"backgroundColor": "transparent",
 				"navigationBarTitleText": "收藏",
-				"enablePullDownRefresh": false,
+				"enablePullDownRefresh": true,
 				"navigationStyle": "custom"
 			}
 		},
@@ -122,17 +123,15 @@
 				"onReachBottomDistance": 400,
 				"navigationStyle": "custom"
 			}
+		}, {
+			"path": "pages/index/find_back/find_back",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	    ,{
-            "path" : "pages/index/find_back/find_back",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
