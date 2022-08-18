@@ -38,11 +38,10 @@
 	export default {
 		data() {
 			return {
-				context: "",
 				title: "",
+				context: "",
 				fileList1: [],
 				imgUrls: [],
-				tags: [],
 			}
 		},
 		methods: {
@@ -135,12 +134,15 @@
 					},
 					success: (res) => {
 						// console.log(res);
+						this.title = "";
+						this.context = "";
+						this.fileList1 = [];
+						this.imgUrls = [];
 						if (res.statusCode == 200) {
 							console.log("成功发布");
 							uni.switchTab({
 								url: "/pages/homepage/explore/explore"
 							})
-
 						} else {
 							uni.showToast({
 								title: res.data.detail,
