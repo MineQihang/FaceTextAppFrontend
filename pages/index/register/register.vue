@@ -20,16 +20,24 @@
 				</view>
 			</view>
 
-			<view class="" style="margin-top: 52.2rpx;height: 115.2rpx;">
-				<view class="box">
+			<view class="" style="margin-top: 52.2rpx;height: 115.2rpx;display: flex;">
+
+				<view class="box1">
 					<view class="lock-picture">
 						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="password" placeholder="请输入密码"
-							v-model="passwordValue1" />
+						<input class="uni-input input-box" type="password" placeholder="请输入验证码" v-model="code" />
+					</view>
+
+				</view>
+				<view class="code-button-container">
+					<view class="code-button" style="color: #4605AD;" @click="getCode()">
+						{{getCodeText}}
 					</view>
 				</view>
+
+
 			</view>
 
 			<view class="" style="margin-top: 52.2rpx; height: 115.2rpx;">
@@ -38,8 +46,8 @@
 						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="password" placeholder="请确认密码"
-							v-model="passwordValue2" />
+						<input class="uni-input input-box" type="password" placeholder="请输入密码"
+							v-model="passwordValue" />
 					</view>
 				</view>
 			</view>
@@ -60,41 +68,92 @@
 		data() {
 			return {
 				iphoneValue: '', //手机号码
-				passwordValue1: '',
-				passwordValue2: '', //密码
+				code: '', //验证码
+				passwordValue: '', //密码
+				getCodeText: '获取验证码',
+				getCodeisWaiting: false,
+				getCodeBtnColor: "#ffffff"
 			}
 		},
 		methods: {
+
+			Timer() {},
 			isMobile(str) {
 				let reg = /^1\d{10}$/;
 				return reg.test(str)
 			},
+			getCode() {
+				let that = this
+				uni.hideKeyboard() //隐藏已经显示的软键盘，如果软键盘没有显示则不做任何操作。
+				if (this.getCodeisWaiting) {
+					return;
+				}
+				if (!(that.isMobile(that.iphoneValue))) { //校验手机号码是否有误
+					uni.showToast({
+						title: '请填写正确手机号码',
+						icon: "none"
+					});
+					return false;
+				}
+				this.sendRequest({
+					url: '/user/register/get_verification_code',
+					method: 'POST',
+					requestDataType: 'form',
+					data: {
+						phoneNumber: that.iphoneValue,
+					},
+					success: (res) => {
+						console.log(res)
+						if (res.code == 200) {
+							setTimeout(() => {
+								uni.showToast({
+									title: '验证码已发送',
+									icon: "none"
+								}); //弹出提示框
+								that.setTimer(); //调用定时器方法
+							}, 1000)
+							//发送验证码
+							that.getCodeisWaiting = true;
+							that.getCodeBtnColor = "rgba(255,255,255,0.5)" //追加样式，修改颜色
+						} else if (res.code == 400) {
+							uni.showToast({
+								title: '请输入正确手机号',
+								icon: "none"
+							});
+						}
+					}
+				});
+
+			},
+			setTimer() {
+				let holdTime = 60; //定义变量并赋值
+				this.getCodeText = "重新获取(60)"
+				//setInterval（）是一个实现定时调用的函数，可按照指定的周期（以毫秒计）来调用函数或计算表达式。
+				//setInterval方法会不停地调用函数，直到 clearInterval被调用或窗口被关闭。
+				this.Timer = setInterval(() => {
+					if (holdTime <= 0) {
+						this.getCodeisWaiting = false;
+						this.getCodeBtnColor = "#ffffff";
+						this.getCodeText = "获取验证码"
+						clearInterval(this.Timer); //清除该函数
+						return; //返回前面
+					}
+					this.getCodeText = "重新获取(" + holdTime + ")"
+					holdTime--;
+				}, 1000)
+			},
 			reg() {
 				let that = this
-				if (!that.iphoneValue || !that.isMobile(that.iphoneValue)) {
-					uni.showToast({
-						title: '请输入正确的手机号码',
-						icon: 'none'
-					})
-					return false
-				}
-				if (!that.passwordValue1) {
+				if (!that.passwordValue) {
 					uni.showToast({
 						title: '请输入密码',
 						icon: 'none'
 					})
 					return false
 				}
-				if (!that.passwordValue2) {
+				if (!that.code) {
 					uni.showToast({
-						title: '请再次输入密码',
-						icon: 'none'
-					})
-					return false
-				}
-				if (that.passwordValue1 != that.passwordValue2) {
-					uni.showToast({
-						title: '两次输入密码不一致，请重新输入',
+						title: '请输入验证码',
 						icon: 'none'
 					})
 					return false
@@ -106,7 +165,8 @@
 					requestDataType: 'form',
 					data: {
 						phoneNumber: that.iphoneValue,
-						password: that.passwordValue1
+						password: that.passwordValue,
+						verificationCode: that.code,
 					},
 					success: (res) => {
 						if (res.code == 200) {
@@ -133,6 +193,11 @@
 									url: '/pages/homepage/explore/explore'
 								});
 							}, 400)
+						} else if (res.code == 400) {
+							uni.showToast({
+								title: '验证码错误',
+								icon: 'none'
+							})
 						}
 					}
 				});
@@ -150,6 +215,34 @@
 		background-color: rgb(242, 243, 245);
 		border-radius: 36rpx;
 		display: flex;
+	}
+
+	.box1 {
+		height: 115.2rpx;
+		width: 100%;
+		margin-left: 84.6rpx;
+		margin-right: 27rpx;
+		margin-bottom: 20rpx;
+		background-color: rgb(242, 243, 245);
+		border-radius: 36rpx;
+		display: flex;
+	}
+
+	.code-button-container {
+		height: 115.2rpx;
+		margin-right: 84.6rpx;
+		border-radius: 36rpx;
+		background-color: rgb(242, 243, 245);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.code-button {
+		width: 225rpx;
+		font-size: 18px;
+		font-weight: 700;
+		text-align: center;
 	}
 
 	.phone-picture {
