@@ -74,8 +74,8 @@
 				<view class="" style="font-size: 43.2rpx;font-weight: 400;">
 					昵称
 				</view>
-				<view class="">
-					<input type="text" class="big-input" v-model="username">
+				<view class="big-input">
+					<input type="text" class="" v-model="username" style="padding-top: 30rpx;padding-left: 18rpx;">
 				</view>
 
 			</view>
@@ -102,8 +102,8 @@
 					<view class="" style="font-size: 43.2rpx;font-weight: 400;">
 						年龄
 					</view>
-					<view class="">
-						<input type="number" class="small-input" v-model="age">
+					<view class="small-input">
+						<input type="number" class="" v-model="age" style="padding-top: 30rpx;padding-left: 18rpx;">
 					</view>
 				</view>
 			</view>
@@ -112,8 +112,8 @@
 				<view class="" style="font-size: 43.2rpx;font-weight: 400;">
 					邮箱
 				</view>
-				<view class="">
-					<input type="text" class="big-input" v-model="mail">
+				<view class="big-input">
+					<input type="text" class="" v-model="mail" style="padding-top: 30rpx;padding-left: 18rpx;">
 				</view>
 
 			</view>
@@ -125,10 +125,8 @@
 					个性签名
 				</view>
 
-				<view class="">
-
-					<input type="text" class="max-input" v-model="motto">
-
+				<view class="max-input">
+					<input type="text" class="" v-model="motto" style="padding-top: 30rpx;padding-left: 18rpx;">
 				</view>
 			</view>
 
@@ -151,13 +149,14 @@
 						@click="turnToPost(item.pid)">
 
 						<view class="">
-							<view class="date" v-if="(index==0)||((index!=0)&&((flowList[index].createdTime.split('T'
+							<view class="date text-font " v-if="(index==0)||((index!=0)&&((flowList[index].createdTime.split('T'
 							)[0])!=flowList[index-1].createdTime.split('T')[0]))">
 								{{item.createdTime.split('T')[0]}}
 
 							</view>
-							<view class="title">{{item.title}}</view>
-							<view class="context">{{"哈哈哈哈哈喝喝喝喝喝喝喝喝和和喝喝和喝喝和和喝喝和喝喝和和喝喝和喝喝和和"}}</view>
+
+							<view class="title title-font">{{item.title}}</view>
+							<view class="context text-font">{{item.context}}</view>
 							<view class="itemContent" style="background-color: #ffffff;"
 								v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
 								<image class="" style="width: 100%;" :src="url" mode="widthFix">
@@ -166,21 +165,29 @@
 
 						<view class="info">
 							<view class="info-up">
-								<view class="comment">
-									<image src="../../../static/icons/comment.svg" style="width: 50rpx;height: 50rpx;"
-										mode=""></image>
+								<view class="comment" style="">
+									<image src="/static/icons/comment_grey.svg"
+										style="width:36rpx;height:36rpx;padding-top: 8rpx;" mode=""></image>
 									<view class="commentNum">{{item.commentNum}}</view>
 								</view>
-								<view class="like">
+								<view class="like" style="">
 									<!-- {{item.is_liked}} -->
-									<!-- <image src="../../../static/icons/like.svg" style="width: 50rpx;height: 50rpx;"
-										mode="" @click="likeIt(item.pid)"></image> -->
+									<image src="/static/icons/like_grey.svg" v-if="!item.is_liked"
+										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" mode=""></image>
+									<image src="/static/icons/like_purple.svg" v-if="item.is_liked"
+										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" mode=""></image>
 
-									<uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
-									<uni-icons type="heart" size="20" v-else></uni-icons>
+									<!-- <uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
+									<uni-icons type="heart" size="20" v-else></uni-icons> -->
+
+
 									<view class="likeNum">{{item.likeNum}}</view>
 								</view>
 							</view>
+						</view>
+
+						<view class="" style="height: 5rpx;background-color: rgb(242, 243, 245);">
+
 						</view>
 					</view>
 				</view>
@@ -478,6 +485,75 @@
 			},
 			// #endif
 
+			// #ifdef APP-PLUS
+			setIconBack() {
+				let that = this;
+				uni.chooseImage({
+					count: 1,
+					sourceType: ['album'], //从相册选择
+					crop: {
+						width: "250px",
+						height: "250px"
+					},
+					success: function(res) {
+						// console.log(res.tempFilePaths[0])
+						uni.uploadFile({
+							url: 'http://124.221.253.187:5000/service/upload_img',
+							filePath: res.tempFilePaths[0],
+							name: "img",
+							success: (res2) => {
+
+								that.iconUrl = JSON.parse(res2.data)["url"]
+								console.log("头像上传成功")
+							},
+							fail(res2) {
+								console.log(res2);
+								console.log("头像上传失败")
+							}
+						});
+					}
+				});
+			},
+			// #endif
+
+			// #ifdef H5
+			setIcon() {
+				let that = this;
+				uni.chooseImage({
+					count: 1,
+					sourceType: ['album'], //从相册选择
+					success: function(res) {
+						// console.log(res.tempFilePaths[0])
+						that.$refs.helangCompress.compress({
+							src: res.tempFilePaths[0],
+							maxSize: 250,
+							fileType: "jpg",
+							minSize: 250
+						}).then((res2) => {
+							// console.log(res2);
+							// this.compressPaths = [res];
+							uni.uploadFile({
+								url: 'http://124.221.253.187:5000/service/upload_img',
+								filePath: res2,
+								name: "img",
+								success: (res3) => {
+									// console.log(JSON.parse(res3.data)["url"])
+									that.iconUrl = JSON.parse(res3.data)["url"];
+									console.log("头像上传成功")
+								},
+								fail(res3) {
+									console.log(res3);
+									console.log("头像上传失败")
+								}
+							});
+						}).catch((err) => {
+							console.log(err);
+						})
+					}
+				});
+			},
+			// #endif
+
 		}
 	}
 </script>
@@ -615,11 +691,12 @@
 	}
 
 	.small-input {
+
 		width: 306rpx;
 		height: 108rpx;
-		background-color: #ffffff;
 		border-radius: 36rpx;
-		margin-top: 15rpx;
+		background-color: #ffffff;
+		margin-top: 10rpx;
 	}
 
 	.big-input {
@@ -660,7 +737,7 @@
 	.slect {
 		/* margin-top: 30rpx; */
 		padding-top: 37rpx;
-		padding-left: 10rpx;
+		padding-left: 18rpx;
 		font-size: 33.2rpx;
 		font-weight: 400;
 	}
@@ -726,8 +803,6 @@
 		text-align: left;
 		padding-top: 15rpx;
 		padding-left: 36rpx;
-		font-size: 36rpx;
-		font-weight: 700;
 	}
 
 	.info {
@@ -752,11 +827,13 @@
 
 
 	.commentNum {
+		margin-left: 10rpx;
 		flex-direction: row;
 		font-size: 32.4rpx;
 		line-height: center;
 		float: right;
 		font-weight: 400;
+		margin-top: 5rpx;
 	}
 
 
@@ -767,6 +844,8 @@
 	}
 
 	.likeNum {
+		margin-left: 15rpx;
+		margin-top: 5rpx;
 		flex-direction: row;
 		font-size: 32.4rpx;
 		line-height: center;
@@ -780,20 +859,20 @@
 	}
 
 	.date {
+		font-size: 43.2rpx;
+		font-weight: 700;
 		padding-top: 36rpx;
-		padding-left: 35rpx;
-		font-size: 32.4rpx;
-		font-weight: 400;
+		padding-left: 18rpx;
+		padding-bottom: 10rpx;
 		line-height: center;
 		background-color: rgb(242, 243, 245);
+		color: rgb(70, 5, 173);
 	}
 
 	.context {
 		padding-top: 15rpx;
 		padding-left: 36rpx;
 		padding-right: 36rpx;
-		font-size: 32.4rpx;
-		font-weight: 400;
 		line-height: center;
 		background-color: white;
 		line-height: 36rpx;
