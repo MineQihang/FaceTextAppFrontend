@@ -1,8 +1,8 @@
 <template>
 	<view class="our-gray">
 		<view class="top">
-			<view class="return-path" @click="to_return()">
-				<image class="path icon" src=''></image>
+			<view class="return-path" @click="uni.navigateBack()">
+				<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
 			</view>
 			<view class="focusme our-purple">我的关注</view>
 		</view>
@@ -12,7 +12,7 @@
 				<view class="list-content-icon" @click="to_fans()">
 					<image src='static/icons/add.svg' mode="aspectFill">
 				</view>
-				<view class="list-content-username username-font">
+				<view class="list-content-username title-font">
 					{{item.username}}
 				</view>
 				<view class="list-content-motto text-font">
@@ -50,7 +50,7 @@
 				flowList: [{
 						index: "1",
 						username: 'Frank Smith',
-						motto: "不懂哦",
+						motto: "mottomotto",
 						attention: 1
 					}, {
 						index: "2",
@@ -158,10 +158,11 @@
 
 	.return-path {}
 
-	.path {
+	.path-icon {
 		width: 54rpx;
 		height: 54rpx;
 		margin: 40rpx 40rpx 27rpx 28.8rpx;
+		background-color: white;
 	}
 
 	.content {
