@@ -43,13 +43,13 @@
 
 		<!-- 个人信息 -->
 		<view class="personal-information-unclick" v-if="choose1" @click="changeInformation()">
-			<view class="information-click">
+			<view class=" information-click">
 				个人信息
 			</view>
 		</view>
 
-		<view class="personal-information-click" v-if="!choose1" @click="changeInformation()">
-			<view class="information-unclick">
+		<view class="personal-information-click" v-if="!choose1">
+			<view class=" information-unclick">
 				个人信息
 			</view>
 		</view>
@@ -61,7 +61,7 @@
 			</view>
 		</view>
 
-		<view class="personal-post-click" v-if="choose1" @click="changeInformation()">
+		<view class="personal-post-click" v-if="choose1">
 			<view class="post">
 				帖子
 			</view>
@@ -77,7 +77,6 @@
 				<view class="big-input">
 					<input type="text" class="" v-model="username" style="padding-top: 30rpx;padding-left: 18rpx;">
 				</view>
-
 			</view>
 
 			<view class="" style="display: flex; ">
@@ -202,12 +201,12 @@
 		getTimeAgo
 	} from "@/common/js/utils.js"
 	export default {
-		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+		onLoad: function(option) {
 			this.choose1 = option
 		},
 		data() {
 			return {
-				choose1: false,
+				choose1: true,
 				like_or_not: [{
 						id: 0,
 						name: 'heart'
@@ -332,6 +331,10 @@
 			},
 			changeInformation() {
 				this.choose1 = !this.choose1;
+			},
+			changeInformation1() {
+				if (this.choose1 == true)
+					this.choose1 = !this.choose1;
 			},
 			save_inf() {
 				let that = this
