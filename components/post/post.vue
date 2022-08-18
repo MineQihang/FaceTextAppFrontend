@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<view class="content-container">
-			<view class="post-container" v-for="(post, index) in postList" :key="index"
-				@click="turnToPost(post.pid,index)">
+			<view class="post-container" v-for="(post, index) in postList" :key="index">
+
 				<view class="user-container">
 					<view class="user-info">
 						<image class="user-icon icon" :src="post.user.iconUrl" />
@@ -12,22 +12,28 @@
 					</view>
 					<view class=" date text-font">{{ getFormatDate(post.updatedTime) }}</view>
 				</view>
-				<view class="title title-font">{{ post.title }}</view>
-				<view class="text text-font">{{ post.context }}</view>
-				<view class="photo-content" v-for="(url, index2) in post.imgUrls" :key="index2" v-if="index2 == 0">
-					<image class="post-photo" :src="url" mode="widthFix" />
-				</view>
 
-				<view class="info text-font">
-					<view class="comment">
-						<image class="comment-icons" src="../../static/icons/comment.svg"
-							style="width: 36rpx; height:36rpx"></image>
-						<view class="commentNum">{{ post.commentNum }}</view>
+				<view class="click-container" @click="turnToPost(post.pid,index)">
+					<view class="title title-font">{{ post.title }}</view>
+
+					<view class="text text-font">{{ post.context }}</view>
+
+					<view class="photo-content" v-for="(url, index2) in post.imgUrls" :key="index2" v-if="index2 == 0">
+						<image class="post-photo" :src="url" mode="widthFix" />
 					</view>
-					<view class="like">
-						<uni-icons type="heart-filled" size="20" v-if="post.is_liked"></uni-icons>
-						<uni-icons type="heart" size="20" v-else></uni-icons>
-						<view class="likeNum">{{ post.likeNum }}</view>
+
+					<view class="info text-font">
+						<view class="comment">
+							<image class="comment-icons" src="../../static/icons/comment.svg"
+								style="width: 36rpx; height:36rpx"></image>
+							<view class="commentNum">{{ post.commentNum }}</view>
+						</view>
+
+						<view class="like">
+							<uni-icons type="heart-filled" size="20" v-if="post.is_liked"></uni-icons>
+							<uni-icons type="heart" size="20" v-else></uni-icons>
+							<view class="likeNum">{{ post.likeNum }}</view>
+						</view>
 					</view>
 				</view>
 			</view>
