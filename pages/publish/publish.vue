@@ -28,8 +28,8 @@
 					</u-upload>
 				</view>
 			</view>
-			<button class="publish-btn">确认发布</button>
 		</view>
+		<button class="publish-btn">确认发布</button>
 		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
 </template>
@@ -244,6 +244,9 @@
 	}
 
 	.publish-btn {
+		position: fixed;
+		bottom: 76rpx;
+		margin: 5% 15%;
 		width: 70%;
 		background-color: $our-purple;
 		color: white;
