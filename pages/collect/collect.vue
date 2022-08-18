@@ -24,13 +24,13 @@
 		</view>
 
 		<!-- 展示收藏帖子 -->
-		<view v-if="showCollection" class="collection-post">
+		<view v-if="showCollection" class="collection-post" style="margin-top: 50rpx;">
 			<post :postList="postList"></post>
 		</view>
 
 
 		<!-- 展示关注帖子 -->
-		<view v-if="showAttention" class="attention-post">
+		<view v-if="showAttention" class="attention-post" style="margin-top: 50rpx;">
 			<post :postList="postList"></post>
 		</view>
 
@@ -198,6 +198,7 @@
 		height: 81rpx;
 		top: 80px;
 		z-index: 999;
+		border-bottom: solid #F2F3F5;
 	}
 
 	.collection-click {
