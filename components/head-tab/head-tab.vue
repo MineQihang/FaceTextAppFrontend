@@ -1,6 +1,6 @@
 <template>
-	<view class="container">
-		<view>
+	<view style="width: 100%;">
+		<view class="container">
 			<view class="user-container" @click="showDrawer('showLeft')">
 				<view class="icon-container">
 					<image class="self-icon" :src="userIcon ? userIcon : defaultUserIcon"></image>
@@ -8,11 +8,19 @@
 				<view class="self-username">{{ username }}</view>
 			</view>
 		</view>
+		<view style="height: calc(108rpx + 2 * 36rpx); "></view>
 		<view class="swiper">
 		</view>
 		<view class="drawer-container">
 			<uni-drawer ref="showLeft" mode="left" :width="320" @change="change($event,'showLeft')">
-				
+				<view class = "user-info">
+					
+				</view>
+				<view  class = "sidebar">
+					<view class="" v-for="(item,index) in items">
+						{{item}}
+					</view>
+				</view>
 			</uni-drawer>
 		</view>
 	</view>
@@ -25,8 +33,9 @@
 			return {
 				username: "",
 				userIcon: "",
-				defaultUserIcon: "/static/Iconly_Light_Profile.svg",
-				showLeft: false
+				showLeft: false,
+				items: ["个人空间","个人信息修改","设置"],
+				defaultUserIcon: "/static/icons/user.svg",
 			};
 		},
 		mounted() {
@@ -75,6 +84,10 @@
 <style>
 	.container {
 		background-color: white;
+		position: fixed; 
+		width: 100%; 
+		z-index: 999;
+		border-bottom: solid #F2F3F5;
 	}
 
 	.user-container {

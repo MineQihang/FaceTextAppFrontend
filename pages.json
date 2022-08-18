@@ -2,7 +2,8 @@
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "启动界面"
+				"navigationBarTitleText": "启动界面",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -62,7 +63,8 @@
 			"style": {
 				"backgroundColor": "transparent",
 				"navigationBarTitleText": "帖子详情",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/search/search",
@@ -124,28 +126,28 @@
 		"backgroundColor": "white",
 		"borderStyle": "white",
 		"list": [{
-				"text": "发现",
+				// "text": "发现",
 				"pagePath": "pages/homepage/explore/explore",
 				"iconPath": "static/icons/discover.svg",
-				"selectedIconPath": "static/icons/discover.svg"
+				"selectedIconPath": "static/icons/discover_purple.svg"
 			},
 			{
-				"text": "收藏",
+				// "text": "收藏",
 				"pagePath": "pages/collect/collect",
 				"iconPath": "static/icons/collect.svg",
-				"selectedIconPath": "static/icons/collect.svg"
+				"selectedIconPath": "static/icons/collect_purple.svg"
 			},
 			{
-				"text": "搜索",
+				// "text": "搜索",
 				"pagePath": "pages/search/search",
 				"iconPath": "static/icons/search.svg",
-				"selectedIconPath": "static/icons/search.svg"
+				"selectedIconPath": "static/icons/search_purple.svg"
 			},
 			{
-				"text": "发布",
+				// "text": "发布",
 				"pagePath": "pages/publish/publish",
-				"iconPath": "static/icons/add.svg",
-				"selectedIconPath": "static/icons/add.svg"
+				"iconPath": "static/icons/publish.svg",
+				"selectedIconPath": "static/icons/publish.svg"
 			}
 		]
 	}
