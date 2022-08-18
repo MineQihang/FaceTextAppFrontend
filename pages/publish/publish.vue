@@ -13,11 +13,11 @@
 			<view class="text">
 				<view class="title">
 					<view class="title-font" style="align-self: flex-start;; margin-bottom:20rpx">标题</view>
-					<textarea v-model="title" placeholder="编辑标题"></textarea>
+					<textarea v-model="title" placeholder="编辑标题" maxlength=20></textarea>
 				</view>
 				<view class="context">
 					<view class="title-font" style="align-self: flex-start; margin-bottom:20rpx">正文</view>
-					<textarea v-model="context" placeholder="编辑内容"></textarea>
+					<textarea v-model="context" placeholder="编辑内容" maxlength=300></textarea>
 				</view>
 			</view>
 
