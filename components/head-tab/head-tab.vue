@@ -16,8 +16,8 @@
 				<view class="drawer-container">
 					<view class="user-info">
 						<!-- 发帖人头像	 -->
-						<view class="user-icon">
-							<image :src="icon" alt="" v-model="icon">
+						<view>
+							<image class="user-icon" :src="icon" alt="" v-model="icon">
 						</view>
 						<!-- 发帖人昵称 -->
 						<view class="username">
@@ -30,7 +30,7 @@
 					</view>
 					<view class="sidebar-list">
 						<view class="title">
-							<view class="title-detail">
+							<view class="title-detail" @click="turnToPost()">
 								<view style="color:rgb(70, 5, 173);">
 									{{"发帖数"}}
 								</view>
@@ -38,15 +38,15 @@
 									{{"1"}}
 								</view>
 							</view>
-							<view class="title-detail">
-								<view style="color:rgb(70, 5, 173);" @click="turnToFans()">
+							<view class="title-detail" @click="turnToFans()">
+								<view style="color:rgb(70, 5, 173);">
 									{{"粉丝数"}}
 								</view>
 								<view class="number">
 									{{"12"}}
 								</view>
 							</view>
-							<view class="title-detail">
+							<view class="title-detail" @click="turnToAttention()">
 								<view style="color:rgb(70, 5, 173);">
 									{{"我的关注"}}
 								</view>
@@ -91,8 +91,8 @@
 				userMotto: "",
 				showLeft: false,
 				items: ["个人空间", "个人信息修改", "设置"],
-
 				defaultUserIcon: "/static/icons/user.svg",
+				icon: ""
 			};
 		},
 		mounted() {
@@ -122,25 +122,37 @@
 			//跳转到粉丝页面
 			turnToFans() {
 				uni.navigateTo({
-					url: './pages/search/search'
+					url: '/pages/sidebar/fans/fans'
 				})
+			},
+			//跳转到个人空间-帖子页面
+			turnToPost() {
+				uni.navigateTo({
+					url: '/pages/sidebar/fans/fans'
+				})
+			},
+			//跳转到我的关注
+			turnToAttention() {
+				uni.navigateTo({
+					url: '/pages/sidebar/attention/attention'
+				})
+			},
+			onNavigationBarButtonTap(e) {
+				if (this.showLeft) {
+					this.$refs.showLeft.close()
+				} else {
+					this.$refs.showLeft.open()
+				}
+			},
+			// app端拦截返回事件 ，仅app端生效
+			onBackPress() {
+				if (this.showRight || this.showLeft) {
+					this.$refs.showLeft.close()
+					this.$refs.showRight.close()
+					return true
+				}
 			}
 		},
-		onNavigationBarButtonTap(e) {
-			if (this.showLeft) {
-				this.$refs.showLeft.close()
-			} else {
-				this.$refs.showLeft.open()
-			}
-		},
-		// app端拦截返回事件 ，仅app端生效
-		onBackPress() {
-			if (this.showRight || this.showLeft) {
-				this.$refs.showLeft.close()
-				this.$refs.showRight.close()
-				return true
-			}
-		}
 	}
 </script>
 
@@ -189,21 +201,21 @@
 		flex-direction: row;
 		width: 100%;
 		height: 136.8rpx;
-		
+
 	}
 
 	.number {
 		display: flex;
 		justify-content: center;
 		align-items: flex-end;
-		
+
 		background-color: white;
 		font-size: 18px;
 		font-weight: 700;
 		line-height: 21px;
 		height: 70.2rpx;
 		width: 100%;
-		
+
 	}
 
 	.line {
