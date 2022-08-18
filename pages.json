@@ -89,6 +89,24 @@
 				"onReachBottomDistance": 400,
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/sidebar/fans/fans",
+			"style": {
+				"navigationBarTitleText": "关注我的人",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 400,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/sidebar/attention/attention",
+			"style": {
+				"navigationBarTitleText": "我关注的人",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 400,
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {
