@@ -4,7 +4,7 @@
 				<view class="return-path" @click="back()">
 					<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
 				</view>
-				<view class="focusme our-purple">关注我的人</view>
+				<view class="focusme our-purple">设置</view>
 			</view>
 
 			<view class="bottom_view">
