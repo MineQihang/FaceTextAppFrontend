@@ -29,7 +29,7 @@
 				</view>
 			</view>
 		</view>
-		<button class="publish-btn">确认发布</button>
+		<button class="publish-btn" @click="publish()">确认发布</button>
 		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
 </template>
@@ -94,7 +94,7 @@
 							filePath: res2,
 							name: "img",
 							success: (res3) => {
-								console.log(JSON.parse(res3.data)["url"])
+								// console.log(JSON.parse(res3.data)["url"])
 								that.imgUrls.push(JSON.parse(res3.data)["url"]);
 								setTimeout(() => {
 									resolve("")
@@ -147,6 +147,9 @@
 								icon: "error"
 							})
 						}
+					},
+					fail: (res) => {
+						console.log(res);
 					}
 				})
 			}
