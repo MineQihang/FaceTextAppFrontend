@@ -7,6 +7,6 @@
 }
 
 /*设置整个项目的字体*/
-* {
-	font-family: Meslo LG, sans-serif;
+view {
+	font-family: "Meslo LG", sans-serif;
 }

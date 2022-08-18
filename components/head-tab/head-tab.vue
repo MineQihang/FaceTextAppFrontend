@@ -33,7 +33,7 @@
 							<view style="color:rgb(70, 5, 173);">
 								{{"发帖数"}}
 							</view>
-							<view style="color:rgb(70, 5, 173);">
+							<view style="color:rgb(70, 5, 173);" @click="turnToFans()">
 								{{"粉丝数"}}
 							</view>
 							<view style="color:rgb(70, 5, 173);">
@@ -51,33 +51,21 @@
 								{{"1"}}
 							</view>
 						</view>
-						<view class="line">
-
-						</view>
+						<view class="line"></view>
 						<view class="button">
 							<view>
-								图片
+								<image src="/static/icons/personalSpace.svg" class="image-style"></image>
 							</view>
-							<view>
+							<view class="text-style">
 								个人空间
 							</view>
 						</view>
 						<view class="line"></view>
 						<view class="button">
 							<view>
-								图片
+								<image src="/static/icons/settings.svg" class="image-style"></image>
 							</view>
-							<view>
-								个人信息修改
-							</view>
-						</view>
-						<view class="line"></view>
-
-						<view class="button">
-							<view>
-								图片
-							</view>
-							<view>
+							<view class="text-style">
 								设置
 							</view>
 						</view>
@@ -98,6 +86,8 @@
 				userIcon: "",
 				userMotto: "",
 				showLeft: false,
+				items: ["个人空间", "个人信息修改", "设置"],
+
 				defaultUserIcon: "/static/icons/user.svg",
 			};
 		},
@@ -124,6 +114,12 @@
 			change(e, type) {
 				// console.log((type === 'showLeft' ? '左窗口' : '右窗口') + (e ? '打开' : '关闭'));
 				this[type] = e
+			},
+			//跳转到粉丝页面
+			turnToFans() {
+				uni.navigateTo({
+					url:'/pages/search/search'
+				})
 			}
 		},
 		onNavigationBarButtonTap(e) {
@@ -208,7 +204,9 @@
 		margin: 0 0 15rpx 0;
 		width: 100%;
 		height: 0;
-		border: 1px solid rgb(0, 0, 0);
+		border: solid 1rpx;
+		border-color: black;
+		background-color: black;
 	}
 
 	.button {
@@ -218,11 +216,22 @@
 		background-color: white;
 		width: 100%;
 		height: 136.8rpx;
-		padding: 0 0 40rpx 25.2rpx;
-		font-size: 18px;
+		padding: 0 0 10rpx 25.2rpx;
+
+	}
+
+	.image-style {
+		width: 54rpx;
+		height: 54rpx;
+		margin: 0 12.6rpx 0 0;
+	}
+
+	.text-style {
+		font-size: 32.4rpx;
 		font-weight: 400;
-		line-height: 21px;
-		
+		line-height: 37.8rpx;
+		margin: 0 0 17rpx 0;
+
 	}
 
 

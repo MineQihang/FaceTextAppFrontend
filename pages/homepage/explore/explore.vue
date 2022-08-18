@@ -5,7 +5,8 @@
 		<head-tab></head-tab>
 		<!-- 帖子展示 -->
 		<view class="content-container">
-			<view class="post-container" v-for="(post, index) in postList" :key="index" @click="turnToPost(post.pid)">
+			<view class="post-container" v-for="(post, index) in postList" :key="index"
+				@click="turnToPost(post.pid,index)">
 				<view class="user-container">
 					<view class="user-info">
 						<image class="user-icon icon" :src="post.user.iconUrl" />
@@ -41,7 +42,7 @@
 	import {
 		getTimeAgo
 	} from "@/common/js/utils.js"
-	// import "../../common/css/flowPanel.css"
+
 	export default {
 		data() {
 			return {
@@ -51,7 +52,6 @@
 			}
 		},
 		onLoad: function(option) {
-			// this.init();
 			setTimeout(function() {
 				console.log('start pulldown');
 			}, 1000);
@@ -68,7 +68,7 @@
 			this.getMore();
 		},
 		onShow() {
-			this.getPost();
+			// this.getPost();
 		},
 		methods: {
 			getPost(limit = 10) {
@@ -127,14 +127,21 @@
 					url: '/pages/index/login/login'
 				});
 			},
-			turnToPost(pid) {
-				let url1 = '/pages/post-details/post-details?pid=' + pid;
+			turnToPost(pid, index) {
+				let url1 = '/pages/post-dsetails/post-details?pid=' + pid + '&index=' + index;
 				uni.navigateTo({
-					url: url1
+					url: url1,
 				})
 			},
 			getFormatDate(data) {
 				return getTimeAgo(data);
+			},
+			// 这个方法就是B页面中调用$vm注册的方法，参数为B页面中传递过来的数据
+			pass2explore(obj) {
+				if (obj) {
+					this.postList[obj.index].is_liked = obj.is_liked;
+					this.postList[obj.index].likeNum = obj.numberLike;
+				}
 			}
 		},
 	}
@@ -172,13 +179,10 @@
 
 	.container .content-container .post-container .photo-content {
 		margin-top: 10rpx;
-		/* display: flex;
-		flex-direction: row; */
 	}
 
 	.container .content-container .post-container .photo-content .post-photo {
 		width: 100%;
-		/* max-height: 800rpx; */
 		object-fit: cover;
 	}
 
@@ -189,14 +193,11 @@
 		-webkit-line-clamp: 2;
 		word-wrap: break-word;
 		word-break: break-all;
-		/* color: #333; */
 		text-align: center;
 		padding: 0.2em 0.5em;
-		/* font-size: 20px; */
 	}
 
 	.container .content-container .post-container .info {
-		/* width: 100%; */
 		border-top: 1px #e9e9e9 solid;
 	}
 
