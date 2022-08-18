@@ -240,6 +240,7 @@
 				iconUrl: '', //用户头像
 				flowList: [],
 				pid: 0,
+				bpid: 0,
 
 			}
 		},
@@ -289,14 +290,8 @@
 			// 触底的时候请求数据，即为上拉加载更多
 			this.getselfpost();
 		},
-		onShow() {
-			this.init();
-		},
 		methods: {
 			likeIt(item) {
-
-
-
 				let that = this;
 				console.log(pid);
 				try {
@@ -376,6 +371,7 @@
 						bpid: that.bpid
 					},
 					success: (res) => {
+						console.log(res.data);
 						let datas = res.data;
 						if (datas && datas.length != 0) {
 							that.flowList.push.apply(that.flowList, datas);
@@ -405,7 +401,6 @@
 			init() {
 				this.bpid = 9660530943306;
 				this.flowList = [];
-				this.getselfuser();
 				this.getselfpost();
 			},
 			to_set() {
@@ -413,9 +408,7 @@
 					url: '@/pages/sidebar/settings/settings'
 				})
 			},
-			getFormatDate(data) {
-				return getTimeAgo(data);
-			},
+
 			// #ifdef APP-PLUS
 			setIcon() {
 				let that = this;

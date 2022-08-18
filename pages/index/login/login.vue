@@ -36,11 +36,24 @@
 			<view><button @click="login()" class="login-btn">
 					登录
 				</button></view>
-			<view class="">
-				<navigator url="../register/register" class="reg our-purple">
-					需要注册？
-				</navigator>
+
+			<view style="display: flex;width: 100%;">
+				<view class="reg our-purple" style="">
+					<navigator url="../register/register" class="">
+						需要注册？
+					</navigator>
+				</view>
+
+				<view class="find-back-container" style="">
+					<view class="find-back" style="">
+						<navigator url="../find_back/find_back" class="" style="">
+							忘记密码
+						</navigator>
+					</view>
+				</view>
+
 			</view>
+
 
 		</view>
 
@@ -116,6 +129,19 @@
 		font-weight: 400;
 		margin-left: 84.6rpx;
 		margin-top: 52.2rpx;
+		width: 100%;
+	}
+
+	.find-back {
+		width: 200%;
+		color: #4605AD;
+	}
+
+	.find-back-container {
+		font-size: 43.2rpx;
+		font-weight: 400;
+		margin-top: 52.2rpx;
+		margin-right: 155.4rpx;
 	}
 
 	.box {
