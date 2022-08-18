@@ -2,7 +2,7 @@
 	<view class="our-gray">
 		<view class="top">
 			<view class="return-path" @click="to_return()">
-				<image class="path icon" src='@/static/icons/add.svg'></image>
+				<image class="path icon" src=''></image>
 			</view>
 			<view class="focusme our-purple">我的关注</view>
 		</view>
