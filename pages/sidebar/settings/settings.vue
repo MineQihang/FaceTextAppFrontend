@@ -1,27 +1,16 @@
 <template>
 	<view>
-		<!-- 头部图片 -->
-		<view class="head_img">
-			<image src="/static/Header_img.png" style="width: 100%;height: 350rpx;" alt="">
-		</view>
+			<view class="top">
+				<view class="return-path" @click="back()">
+					<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
+				</view>
+				<view class="focusme our-purple">设置</view>
+			</view>
 
-		<!-- 中部图片 -->
-		<view class="mid_img">
-			<image src="/static/mid_img1.png" alt="" style="width: 100%;height: 100%;">
+			<view class="bottom_view">
+				<button class="btn" @click="index()">退出登录</button>
+			</view>
 		</view>
-
-		<!-- 底部 -->
-		<view class="bottom_view">
-			<button class="btn" @click="Reset_information">修改信息</button>
-			<button class="btn" @click="index()">退出登录</button>
-			<button class="btn">注销账户</button>
-		</view>
-
-		<!-- 用户头像 -->
-		<view class="portrait">
-			<image :src="icon" mode="aspectFill" style="border-radius: 125rpx;height: 125rpx;width:125rpx;">
-		</view>
-
 	</view>
 </template>
 
@@ -71,11 +60,6 @@
 					console.log(e)
 				}
 			},
-			Reset_information() {
-				uni.navigateTo({
-					url: '/pages/sidebar/reset-user-info/reset-user-info'
-				})
-			},
 			index() {
 				try {
 					uni.removeStorageSync('authorization');
@@ -85,56 +69,62 @@
 				uni.redirectTo({
 					url: '/pages/index/login/login'
 				})
+				uni.navigateBack(
+				{
+					
+				}
+				)
+			},
+			back()
+			{
+				uni.navigateBack()
 			}
 
 		}
 	}
 </script>
 
-<style>
-	.head_img {
-		height: 350rpx;
-		background-color: #ffffff;
-		z-index: 1 !important;
-		/* 		position: fixed; */
+<style lang="scss">
+	.top {
+		display: flex;
+		align-items: center;
+		height: 126rpx;
+		background-color: white;
 	}
-
-	.mid_img {
-		height: 600rpx;
-		z-index: -1 !important;
-		/* position: fixed; */
+	.focusme {
+		font-size: 24px;
+		font-weight: 700;
 	}
-
+	
+	.return-path {}
+	
+	.path-icon {
+		width: 54rpx;
+		height: 54rpx;
+		margin: 40rpx 40rpx 27rpx 28.8rpx;
+		background-color: white;
+	}
 	.bottom_view {
-		background-color: #ffffff;
-		height: 600rpx;
+		background-color: our-gray;
+		height: 1488.6rpx;
 		z-index: 1 !important;
 		/* 		 position:fixed; */
 	}
 
 	.btn {
-		width: 80%;
-		height: 100rpx;
-		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
-		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
+		position:absolute;
+		width: 576rpx;
+		height: 115.2rpx;
+		background: $our-purple;
 		border-radius: 36px;
 		color: #ffffff;
-		font-size: 1rem;
+		font-size: 24px;
+		font-weight: 400;
 		text-align: center;
-		line-height: 45px;
-		margin-bottom: 100rpx;
-		margin-left: 70rpx;
-		margin-right: 70rpx;
-	}
-
-	.portrait {
-		border-radius: 125rpx;
-		height: 125rpx;
-		width: 125rpx;
-		background-color: #ffffff;
-		z-index: 10 !important;
-		position: absolute;
-		top: 20%;
-		left: 42%;
+		line-height: 60px;
+		bottom: 57.6rpx;
+		left: 84.6rpx;
+		right: 84.6rpx;
+		border-radius: 36rpx;
 	}
 </style>

@@ -18,45 +18,57 @@
 			</view>
 
 			<!-- 帖子的图片 -->
-			<view class="photo" v-show="len">
+			<view class="photo" v-if="len">
 				<swiper circular indicator-dots>
 					<swiper-item v-for="item in swipers">
 						<image :src="item" mode="aspectFit"></image>
+
 					</swiper-item>
+
 				</swiper>
+				<view class="photo-info" @click="photo_info">
+					<image src="@/static/icons/info.svg" v-if="len"></image>
+				</view>
+			</view>
+
+
+
+			<!-- 帖子 -->
+			<view class="text">
+				<!-- 标题 -->
+				<view class="title">
+					{{post_title}}
+				</view>
+
+				<!-- 正文 -->
+				<view class="mainText">
+					{{post_main}}
+				</view>
+
 			</view>
 
 			<!-- 帖子的评论数和点赞数 -->
 			<view class="com_like">
 				<!-- 评论数 -->
-				<view class="" style="margin-top: 20rpx;margin-left: 200rpx;margin-right:100rpx;display: flex;">
-					<view class="" style="margin-left: 50rpx;">
+				<view style="margin-right:60rpx; display: flex;">
+					<view style="margin-left: 50rpx;">
 						{{numberComment}}
 					</view>
 					<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
 				</view>
 				<!-- 点赞数 -->
-				<view class="" style="margin-top: 20rpx; display: flex;">
-					<view class="" style="margin-left: 50rpx;">
+				<view style="display:flex; justify-content: flex-end; align-items: center; 
+					margin-right: 20rpx; width: 100rpx;">
+					<view style="">
 						{{numberLike}}
 					</view>
-					<uni-icons :type="like_or_not[like].name" size="30" class="like-icon" @click="like_it()">
+					<uni-icons :type="like_or_not[like].name" color="rgb(97, 97, 211)" size="30" class="like-icon"
+						@click="like_it()">
 					</uni-icons>
 				</view>
 			</view>
 
-			<!-- 帖子 -->
-			<view class="main">
-				<!-- 标题 -->
-				<view class="title">
-					{{post_title}}
-				</view>
-				<!-- 正文 -->
-				<view class="mainText">
-					{{post_main}}
-				</view>
-				<image src="@/static/icons/info.svg" mode="" class="smallLaba"></image>
-			</view>
+
 		</view>
 		<!-- 评论区 -->
 		<view class="">
@@ -117,8 +129,7 @@
 
 		<!-- 写评论 -->
 		<view class="give_comment" v-show="postOrComment">
-			<view class=""
-				style="border-radius: 50rpx;width: 84%;height:100rpx;background-color: gainsboro;display: flex;">
+			<view class="">
 				<input type="text" placeholder="发一条友善的评论" style="height: 100rpx;margin-left: 30rpx;"
 					v-model="comment_text">
 				<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
@@ -127,8 +138,7 @@
 		</view>
 		<!-- 对评论发表评论 -->
 		<view class="give_comment" v-show="!postOrComment">
-			<view class=""
-				style="border-radius: 50rpx;width: 84%;height:100rpx;background-color: gainsboro;display: flex;">
+			<view class="">
 				<input type="text" :placeholder="replyUser" style="height: 100rpx;margin-left: 30rpx;"
 					v-model="comment_text" :focus="!postOrComment">
 				<button style="position: fixed;right: 0;height: 100rpx;background-color: #8b8ef9;border-radius: 50rpx;color:#ffff
@@ -151,11 +161,11 @@
 			return {
 				like_or_not: [{
 						id: 0,
-						name: 'heart'
+						name: 'hand-up'
 					},
 					{
 						id: 1,
-						name: 'heart-filled'
+						name: 'hand-up-filled'
 					}
 				],
 				swipers: [],
@@ -390,9 +400,7 @@
 
 	.poster-head {
 		display: flex;
-		// margin-top: 150rpx;
 		height: 100rpx;
-		// background-color: antiquewhite;
 	}
 
 	.heart-icon {
@@ -401,29 +409,31 @@
 		right: 34rpx;
 	}
 
-	.comment-icon {
-		// position: absolute;
-		// top: 55%;
-		// left: 30%;
-
-	}
-
-	.like-icon {
-		// position: absolute;
-		// top: 55%;
-		// right: 35%;
-	}
-
-
 	.photo {
 		swiper {
 			width: 100%;
-			height: 500rpx;
+			height: 750rpx;
 
-			image {
-				width: 100%;
-				height: 100%;
+			swiper-item {
+				image {
+					width: 100%;
+					height: 100%;
+				}
 			}
+
+		}
+	}
+
+	.photo-info {
+		position: absolute;
+		z-index: 10;
+		top: 800rpx;
+		right: 10rpx;
+		padding: 10rpx;
+
+		image {
+			width: 25px;
+			height: 25px;
 		}
 	}
 
@@ -453,9 +463,11 @@
 		// background-color: aquamarine;
 		height: 88rpx;
 		display: flex;
+		justify-content: flex-end;
+		align-items: center;
 	}
 
-	.main {}
+	.text {}
 
 	.title {
 		padding-top: 20rpx;
@@ -472,11 +484,7 @@
 		font-weight: 200;
 	}
 
-	.smallLaba {
-		width: 30rpx;
-		height: 30rpx;
-		padding-left: 710rpx;
-	}
+
 
 	.give_comment {
 		position: fixed;
@@ -486,8 +494,16 @@
 		// background-color: sandybrown;
 	}
 
+	.give_comment>view {
+		border-radius: 50rpx;
+		width: 84%;
+		height: 100rpx;
+		background-color: gainsboro;
+		display: flex;
+	}
+
 	.comment1 {
-		background-color: rgb(246, 240, 249);
+		// background-color: rgb(246, 240, 249);
 		display: flex;
 	}
 </style>

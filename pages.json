@@ -49,7 +49,8 @@
 			"path": "pages/sidebar/settings/settings",
 			"style": {
 				"navigationBarTitleText": "设置",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/sidebar/reset-user-info/reset-user-info",
