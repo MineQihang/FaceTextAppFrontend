@@ -30,25 +30,29 @@
 					</view>
 					<view class="sidebar-list">
 						<view class="title">
-							<view style="color:rgb(70, 5, 173);">
-								{{"发帖数"}}
+							<view class="title-detail">
+								<view style="color:rgb(70, 5, 173);">
+									{{"发帖数"}}
+								</view>
+								<view class="number">
+									{{"1"}}
+								</view>
 							</view>
-							<view style="color:rgb(70, 5, 173);" @click="turnToFans()">
-								{{"粉丝数"}}
+							<view class="title-detail">
+								<view style="color:rgb(70, 5, 173);" @click="turnToFans()">
+									{{"粉丝数"}}
+								</view>
+								<view class="number">
+									{{"12"}}
+								</view>
 							</view>
-							<view style="color:rgb(70, 5, 173);">
-								{{"我的关注"}}
-							</view>
-						</view>
-						<view class="number">
-							<view>
-								{{"1"}}
-							</view>
-							<view>
-								{{"1"}}
-							</view>
-							<view>
-								{{"1"}}
+							<view class="title-detail">
+								<view style="color:rgb(70, 5, 173);">
+									{{"我的关注"}}
+								</view>
+								<view class="number">
+									{{"1"}}
+								</view>
 							</view>
 						</view>
 						<view class="line"></view>
@@ -118,7 +122,7 @@
 			//跳转到粉丝页面
 			turnToFans() {
 				uni.navigateTo({
-					url:'/pages/search/search'
+					url: './pages/search/search'
 				})
 			}
 		},
@@ -184,20 +188,22 @@
 		height: 70.2rpx;
 		flex-direction: row;
 		width: 100%;
+		height: 136.8rpx;
+		
 	}
 
 	.number {
 		display: flex;
-		align-items: center;
-		justify-content: space-around;
+		justify-content: center;
+		align-items: flex-end;
+		
 		background-color: white;
-
 		font-size: 18px;
 		font-weight: 700;
 		line-height: 21px;
 		height: 70.2rpx;
-		flex-direction: row;
 		width: 100%;
+		
 	}
 
 	.line {
