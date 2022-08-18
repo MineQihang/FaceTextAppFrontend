@@ -5,31 +5,32 @@
 		<head-tab></head-tab>
 		<!-- 帖子展示 -->
 		<view class="content-container">
-			<view class="post-container" v-for="(post, index) in postList" :key="index" @click="turnToPost(post.pid)">
+			<view class="post-container" v-for="(post, index) in postList" :key="index"
+				@click="turnToPost(post.pid,index)">
 				<view class="user-container">
 					<view class="user-info">
 						<image class="user-icon icon" :src="post.user.iconUrl" />
-						<view class="username" style="padding-left: 20rpx; font-weight: 500; ">
+						<view class="username  username-font" style="padding-left: 20rpx; font-weight: 500; ">
 							{{ post.user.username }}
 						</view>
 					</view>
-					<view class=" date">{{ getFormatDate(post.updatedTime) }}</view>
+					<view class=" date text-font">{{ getFormatDate(post.updatedTime) }}</view>
 				</view>
+				<view class="title title-font">{{ post.title }}</view>
+				<view class="text text-font">{{ post.context }}</view>
 				<view class="photo-content" v-for="(url, index2) in post.imgUrls" :key="index2" v-if="index2 == 0">
 					<image class="post-photo" :src="url" mode="widthFix" />
 				</view>
-				<view class="title">{{ post.title }}</view>
-				<view class="info">
-					<view class="info-up">
-						<view class="comment">
-							<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
-							<view class="commentNum">{{ post.commentNum }}</view>
-						</view>
-						<view class="like">
-							<uni-icons type="heart-filled" size="20" v-if="post.is_liked"></uni-icons>
-							<uni-icons type="heart" size="20" v-else></uni-icons>
-							<view class="likeNum">{{ post.likeNum }}</view>
-						</view>
+
+				<view class="info text-font">
+					<view class="comment">
+						<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
+						<view class="commentNum">{{ post.commentNum }}</view>
+					</view>
+					<view class="like">
+						<uni-icons type="heart-filled" size="20" v-if="post.is_liked"></uni-icons>
+						<uni-icons type="heart" size="20" v-else></uni-icons>
+						<view class="likeNum">{{ post.likeNum }}</view>
 					</view>
 				</view>
 			</view>
@@ -41,7 +42,7 @@
 	import {
 		getTimeAgo
 	} from "@/common/js/utils.js"
-	// import "../../common/css/flowPanel.css"
+
 	export default {
 		data() {
 			return {
@@ -51,7 +52,6 @@
 			}
 		},
 		onLoad: function(option) {
-			// this.init();
 			setTimeout(function() {
 				console.log('start pulldown');
 			}, 1000);
@@ -68,7 +68,7 @@
 			this.getMore();
 		},
 		onShow() {
-			this.getPost();
+			// this.getPost();
 		},
 		methods: {
 			getPost(limit = 10) {
@@ -127,14 +127,21 @@
 					url: '/pages/index/login/login'
 				});
 			},
-			turnToPost(pid) {
-				let url1 = '/pages/post-details/post-details?pid=' + pid;
+			turnToPost(pid, index) {
+				let url1 = '/pages/post-details/post-details?pid=' + pid + '&index=' + index;
 				uni.navigateTo({
-					url: url1
+					url: url1,
 				})
 			},
 			getFormatDate(data) {
 				return getTimeAgo(data);
+			},
+			// 这个方法就是B页面中调用$vm注册的方法，参数为B页面中传递过来的数据
+			pass2explore(obj) {
+				if (obj) {
+					this.postList[obj.index].is_liked = obj.is_liked;
+					this.postList[obj.index].likeNum = obj.numberLike;
+				}
 			}
 		},
 	}
@@ -149,7 +156,9 @@
 	.container .content-container {}
 
 	.container .content-container .post-container {
-		margin-top: 50rpx;
+		margin-top: 22.5rpx;
+		background-color: white;
+		padding-bottom: 10rpx;
 	}
 
 	.container .content-container .post-container .user-container {
@@ -157,6 +166,13 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		padding-top: 37.5rpx;
+	}
+
+	.container .content-container .post-container .user-container .user-icon {
+		width: 81rpx;
+		height: 81rpx;
+		margin-left: 45rpx;
 	}
 
 	.container .content-container .post-container .user-container .user-info {
@@ -170,49 +186,59 @@
 		font-size: $font-size-username;
 	}
 
+	.container .content-container .post-container .user-container .date {
+		margin-right: 45rpx;
+	}
+
+
 	.container .content-container .post-container .photo-content {
 		margin-top: 10rpx;
-		/* display: flex;
-		flex-direction: row; */
 	}
 
 	.container .content-container .post-container .photo-content .post-photo {
 		width: 100%;
-		/* max-height: 800rpx; */
 		object-fit: cover;
 	}
 
 	.container .content-container .post-container .title {
+		/* overflow: hidden; */
+		/* display: -webkit-box; */
+		/* -webkit-box-orient: vertical; */
+		/* -webkit-line-clamp: 2; */
+		/* word-wrap: break-word; */
+		/* word-break: break-all; */
+		text-align: left;
+		margin: 45rpx 45rpx;
+		/* padding: 0.2em 0.5em; */
+	}
+
+	.container .content-container .post-container .text {
 		overflow: hidden;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 4;
 		word-wrap: break-word;
 		word-break: break-all;
-		/* color: #333; */
-		text-align: center;
-		padding: 0.2em 0.5em;
-		/* font-size: 20px; */
+		text-align: left;
+		margin-left: 45rpx;
+		/* padding: 0.2em 0.5em; */
 	}
 
 	.container .content-container .post-container .info {
-		/* width: 100%; */
-		border-top: 1px #e9e9e9 solid;
-	}
-
-	.container .content-container .post-container .info .info-up {
 		display: flex;
 		flex-direction: row;
 	}
 
-	.container .content-container .post-container .info .info-up .comment {
+	.container .content-container .post-container .info .comment {
+		margin-left: 60%;
 		display: flex;
 		flex-direction: row;
 	}
 
-	.container .content-container .post-container .info .info-up .like {
+	.container .content-container .post-container .info .like {
 		display: flex;
 		flex-direction: row;
-		padding-left: 40%;
+		padding-left: 15%;
+		margin-right: 10%;
 	}
 </style>
