@@ -1,25 +1,48 @@
 <template>
-	<view class="container">
-		<image src="@/static/icons/logo.svg" class="log_img"></image>
+	<view class="">
 
-		<view class="content">
-			<view class="menu">
+		<!-- 空白部分 -->
+		<view class="blank" style="background-color:#4605AD;">
+			<image src="@/static/icons/logo.svg" alt="" style="width:30%;top: 7%;margin-left: 38%;">
+		</view>
+
+		<!-- 主体 -->
+		<view class="white_next">
+
+			<view class="" style="margin-top: 158.4rpx; height: 115.2rpx;">
 				<view class="box">
-					<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
-					<input class="input-box" type="number" placeholder="请输入手机号" v-model="iphoneValue" maxlength=11 />
+					<view class="phone-picture">
+						<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
+					</view>
+					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
+						<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue" />
+					</view>
 				</view>
+			</view>
 
+			<view class="" style="margin-top: 52.2rpx;height: 115.2rpx;">
 				<view class="box">
-					<image src="@/static/icons/info.svg" class="picture" mode=""></image>
-					<input class="input-box" type="password" placeholder="请输入密码" v-model="passwordValue" />
+					<view class="lock-picture">
+						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
+					</view>
+					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
+						<input class="uni-input input-box" type="number" placeholder="请输入密码" v-model="passwordValue" />
+					</view>
 				</view>
+			</view>
 
-				<button class="login-btn" @click="login()">登录</button>
-				<navigator url="/pages/index/register/register" class="reg">
+
+			<view><button @click="login()" class="login-btn">
+					登录
+				</button></view>
+			<view class="">
+				<navigator url="../register/register" class="reg our-purple">
 					需要注册？
 				</navigator>
 			</view>
+
 		</view>
+
 
 	</view>
 </template>
@@ -86,81 +109,88 @@
 		}
 	}
 </script>
-<style lang="scss">
-	.container {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		position: relative;
-	}
-
-	.log_img {
-		width: 100%;
-		height: 600rpx;
-	}
-
-	.content {
-		width: 100%;
-		height: 540px;
-		top: 530rpx;
-		left: 0;
-		background: rgb(255, 255, 255);
-		border-radius: 28px 28px 0px 0px;
-		position: absolute;
-		z-index: 50 !important;
-	}
-
-	.menu {
-		padding-top: 100rpx;
+<style>
+	.reg {
+		font-size: 43.2rpx;
+		font-weight: 400;
+		margin-left: 84.6rpx;
+		margin-top: 52.2rpx;
 	}
 
 	.box {
-		height: 100upx;
-		width: 600upx;
-		margin-bottom: 50rpx;
-		margin-left: 70upx;
-		background-color: #f0f0f0;
-		border-radius: 36px;
+		height: 115.2rpx;
+		margin-left: 84.6rpx;
+		margin-right: 84.6rpx;
+		margin-top: 50rpx;
+		margin-bottom: 20rpx;
+		background-color: rgb(242, 243, 245);
+		border-radius: 36rpx;
 		display: flex;
+	}
+
+	.phone-picture {
+		height: 63rpx;
+		width: 43.2rpx;
+		margin-top: 25.2rpx;
+		margin-left: 28.8rpx;
+	}
+
+	.lock-picture {
+		height: 54rpx;
+		width: 43.2rpx;
+		margin-top: 26.2rpx;
+		margin-left: 28.8rpx;
+	}
+
+	.white_next {
+		border-radius: 90rpx;
+		height: 1100rpx;
+		background-color: #ffffff;
+		width: 100%;
+		/* 		top: 544rpx; */
+		z-index: 10！important;
+		position: absolute;
+		margin-top: 532.8rpx;
 	}
 
 	.picture {
 		height: 100%;
-		width: 50upx;
-		margin-left: 20upx;
-		border-radius: 36upx;
+		width: 50rpx;
+		margin-left: 20rpx;
+	}
+
+
+	.wrap {
+		display: flex;
+		width: 100%;
+		height: 500rpx;
+	}
+
+	.blank {
+		border: 1px #000;
+		width: 100%;
+		height: 700rpx;
+		z-index: -1！important;
+		position: absolute;
 	}
 
 	.input-box {
-		margin-top: 25upx;
-		margin-left: 10upx;
-		margin-right: 30upx;
-		width: 100%;
+		margin-top: 25rpx;
+		margin-left: 10rpx;
 	}
+
 
 	.login-btn {
-		width: 80%;
-		height: 100rpx;
-		background: linear-gradient(270deg, rgba(136, 139, 244, 1) 0%, rgba(81, 81, 198, 1) 100%);
-		box-shadow: 0px 6px 8px rgba(134, 136, 242, 0.2);
-		border-radius: 36px;
+		margin-top: 52.2rpx;
+		height: 115.2rpx;
+		margin-left: 84.6rpx;
+		margin-right: 84.6rpx;
+		border-radius: 36rpx;
+		background-color: rgb(70, 5, 173);
 		color: #ffffff;
-		font-size: 1rem;
+		font-size: 43.2rpx;
+		font-weight: 400;
 		text-align: center;
-		line-height: 45px;
-		position: absolute;
-		margin-bottom: 500rpx;
-		margin-left: 70rpx;
-		margin-right: 70rpx;
-	}
-
-	.reg {
-		position: absolute;
-		top: 550rpx;
-		left: 100rpx;
-		color: rgb(82, 82, 199);
-		font-size: 36rpx;
-		line-height: 54rpx;
+		line-height: 110.4rpx;
 	}
 </style>

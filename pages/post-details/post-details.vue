@@ -1,36 +1,27 @@
 <template>
-	<!-- 帖子详情界面 -->
 	<view style="">
-		<!-- 顶部返回和点赞 -->
-		<view class="head">
-			<uni-icons type="arrow-left" size="30" class="back-icon" @click="back()"></uni-icons>
-			<!-- <uni-icons :type="like_or_not[like].name" size="30" class="heart-icon" @click="like_it()"> -->
-			<!-- </uni-icons> -->
-		</view>
-
-		<view class="main_con">
+		<view class="post-content">
 			<!-- 发帖人信息和发帖时间 -->
-			<view class="infor_time">
+			<view class="poster-head">
 				<!-- 发帖人头像	 -->
 				<view class="portrait">
 					<image :src="icon" alt="" v-model="icon" style=" border-radius: 80rpx;height: 80rpx;width:80rpx;">
 				</view>
 				<!-- 发帖人昵称 -->
-				<view class="nickname">
+				<view class="nickname username-font">
 					{{username}}
 				</view>
 				<!-- 发帖时间 -->
 				<view class="post_time">
-					{{time.split("T").join(" ")}}
-
+					{{time}}
 				</view>
 			</view>
 
 			<!-- 帖子的图片 -->
-			<view class="photo_" v-show="len">
+			<view class="photo" v-show="len">
 				<swiper circular indicator-dots>
 					<swiper-item v-for="item in swipers">
-						<image :src="item" class="" mode="aspectFit"></image>
+						<image :src="item" mode="aspectFit"></image>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -66,64 +57,64 @@
 				</view>
 				<image src="@/static/icons/info.svg" mode="" class="smallLaba"></image>
 			</view>
+		</view>
+		<!-- 评论区 -->
+		<view class="">
 
-			<!-- 评论区 -->
-			<view class="">
+			<view class="" style="background-color: #f1f1fe;margin-left: 10rpx;margin-right: 10rpx;">
+				<text style="color:#888bf4; font-size:35rpx; font-weight:550; margin-left:10rpx">评论</text>
+			</view>
 
-				<view class="" style="background-color: #f1f1fe;margin-left: 10rpx;margin-right: 10rpx;">
-					<text style="color:#888bf4; font-size:35rpx; font-weight:550; margin-left:10rpx">评论</text>
-				</view>
-
-				<view class="" style="height: 300rpx;">
-					<view class="comment1" v-for="(item,index) in allComments" :key="index"
-						style="margin-left: 1rpx;margin-top: 5rpx;">
-						<view class="" style="display:flex;width: 750rpx;">
-							<image :src="item.user.iconUrl" style="width: 100rpx;height: 100rpx;border-radius: 100rpx;"
-								mode="">
-							</image>
-							<view class="">
-								<view @click="pushUpCommentInput(item)">
-									<view class="" style="position:relative;height: 50rpx;font-weight: 800;">
-										{{item.user.username}}
-									</view>
-									<view class="" style="position:relative;height: 50rpx;" @click="com2com()">
-										{{item.context}}
-									</view>
+			<view class="" style="height: 300rpx;">
+				<view class="comment1" v-for="(item,index) in allComments" :key="index"
+					style="margin-left: 1rpx;margin-top: 5rpx;">
+					<view class="" style="display:flex;width: 750rpx;">
+						<image :src="item.user.iconUrl" style="width: 100rpx;height: 100rpx;border-radius: 100rpx;"
+							mode="">
+						</image>
+						<view class="">
+							<view @click="pushUpCommentInput(item)">
+								<view class="" style="position:relative;height: 50rpx;font-weight: 800;">
+									{{item.user.username}}
 								</view>
-								<view class="" v-for="(item1,index1) in item.comments" :key="index1"
-									style=" margin-left: 1rpx;margin-top: 5rpx;" @click="pushUpCommentInput(item1)">
-
-									<view class="" style="display: flex;">
-										<image :src="item1.user.iconUrl"
-											style="width: 80rpx;height: 80rpx;border-radius: 80rpx;" mode="">
-										</image>
-										<view class="">
-											<view class="" style="height: 40rpx;font-weight: 800;" v-if="item1.reply">
-												{{item1.user.username}}回复{{item1.reply.username}}
-											</view>
-											<view class="" style="height: 40rpx;font-weight: 800;" v-else>
-												{{item1.user.username}}
-											</view>
-											<view class="" style="height: 40rpx;">
-												{{item1.context}}
-											</view>
-
-										</view>
-									</view>
-
+								<view class="" style="position:relative;height: 50rpx;" @click="com2com()">
+									{{item.context}}
 								</view>
 							</view>
+							<view class="" v-for="(item1,index1) in item.comments" :key="index1"
+								style=" margin-left: 1rpx;margin-top: 5rpx;" @click="pushUpCommentInput(item1)">
 
+								<view class="" style="display: flex;">
+									<image :src="item1.user.iconUrl"
+										style="width: 80rpx;height: 80rpx;border-radius: 80rpx;" mode="">
+									</image>
+									<view class="">
+										<view class="" style="height: 40rpx;font-weight: 800;" v-if="item1.reply">
+											{{item1.user.username}}回复{{item1.reply.username}}
+										</view>
+										<view class="" style="height: 40rpx;font-weight: 800;" v-else>
+											{{item1.user.username}}
+										</view>
+										<view class="" style="height: 40rpx;">
+											{{item1.context}}
+										</view>
+
+									</view>
+								</view>
+
+							</view>
 						</view>
-						<!-- <view class="" v-for="(item1,index1) in allComments" :key="index">
+
+					</view>
+					<!-- <view class="" v-for="(item1,index1) in allComments" :key="index">
 						
 					</view> -->
 
-					</view>
-					<view style="height: 120rpx; width: 100%;"></view>
 				</view>
+				<view style="height: 120rpx; width: 100%;"></view>
 			</view>
 		</view>
+
 		<!-- 写评论 -->
 		<view class="give_comment" v-show="postOrComment">
 			<view class=""
@@ -148,6 +139,9 @@
 </template>
 
 <script>
+	import {
+		getTimeAgo
+	} from "@/common/js/utils.js"
 	export default {
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 			this.pid = parseInt(option.pid);
@@ -216,7 +210,7 @@
 									that.numberLike = res.data.likeNum;
 									that.post_title = res.data.title;
 									that.post_main = res.data.context;
-									that.time = res.data.createdTime;
+									that.time = getTimeAgo(res.data.createdTime);
 									that.swipers = res.data.imgUrls;
 									that.allComments = res.data.comments;
 									that.icon = res.data.iconUrl;
@@ -389,24 +383,16 @@
 </script>
 
 <style lang="scss">
-	.head {
-		position: fixed;
-		height: 158rpx;
-		width: 100%;
-		background-color: rgb(238, 238, 238);
-		z-index: 10;
-	}
-
-	.main_con {
+	.post-content {
 		position: relative;
-		padding-top: 158rpx;
-
+		padding-top: 10px;
 	}
 
-	.back-icon {
-		position: absolute;
-		top: 82rpx;
-		left: 34rpx;
+	.poster-head {
+		display: flex;
+		// margin-top: 150rpx;
+		height: 100rpx;
+		// background-color: antiquewhite;
 	}
 
 	.heart-icon {
@@ -428,14 +414,8 @@
 		// right: 35%;
 	}
 
-	.infor_time {
-		display: flex;
-		// margin-top: 150rpx;
-		height: 100rpx;
-		// background-color: antiquewhite;
-	}
 
-	.photo_ {
+	.photo {
 		swiper {
 			width: 100%;
 			height: 500rpx;
@@ -457,8 +437,6 @@
 	}
 
 	.nickname {
-		font-weight: 200;
-		font-size: 38rpx;
 		margin-top: 20rpx;
 		margin-left: 20rpx;
 	}
@@ -468,7 +446,7 @@
 		right: 5%;
 		margin-top: 25rpx;
 		font-weight: 150;
-		font-size: 20rpx;
+		font-size: 14px;
 	}
 
 	.com_like {

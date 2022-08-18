@@ -15,7 +15,8 @@
 		{
 			"path": "pages/index/register/register",
 			"style": {
-				"navigationBarTitleText": "注册"
+				"navigationBarTitleText": "注册",
+				"backgroundColor": "#ffffff"
 			}
 		},
 		{
@@ -64,8 +65,8 @@
 			"style": {
 				"backgroundColor": "transparent",
 				"navigationBarTitleText": "帖子详情",
-				"enablePullDownRefresh": true,
-				"navigationStyle": "custom"
+				"enablePullDownRefresh": true
+				// "navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/search/search",
@@ -90,6 +91,19 @@
 				"onReachBottomDistance": 400,
 				"navigationStyle": "custom"
 			}
+
+		},
+		{
+			"path": "pages/sidebar/personal-space/personal-space",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+
+
 		},
 		{
 			"path": "pages/sidebar/fans/fans",
