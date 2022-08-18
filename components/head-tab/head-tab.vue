@@ -30,7 +30,7 @@
 					</view>
 					<view class="sidebar-list">
 						<view class="title">
-							<view class="title-detail" @click="turnToPersonalSpace()">
+							<view class="title-detail" @click="turnToPost()">
 								<view style="color:rgb(70, 5, 173);">
 									{{"发帖数"}}
 								</view>
@@ -106,6 +106,8 @@
 					that.userIcon= res.data.iconUrl;
 					that.userMotto = res.data.motto;
 					that.postNum = res.data.postNum;
+					that.fansNum = res.data.fansNum;
+					that.mySubscribe  = res.data.subscribeNum;
 				}
 			});
 		},
@@ -131,9 +133,9 @@
 				})
 			},
 			//跳转到个人空间-帖子页面
-			turnToPersonalSpace() {
+			turnToPost() {
 				uni.navigateTo({
-					url: '/pages/sidebar/personal-space/personal-space'
+					url: '/pages/sidebar/personal-space/personal-space?key = 0'
 				})
 			},
 			//跳转到我的关注
@@ -145,7 +147,7 @@
 			//跳转到个人空间-个人信息页面
 			turnToPersonalSpace() {
 				uni.navigateTo({
-					url: '/pages/sidebar/personal-space/personal-space'
+					url: '/pages/sidebar/personal-space/personal-space?key = 1'
 				})
 			},
 			//跳转到设置
