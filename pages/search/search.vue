@@ -3,7 +3,7 @@
 		<!--<head-tab></head-tab>-->
 		<view class="container">
 			<view class="search-bar">
-				<input type="text"  style="height: 100rpx;margin-left: 30rpx;"v-model="comment_text">
+				<input type="text"  style="height: 100rpx;margin-left: 30rpx;"v-model="text">
 				<image class="search-icon" src="/static/icons/search.svg" @click="search()"></image>
 			</view>
 		</view>
@@ -28,8 +28,27 @@
 				inpuval: '',
 				width: "90%",
 				postList:[],
+				text:'',
+				bpid: 9660530943306,
+				
 			};
 		},
+		onLoad: function(option) {
+			setTimeout(function() {
+			}, 1000);
+			uni.startPullDownRefresh();
+		},
+		onPullDownRefresh() {
+			this.init();
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
+		onReachBottom() {
+			// 触底的时候请求数据，即为上拉加载更多
+			this.getMore();
+		},
+		
 		methods: {
 			onFocusInput: function(event) {
 				//console.log('输入框聚焦时触发:',event)
@@ -49,9 +68,43 @@
 				this.width = "90%"
 				this.$emit("cancel");
 			},
-			search(){
-				
-			}
+			init() {
+				this.bpid = 9660530943306;
+				this.postList = [];
+				this.search();
+			},
+			search(limit = 10) {
+				let that = this;
+				this.sendRequest({
+					url: "/post/search",
+					data: {
+						limit: limit,
+						text: that.text
+					},
+					success: (res) => {
+						that.postList = res.data;
+					}
+				});
+			},
+			getMore(limit = 10) {
+				let that = this;
+				this.sendRequest({
+					url: "/post/search",
+					data: {
+						limit: limit,
+						bpid: that.bpid,
+						text: that.text
+					},
+					success: (res) => {
+						let datas = res.data;
+						if (datas && datas.length != 0) {
+							that.postList.push.apply(that.postList, datas);
+							that.bpid = that.postList[that.postList.length - 1].pid;
+						}
+					}
+				});
+			},
+			
 		}
 
 	}
