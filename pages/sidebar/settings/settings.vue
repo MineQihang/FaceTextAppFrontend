@@ -1,7 +1,7 @@
 <template>
 	<view>
 			<view class="top">
-				<view class="return-path" @click="uni.navigateBack()">
+				<view class="return-path" @click="back()">
 					<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
 				</view>
 				<view class="focusme our-purple">关注我的人</view>
@@ -74,6 +74,10 @@
 					
 				}
 				)
+			},
+			back()
+			{
+				uni.navigateBack()
 			}
 
 		}

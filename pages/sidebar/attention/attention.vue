@@ -1,10 +1,10 @@
 <template>
 	<view class="our-gray">
 		<view class="top">
-			<view class="return-path" @click="uni.navigateBack()">
+			<view class="return-path" @click="back()">
 				<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
 			</view>
-			<view class="focusme our-purple">我的关注</view>
+			<view class="focusme our-purple">我关注的人</view>
 		</view>
 		<view class="content">
 
@@ -27,7 +27,7 @@
 			</view>
 		</view>
 		<view class="bottom-picture" v-if="flowList.length<6">
-			<image src="../../../static/icons/likeBackground.svg"></image>
+			<image src="@/static/icons/fansBackground.svg"></image>
 		</view>
 	</view>
 
@@ -38,6 +38,13 @@
 	export default {
 		data() {
 			return {
+				gender: 0,
+				username: '',
+				age: '',
+				mail: '',
+				motto: '',
+				icon: '',
+				uid: '',
 				flowList: [{
 					index: "1",
 					username: 'Frank Smith',
@@ -53,47 +60,45 @@
 					username: 'llll',
 					motto: "真的不会",
 					attention: 1
-					}
-				// }, {
-				// 	index: "4",
-				// 	username: 'lll',
-				// 	motto: "真的不会",
-				// 	attention: 0
-				// }, {
-				// 	index: "5",
-				// 	username: '纯纯不懂',
-				// 	motto: "真的不会"
+				}, {
+					index: "4",
+					username: 'lll',
+					motto: "真的不会",
+					attention: 0
+				}, {
+					index: "5",
+					username: '纯纯不懂',
+					motto: "真的不会"
 
-				// }, {
-				// 	index: "6",
-				// 	username: '回去',
-				// 	motto: "真的不会"
-				// }, {
-				// 	index: "7",
-				// 	username: 'Frank Smith',
-				// 	motto: "不懂哦"
-				// }, {
-				// 	index: "8",
-				// 	username: 'yhr',
-				// 	motto: "太难了"
-				// }, {
-				// 	index: "9",
-				// 	username: 'llll',
-				// 	motto: "真的不会"
-				// }, {
-				// 	index: "10",
-				// 	username: 'lll',
-				// 	motto: "真的不会"
-				// }, {
-				// 	index: "11",
-				// 	username: '纯纯不懂',
-				// 	motto: "真的不会"
-				// } 
-				]
+				}, {
+					index: "6",
+					username: '回去',
+					motto: "真的不会"
+				}, {
+					index: "7",
+					username: 'Frank Smith',
+					motto: "不懂哦"
+				}, {
+					index: "8",
+					username: 'yhr',
+					motto: "太难了"
+				}, {
+					index: "9",
+					username: 'llll',
+					motto: "真的不会"
+				}, {
+					index: "10",
+					username: 'lll',
+					motto: "真的不会"
+				}, {
+					index: "11",
+					username: '纯纯不懂',
+					motto: "真的不会"
+				}]
 			}
 
-		}
-	}
+		},
+	
 
 	// onLoad: function(option) {
 	// 		// this.init();
@@ -112,33 +117,34 @@
 	// 		this.getPost();
 	// 	},
 
-		methods: {
-	// 		getUser() {
-	// 			let that = this;
-	// 			try {
-	// 				this.sendRequest({
-	// 					url: "/user/user-fans",
-	// 					success: (res) => {
-	// 						// that.username = res.data.username;
-	// 						// that.uid = res.data.uid;
-	// 						// that.iconUrl=res.data.iconUrl;
-	// 						// that.motto=res.data.motto;
-	// 						// that.attention=res.data.attention;
-	// 						that.flowList = res.data;
-	// 						// console.log("收到的", that.uid);
-	// 					}
-	// 				})
-	// 			} catch (e) {
-	// 				console.log(e)
-	// 			};
-	// 		},
-	// 		init() {
-	// 			this.getUser();
-	// 		}
+	methods: {
+		// 		getUser() {
+		// 			let that = this;
+		// 			try {
+		// 				this.sendRequest({
+		// 					url: "/user/user-fans",
+		// 					success: (res) => {
+		// 						// that.username = res.data.username;
+		// 						// that.uid = res.data.uid;
+		// 						// that.iconUrl=res.data.iconUrl;
+		// 						// that.motto=res.data.motto;
+		// 						// that.attention=res.data.attention;
+		// 						that.flowList = res.data;
+		// 						// console.log("收到的", that.uid);
+		// 					}
+		// 				})
+		// 			} catch (e) {
+		// 				console.log(e)
+		// 			};
+		// 		},
+		// 		init() {
+		// 			this.getUser();
+		// 		}
+		back() {
+			uni.navigateBack()
 		}
-		uni.navigateBack({
-			
-		})
+	}
+	}
 </script>
 
 <style lang="scss">

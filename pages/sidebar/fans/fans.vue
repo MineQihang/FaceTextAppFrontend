@@ -1,7 +1,7 @@
 <template>
 	<view class="our-gray">
 		<view class="top">
-			<view class="return-path" @click="uni.navigateBack()">
+			<view class="return-path" @click="back()">
 				<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
 			</view>
 			<view class="focusme our-purple">关注我的人</view>
@@ -38,6 +38,13 @@
 	export default {
 		data() {
 			return {
+				gender: 0,
+				username: '',
+				age: '',
+				mail: '',
+				motto: '',
+				icon: '',
+				uid: '',
 				flowList: [{
 					index: "1",
 					username: 'Frank Smith',
@@ -87,11 +94,11 @@
 					index: "11",
 					username: '纯纯不懂',
 					motto: "真的不会"
-				} ]
+				}]
 			}
 
-		}
-	}
+		},
+	
 
 	// onLoad: function(option) {
 	// 		// this.init();
@@ -111,33 +118,33 @@
 	// 	},
 
 	methods: {
-	// 		getUser() {
-	// 			let that = this;
-	// 			try {
-	// 				this.sendRequest({
-	// 					url: "/user/user-fans",
-	// 					success: (res) => {
-	// 						// that.username = res.data.username;
-	// 						// that.uid = res.data.uid;
-	// 						// that.iconUrl=res.data.iconUrl;
-	// 						// that.motto=res.data.motto;
-	// 						// that.attention=res.data.attention;
-	// 						that.flowList = res.data;
-	// 						// console.log("收到的", that.uid);
-	// 					}
-	// 				})
-	// 			} catch (e) {
-	// 				console.log(e)
-	// 			};
-	// 		},
-	// 		init() {
-	// 			this.getUser();
-	// 		}
-	uni.navigateBack()
-	{
-		
-	}
+		// 		getUser() {
+		// 			let that = this;
+		// 			try {
+		// 				this.sendRequest({
+		// 					url: "/user/user-fans",
+		// 					success: (res) => {
+		// 						// that.username = res.data.username;
+		// 						// that.uid = res.data.uid;
+		// 						// that.iconUrl=res.data.iconUrl;
+		// 						// that.motto=res.data.motto;
+		// 						// that.attention=res.data.attention;
+		// 						that.flowList = res.data;
+		// 						// console.log("收到的", that.uid);
+		// 					}
+		// 				})
+		// 			} catch (e) {
+		// 				console.log(e)
+		// 			};
+		// 		},
+		// 		init() {
+		// 			this.getUser();
+		// 		}
+		back() {
+			uni.navigateBack()
 		}
+	}
+	}
 </script>
 
 <style lang="scss">
