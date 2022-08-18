@@ -101,7 +101,6 @@
 			this.sendRequest({
 				url: "/user/user-info",
 				success: (res) => {
-					console.log(res.data)
 					that.username = res.data.username;
 					that.userIcon= res.data.iconUrl;
 					that.userMotto = res.data.motto;
