@@ -2,9 +2,9 @@
 	<view class="container">
 		<view class="navibar">
 			<view class="">
-				<view class="back">
+				<!-- <view class="back">
 					<uni-icons type="arrow-left" size="30" @click="back()"></uni-icons>
-				</view>
+				</view> -->
 				<view class="publish title-font" @click="publish()">发布</view>
 			</view>
 		</view>
@@ -29,7 +29,7 @@
 				</view>
 			</view>
 		</view>
-		<button class="publish-btn">确认发布</button>
+		<button class="publish-btn" @click="publish()">确认发布</button>
 		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
 </template>
@@ -94,7 +94,7 @@
 							filePath: res2,
 							name: "img",
 							success: (res3) => {
-								console.log(JSON.parse(res3.data)["url"])
+								// console.log(JSON.parse(res3.data)["url"])
 								that.imgUrls.push(JSON.parse(res3.data)["url"]);
 								setTimeout(() => {
 									resolve("")
@@ -137,8 +137,8 @@
 						// console.log(res);
 						if (res.statusCode == 200) {
 							console.log("成功发布");
-							uni.redirectTo({
-								url: "/pages/post-details/post-details?pid=" + res.data.pid
+							uni.switchTab({
+								url: "/pages/homepage/explore/explore"
 							})
 
 						} else {
@@ -147,6 +147,9 @@
 								icon: "error"
 							})
 						}
+					},
+					fail: (res) => {
+						console.log(res);
 					}
 				})
 			}

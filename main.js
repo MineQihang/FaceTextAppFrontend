@@ -6,8 +6,6 @@ import {
 	serverUrl,
 	sendRequest
 } from "./common/js/utils.js"
-import iconfont from '@/components/zgwit-iconfont/iconfont.vue'
-// import '@/components/zgwit-iconfont/iconfont.css'
 Vue.use(uView);
 
 Vue.config.productionTip = false;

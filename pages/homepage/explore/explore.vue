@@ -18,14 +18,15 @@
 				</view>
 				<view class="title title-font">{{ post.title }}</view>
 				<view class="text text-font">{{ post.context }}</view>
+				<!-- <iconfont icon:'collect'></iconfont> -->
 				<view class="photo-content" v-for="(url, index2) in post.imgUrls" :key="index2" v-if="index2 == 0">
 					<image class="post-photo" :src="url" mode="widthFix" />
 				</view>
 
 				<view class="info text-font">
 					<view class="comment">
-						<!-- <i -->
-						<uni-icons class="comment-icons" type="chat" size="20"></uni-icons>
+						<image class="comment-icons" src="../../../static/icons/comment.svg"
+							style="width: 36rpx; height:36rpx"></image>
 						<view class="commentNum">{{ post.commentNum }}</view>
 					</view>
 					<view class="like">
@@ -129,7 +130,7 @@
 				});
 			},
 			turnToPost(pid, index) {
-				let url1 = '/pages/post-dsetails/post-details?pid=' + pid + '&index=' + index;
+				let url1 = '/pages/post-details/post-details?pid=' + pid + '&index=' + index;
 				uni.navigateTo({
 					url: url1,
 				})
