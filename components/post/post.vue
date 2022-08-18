@@ -48,6 +48,7 @@
 	} from "@/common/js/utils.js"
 
 	export default {
+		name: "post",
 		props: {
 			// 检测类型 + 其他验证
 			postList: {
