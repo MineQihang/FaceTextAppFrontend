@@ -202,7 +202,9 @@
 		getTimeAgo
 	} from "@/common/js/utils.js"
 	export default {
-
+		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+			this.choose1 = option
+		},
 		data() {
 			return {
 				choose1: false,
@@ -293,7 +295,7 @@
 		methods: {
 			likeIt(item) {
 				let that = this;
-				console.log(pid);
+				// console.log(pid);
 				try {
 					const authorization = uni.getStorageSync('authorization');
 					if (!authorization) throw DOMException("Nope!");
@@ -371,7 +373,7 @@
 						bpid: that.bpid
 					},
 					success: (res) => {
-						console.log(res.data);
+						// console.log(res.data);
 						let datas = res.data;
 						if (datas && datas.length != 0) {
 							that.flowList.push.apply(that.flowList, datas);
@@ -391,7 +393,7 @@
 							that.motto = res.data.motto;
 							that.iconUrl = res.data.iconUrl;
 							that.postNum = res.data.postNum;
-							console.log("收到的", that.uid);
+							// console.log("收到的", that.uid);
 						}
 					})
 				} catch (e) {
