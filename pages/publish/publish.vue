@@ -2,9 +2,9 @@
 	<view class="container">
 		<view class="navibar">
 			<view class="">
-				<view class="back">
+				<!-- <view class="back">
 					<uni-icons type="arrow-left" size="30" @click="back()"></uni-icons>
-				</view>
+				</view> -->
 				<view class="publish title-font" @click="publish()">发布</view>
 			</view>
 		</view>
@@ -137,8 +137,8 @@
 						// console.log(res);
 						if (res.statusCode == 200) {
 							console.log("成功发布");
-							uni.redirectTo({
-								url: "/pages/post-details/post-details?pid=" + res.data.pid
+							uni.switchTab({
+								url: "/pages/homepage/explore/explore"
 							})
 
 						} else {
