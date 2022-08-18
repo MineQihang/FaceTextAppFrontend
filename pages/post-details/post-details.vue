@@ -34,7 +34,7 @@
 
 
 			<!-- 帖子 -->
-			<view class="text">
+			<view class="text" @click="com2post()">
 				<!-- 标题 -->
 				<view class="title">
 					{{post_title}}
@@ -51,20 +51,22 @@
 			<view class="com_like">
 				<!-- 评论数 -->
 				<view style="margin-right:60rpx; display: flex;">
-					<view style="margin-left: 50rpx;">
+					<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
+					<view style="">
 						{{numberComment}}
 					</view>
-					<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
+
 				</view>
 				<!-- 点赞数 -->
 				<view style="display:flex; justify-content: flex-end; align-items: center; 
 					margin-right: 20rpx; width: 100rpx;">
-					<view style="">
-						{{numberLike}}
-					</view>
 					<uni-icons :type="like_or_not[like].name" color="rgb(97, 97, 211)" size="30" class="like-icon"
 						@click="like_it()">
 					</uni-icons>
+					<view style="width: 40rpx;">
+						{{numberLike}}
+					</view>
+
 				</view>
 			</view>
 		</view>
@@ -72,16 +74,16 @@
 		<!-- 评论区 -->
 		<view class="" @click="com2post()">
 
-			<view class="" style="background-color: white; margin-top: 8px; padding:10rpx">
-				<text style="font-size:20px; font-weight:550;">评论</text>
+			<view class="" style="background-color: white; margin-top: 8px; padding:14rpx">
+				<!-- <text style="font-size:20px; font-weight:550;">评论</text> -->
 			</view>
 
 			<view class="" style="background-color: #fff;">
 				<view class="comment1" v-for="(item,index) in allComments" :key="index"
-					style="margin-left: 1rpx;padding-top: 5rpx;">
+					style="margin-left: 1rpx;padding-top: 0;">
 					<view class="" style="display:flex;width: 100%;">
 						<image :src="item.user.iconUrl"
-							style="width: 74rpx;height: 74rpx;border-radius: 50%;margin: 10rpx; ">
+							style="width: 74rpx;height: 74rpx;border-radius: 50%;margin: 10rpx 10rpx 10rpx 18rpx; ">
 						</image>
 						<view class="" style="flex: 1 0;">
 							<view @click="pushUpCommentInput(item)">
@@ -89,8 +91,8 @@
 									style="position:relative; height: 40rpx;font-weight: 700;margin-top: 4px;">
 									{{item.user.username}}
 								</view>
-								<view style="position:relative;padding-bottom:10rpx; color: rgb(70, 70, 70);"
-									@click="com2com()">
+								<view @click="com2com()"
+									style="position:relative;padding-bottom:10rpx; color: rgb(70, 70, 70); padding-right: 10rpx;">
 									{{item.context}}
 								</view>
 							</view>
@@ -109,7 +111,7 @@
 										<view style="height: 20px;font-weight: bold;" v-else>
 											{{item1.user.username}}
 										</view>
-										<view style="padding-bottom:5px; color: rgb(70, 70, 70);">
+										<view style="padding-bottom:5px; padding-right: 10rpx; color: rgb(70, 70, 70);">
 											{{item1.context}}
 										</view>
 									</view>
@@ -133,7 +135,8 @@
 		<!-- 对评论发表评论 -->
 		<view class="give_comment" v-show="!postOrComment">
 			<view class="">
-				<input type="text" :placeholder="replyUser" v-model="comment_text" :focus="!postOrComment" />
+				<input type="text" :placeholder="replyUser" v-model="comment_text" :focus="!postOrComment"
+					maxlength=50 />
 				<button @click="send_comment_for_comment()">发表</button>
 			</view>
 		</view>
@@ -476,8 +479,8 @@
 	.title {
 		padding-top: 20rpx;
 		padding-left: 20rpx;
-		font-weight: bold;
-		font-size: 40rpx;
+		font-size: 19px;
+		line-height: 1.4em;
 	}
 
 	.mainText {
@@ -486,6 +489,8 @@
 		padding-right: 20rpx;
 		font-size: 30rpx;
 		font-weight: 200;
+		line-height: 1.5em;
+		color: rgb(40, 40, 40);
 	}
 
 	.head-icon1 {
