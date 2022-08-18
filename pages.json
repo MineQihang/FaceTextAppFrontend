@@ -122,7 +122,16 @@
 				"navigationStyle": "custom"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/index/find_back/find_back",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
