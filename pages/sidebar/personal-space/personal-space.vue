@@ -3,7 +3,11 @@
 		<!-- 上面的紫色部分 -->
 		<view class="head-purple">
 			<!-- 用户自定义背景 -->
-			<image :src="back_icon" mode="aspectFit" @click="setBackgroundIcon()" class="picture-background"></image>
+			<image :src="back_icon" v-if="uid!=othersId && othersId!=-1" mode="aspectFit" class="picture-background">
+			</image>
+			<image :src="back_icon" v-if="uid===othersId || othersId===-1" @click="setBackgroundIcon()" mode="aspectFit"
+				class="picture-background">
+			</image>
 			<!-- 返回按钮 -->
 			<view class="" style="display: flex;">
 				<view class="" @click="goBack()" style="padding-top: 36rpx;padding-left: 36rpx;">
@@ -17,7 +21,7 @@
 					</view>
 				</view>
 
-				<view class="" v-if="uid!=othersId" @click="subscribe()"
+				<view class="" v-if="uid!=othersId && othersId!=-1" @click="subscribe()"
 					style="padding-top: 36rpx;margin-right:43.2rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
 					<view class="" style="width: 144rpx;text-align: end;" v-if="subscribe_or_not===false">
 						+关注
@@ -37,18 +41,29 @@
 
 		<!-- 头像 -->
 		<view class="user-portrait" style="">
-			<image :src="iconUrl" mode="aspectFill" @click="setIcon()" class="portrait"></image>
+			<image :src="iconUrl" mode="aspectFill" @click="setIcon()" v-if="uid===othersId|| othersId===-1"
+				class="portrait"></image>
+			<image :src="otherIconUrl" mode="aspectFill" class="portrait" v-if="uid!=othersId"></image>
 		</view>
 
 		<!-- 昵称 -->
-		<view class="username">
+		<view class="username" v-if="uid===othersId || othersId===-1">
 			{{username1}}
+		</view>
+		<view class="username" v-if="uid!=othersId">
+			{{otherUsername}}
 		</view>
 
 		<!-- 个性签名 -->
-		<view class="" style="">
+		<view class="" style="" v-if="uid===othersId|| othersId===-1">
 			<view class="motto" style="">
-				{{motto}}
+				{{motto1}}
+			</view>
+		</view>
+
+		<view class="" style="" v-if="uid!=othersId">
+			<view class="motto" style="">
+				{{otherMotto}}
 			</view>
 		</view>
 
@@ -79,7 +94,7 @@
 		</view>
 
 		<!-- 点击个人信息展示个人信息 -->
-		<view v-if="uid===othersId">
+		<view v-if="uid===othersId || othersId===-1">
 			<view v-show="!choose1">
 
 				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
@@ -143,17 +158,21 @@
 
 
 
-				<view style="height: 200rpx;">
+				<view style="height: 100rpx;">
 
 				</view>
 				<!-- 保存信息 -->
 				<view>
 					<button class="save-button" @click="save_inf()">保存信息</button>
 				</view>
+
+				<view style="height: 50rpx;">
+
+				</view>
 			</view>
 		</view>
 
-		<view v-if="uid!=othersId">
+		<view v-if="uid!=othersId &&othersId!=-1">
 			<view v-show="!choose1">
 
 				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
@@ -162,7 +181,7 @@
 					</view>
 					<view class="big-input">
 						<view class="" style="font-size:18px; padding-top: 30rpx;padding-left: 18rpx;">
-							{{username}}
+							{{otherUsername}}
 						</view>
 					</view>
 
@@ -175,7 +194,7 @@
 							<!-- <input type="text" class="small-input" style=""> -->
 							<view class="input_btn" style="background-color: #ffffff;">
 								<view style="font-size:18px;" class=" slect">
-									{{checkStudents[studentIndex].name}}
+									{{checkStudents[studentIndex1].name}}
 								</view>
 							</view>
 
@@ -187,7 +206,7 @@
 							</view>
 							<view class="small-input">
 								<view class="" style="font-size:18px;padding-top: 30rpx;padding-left: 18rpx;">
-									{{age}}
+									{{otherAge}}
 								</view>
 							</view>
 						</view>
@@ -202,7 +221,7 @@
 						</view>
 						<view class="big-input">
 							<view class="" style="font-size:18px;padding-top: 30rpx;padding-left: 18rpx;">
-								{{mail}}
+								{{otherMail}}
 							</view>
 
 						</view>
@@ -215,7 +234,7 @@
 
 							<view class="max-input">
 								<view class="" style="font-size: 18px; padding-top: 30rpx;padding-left: 18rpx;">
-									{{motto}}
+									{{otherMotto}}
 								</view>
 							</view>
 							<view style="height: 200rpx;">
@@ -255,9 +274,7 @@
 						<view class="info">
 							<view class="info-up">
 								<view class="comment" style="">
-									<!-- <image src="/static/icons/comment_grey.svg"
-										style="width:36rpx;height:36rpx;padding-top: 8rpx;" mode="">
-									</image> -->
+
 
 									<uni-icons type="chat" size="30"
 										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;">
@@ -267,10 +284,7 @@
 									<view class="commentNum">{{item.commentNum}}</view>
 								</view>
 								<view class="like" style="">
-									<!-- {{item.is_liked}} -->
-									<!-- <image src="/static/icons/like_grey.svg" v-if="!item.is_liked"
-										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" mode="">
-									</image> -->
+
 
 									<uni-icons type="hand-up" size="30"
 										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="!item.is_liked">
@@ -278,12 +292,7 @@
 									<uni-icons type="hand-up-filled" size="30"
 										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="item.is_liked">
 									</uni-icons>
-									<!-- <image src="/static/icons/like_purple.svg" v-if="item.is_liked"
-										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" mode="">
-									</image> -->
 
-									<!-- <uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
-									<uni-icons type="heart" size="20" v-else></uni-icons> -->
 
 
 									<view class="likeNum">{{item.likeNum}}</view>
@@ -339,13 +348,23 @@
 				age: '',
 				mail: '',
 				motto: '',
-				uid: 4, //本人的uid
-				othersId: 4, //他人的id
+				motto1: '',
+				uid: 0, //本人的uid
+				othersId: 0, //他人的id
 				iconUrl: '', //用户头像
 				flowList: [],
 				pid: 0,
 				bpid: 0,
-				subscribe_or_not: false
+				subscribe_or_not: false,
+				otherUsername: '',
+				otherUsername1: '',
+				otherStudentIndex: 0,
+				otherAge: '',
+				otherMotto: '',
+				otherMotto1: '',
+				otherMail: '',
+				otherIconUrl: '',
+				studentIndex1: 0,
 			}
 		},
 		mounted() {
@@ -354,23 +373,49 @@
 				const authorization = uni.getStorageSync('authorization');
 				if (!authorization) throw DOMException("Nope!");
 				else {
-					this.sendRequest({
-						url: '/user/user-info',
-						success: (res) => {
-							// this.text = 'request success';
-							if (res.code == 200) {
-								that.username = res.data.username;
-								that.username1 = res.data.username;
-								that.studentIndex = res.data.gender;
-								that.age = res.data.age;
-								that.motto = res.data.motto;
-								that.mail = res.data.mail;
-								that.iconUrl = res.data.iconUrl;
-								// console.log(res.data.data);
-								that.uid = res.data.uid;
+					if (this.othersId == -1) {
+						this.sendRequest({
+							url: '/user/user-info', // 路径
+							requestDataType: 'form',
+							success: (res) => {
+								if (res.code == 200) {
+									that.username = res.data.username;
+									that.username1 = res.data.username;
+									that.studentIndex = res.data.gender;
+									that.age = res.data.age;
+									that.motto = res.data.motto;
+									that.motto1 = res.data.motto;
+									that.mail = res.data.mail;
+									that.iconUrl = res.data.iconUrl;
+									// console.log(res.data.data);
+									that.uid = res.data.uid;
+								}
 							}
-						}
-					})
+						})
+					} else {
+						this.sendRequest({
+							url: '/user/other-info', // 路径
+							method: 'POST', // 请求方法
+							requestDataType: 'form',
+							data: {
+								uid2: that.othersId
+							}, //发送的数据
+							success: (res) => {
+								if (res.code == 200) {
+									that.otherUsername = res.data.username;
+									that.otherUsername1 = res.data.username;
+									that.otherStudentIndex = res.data.gender;
+									that.otherAge = res.data.age;
+									that.otherMotto = res.data.motto;
+									that.otherMotto1 = res.data.motto;
+									that.otherMail = res.data.mail;
+									that.otherIconUrl = res.data.iconUrl;
+									that.studentIndex1 = res.data.gender;
+									// console.log(res.data.data);
+								}
+							}
+						})
+					}
 				}
 			} catch (e) {
 				console.log(e)
@@ -389,10 +434,19 @@
 			})
 		},
 		onLoad: function(option) {
-			// this.othersId = parseInt(option.uid);
-			console.log(option)
-			this.choose1 = option.key === "false";
-			this.init();
+			if (option.uid) {
+				this.othersId = parseInt(option.uid);
+				this.choose1 = false;
+			} else {
+				this.othersId = -1;
+				this.choose1 = option.key === "false";
+			}
+			if (this.othersId === -1) {
+				this.init1();
+			} else {
+				this.init();
+			}
+
 			setTimeout(function() {
 				// console.log('start pulldown');
 			}, 1000);
@@ -409,9 +463,11 @@
 			this.getselfpost();
 		},
 		methods: {
+
+			goBack() {
+				uni.navigateBack({});
+			},
 			subscribe() {
-				console.log(this.uid)
-				console.log(this.othersId)
 				let that = this
 				// console.log(that.uid)
 				// console.log(that.othersId)
@@ -479,7 +535,26 @@
 					data: {
 						limit: limit,
 						bpid: that.bpid,
-						uid: that.othersId
+						uid: ((that.othersId === -1) ? that.uid : that.othersId)
+					},
+					success: (res) => {
+						// console.log(res.data);
+						let datas = res.data;
+						if (datas && datas.length != 0) {
+							that.flowList.push.apply(that.flowList, datas);
+							that.bpid = that.flowList[that.flowList.length - 1].pid;
+						}
+					}
+				});
+			},
+
+			getselfpost1(limit = 10) {
+				let that = this;
+				this.sendRequest({
+					url: "/post/get_self_posts",
+					data: {
+						limit: limit,
+						bpid: that.bpid,
 					},
 					success: (res) => {
 						// console.log(res.data);
@@ -497,6 +572,12 @@
 				this.flowList = [];
 				this.getselfpost();
 			},
+			init1() {
+				this.bpid = 9660530943306;
+				this.flowList = [];
+				this.getselfpost1();
+			},
+
 			to_set() {
 				uni.navigateTo({
 					url: '@/pages/sidebar/settings/settings'
@@ -813,15 +894,24 @@
 	}
 
 	.save-button {
-		position: fixed;
-		bottom: 34rpx;
-		left: 84.6rpx;
-		right: 84.6rpx;
+
+		/* left: 84.6rpx;
 		height: 115.2rpx;
 		border-radius: 36rpx;
 		background-color: #4605AD;
 		color: #ffffff;
-		line-height: 110rpx;
+		line-height: 110rpx; */
+		height: 115.2rpx;
+		margin-left: 84.6rpx;
+		margin-right: 84.6rpx;
+		border-radius: 36rpx;
+		background-color: rgb(70, 5, 173);
+		color: #ffffff;
+		font-size: 43.2rpx;
+		font-weight: 400;
+		text-align: center;
+		line-height: 110.4rpx;
+
 	}
 
 	.input_btn {
