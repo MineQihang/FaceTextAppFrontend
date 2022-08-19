@@ -1,8 +1,8 @@
 <template>
 	<view style="">
-		<view class="edit" v-if="ismypost" @click="edit">
+		<!-- <view class="edit" v-if="ismypost" @click="edit">
 			<image src="/static/icons/edit.svg" />
-		</view>
+		</view> -->
 		<view class="delete" v-if="ismypost" @click="trash">
 			<image src="/static/icons/delete.svg" />
 		</view>
