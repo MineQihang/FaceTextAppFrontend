@@ -101,6 +101,7 @@
 				this.text = '';
 				this.bpid = 9660530943306;
 				this.postList = [];
+				this.userList = [];
 			},
 			postSubscribed(uid) {
 				this.sendRequest({
