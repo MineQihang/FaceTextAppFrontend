@@ -334,10 +334,10 @@
 	.list-content-fans {
 		/* +关注 */
 		position: absolute;
-		width: 108rpx;
+		width: 130rpx;
 		height: 59.4rpx;
 		margin-top: 36rpx;
-		right: 36rpx;
+		right: 10rpx;
 		margin-bottom: 21.6rpx;
 		color: rgb(70, 5, 173);
 		font-weight: 700;
@@ -346,6 +346,6 @@
 		text-align: left;
 		flex-direction: row;
 		align-items: center;
-
+	
 	}
 </style>
