@@ -70,6 +70,7 @@
 			if (this.showCollection) {
 				this.getMore(10, 0);
 			} else {
+				console.log("获取更多的关注的人");
 				this.getMore(10, 1);
 			}
 
@@ -104,17 +105,20 @@
 			getMore(limit = 10, type = 0) { //0:收藏 1:关注
 				let that = this;
 				if (type) {
+					console.log("开始获取关注");
 					this.sendRequest({
-						url: "/post/all_subscribed_posts",
+						url: "/user/all_subscribed_posts",
 						data: {
 							limit: limit,
 							bpid: that.bpid1
 						},
 						success: (res) => {
+							console.log(res);
 							let datas = res.data;
 							if (datas && datas.length != 0) {
 								that.postList.push.apply(that.postList, datas);
 								that.bpid1 = that.postList[that.postList.length - 1].pid;
+								console.log(that.bpid1.toString());
 							}
 						}
 					});
@@ -126,6 +130,7 @@
 							bpid: that.bpid0
 						},
 						success: (res) => {
+							console.log(res);
 							let datas = res.data;
 							if (datas && datas.length != 0) {
 								that.postList.push.apply(that.postList, datas);
