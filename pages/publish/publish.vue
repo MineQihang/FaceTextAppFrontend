@@ -24,7 +24,7 @@
 			<view class="upload">
 				<view class="">
 					<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
-						multiple>
+						multiple maxSize="2000000" @oversize="oversize">
 					</u-upload>
 				</view>
 			</view>
@@ -75,6 +75,14 @@
 					}))
 					fileListLen++
 				}
+			},
+
+			oversize(event) {
+				// console.log(event)
+				uni.showToast({
+					title: "图片过大",
+					icon: "none"
+				})
 			},
 
 
