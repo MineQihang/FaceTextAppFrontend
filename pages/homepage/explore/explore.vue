@@ -71,8 +71,9 @@
 						url: "/user/user-info",
 						success: (res) => {
 							that.userInfo = res.data;
+							uni.setStorageSync('uid', res.data.uid)
+							// console.log("收到uid为",res.data.uid)
 							// that.username = res.data.username;
-							// that.uid = res.data.uid;
 							// console.log("收到的", that.uid);
 						},
 						failRequest: (res) => {
