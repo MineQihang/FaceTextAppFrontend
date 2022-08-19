@@ -3,10 +3,10 @@
 		<!-- 上面的紫色部分 -->
 		<view class="head-purple">
 			<!-- 用户自定义背景 -->
-			<image :src="back_icon" v-if="uid!=othersId && othersId!=-1" mode="aspectFit" class="picture-background">
+			<image :src="back_icon" v-if="uid!=othersId && othersId!=-1" mode="aspectFill" class="picture-background">
 			</image>
-			<image :src="back_icon" v-if="uid===othersId || othersId===-1" @click="setBackgroundIcon()" mode="aspectFit"
-				class="picture-background">
+			<image :src="back_icon" v-if="uid===othersId || othersId===-1" @click="setBackgroundIcon()"
+				mode="aspectFill" class="picture-background">
 			</image>
 			<!-- 返回按钮 -->
 			<view class="" style="display: flex;">
@@ -15,7 +15,7 @@
 				</view>
 
 				<view class=""
-					style="z-index: 0!important;padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
+					style="z-index: 0!important;padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD">
 					<view class="">
 						个人空间
 					</view>
@@ -307,7 +307,7 @@
 				</view>
 			</view>
 		</view>
-
+		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
 </template>
 
