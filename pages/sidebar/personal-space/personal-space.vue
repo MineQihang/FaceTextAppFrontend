@@ -669,8 +669,8 @@
 					count: 1,
 					sourceType: ['album'], //从相册选择
 					crop: {
-						width: "250px",
-						height: "250px"
+						width: "1500px",
+						height: "760px"
 					},
 					success: function(res) {
 						// console.log(res.tempFilePaths[0])
@@ -694,38 +694,28 @@
 			// #endif
 
 			// #ifdef H5
+			// 上传背景图片
 			setBackgroundIcon() {
 				let that = this;
 				uni.chooseImage({
 					count: 1,
 					sourceType: ['album'], //从相册选择
 					success: function(res) {
-						// console.log(res.tempFilePaths[0])
-						that.$refs.helangCompress.compress({
-							src: res.tempFilePaths[0],
-							maxSize: 250,
-							fileType: "jpg",
-							minSize: 250
-						}).then((res2) => {
-							// console.log(res2);
-							// this.compressPaths = [res];
-							uni.uploadFile({
-								url: 'http://124.221.253.187:5000/service/upload_img',
-								filePath: res2,
-								name: "img",
-								success: (res3) => {
-									// console.log(JSON.parse(res3.data)["url"])
-									that.iconUrl = JSON.parse(res3.data)["url"];
-									console.log("头像上传成功")
-								},
-								fail(res3) {
-									console.log(res3);
-									console.log("头像上传失败")
-								}
-							});
-						}).catch((err) => {
-							console.log(err);
-						})
+						that.back_icon = res.tempFilePaths[0];
+						uni.uploadFile({
+							url: 'http://124.221.253.187:5000/service/upload_img',
+							filePath: res.tempFilePaths[0],
+							name: "img",
+							success: (res3) => {
+								// console.log(JSON.parse(res3.data)["url"])
+								// that.back_icon = JSON.parse(res3.data)["url"];
+								console.log("没接口")
+							},
+							fail(res3) {
+								console.log(res3);
+								console.log("背景图上传失败")
+							}
+						});
 					}
 				});
 			},
