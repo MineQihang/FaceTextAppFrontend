@@ -108,7 +108,6 @@
 							// that.motto=res.data.motto;
 							// that.isSubscribed=res.data.isSubscribed;
 							that.flowList = res.data;
-							console.log("粉丝收到的", that.uid);
 						}
 					})
 				} catch (e) {
