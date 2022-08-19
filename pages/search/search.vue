@@ -28,7 +28,8 @@
 					<view class="list-content-motto text-font">
 						{{item.motto}}
 					</view>
-					<view class="list-content-fans text-font" v-if="!item.is_subscribed" @click="trueisSubscribed(index);">
+					<view class="list-content-fans text-font" v-if="!item.is_subscribed"
+						@click="trueisSubscribed(index);">
 						+关注
 					</view>
 					<view class="list-content-fans text-font" v-else @click="falseisSubscribed(index);">
@@ -58,7 +59,6 @@
 			};
 		},
 		onLoad: function(option) {
-			this.init();
 			setTimeout(function() {}, 1000);
 			uni.startPullDownRefresh();
 		},
@@ -112,7 +112,7 @@
 						});
 					}
 				});
-			
+
 			},
 			trueisSubscribed(index) {
 				this.userList[index]["is_subscribed"] = true;
@@ -120,7 +120,7 @@
 			},
 			falseisSubscribed(index) {
 				this.userList[index]["is_subscribed"] = false;
-			    this.postSubscribed(this.userList[index]["uid"])
+				this.postSubscribed(this.userList[index]["uid"])
 			},
 			onKeyInput: function(event) {
 				// this.text = event.target.value;
@@ -180,6 +180,8 @@
 							if (datas && datas.length != 0) {
 								console.log(datas);
 								that.postList = res.data;
+								that.bpid = that.postList[that.postList.length - 1].pid;
+
 							} else {
 								that.postList = [];
 								uni.showToast({
