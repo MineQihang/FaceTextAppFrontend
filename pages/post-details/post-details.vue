@@ -1,5 +1,17 @@
 <template>
 	<view style="">
+		<view class="edit" v-if="ismypost" @click="edit">
+			<image src="/static/icons/edit.svg" />
+		</view>
+		<view class="delete" v-if="ismypost" @click="trash">
+			<image src="/static/icons/delete.svg" />
+		</view>
+		<view class="collect">
+			<image @tap="collect" v-show="iscollect" src="/static/icons/collect_purple.svg" />
+		</view>
+		<view class="collect">
+			<image @tap="collect" v-show="!iscollect" src="/static/icons/collect.svg" />
+		</view>
 		<view class="post-content">
 			<!-- 发帖人信息和发帖时间 -->
 			<view class="poster-head">
@@ -151,6 +163,8 @@
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 			this.pid = parseInt(option.pid);
 			this.lastIndex = parseInt(option.index);
+			this.is_from_tabbar = true;
+			this.from_url = '';
 		},
 		data() {
 			return {
@@ -170,6 +184,8 @@
 				comment1_cid: 0,
 				comment2_cid: 0, //评论的id
 				like: 0, //是否给这篇帖子点赞了
+				iscollect: true,
+				ismypost: false,
 				icon: '@/static/icons/info.svg', //发帖人头像
 				username: 'ikun', //发帖用户名
 				time: '两年半之前', //发帖时间
@@ -184,7 +200,9 @@
 				postOrComment: true,
 				inner_click: false,
 				replyUser: '',
-				replycid: 0
+				replycid: 0,
+				is_from_tabbar: true,
+				from_url: '/pages/homepage/explore/explore',
 			}
 		},
 		onPullDownRefresh() {
@@ -202,7 +220,7 @@
 				let that = this;
 				try {
 					const authorization = uni.getStorageSync('authorization');
-
+					const my_uid = uni.getStorageSync('uid');
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						that.sendRequest({
@@ -226,7 +244,10 @@
 									that.username = res.data.username;
 									that.like = res.data.is_liked == true ? 1 : 0;
 									that.uid = res.data.uid;
+									that.ismypost = that.uid == my_uid ? true : false;
 									that.len = that.swipers.length;
+									that.iscollect = res.data.is_collected;
+
 									if (res.data.comments && res.data.comments.length) {
 										if (res.data.comments.user) {
 											that.comment1_cid = res.data.comments.cid;
@@ -245,6 +266,40 @@
 				} catch (e) {
 					console.log(e)
 				}
+			},
+			collect() {
+				this.sendRequest({
+					url: "/post/collect",
+					method: 'POST',
+					requestDataType: "form",
+					data: {
+						pid: this.pid,
+					},
+					success: (res) => {
+						this.iscollect = !this.iscollect;
+					}
+				});
+			},
+			edit() {
+				uni.navigateTo({
+					url: "/pages/publish/edit-post?pid=" + this.pid
+				})
+			},
+			trash() {
+				let that = this;
+				this.sendRequest({
+					url: "/post/delete_post",
+					method: 'POST',
+					requestDataType: "form",
+					data: {
+						pid: this.pid,
+					},
+					success: (res) => {
+						console.log("成功删除");
+						// if()
+						uni.navigateBack();
+					},
+				});
 			},
 			pushUpCommentInput(item) {
 				this.postOrComment = !this.postOrComment;
@@ -399,6 +454,45 @@
 </script>
 
 <style lang="scss">
+	.edit {
+		position: fixed;
+		z-index: 1000;
+		top: 0;
+		right: 80px;
+		padding: 10px 8px;
+
+		image {
+			height: 24px;
+			width: 24px;
+		}
+	}
+
+	.delete {
+		position: fixed;
+		z-index: 1000;
+		top: 0;
+		right: 40px;
+		padding: 10px 8px;
+
+		image {
+			height: 24px;
+			width: 24px;
+		}
+	}
+
+	.collect {
+		position: fixed;
+		z-index: 1000;
+		top: 0;
+		right: 0;
+		padding: 10px 8px;
+
+		image {
+			height: 24px;
+			width: 24px;
+		}
+	}
+
 	.post-content {
 		position: relative;
 		padding-top: 10px;
@@ -408,12 +502,6 @@
 	.poster-head {
 		display: flex;
 		height: 100rpx;
-	}
-
-	.heart-icon {
-		position: absolute;
-		top: 82rpx;
-		right: 34rpx;
 	}
 
 	.photo {
