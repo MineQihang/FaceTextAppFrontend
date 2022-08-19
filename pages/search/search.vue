@@ -3,18 +3,19 @@
 		<!--<head-tab></head-tab>-->
 		<view class="container">
 			<view class="search-bar">
-				<input type="text"  style="height: 100rpx;margin-left: 30rpx;"v-model="comment_text">
+				<input type="text" style="height: 100rpx;margin-left: 30rpx; width: 100%;" v-model="text"
+					@focus="onFocusInput" @blur="onBlurInput">
 				<image class="search-icon" src="/static/icons/search.svg" @click="search()"></image>
 			</view>
 		</view>
-		<view class="post-container">
-			<view clss = "post-list">
-				<post :postList = "postList"></post>
+		<view class="post-container" >
+			<view clss="post-list" v-show="postList.length">
+				<post :postList="postList" style=" display:flex;"></post>
 			</view>
-			<view class="backgrount-icon">
-				<image src="../../static/icons/searchBackground.svg"></image>
+			
+			<view class="backgrount-icon" v-show="!postList.length">
+				<image src="../../static/icons/searchBackground.svg" style="width:600rpx; height: 600rpx;"></image>
 			</view>
-
 		</view>
 	</view>
 </template>
@@ -25,17 +26,33 @@
 		data() {
 			return {
 				isShowFocus: false,
-				inpuval: '',
-				width: "90%",
-				postList:[],
+				postList: [],
+				text: '',
+				bpid: 9660530943306,
 			};
 		},
+		onLoad: function(option) {
+			this.init();
+			setTimeout(function() {}, 1000);
+			uni.startPullDownRefresh();
+		},
+		onPullDownRefresh() {
+			this.init();
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
+		onReachBottom() {
+			// 触底的时候请求数据，即为上拉加载更多
+			this.getMore();
+		},
+
 		methods: {
 			onFocusInput: function(event) {
 				//console.log('输入框聚焦时触发:',event)
 				// this.inputValue = event.target.value
 				this.isShowFocus = true;
-				this.width = "80%";
+				this.width = "100%";
 				this.$emit("focus")
 			},
 			onBlurInput: function(event) {
@@ -45,13 +62,57 @@
 			},
 			inputCances: function() {
 				this.isShowFocus = false;
-				this.inpuval = '';
-				this.width = "90%"
+				this.text = '';
+				this.width = "100%"
 				this.$emit("cancel");
 			},
-			search(){
-				
-			}
+			init() {
+				this.bpid = 9660530943306;
+				this.postList = [];
+			},
+			search() {
+				console.log("发送搜索请求成功");
+				let that = this;
+				this.sendRequest({
+					url: "/post/search",
+					data: {
+						text: that.text
+					},
+					success: (res) => {
+						let datas = res.data;
+						if (datas && datas.length != 0) {
+							console.log(datas);
+							that.postList = res.data;
+							that.text = '';
+						} else {
+							that.postList = [];
+							uni.showToast({
+								title:"没有找到",
+								icon:"none"
+							})
+						}
+					}
+				});
+			},
+			getMore(limit = 10) {
+				let that = this;
+				this.sendRequest({
+					url: "/post/search",
+					data: {
+						limit: limit,
+						bpid: that.bpid,
+						text: that.text
+					},
+					success: (res) => {
+						let datas = res.data;
+						if (datas && datas.length != 0) {
+							that.postList.push.apply(that.postList, datas);
+							that.bpid = that.postList[that.postList.length - 1].pid;
+						}
+					}
+				});
+			},
+
 		}
 
 	}
@@ -67,30 +128,41 @@
 		justify-content: center;
 		background-color: $our-gray;
 	}
-	.search-bar{
-		margin: 19.8rpx  36rpx 19.8rpx 36rpx;
+
+	.search-bar {
+		margin: 19.8rpx 36rpx 19.8rpx 36rpx;
 		border-radius: 20px;
 		width: 84%;
-		height:100rpx;
+		height: 100rpx;
 		background-color: white;
 		display: flex;
 		justify-content: space-between;
 	}
+
+	// .post-list {
+	// 	width: 500rpx;
+	// 	height: 500rpx;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	background-color: aqua;
+	// }
 	
-	.post-list{
-		
-	}
-	.search-icon{
+	// .post-list {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// }
+
+	.search-icon {
 		width: 100rpx;
 		height: 100rpx;
 		margin-right: 30rpx;
-		}
-	
-	.backgrount-icon{
+	}
+
+	.backgrount-icon {
 		margin-top: 113.4rpx;
 		width: 100%;
 		display: flex;
 		justify-content: center;
-		
+
 	}
 </style>

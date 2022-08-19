@@ -82,13 +82,15 @@
 </template>
 
 <script>
-	import { sendRequest } from "../../common/js/utils.js"
+	import {
+		sendRequest
+	} from "../../common/js/utils.js"
 	export default {
 		name: "head-tab",
 		props: {
 			userInfo: {
 				type: Object,
-				default: () =>　{
+				default: () => {
 					return {
 						iconUrl: "",
 						username: "",
@@ -130,7 +132,7 @@
 			//跳转到个人空间-帖子页面
 			turnToPost() {
 				uni.navigateTo({
-					url: '/pages/sidebar/personal-space/personal-space?key = 0'
+					url: '/pages/sidebar/personal-space/personal-space?key=false'
 				})
 			},
 			//跳转到我的关注
@@ -142,7 +144,7 @@
 			//跳转到个人空间-个人信息页面
 			turnToPersonalSpace() {
 				uni.navigateTo({
-					url: '/pages/sidebar/personal-space/personal-space?key = 1'
+					url: '/pages/sidebar/personal-space/personal-space?key=true'
 				})
 			},
 			//跳转到设置
