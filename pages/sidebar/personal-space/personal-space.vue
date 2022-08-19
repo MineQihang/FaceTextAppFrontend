@@ -10,12 +10,12 @@
 			</image>
 			<!-- 返回按钮 -->
 			<view class="" style="display: flex;">
-				<view class="" @click="goBack()" style="padding-top: 36rpx;padding-left: 36rpx;">
+				<view class="" @click="goBack()" style="z-index: 0!important; padding-top: 36rpx;padding-left: 36rpx;">
 					<image src="/static/icons/leftArrow.svg" style="width: 54rpx;height: 54rpx;" mode=""></image>
 				</view>
 
 				<view class=""
-					style="padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
+					style="z-index: 0!important;padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
 					<view class="">
 						个人空间
 					</view>
@@ -739,15 +739,15 @@
 
 <style>
 	.picture-background {
+		width: 100%;
 		position: absolute;
 		height: 368.2rpx;
-		z-index: 0 !important;
 	}
 
 	.head-purple {
 		height: 368.2rpx;
 		background-color: rgb(192, 190, 253);
-		z-index: -1 !important;
+		z-index: -2 !important;
 	}
 
 	.head-white {
