@@ -5,18 +5,18 @@
 				<!-- <view class="back">
 					<uni-icons type="arrow-left" size="30" @click="back()"></uni-icons>
 				</view> -->
-				<view class="publish title-font" @click="publish()">发布</view>
+				<view class="publish">记录~分享~交流</view>
 			</view>
 		</view>
 
 		<view class="content">
 			<view class="text">
 				<view class="title">
-					<view class="title-font" style="align-self: flex-start;; margin-bottom:20rpx">标题</view>
+					<view class="title-font" style="align-self: flex-start;; margin-bottom:18rpx">标题</view>
 					<textarea v-model="title" placeholder="编辑标题" maxlength=20></textarea>
 				</view>
 				<view class="context">
-					<view class="title-font" style="align-self: flex-start; margin-bottom:20rpx">正文</view>
+					<view class="title-font" style="align-self: flex-start; margin-bottom:18rpx">正文</view>
 					<textarea v-model="context" placeholder="编辑内容" maxlength=500></textarea>
 				</view>
 			</view>
@@ -177,14 +177,14 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: white;
-		height: 126rpx;
+		background: #F7F7F7;
+		height: 116rpx;
 	}
 
 	.navibar>view {
 		display: flex;
 		align-items: center;
-		height: 100rpx;
+		height: 90rpx;
 		width: 90%;
 	}
 
@@ -194,11 +194,11 @@
 	}
 
 	.publish {
-		margin-left: 40rpx;
+		margin-left: 30rpx;
 		size: 30px;
+		font-size: 20px;
 		color: $our-purple;
 		text-align: center;
-		background-color: white;
 	}
 
 	.content {
