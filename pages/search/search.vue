@@ -5,17 +5,17 @@
 			<view class="search-bar">
 				<input type="text" style="height: 100rpx;margin-left: 30rpx; width: 100%;" v-model="text"
 					@focus="onFocusInput" @blur="onBlurInput">
-				<image class="search-icon" src="/static/icons/search.svg" @click="search(10)"></image>
+				<image class="search-icon" src="/static/icons/search.svg" @click="search()"></image>
 			</view>
 		</view>
-		<view class="post-container">
-			<view clss="post-list" v-if="!postList">
-				<post :postList="postList"></post>
+		<view class="post-container" >
+			<view clss="post-list" v-show="postList.length">
+				<post :postList="postList" style=" display:flex;"></post>
 			</view>
-			<view class="backgrount-icon" v-if="postList">
-				<image src="../../static/icons/searchBackground.svg"></image>
+			
+			<view class="backgrount-icon" v-show="!postList.length">
+				<image src="../../static/icons/searchBackground.svg" style="width:600rpx; height: 600rpx;"></image>
 			</view>
-
 		</view>
 	</view>
 </template>
@@ -28,24 +28,24 @@
 				isShowFocus: false,
 				postList: [],
 				text: '',
-				// bpid: 9660530943306,
-
+				bpid: 9660530943306,
 			};
 		},
-		// onLoad: function(option) {
-		// 	setTimeout(function() {}, 1000);
-		// 	uni.startPullDownRefresh();
-		// },
-		// onPullDownRefresh() {
-		// 	this.init();
-		// 	setTimeout(function() {
-		// 		uni.stopPullDownRefresh();
-		// 	}, 1000);
-		// },
-		// onReachBottom() {
-		// 	// 触底的时候请求数据，即为上拉加载更多
-		// 	this.getMore();
-		// },
+		onLoad: function(option) {
+			this.init();
+			setTimeout(function() {}, 1000);
+			uni.startPullDownRefresh();
+		},
+		onPullDownRefresh() {
+			this.init();
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
+		onReachBottom() {
+			// 触底的时候请求数据，即为上拉加载更多
+			this.getMore();
+		},
 
 		methods: {
 			onFocusInput: function(event) {
@@ -67,55 +67,51 @@
 				this.$emit("cancel");
 			},
 			init() {
-				// this.bpid = 9660530943306;
+				this.bpid = 9660530943306;
 				this.postList = [];
-				this.search();
 			},
-			search(limit = 10) {
-				try {
-					const authorization = uni.getStorageSync('authorization');
-					if (!authorization) throw DOMException("Nope!");
-					else {
-						that = this;
-						this.sendRequest({
-							url: "/post/search",
-							data: {
-								limit: limit,
-								text: that.text
-							},
-							success: (res) => {
-								if (res.code == 200) {
-									that.postList = res.data;
-									that.text = '';
-								}
-								else{
-									console.log("搜索不到")
-								}
-							}
-						});
+			search() {
+				console.log("发送搜索请求成功");
+				let that = this;
+				this.sendRequest({
+					url: "/post/search",
+					data: {
+						text: that.text
+					},
+					success: (res) => {
+						let datas = res.data;
+						if (datas && datas.length != 0) {
+							console.log(datas);
+							that.postList = res.data;
+							that.text = '';
+						} else {
+							that.postList = [];
+							uni.showToast({
+								title:"没有找到",
+								icon:"none"
+							})
+						}
 					}
-				} catch (e) {
-					console.log(e);
-				}
+				});
 			},
-			// getMore(limit = 10) {
-			// 	let that = this;
-			// 	this.sendRequest({
-			// 		url: "/post/search",
-			// 		data: {
-			// 			limit: limit,
-			// 			bpid: that.bpid,
-			// 			text: that.text
-			// 		},
-			// 		success: (res) => {
-			// 			let datas = res.data;
-			// 			if (datas && datas.length != 0) {
-			// 				that.postList.push.apply(that.postList, datas);
-			// 				that.bpid = that.postList[that.postList.length - 1].pid;
-			// 			}
-			// 		}
-			// 	});
-			// },
+			getMore(limit = 10) {
+				let that = this;
+				this.sendRequest({
+					url: "/post/search",
+					data: {
+						limit: limit,
+						bpid: that.bpid,
+						text: that.text
+					},
+					success: (res) => {
+						let datas = res.data;
+						if (datas && datas.length != 0) {
+							that.postList.push.apply(that.postList, datas);
+							that.bpid = that.postList[that.postList.length - 1].pid;
+						}
+					}
+				});
+			},
 
 		}
 
@@ -143,7 +139,18 @@
 		justify-content: space-between;
 	}
 
-	.post-list {}
+	// .post-list {
+	// 	width: 500rpx;
+	// 	height: 500rpx;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	background-color: aqua;
+	// }
+	
+	// .post-list {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// }
 
 	.search-icon {
 		width: 100rpx;

@@ -1,10 +1,10 @@
 <template>
-	<view>
-		<view class="content-container">
+	<view class="container">
+		<view class="content-container" style="width: 100%;">
 			<view class="post-container" v-for="(post, index) in postList" :key="index">
 
 				<view class="user-container">
-					<view class="user-info">
+					<view class="user-info" @click="turnToPerson(post.uid)">
 						<image class="user-icon icon" :src="post.user.iconUrl" />
 						<view class="username  username-font" style="padding-left: 20rpx; font-weight: 500; ">
 							{{ post.user.username }}
@@ -24,16 +24,15 @@
 
 					<view class="info text-font">
 						<view class="comment">
-							<image class="comment-icons" src="../../static/icons/comment_grey.svg"
-								style="width: 36rpx; height:36rpx"></image>
+							<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
 							<view class="commentNum">{{ post.commentNum }}</view>
 						</view>
 
 						<view class="like">
-							<image class="comment-icons" src="../../static/icons/like_purple.svg"
-								style="width: 36rpx; height:36rpx" v-if="post.is_liked"></image>
-							<image class="comment-icons" src="../../static/icons/like_grey.svg"
-								style="width: 36rpx; height:36rpx" v-else></image>
+							<uni-icons class="like-icons" type="hand-up-filled" color="rgb(97, 97, 211)" size="30"
+								v-if="post.is_liked"></uni-icons>
+							<uni-icons class="like-icons" type="hand-up" color="rgb(97, 97, 211)" size="30" v-else>
+							</uni-icons>
 							<view class="likeNum">{{ post.likeNum }}</view>
 						</view>
 					</view>
@@ -71,6 +70,11 @@
 			getFormatDate(data) {
 				return getTimeAgo(data);
 			},
+			turnToPerson(uid) {
+				uni.navigateTo({
+					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
+				})
+			}
 		}
 	}
 </script>
