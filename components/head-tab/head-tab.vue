@@ -3,9 +3,9 @@
 		<view class="container">
 			<view class="user-container" @click="showDrawer('showLeft')">
 				<view class="icon-container">
-					<image class="self-icon" :src="userIcon ? userIcon : defaultUserIcon"></image>
+					<image class="self-icon" :src="userInfo.iconUrl"></image>
 				</view>
-				<view class="self-username">{{ username }}</view>
+				<view class="self-username">{{ userInfo.username }}</view>
 			</view>
 		</view>
 		<view style="height: calc(108rpx + 2 * 36rpx); "></view>
@@ -17,15 +17,15 @@
 					<view class="user-info">
 						<!-- 发帖人头像	 -->
 						<view>
-							<image class="user-icon" :src="userIcon">
+							<image class="user-icon" :src="userInfo.iconUrl">
 						</view>
 						<!-- 发帖人昵称 -->
 						<view class="username">
-							{{username}}
+							{{userInfo.username}}
 						</view>
 						<!-- 个性签名 -->
 						<view class="user-motto">
-							{{userMotto}}
+							{{userInfo.motto}}
 						</view>
 					</view>
 					<view class="sidebar-list">
@@ -35,7 +35,7 @@
 									{{"发帖数"}}
 								</view>
 								<view class="number">
-									{{postNum}}
+									{{userInfo.postNum}}
 								</view>
 							</view>
 							<view class="title-detail" @click="turnToFans()">
@@ -43,7 +43,7 @@
 									{{"粉丝数"}}
 								</view>
 								<view class="number">
-									{{fansNum}}
+									{{userInfo.fansNum}}
 								</view>
 							</view>
 							<view class="title-detail" @click="turnToAttention()">
@@ -51,7 +51,7 @@
 									{{"我的关注"}}
 								</view>
 								<view class="number">
-									{{mySubscribe}}
+									{{userInfo.subscribeNum}}
 								</view>
 							</view>
 						</view>
@@ -82,33 +82,31 @@
 </template>
 
 <script>
+	import {
+		sendRequest
+	} from "../../common/js/utils.js"
 	export default {
 		name: "head-tab",
+		props: {
+			userInfo: {
+				type: Object,
+				default: () => {
+					return {
+						iconUrl: "",
+						username: "",
+						motto: "",
+						postNum: "",
+						fansNum: "",
+						subscribeNum: ""
+					}
+				},
+				required: true
+			}
+		},
 		data() {
 			return {
-				username: "这个人没有姓名",
-				userIcon: "",
-				userMotto: "这个人没有遗言",
-				postNum: "0",
-				fansNum: "0",
-				mySubscribe: "0",
 				showLeft: false,
-				defaultUserIcon: "/static/icons/user.svg",
-			};
-		},
-		mounted() {
-			let that = this;
-			this.sendRequest({
-				url: "/user/user-info",
-				success: (res) => {
-					that.username = res.data.username;
-					that.userIcon= res.data.iconUrl;
-					that.userMotto = res.data.motto;
-					that.postNum = res.data.postNum;
-					that.fansNum = res.data.fansNum;
-					that.mySubscribe  = res.data.subscribeNum;
-				}
-			});
+			}
 		},
 		methods: {
 
@@ -134,7 +132,7 @@
 			//跳转到个人空间-帖子页面
 			turnToPost() {
 				uni.navigateTo({
-					url: '/pages/sidebar/personal-space/personal-space?key = 0'
+					url: '/pages/sidebar/personal-space/personal-space?key=false'
 				})
 			},
 			//跳转到我的关注
@@ -146,7 +144,7 @@
 			//跳转到个人空间-个人信息页面
 			turnToPersonalSpace() {
 				uni.navigateTo({
-					url: '/pages/sidebar/personal-space/personal-space?key = 1'
+					url: '/pages/sidebar/personal-space/personal-space?key=true'
 				})
 			},
 			//跳转到设置
@@ -155,7 +153,6 @@
 					url: '/pages/sidebar/settings/settings'
 				})
 			},
-
 			onNavigationBarButtonTap(e) {
 				if (this.showLeft) {
 					this.$refs.showLeft.close()

@@ -143,9 +143,6 @@
 						url: "/user/user-info",
 						success: (res) => {
 							that.userInfo = res.data;
-							// 	that.username = res.data.username;
-							// 	that.uid = res.data.uid;
-							// 	console.log("收到的", that.uid);
 						}
 					})
 				} catch (e) {
