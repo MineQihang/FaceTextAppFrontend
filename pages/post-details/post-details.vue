@@ -74,8 +74,7 @@
 				<!-- 点赞数 -->
 				<view style="display:flex; justify-content: flex-end; align-items: center; 
 					margin-right: 20rpx; width: 100rpx;">
-					<uni-icons :type="like_or_not[like].name" color="rgb(97, 97, 211)" size="30" class="like-icon"
-						@click="like_it()">
+					<uni-icons :type="like_or_not[like].name" color="#6161d3" size="30" @click="like_it()">
 					</uni-icons>
 					<view style="width: 40rpx;">
 						{{numberLike}}
@@ -273,6 +272,7 @@
 				}
 			},
 			collect() {
+				this.iscollect = !this.iscollect;
 				this.sendRequest({
 					url: "/post/collect",
 					method: 'POST',
@@ -281,7 +281,7 @@
 						pid: this.pid,
 					},
 					success: (res) => {
-						this.iscollect = !this.iscollect;
+
 					}
 				});
 			},
@@ -601,17 +601,18 @@
 	.give_comment {
 		position: fixed;
 		bottom: 0;
-		height: 76rpx;
+		height: 70rpx;
 		width: 100%;
-		background-color: white;
-		padding-top: 4rpx;
-		padding-bottom: 4rpx;
+		background-color: rgb(242, 242, 242);
+		padding-top: 12rpx;
+		padding-bottom: 12rpx;
+		border-top: 1px solid rgb(227, 227, 227);
 	}
 
 	.give_comment>view {
 		position: fixed;
 		width: 100%;
-		height: 76rpx;
+		height: 70rpx;
 		// background-color: gainsboro;
 	}
 
@@ -619,7 +620,7 @@
 		position: fixed;
 		border-radius: 40rpx;
 		padding-left: 24rpx;
-		height: 76rpx;
+		height: 70rpx;
 		width: 500rpx;
 		margin-left: 20rpx;
 		background-color: gainsboro;
@@ -628,9 +629,9 @@
 	.give_comment button {
 		position: fixed;
 		right: 20rpx;
-		height: 76rpx;
+		height: 70rpx;
 		width: 150rpx;
-		line-height: 76rpx;
+		line-height: 70rpx;
 		background-color: #7073c9;
 		border-radius: 50rpx;
 		color: #fff;

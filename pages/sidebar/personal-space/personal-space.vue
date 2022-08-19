@@ -286,10 +286,10 @@
 								<view class="like" style="">
 
 
-									<uni-icons type="hand-up" size="30"
+									<uni-icons type="hand-up" size="30" color="#6161d3"
 										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="!item.is_liked">
 									</uni-icons>
-									<uni-icons type="hand-up-filled" size="30"
+									<uni-icons type="hand-up-filled" size="30" color="#6161d3"
 										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="item.is_liked">
 									</uni-icons>
 
