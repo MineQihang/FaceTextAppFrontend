@@ -3,7 +3,7 @@
 		<!-- 上面的紫色部分 -->
 		<view class="head-purple">
 			<!-- 用户自定义背景 -->
-			<image :src="back_icon" mode="aspectFit" @click="setIcon()" class="picture-background"></image>
+			<image :src="back_icon" mode="aspectFit" @click="setBackgroundIcon()" class="picture-background"></image>
 			<!-- 返回按钮 -->
 			<view class="" style="position: absolute;top: 0;">
 				<image :src="background-icon" style="width: 100%;" mode=""></image>
@@ -332,10 +332,6 @@
 			changeInformation() {
 				this.choose1 = !this.choose1;
 			},
-			changeInformation1() {
-				if (this.choose1 == true)
-					this.choose1 = !this.choose1;
-			},
 			save_inf() {
 				let that = this
 				try {
@@ -483,8 +479,10 @@
 			},
 			// #endif
 
+
+			// 上传背景图片
 			// #ifdef APP-PLUS
-			setIconBack() {
+			setBackgroundIcon() {
 				let that = this;
 				uni.chooseImage({
 					count: 1,
