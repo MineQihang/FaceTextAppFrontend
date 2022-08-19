@@ -9,10 +9,24 @@
 				<view class="" @click="goBack()" style="padding-top: 36rpx;padding-left: 36rpx;">
 					<image src="/static/icons/leftArrow.svg" style="width: 54rpx;height: 54rpx;" mode=""></image>
 				</view>
+
 				<view class=""
-					style="padding-left: 36rpx;padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
-					个人空间
+					style="padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
+					<view class="">
+						个人空间
+					</view>
 				</view>
+
+				<view class="" v-if="uid!=othersId" @click="subscribe()"
+					style="padding-top: 36rpx;margin-right:43.2rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
+					<view class="" style="width: 144rpx;text-align: end;" v-if="subscribe_or_not===false">
+						+关注
+					</view>
+					<view class="" style="width: 144rpx;text-align: end;" v-if="!subscribe_or_not===false">
+						已关注
+					</view>
+				</view>
+
 			</view>
 
 		</view>
@@ -34,7 +48,7 @@
 		<!-- 个性签名 -->
 		<view class="" style="">
 			<view class="motto" style="">
-				{{motto1}}
+				{{motto}}
 			</view>
 		</view>
 
@@ -65,76 +79,156 @@
 		</view>
 
 		<!-- 点击个人信息展示个人信息 -->
-		<view v-show="!choose1">
+		<view v-if="uid===othersId">
+			<view v-show="!choose1">
 
-			<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
-				<view class="" style="font-size: 43.2rpx;font-weight: 400;">
-					昵称
-				</view>
-				<view class="big-input">
-					<input type="text" class="" v-model="username" style="padding-top: 30rpx;padding-left: 18rpx;">
-				</view>
-			</view>
-
-			<view class="" style="display: flex; ">
-				<view class="" style="margin-left: 36rpx;margin-top: 43.2rpx;">
+				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
 					<view class="" style="font-size: 43.2rpx;font-weight: 400;">
-						性别
+						昵称
 					</view>
-					<view class="" style="">
-						<!-- <input type="text" class="small-input" style=""> -->
-						<view class="input_btn" style="background-color: #ffffff;">
+					<view class="big-input">
+						<input type="text" class="" v-model="username" style="padding-top: 30rpx;padding-left: 18rpx;">
+					</view>
+				</view>
 
-							<picker style="" mode="selector" :range="checkStudents" range-key="name"
-								@change="checkStudent" v-model="checkStudents[studentIndex].name" class=" slect">
-								{{checkStudents[studentIndex].name}}
-							</picker>
+				<view class="" style="display: flex; ">
+					<view class="" style="margin-left: 36rpx;margin-top: 43.2rpx;">
+						<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+							性别
+						</view>
+						<view class="" style="">
+							<!-- <input type="text" class="small-input" style=""> -->
+							<view class="input_btn" style="background-color: #ffffff;">
 
+								<picker style="" mode="selector" :range="checkStudents" range-key="name"
+									@change="checkStudent" v-model="checkStudents[studentIndex].name" class=" slect">
+									{{checkStudents[studentIndex].name}}
+								</picker>
+
+							</view>
+						</view>
+					</view>
+
+					<view class="" style="position: absolute; margin-top: 43.2rpx;right: 36rpx;">
+						<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+							年龄
+						</view>
+						<view class="small-input">
+							<input type="number" class="" v-model="age" style="padding-top: 30rpx;padding-left: 18rpx;">
 						</view>
 					</view>
 				</view>
 
-				<view class="" style="position: absolute; margin-top: 43.2rpx;right: 36rpx;">
+				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
 					<view class="" style="font-size: 43.2rpx;font-weight: 400;">
-						年龄
+						邮箱
 					</view>
-					<view class="small-input">
-						<input type="number" class="" v-model="age" style="padding-top: 30rpx;padding-left: 18rpx;">
+					<view class="big-input">
+						<input type="text" class="" v-model="mail" style="padding-top: 30rpx;padding-left: 18rpx;">
+					</view>
+
+				</view>
+
+				<!-- 个人简介 -->
+				<view style="margin-left: 36rpx;
+				margin-right: 36rpx; margin-top: 33.2rpx;">
+					<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+						个性签名
+					</view>
+
+					<view class="max-input">
+						<input type="text" class="" v-model="motto" style="padding-top: 30rpx;padding-left: 18rpx;">
 					</view>
 				</view>
-			</view>
 
-			<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
-				<view class="" style="font-size: 43.2rpx;font-weight: 400;">
-					邮箱
+
+
+				<view style="height: 200rpx;">
+
 				</view>
-				<view class="big-input">
-					<input type="text" class="" v-model="mail" style="padding-top: 30rpx;padding-left: 18rpx;">
+				<!-- 保存信息 -->
+				<view>
+					<button class="save-button" @click="save_inf()">保存信息</button>
 				</view>
-
-			</view>
-
-			<!-- 个人简介 -->
-			<view style="margin-left: 36rpx;
-			margin-right: 36rpx; margin-top: 33.2rpx;">
-				<view class="" style="font-size: 43.2rpx;font-weight: 400;">
-					个性签名
-				</view>
-
-				<view class="max-input">
-					<input type="text" class="" v-model="motto" style="padding-top: 30rpx;padding-left: 18rpx;">
-				</view>
-			</view>
-
-			<!-- 保存信息 -->
-			<view>
-				<button class="save-button" @click="save_inf()">保存信息</button>
-			</view>
-
-			<view style="height: 200rpx;">
-
 			</view>
 		</view>
+
+		<view v-if="uid!=othersId">
+			<view v-show="!choose1">
+
+				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
+					<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+						昵称
+					</view>
+					<view class="big-input">
+						<view class="" style="font-size:18px; padding-top: 30rpx;padding-left: 18rpx;">
+							{{username}}
+						</view>
+					</view>
+
+					<view class="" style="display: flex;">
+						<view class="" style="margin-top: 43.2rpx;">
+							<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+								性别
+							</view>
+
+							<!-- <input type="text" class="small-input" style=""> -->
+							<view class="input_btn" style="background-color: #ffffff;">
+								<view style="font-size:18px;" class=" slect">
+									{{checkStudents[studentIndex].name}}
+								</view>
+							</view>
+
+						</view>
+
+						<view class="" style="position: absolute; margin-top: 43.2rpx;right: 36rpx;">
+							<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+								年龄
+							</view>
+							<view class="small-input">
+								<view class="" style="font-size:18px;padding-top: 30rpx;padding-left: 18rpx;">
+									{{age}}
+								</view>
+							</view>
+						</view>
+
+
+
+					</view>
+
+					<view style="margin-top: 33.2rpx;">
+						<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+							邮箱
+						</view>
+						<view class="big-input">
+							<view class="" style="font-size:18px;padding-top: 30rpx;padding-left: 18rpx;">
+								{{mail}}
+							</view>
+
+						</view>
+
+						<!-- 个人简介 -->
+						<view style=" margin-top: 33.2rpx;">
+							<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+								个性签名
+							</view>
+
+							<view class="max-input">
+								<view class="" style="font-size: 18px; padding-top: 30rpx;padding-left: 18rpx;">
+									{{motto}}
+								</view>
+							</view>
+							<view style="height: 200rpx;">
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+
+
+
+
 
 
 		<!-- 点这里展示我的帖子 -->
@@ -150,7 +244,6 @@
 								{{item.createdTime.split('T')[0]}}
 
 							</view>
-
 							<view class="title title-font">{{item.title}}</view>
 							<view class="context text-font">{{item.context}}</view>
 							<view class="itemContent" style="background-color: #ffffff;"
@@ -162,16 +255,32 @@
 						<view class="info">
 							<view class="info-up">
 								<view class="comment" style="">
-									<image src="/static/icons/comment_grey.svg"
-										style="width:36rpx;height:36rpx;padding-top: 8rpx;" mode=""></image>
+									<!-- <image src="/static/icons/comment_grey.svg"
+										style="width:36rpx;height:36rpx;padding-top: 8rpx;" mode="">
+									</image> -->
+
+									<uni-icons type="chat" size="30"
+										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;">
+									</uni-icons>
+
+
 									<view class="commentNum">{{item.commentNum}}</view>
 								</view>
 								<view class="like" style="">
 									<!-- {{item.is_liked}} -->
-									<image src="/static/icons/like_grey.svg" v-if="!item.is_liked"
-										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" mode=""></image>
-									<image src="/static/icons/like_purple.svg" v-if="item.is_liked"
-										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" mode=""></image>
+									<!-- <image src="/static/icons/like_grey.svg" v-if="!item.is_liked"
+										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" mode="">
+									</image> -->
+
+									<uni-icons type="hand-up" size="30"
+										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="!item.is_liked">
+									</uni-icons>
+									<uni-icons type="hand-up-filled" size="30"
+										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="item.is_liked">
+									</uni-icons>
+									<!-- <image src="/static/icons/like_purple.svg" v-if="item.is_liked"
+										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" mode="">
+									</image> -->
 
 									<!-- <uni-icons type="heart-filled" size="20" v-if="item.is_liked"></uni-icons>
 									<uni-icons type="heart" size="20" v-else></uni-icons> -->
@@ -230,12 +339,13 @@
 				age: '',
 				mail: '',
 				motto: '',
-				motto1: '',
-				uid: 0,
+				uid: 4, //本人的uid
+				othersId: 4, //他人的id
 				iconUrl: '', //用户头像
 				flowList: [],
 				pid: 0,
-				bpid: 0
+				bpid: 0,
+				subscribe_or_not: false
 			}
 		},
 		mounted() {
@@ -254,7 +364,6 @@
 								that.studentIndex = res.data.gender;
 								that.age = res.data.age;
 								that.motto = res.data.motto;
-								that.motto1 = res.data.motto;
 								that.mail = res.data.mail;
 								that.iconUrl = res.data.iconUrl;
 								// console.log(res.data.data);
@@ -266,8 +375,22 @@
 			} catch (e) {
 				console.log(e)
 			}
+
+			this.sendRequest({
+				url: '/user/subscribe_or_not',
+				method: 'POST',
+				requestDataType: 'form',
+				data: {
+					uid2: that.othersId
+				}, //发送的数据
+				success: (res) => {
+					that.subscribe_or_not = res.is_subscribe
+				}
+			})
 		},
 		onLoad: function(option) {
+			// this.othersId = parseInt(option.uid);
+			console.log(option)
 			this.choose1 = option.key === "false";
 			this.init();
 			setTimeout(function() {
@@ -286,32 +409,25 @@
 			this.getselfpost();
 		},
 		methods: {
-			likeIt(item) {
-				let that = this;
-				// console.log(pid);
-				try {
-					const authorization = uni.getStorageSync('authorization');
-					if (!authorization) throw DOMException("Nope!");
-					else {
-						uni.request({
-							url: 'http://124.221.253.187:5000/post/like',
-							method: 'POST',
-							header: {
-								'Authorization': authorization,
-								"content-type": "application/x-www-form-urlencoded"
-							},
-							data: {
-								pid: item.pid,
-								uid: that.uid
-							},
-							success: (res) => {
-								console.log(res)
-							}
-						})
+			subscribe() {
+				console.log(this.uid)
+				console.log(this.othersId)
+				let that = this
+				// console.log(that.uid)
+				// console.log(that.othersId)
+				// console.log(that.authorization)
+				that.subscribe_or_not = !that.subscribe_or_not
+				this.sendRequest({
+					url: '/user/subscribe',
+					method: 'POST',
+					requestDataType: 'form',
+					data: {
+						uid2: that.othersId
+					}, //发送的数据
+					success: (res) => {
+						console.log(res)
 					}
-				} catch (e) {
-					console.log(e)
-				}
+				})
 			},
 			checkStudent: function(e) {
 				this.studentIndex = e.detail.value;
@@ -359,10 +475,11 @@
 			getselfpost(limit = 10) {
 				let that = this;
 				this.sendRequest({
-					url: "/post/get_self_posts",
+					url: "/post/get_post_by_uid",
 					data: {
 						limit: limit,
-						bpid: that.bpid
+						bpid: that.bpid,
+						uid: that.othersId
 					},
 					success: (res) => {
 						// console.log(res.data);
@@ -374,24 +491,7 @@
 					}
 				});
 			},
-			getselfuser() {
-				let that = this;
-				try {
-					this.sendRequest({
-						url: "/user/user-info",
-						success: (res) => {
-							that.username = res.data.username;
-							that.uid = res.data.uid;
-							that.motto = res.data.motto;
-							that.iconUrl = res.data.iconUrl;
-							that.postNum = res.data.postNum;
-							// console.log("收到的", that.uid);
-						}
-					})
-				} catch (e) {
-					console.log(e)
-				};
-			},
+
 			init() {
 				this.bpid = 9660530943306;
 				this.flowList = [];
@@ -515,7 +615,7 @@
 			// #endif
 
 			// #ifdef H5
-			setIcon() {
+			setBackgroundIcon() {
 				let that = this;
 				uni.chooseImage({
 					count: 1,
@@ -818,15 +918,16 @@
 
 
 	.comment {
+		width: 100%;
 		flex-direction: row;
 		background-color: white;
-		padding-left: 489.6rpx;
+		padding-left: 459.6rpx;
+		display: flex;
 	}
 
 
 	.commentNum {
-		margin-left: 10rpx;
-		flex-direction: row;
+		margin-left: 40rpx;
 		font-size: 32.4rpx;
 		line-height: center;
 		float: right;
@@ -837,12 +938,14 @@
 
 	.like {
 		flex-direction: row;
-		padding-left: 115.2rpx;
+		padding-left: 35.2rpx;
 		background-color: white;
+		width: 500rpx;
 	}
 
 	.likeNum {
-		margin-left: 15rpx;
+		/* 		margin-left: 5rpx; */
+		margin-right: 18rpx;
 		margin-top: 5rpx;
 		flex-direction: row;
 		font-size: 32.4rpx;
