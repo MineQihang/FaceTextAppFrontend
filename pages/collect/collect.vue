@@ -43,14 +43,15 @@
 			return {
 				showCollection: true,
 				showAttention: false,
-				choose: false,
 				uid: 79,
 				postList: [],
-				bpid: 9660530943306,
+				// collectionList:[],
+				// attentionList:[],
+				bpid0: 9660530943306,
+				bpid1: 9660530943306
 			}
 		},
 		onLoad: function(option) {
-			this.init();
 			setTimeout(function() {
 				console.log('start pulldown');
 			}, 1000);
@@ -64,38 +65,74 @@
 		},
 		onReachBottom() {
 			// 触底的时候请求数据，即为上拉加载更多
-			this.getselfpost();
+			if (this.showCollection) {
+				this.getMore(10, 0);
+			} else {
+				this.getMore(10, 1);
+			}
+
 		},
 		methods: {
-			getPost(limit = 10) {
+			getPost(limit = 10, type = 0) { //0:收藏 1:关注
 				let that = this;
-				this.sendRequest({
-					url: "/post/get_all",
-					data: {
-						limit: limit,
-						bpid: 9660530943306
-					},
-					success: (res) => {
-						that.postList = res.data;
-					}
-				});
-			},
-			getMore(limit = 10) {
-				let that = this;
-				this.sendRequest({
-					url: "/post/get_all",
-					data: {
-						limit: limit,
-						bpid: that.bpid
-					},
-					success: (res) => {
-						let datas = res.data;
-						if (datas && datas.length != 0) {
-							that.postList.push.apply(that.postList, datas);
-							that.bpid = that.postList[that.postList.length - 1].pid;
+				if (type) {
+					this.sendRequest({
+						url: "/user/all_subscribed_posts",
+						data: {
+							limit: limit,
+							bpid: 9660530943306
+						},
+						success: (res) => {
+							that.postList = res.data;
 						}
-					}
-				});
+					});
+				} else {
+					this.sendRequest({
+						url: "/post/collections",
+						data: {
+							limit: limit,
+							bpid: 9660530943306
+						},
+						success: (res) => {
+							that.postList = res.data;
+						}
+					});
+				}
+			},
+			getMore(limit = 10, type = 0) { //0:收藏 1:关注
+				let that = this;
+				if (type) {
+					this.sendRequest({
+						url: "/post/all_subscribed_posts",
+						data: {
+							limit: limit,
+							bpid: that.bpid1
+						},
+						success: (res) => {
+							let datas = res.data;
+							if (datas && datas.length != 0) {
+								that.postList.push.apply(that.postList, datas);
+								that.bpid1 = that.postList[that.postList.length - 1].pid;
+							}
+						}
+					});
+				} else {
+					this.sendRequest({
+						url: "/post/collections",
+						data: {
+							limit: limit,
+							bpid: that.bpid0
+						},
+						success: (res) => {
+							let datas = res.data;
+							if (datas && datas.length != 0) {
+								that.postList.push.apply(that.postList, datas);
+								that.bpid0 = that.postList[that.postList.length - 1].pid;
+							}
+						}
+					});
+				}
+
 			},
 			getUser() {
 				let that = this;
@@ -113,10 +150,17 @@
 				};
 			},
 			init() {
-				this.bpid = 9660530943306;
+				this.bpid0 = 9660530943306;
+				this.bpid1 = 9660530943306;
 				this.postList = [];
 				this.getUser();
-				this.getPost();
+
+				if (this.showCollection) {
+					this.getPost(10, 0);
+				} else {
+					this.getPost(10, 1);
+				}
+
 			},
 			turnToPost(pid) {
 				console.log(pid);
@@ -128,51 +172,18 @@
 			changeToCollection() {
 				this.showCollection = true;
 				this.showAttention = false;
+				this.getPost(10, 0);
 			},
 			changeToAttention() {
 				this.showCollection = false;
 				this.showAttention = true;
+				this.getPost(10, 1);
 			},
 			changeInformation() {
 				this.choose = !this.choose;
 			},
 			getFormatDate(data) {
 				return getTimeAgo(data);
-			},
-			getselfpost(limit = 10) {
-				let that = this;
-				this.sendRequest({
-					url: "/post/get_self_posts",
-					data: {
-						limit: limit,
-						bpid: that.bpid
-					},
-					success: (res) => {
-						let datas = res.data;
-						if (datas && datas.length != 0) {
-							that.flowList.push.apply(that.flowList, datas);
-							that.bpid = that.flowList[that.flowList.length - 1].pid;
-						}
-					}
-				});
-			},
-			getselfuser() {
-				let that = this;
-				try {
-					this.sendRequest({
-						url: "/user/user-info",
-						success: (res) => {
-							that.username = res.data.username;
-							that.uid = res.data.uid;
-							that.motto = res.data.motto;
-							that.iconUrl = res.data.iconUrl;
-							that.postNum = res.data.postNum;
-							console.log("收到的", that.uid);
-						}
-					})
-				} catch (e) {
-					console.log(e)
-				};
 			},
 			pass2explore(obj) {
 				if (obj) {
