@@ -14,12 +14,12 @@
 					<image src="/static/icons/leftArrow.svg" style="width: 54rpx;height: 54rpx;" mode=""></image>
 				</view>
 
-				<view class=""
-					style="z-index: 0!important;padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD">
+				<!-- <view class=""
+					style="z-index: 0!important;padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: rgba(70, 5, 173,0.6)">
 					<view class="">
 						个人空间
 					</view>
-				</view>
+				</view> -->
 
 				<view class="" v-if="uid!=othersId && othersId!=-1" @click="subscribe()"
 					style="padding-top: 36rpx;margin-right:43.2rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
@@ -387,8 +387,9 @@
 									that.motto1 = res.data.motto;
 									that.mail = res.data.mail;
 									that.iconUrl = res.data.iconUrl;
-									// console.log(res.data.data);
+									// console.log(res.data);
 									that.uid = res.data.uid;
+									that.back_icon = res.data.bgUrl;
 								}
 							}
 						})
@@ -411,7 +412,7 @@
 									that.otherMail = res.data.mail;
 									that.otherIconUrl = res.data.iconUrl;
 									that.studentIndex1 = res.data.gender;
-									// console.log(res.data.data);
+									// console.log(res.data);
 								}
 							}
 						})
@@ -711,7 +712,18 @@
 							success: (res3) => {
 								// console.log(JSON.parse(res3.data)["url"])
 								// that.back_icon = JSON.parse(res3.data)["url"];
-								console.log("没接口")
+								that.sendRequest({
+									url: "/user/change_background_img",
+									method: 'POST',
+									requestDataType: "form",
+									data: {
+										url: JSON.parse(res3.data)["url"],
+									},
+									success: (res4) => {
+										console.log("背景图上传成功")
+									}
+								});
+
 							},
 							fail(res3) {
 								console.log(res3);
@@ -732,6 +744,7 @@
 		width: 100%;
 		position: absolute;
 		height: 368.2rpx;
+		text-shadow: 0 0 5px white;
 	}
 
 	.head-purple {
@@ -769,6 +782,7 @@
 		left: 253.8rpx;
 		font-size: 43.2rpx;
 		font-weight: 700;
+		text-shadow: 0 0 4px white;
 		z-index: 1 !important;
 	}
 
