@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<!-- 头部个人信息 -->
-		<head-tab></head-tab>
+		<head-tab :userInfo="userInfo"></head-tab>
 
 		<view class="white-header"></view>
 
@@ -45,6 +45,8 @@
 				showAttention: false,
 				uid: 79,
 				postList: [],
+				bpid: 9660530943306,
+				userInfo: {},
 				// collectionList:[],
 				// attentionList:[],
 				bpid0: 9660530943306,
@@ -139,11 +141,12 @@
 				try {
 					this.sendRequest({
 						url: "/user/user-info",
-						// success: (res) => {
-						// 	that.username = res.data.username;
-						// 	that.uid = res.data.uid;
-						// 	console.log("收到的", that.uid);
-						// }
+						success: (res) => {
+							that.userInfo = res.data;
+							// 	that.username = res.data.username;
+							// 	that.uid = res.data.uid;
+							// 	console.log("收到的", that.uid);
+						}
 					})
 				} catch (e) {
 					console.log(e)
