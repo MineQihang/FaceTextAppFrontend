@@ -180,7 +180,7 @@
 		background-color: #F7F7F7;
 		position: fixed;
 		width: 100%;
-		z-index: 999;
+		z-index: 99;
 		border-bottom: solid #F2F3F5;
 	}
 
