@@ -70,7 +70,12 @@
 		},
 		onReachBottom() {
 			// 触底的时候请求数据，即为上拉加载更多
-			this.getMore();
+			if (this.postList.length) {
+				this.getMore();
+			}
+			else{
+				this.getMoreUser();
+			}
 		},
 
 		methods: {
@@ -124,6 +129,7 @@
 			},
 			onKeyInput: function(event) {
 				// this.text = event.target.value;
+				this.postList = [];
 				this.searchUser();
 				console.log("发送请求")
 			},
@@ -211,6 +217,9 @@
 					}
 				});
 			},
+			getMoreUser(limit = 10){
+				
+			}
 
 		}
 
