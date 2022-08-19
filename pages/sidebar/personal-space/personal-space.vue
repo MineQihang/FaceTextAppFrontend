@@ -5,9 +5,6 @@
 			<!-- 用户自定义背景 -->
 			<image :src="back_icon" mode="aspectFit" @click="setBackgroundIcon()" class="picture-background"></image>
 			<!-- 返回按钮 -->
-			<view class="" style="position: absolute;top: 0;">
-				<image :src="background-icon" style="width: 100%;" mode=""></image>
-			</view>
 			<view class="" style="display: flex;">
 				<view class="" @click="goBack()" style="padding-top: 36rpx;padding-left: 36rpx;">
 					<image src="/static/icons/leftArrow.svg" style="width: 54rpx;height: 54rpx;" mode=""></image>
@@ -68,7 +65,7 @@
 		</view>
 
 		<!-- 点击个人信息展示个人信息 -->
-		<view v-if="!choose1">
+		<view v-show="!choose1">
 
 			<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
 				<view class="" style="font-size: 43.2rpx;font-weight: 400;">
@@ -141,11 +138,11 @@
 
 
 		<!-- 点这里展示我的帖子 -->
-		<view v-if="choose1">
+		<view v-show="choose1">
 			<view class="content">
 				<view class="flowPanel">
 					<view class="itemContainer" v-for="(item,index) in flowList" :key="index"
-						@click="turnToPost(item.pid)">
+						@click="turnToPost(item.pid, index)">
 
 						<view class="">
 							<view class="date text-font " v-if="(index==0)||((index!=0)&&((flowList[index].createdTime.split('T'
@@ -157,8 +154,8 @@
 							<view class="title title-font">{{item.title}}</view>
 							<view class="context text-font">{{item.context}}</view>
 							<view class="itemContent" style="background-color: #ffffff;"
-								v-for="(url,index2) in item.imgUrls" :key="index2" v-if="index2==0">
-								<image class="" style="width: 100%;" :src="url" mode="widthFix">
+								v-for="(img,index2) in item.imgUrls" :key="index2" v-if="index2==0">
+								<image class="" style="width: 100%;" :src="img" mode="widthFix">
 							</view>
 						</view>
 
@@ -201,9 +198,6 @@
 		getTimeAgo
 	} from "@/common/js/utils.js"
 	export default {
-		onLoad: function(option) {
-			this.choose1 = option
-		},
 		data() {
 			return {
 				choose1: true,
@@ -241,8 +235,7 @@
 				iconUrl: '', //用户头像
 				flowList: [],
 				pid: 0,
-				bpid: 0,
-
+				bpid: 0
 			}
 		},
 		mounted() {
@@ -275,9 +268,10 @@
 			}
 		},
 		onLoad: function(option) {
+			this.choose1 = option.key === "false";
 			this.init();
 			setTimeout(function() {
-				console.log('start pulldown');
+				// console.log('start pulldown');
 			}, 1000);
 			uni.startPullDownRefresh();
 		},
@@ -322,11 +316,10 @@
 			checkStudent: function(e) {
 				this.studentIndex = e.detail.value;
 			},
-			turnToPost(pid) {
-				console.log(pid);
-				let url1 = '/pages/post-details/post-details?pid=' + pid;
+			turnToPost(pid, index) {
+				let url1 = '/pages/post-details/post-details?pid=' + pid + '&index=' + index;
 				uni.navigateTo({
-					url: url1
+					url: url1,
 				})
 			},
 			changeInformation() {
@@ -408,6 +401,15 @@
 				uni.navigateTo({
 					url: '@/pages/sidebar/settings/settings'
 				})
+			},
+			// 这个方法就是B页面中调用$vm注册的方法，参数为B页面中传递过来的数据
+			pass2explore(obj) {
+
+				if (obj) {
+					this.flowList[obj.index].is_liked = obj.is_liked;
+					this.flowList[obj.index].likeNum = obj.numberLike;
+					console.log("传回来了");
+				}
 			},
 
 			// #ifdef APP-PLUS
