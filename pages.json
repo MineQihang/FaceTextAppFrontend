@@ -151,7 +151,7 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#ffffff",
+		// "backgroundColor": "#ffffff",
 		// "enablePullDownRefresh": true,
 		"app-plus": {
 			"background": "#efeff4"

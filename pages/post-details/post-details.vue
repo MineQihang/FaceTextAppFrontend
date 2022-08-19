@@ -12,6 +12,7 @@
 		<view class="collect">
 			<image @tap="collect" v-show="!iscollect" src="/static/icons/collect.svg" />
 		</view>
+
 		<view class="post-content">
 			<!-- 发帖人信息和发帖时间 -->
 			<view class="poster-head">
@@ -39,7 +40,8 @@
 
 				</swiper>
 				<view class="photo-info" @click="photo_info">
-					<image src="@/static/icons/info.svg" v-if="len"></image>
+					<!-- <image src="@/static/icons/info.svg" v-if="len"></image> -->
+					<uni-icons type="info-filled" v-if="len" size="28" color="rgb(74, 129, 226)"></uni-icons>
 				</view>
 			</view>
 
@@ -84,7 +86,7 @@
 		</view>
 
 		<!-- 评论区 -->
-		<view class="" @click="com2post()">
+		<view class="comment-area" @click="com2post()" v-show="allComments.length">
 
 			<view class="" style="background-color: white; margin-top: 8px; padding:14rpx">
 				<!-- <text style="font-size:20px; font-weight:550;">评论</text> -->
@@ -184,11 +186,11 @@
 				comment1_cid: 0,
 				comment2_cid: 0, //评论的id
 				like: 0, //是否给这篇帖子点赞了
-				iscollect: true,
+				iscollect: false,
 				ismypost: false,
 				icon: '@/static/icons/info.svg', //发帖人头像
-				username: 'ikun', //发帖用户名
-				time: '两年半之前', //发帖时间
+				username: '', //发帖用户名
+				time: '', //发帖时间
 				numberComment: 0, //评论数
 				numberLike: 0, //点赞数
 				allComments: [], //所有评论
@@ -206,8 +208,11 @@
 			}
 		},
 		onPullDownRefresh() {
-			this.sendRequest();
-			uni.stopPullDownRefresh()
+			this.sendRequest_();
+			setTimeout(
+				() => {
+					uni.stopPullDownRefresh();
+				}, 700)
 		},
 		mounted() {
 			this.sendRequest_();
@@ -295,8 +300,7 @@
 						pid: this.pid,
 					},
 					success: (res) => {
-						console.log("成功删除");
-						// if()
+						// console.log("成功删除");
 						uni.navigateBack();
 					},
 				});
@@ -622,13 +626,12 @@
 		height: 76rpx;
 		width: 150rpx;
 		line-height: 76rpx;
-		background-color: #8b8ef9;
+		background-color: #7073c9;
 		border-radius: 50rpx;
 		color: #fff;
 	}
 
 	.comment1 {
-		// background-color: rgb(246, 240, 249);
 		display: flex;
 	}
 </style>
