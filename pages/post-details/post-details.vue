@@ -620,6 +620,7 @@
 		position: fixed;
 		border-radius: 40rpx;
 		padding-left: 24rpx;
+		padding-right: 24rpx;
 		height: 70rpx;
 		width: 500rpx;
 		margin-left: 20rpx;

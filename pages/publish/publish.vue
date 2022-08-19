@@ -17,14 +17,15 @@
 				</view>
 				<view class="context">
 					<view class="title-font" style="align-self: flex-start; margin-bottom:18rpx">正文</view>
-					<textarea v-model="context" placeholder="编辑内容" maxlength=500></textarea>
+					<v-model="context" placeholder="编辑内容" maxlength=500></textarea>
 				</view>
 			</view>
 
 			<view class="upload">
 				<view class="">
 					<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
-						multiple maxSize="2000000" @oversize="oversize">
+						multiple maxSize="10485760" @oversize="oversize">
+						<!-- 10MB -->
 					</u-upload>
 				</view>
 			</view>
