@@ -8,9 +8,9 @@
 				<image class="search-icon" src="/static/icons/search.svg" @click="search()"></image>
 			</view>
 		</view>
-		<view class="post-container" style="width: 100%; ">
+		<view class="post-container" >
 			<view clss="post-list" v-show="postList.length">
-				<post :postList="postList" style="width: 100%; display:flex;"></post>
+				<post :postList="postList" style=" display:flex;"></post>
 			</view>
 			
 			<view class="backgrount-icon" v-show="!postList.length">
@@ -85,8 +85,11 @@
 							that.postList = res.data;
 							that.text = '';
 						} else {
-							postList = [];
-							console.log("输入为空");
+							that.postList = [];
+							uni.showToast({
+								title:"没有找到",
+								icon:"none"
+							})
 						}
 					}
 				});

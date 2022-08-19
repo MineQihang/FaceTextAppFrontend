@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="content-container">
+		<view class="content-container" style="width: 100%;">
 			<view class="post-container" v-for="(post, index) in postList" :key="index">
 
 				<view class="user-container">
