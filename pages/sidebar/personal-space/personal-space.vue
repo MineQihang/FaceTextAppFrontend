@@ -464,8 +464,6 @@
 				uni.navigateBack({});
 			},
 			subscribe() {
-				console.log(this.uid)
-				console.log(this.othersId)
 				let that = this
 				// console.log(that.uid)
 				// console.log(that.othersId)
