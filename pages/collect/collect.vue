@@ -87,6 +87,7 @@
 						},
 						success: (res) => {
 							that.postList = res.data;
+							that.bpid1 = that.postList[that.postList.length - 1].pid;
 						}
 					});
 				} else {
@@ -98,6 +99,7 @@
 						},
 						success: (res) => {
 							that.postList = res.data;
+							that.bpid0 = that.postList[that.postList.length - 1].pid;
 						}
 					});
 				}
