@@ -8,7 +8,6 @@
 				<image class="search-icon" src="/static/icons/search.svg" @click="search()"></image>
 			</view>
 		</view>
-		<view style="width: 200rpx; height: 200rpx; background-color: aqua;"></view>
 		<view class="post-container" style="width: 100%; ">
 			<view clss="post-list" v-show="postList.length">
 				<post :postList="postList" style="width: 100%; display:flex;"></post>

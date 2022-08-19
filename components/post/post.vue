@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="container">
 		<view class="content-container">
 			<view class="post-container" v-for="(post, index) in postList" :key="index">
 
