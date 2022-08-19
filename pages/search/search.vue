@@ -4,7 +4,7 @@
 		<view class="container">
 			<view class="search-bar">
 				<input type="text" style="height: 100rpx;margin-left: 30rpx; width: 100%;" v-model="text"
-					@focus="onFocusInput" @blur="onBlurInput">
+					@focus="onFocusInput" @blur="onBlurInput" @input="onKeyInput()">
 				<image class="search-icon" src="/static/icons/search.svg" @click="search()"></image>
 			</view>
 		</view>
@@ -13,7 +13,7 @@
 				<post :postList="postList" style=" display:flex;"></post>
 			</view>
 
-			<view class="backgrount-icon" v-show="!(postList.length&&userList.length)">
+			<view class="backgrount-icon" v-show="!(postList.length||userList.length)">
 				<image src="../../static/icons/searchBackground.svg" style="width:684rpx; height: 507.6rpx;"></image>
 			</view>
 			<view class="content" v-show="userList.length">
@@ -28,8 +28,7 @@
 					<view class="list-content-motto text-font">
 						{{item.motto}}
 					</view>
-					<view class="list-content-fans text-font" v-if="!item.isSubscribed"
-						@click="trueisSubscribed(index);">
+					<view class="list-content-fans text-font" v-if="!item.is_subscribed" @click="trueisSubscribed(index);">
 						+关注
 					</view>
 					<view class="list-content-fans text-font" v-else @click="falseisSubscribed(index);">
@@ -98,30 +97,99 @@
 				this.bpid = 9660530943306;
 				this.postList = [];
 			},
-			search() {
-				console.log("发送搜索请求成功");
-				let that = this;
+			postSubscribed(uid) {
 				this.sendRequest({
-					url: "/post/search",
+					url: "/user/subscribe",
+					method: 'POST',
+					requestDataType: "form",
 					data: {
-						text: that.text,
-						bpid: 9660530943306
-
+						uid2: uid
 					},
 					success: (res) => {
-						let datas = res.data;
-						if (datas && datas.length != 0) {
-							console.log(datas);
-							that.postList = res.data;
-						} else {
-							that.postList = [];
-							uni.showToast({
-								title: "没有找到",
-								icon: "none"
-							})
-						}
+						uni.showToast({
+							title: res.detail,
+							duration: 1000
+						});
 					}
 				});
+			
+			},
+			trueisSubscribed(index) {
+				this.userList[index]["is_subscribed"] = true;
+				this.postSubscribed(this.userList[index]["uid"]);
+			},
+			falseisSubscribed(index) {
+				this.userList[index]["is_subscribed"] = false;
+			    this.postSubscribed(this.userList[index]["uid"])
+			},
+			onKeyInput: function(event) {
+				// this.text = event.target.value;
+				this.searchUser();
+				console.log("发送请求")
+			},
+			searchUser() {
+				let that = this;
+				that.postList = [];
+				if (that.text == "" || that.text == " ") {
+					that.postList = [];
+					that.userList = [];
+				} else {
+					this.sendRequest({
+						url: "/user/search",
+						data: {
+							text: that.text,
+							buid: 9660530943306
+						},
+						success: (res) => {
+							let datas = res.data;
+							if (datas && datas.length != 0) {
+								that.userList = res.data;
+							} else {
+								that.userList = [];
+								uni.showToast({
+									title: "没有找到用户",
+									icon: "none"
+								})
+							}
+						}
+					});
+				}
+
+			},
+			search() {
+				let that = this;
+				that.userList = [];
+				if (that.text == "" || that.text == " ") {
+					that.postList = [];
+					that.userList = [];
+					uni.showToast({
+						title: "搜索内容不能为空",
+						icon: "none"
+
+					});
+				} else {
+					this.sendRequest({
+						url: "/post/search",
+						data: {
+							text: that.text,
+							bpid: 9660530943306
+
+						},
+						success: (res) => {
+							let datas = res.data;
+							if (datas && datas.length != 0) {
+								console.log(datas);
+								that.postList = res.data;
+							} else {
+								that.postList = [];
+								uni.showToast({
+									title: "没有找到",
+									icon: "none"
+								})
+							}
+						}
+					});
+				}
 			},
 			getMore(limit = 10) {
 				let that = this;
@@ -175,7 +243,7 @@
 	}
 
 	.backgrount-icon {
-		margin-top: 113.4rpx;
+		margin-top: 439.2rpx;
 		width: 100%;
 		display: flex;
 		justify-content: center;
