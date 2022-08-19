@@ -38,6 +38,15 @@
 			}
 		},
 		{
+			"path": "pages/publish/edit-post",
+			"style": {
+				"backgroundColor": "transparent",
+				"navigationBarTitleText": "修改",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/sidebar/personal-center/personal-center",
 			"style": {
 				"navigationBarTitleText": "个人中心",
@@ -63,10 +72,16 @@
 		{
 			"path": "pages/post-details/post-details",
 			"style": {
-				"backgroundColor": "transparent",
 				"navigationBarTitleText": "帖子详情",
-				"enablePullDownRefresh": true
-				// "navigationStyle": "custom"
+				"enablePullDownRefresh": true,
+				"h5": {
+					"titleNView": {
+						"buttons": [{
+							"fontSrc": "",
+							"text": ""
+						}]
+					}
+				}
 			}
 		}, {
 			"path": "pages/search/search",
