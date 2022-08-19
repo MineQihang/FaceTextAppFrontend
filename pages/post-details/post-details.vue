@@ -7,10 +7,10 @@
 			<image src="/static/icons/delete.svg" />
 		</view>
 		<view class="collect">
-			<image @tap="collect" v-show="iscollect" src="/static/icons/collect_purple.svg" />
+			<image @tap="collect" v-show="iscollect" src="/static/icons/star_purple.svg" />
 		</view>
 		<view class="collect">
-			<image @tap="collect" v-show="!iscollect" src="/static/icons/collect.svg" />
+			<image @tap="collect" v-show="!iscollect" src="/static/icons/star.svg" />
 		</view>
 
 		<view class="post-content">
