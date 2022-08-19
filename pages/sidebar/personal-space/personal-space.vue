@@ -3,7 +3,11 @@
 		<!-- 上面的紫色部分 -->
 		<view class="head-purple">
 			<!-- 用户自定义背景 -->
-			<image :src="back_icon" mode="aspectFit" @click="setBackgroundIcon()" class="picture-background"></image>
+			<image :src="back_icon" v-if="uid!=othersId && othersId!=-1" mode="aspectFit" class="picture-background">
+			</image>
+			<image :src="back_icon" v-if="uid===othersId || othersId===-1" @click="setBackgroundIcon()" mode="aspectFit"
+				class="picture-background">
+			</image>
 			<!-- 返回按钮 -->
 			<view class="" style="display: flex;">
 				<view class="" @click="goBack()" style="padding-top: 36rpx;padding-left: 36rpx;">
@@ -457,7 +461,7 @@
 		methods: {
 
 			goBack() {
-
+				uni.navigateBack({});
 			},
 			subscribe() {
 				console.log(this.uid)
