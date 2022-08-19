@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<!-- 头部个人信息 -->
-		<head-tab></head-tab>
+		<head-tab :userInfo="userInfo"></head-tab>
 		<!-- 帖子展示 -->
 		<post :postList="postList"></post>
 	</view>
@@ -14,6 +14,7 @@
 				uid: 79,
 				postList: [],
 				bpid: 9660530943306,
+				userInfo: {}
 			}
 		},
 		onLoad: function(option) {
@@ -68,11 +69,19 @@
 				try {
 					this.sendRequest({
 						url: "/user/user-info",
-						// success: (res) => {
-						// 	that.username = res.data.username;
-						// 	that.uid = res.data.uid;
-						// 	console.log("收到的", that.uid);
-						// }
+						success: (res) => {
+							that.userInfo = res.data;
+							// that.username = res.data.username;
+							// that.uid = res.data.uid;
+							// console.log("收到的", that.uid);
+						},
+						failRequest: (res) => {
+							if (res.statusCode == 401) {
+								uni.reLaunch({
+									url: '/pages/index/login/login'
+								})
+							}
+						}
 					})
 				} catch (e) {
 					console.log(e)
