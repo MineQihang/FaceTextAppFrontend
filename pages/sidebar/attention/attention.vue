@@ -10,7 +10,7 @@
 
 			<view class="list-content" v-for="(item, index) in flowList" :key="index">
 				<view class="list-content-icon" @click="to_fans()">
-					<image src='static/icons/add.svg' mode="aspectFill">
+					<image class="iconUrl" :src='item.iconUrl' mode="aspectFill">
 				</view>
 				<view class="list-content-username title-font">
 					{{item.username}}
@@ -18,16 +18,16 @@
 				<view class="list-content-motto text-font">
 					{{item.motto}}
 				</view>
-				<view class="list-content-fans text-font" v-if="!item.attention" @click="item.attention=1;">
+				<view class="list-content-fans text-font" v-if="!item.isSubscribed" @click="trueisSubscribed(index);">
 					+关注
 				</view>
-				<view class="list-content-fans text-font" v-else @click="item.attention=0;">
+				<view class="list-content-fans text-font" v-else @click="falseisSubscribed(index);">
 					已关注
 				</view>
 			</view>
 		</view>
 		<view class="bottom-picture" v-if="flowList.length<6">
-			<image src="@/static/icons/fansBackground.svg"></image>
+			<image src='../../../static/icons/likeBackground.svg'></image>
 		</view>
 	</view>
 
@@ -38,112 +38,93 @@
 	export default {
 		data() {
 			return {
-				gender: 0,
 				username: '',
-				age: '',
-				mail: '',
 				motto: '',
-				icon: '',
+				iconUrl: '',
 				uid: '',
-				flowList: [{
-					index: "1",
-					username: 'Frank Smith',
-					motto: "mottomotto",
-					attention: 1
-				}, {
-					index: "2",
-					username: 'yhr',
-					motto: "mottomotto",
-					attention: 1
-				}, {
-					index: "3",
-					username: 'llll',
-					motto: "真的不会",
-					attention: 1
-				}, {
-					index: "4",
-					username: 'lll',
-					motto: "真的不会",
-					attention: 0
-				}, {
-					index: "5",
-					username: '纯纯不懂',
-					motto: "真的不会"
-
-				}, {
-					index: "6",
-					username: '回去',
-					motto: "真的不会"
-				}, {
-					index: "7",
-					username: 'Frank Smith',
-					motto: "不懂哦"
-				}, {
-					index: "8",
-					username: 'yhr',
-					motto: "太难了"
-				}, {
-					index: "9",
-					username: 'llll',
-					motto: "真的不会"
-				}, {
-					index: "10",
-					username: 'lll',
-					motto: "真的不会"
-				}, {
-					index: "11",
-					username: '纯纯不懂',
-					motto: "真的不会"
-				}]
+				flowList: ""
 			}
 
 		},
-	
+		mounted() {
+			this.init();
+		},
 
-	// onLoad: function(option) {
-	// 		// this.init();
-	// 		setTimeout(function() {
-	// 			console.log('start pulldown');
-	// 		}, 1000);
-	// 		uni.startPullDownRefresh();
-	// 	},
-	// 	onPullDownRefresh() {
-	// 		this.init();
-	// 		setTimeout(function() {
-	// 			uni.stopPullDownRefresh();
-	// 		}, 1000);
-	// 	},
-	// 	onShow() {
-	// 		this.getPost();
-	// 	},
+		methods: {
+			onLoad: function(option) {
+				// this.init();
+				setTimeout(function() {
+					console.log('start pulldown');
+				}, 1000);
+				uni.startPullDownRefresh();
+			},
+			onPullDownRefresh() {
+				this.init();
+				setTimeout(function() {
+					uni.stopPullDownRefresh();
+				}, 1000);
+			},
+			postSubscribed(uid) {
+				this.sendRequest({
+					url: "/user/subscribe",
+					method: 'POST',
+					requestDataType: "form",
+					data: {
+						uid2: uid
+					},
+					success: (res) => {
+						uni.showToast({
+							title: res.detail,
+							duration: 1000
+						});
+					}
+				});
+			
+			},
+			
+			trueisSubscribed(index) {
+				this.flowList[index]["isSubscribed"] = true;
+				this.postSubscribed(this.flowList[index]["uid"])
+				
+			},
+			falseisSubscribed(index) {
+				this.flowList[index]["isSubscribed"] = false;
+			    this.postSubscribed(this.flowList[index]["uid"])
+			},
 
-	methods: {
-		// 		getUser() {
-		// 			let that = this;
-		// 			try {
-		// 				this.sendRequest({
-		// 					url: "/user/user-fans",
-		// 					success: (res) => {
-		// 						// that.username = res.data.username;
-		// 						// that.uid = res.data.uid;
-		// 						// that.iconUrl=res.data.iconUrl;
-		// 						// that.motto=res.data.motto;
-		// 						// that.attention=res.data.attention;
-		// 						that.flowList = res.data;
-		// 						// console.log("收到的", that.uid);
-		// 					}
-		// 				})
-		// 			} catch (e) {
-		// 				console.log(e)
-		// 			};
-		// 		},
-		// 		init() {
-		// 			this.getUser();
-		// 		}
-		back() {
-			uni.navigateBack()
+			getUser() {
+				let that = this;
+				try {
+					this.sendRequest({
+						url: "/user/all_subscribed",
+						success: (res) => {
+							// that.username = res.data.username;
+							// that.uid = res.data.uid;
+							// that.iconUrl=res.data.iconUrl;
+							// that.motto=res.data.motto;
+							//that.isSubscribed=res.data.isSubscribed;
+							that.flowList = res.data;
+							console.log("关注收到的", that.uid);
+						}
+					})
+				} catch (e) {
+					console.log(e)
+				};
+			},
+			init() {
+				this.getUser();
+			},
+			
+			back() {
+				let pages = getCurrentPages(); // 当前页面
+				let beforePage = pages[pages.length - 2]; // 上一页
+				uni.navigateBack({
+				    success: function() {
+				        beforePage.init(); 
+				    }
+				});
+			}
 		}
-	}
 	}
 </script>
 
@@ -186,6 +167,13 @@
 		display: flex;
 	}
 
+	.iconUrl {
+		width: 81rpx;
+		height: 81rpx;
+		border-radius: 50%;
+		display: flex;
+	}
+
 	.list-content-icon {
 		display: flex;
 		width: 81rpx;
@@ -194,7 +182,7 @@
 		margin-bottom: 18rpx;
 		margin-left: 36rpx;
 		border-radius: 50%;
-		background: rgb(183, 212, 185);
+		background: rgb(255, 255, 255);
 	}
 
 	.list-content-username {
