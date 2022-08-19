@@ -19,13 +19,13 @@
 			<view class="content" v-show="userList.length">
 
 				<view class="list-content" v-for="(item, index) in userList" :key="index">
-					<view class="list-content-icon" @click="to_fans()">
+					<view class="list-content-icon" @click="turnToPerson(item.uid)">
 						<image class="iconUrl" :src='item.iconUrl' mode="aspectFill">
 					</view>
-					<view class="list-content-username title-font">
+					<view class="list-content-username title-font"  @click="turnToPerson(item.uid)">
 						{{item.username}}
 					</view>
-					<view class="list-content-motto text-font">
+					<view class="list-content-motto text-font"  @click="turnToPerson(item.uid)">
 						{{item.motto}}
 					</view>
 					<view class="list-content-fans text-font" v-if="!item.is_subscribed"
@@ -103,6 +103,11 @@
 				this.postList = [];
 				this.userList = [];
 			},
+			turnToPerson(uid) {
+				uni.navigateTo({
+					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
+				})
+			},
 			postSubscribed(uid) {
 				this.sendRequest({
 					url: "/user/subscribe",
@@ -131,8 +136,7 @@
 			onKeyInput: function(event) {
 				// this.text = event.target.value;
 				this.postList = [];
-				this.searchUser();
-				console.log("发送请求")
+				this.searchUser()
 			},
 			searchUser() {
 				let that = this;

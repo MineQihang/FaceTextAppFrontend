@@ -113,7 +113,23 @@
 
 			// 打开窗口
 			showDrawer(e) {
-				this.$refs[e].open()
+				this.$refs[e].open();
+				let page = getCurrentPages().pop();
+				console.log(page);
+				page.init();
+				// let that = this;
+				// sendRequest( {
+				// 	url: '/user/user-info', // 路径
+				// 	success:(res) => {
+				// 		that.iconUrl = res.data.iconUrl;
+				// 		that.username = res.data.username;
+				// 		that.motto = res.data.motto;
+				// 		that.postNum = res.data.postNum;
+				// 		that.fansNum = res.data.fansNum;
+				// 		that.subscribeNum = res.data.subscribeNum
+
+				// 	}
+				// })
 			},
 			// 关闭窗口
 			closeDrawer(e) {
