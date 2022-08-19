@@ -17,7 +17,7 @@
 			<!-- 发帖人信息和发帖时间 -->
 			<view class="poster-head">
 				<!-- 发帖人头像	 -->
-				<view class="portrait">
+				<view class="portrait" @click="go_person(uid)">
 					<image :src="icon" alt="" v-model="icon" style=" border-radius: 80rpx;height: 80rpx;width:80rpx;">
 				</view>
 				<!-- 发帖人昵称 -->
@@ -96,7 +96,7 @@
 				<view class="comment1" v-for="(item,index) in allComments" :key="index"
 					style="margin-left: 1rpx;padding-top: 0;">
 					<view class="" style="display:flex;width: 100%;">
-						<image :src="item.user.iconUrl"
+						<image :src="item.user.iconUrl" @click="go_person(item.uid)"
 							style="width: 74rpx;height: 74rpx;border-radius: 50%;margin: 10rpx 10rpx 10rpx 18rpx; ">
 						</image>
 						<view class="" style="flex: 1 0;">
@@ -114,7 +114,7 @@
 							<view class="" v-for="(item1,index1) in item.comments" :key="index1"
 								style="margin-top: 5rpx;">
 								<view class="" style="display: flex;">
-									<image :src="item1.user.iconUrl" class="head-icon1">
+									<image @click="go_person(item1.uid)" :src="item1.user.iconUrl" class="head-icon1">
 									</image>
 									<view @click="pushUpCommentInput(item1)" style="flex: 1 0;">
 										<view class="" style="height: 20px;font-weight: 400;" v-if="item1.reply">
@@ -181,7 +181,7 @@
 				],
 				swipers: [],
 				len: 0,
-				uid: 0,
+				uid: 0, //帖主的id
 				pid: 0, //帖子的id
 				comment1_cid: 0,
 				comment2_cid: 0, //评论的id
@@ -304,6 +304,11 @@
 						uni.navigateBack();
 					},
 				});
+			},
+			go_person(uid) {
+				uni.navigateTo({
+					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
+				})
 			},
 			pushUpCommentInput(item) {
 				this.postOrComment = !this.postOrComment;
