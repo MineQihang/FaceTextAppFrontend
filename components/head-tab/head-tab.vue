@@ -8,7 +8,7 @@
 				<view class="self-username">{{ userInfo.username }}</view>
 			</view>
 		</view>
-		<view style="height: calc(108rpx + 2 * 36rpx); "></view>
+		<view style="height: calc(90rpx + 2 * 0rpx); "></view>
 		<view class="swiper">
 		</view>
 		<view>
@@ -177,7 +177,7 @@
 
 <style lang="scss">
 	.container {
-		background-color: white;
+		background-color: #F7F7F7;
 		position: fixed;
 		width: 100%;
 		z-index: 999;
@@ -187,7 +187,7 @@
 	.user-container {
 		display: flex;
 		align-items: center;
-		padding: 36rpx;
+		padding: 4rpx 30rpx;
 	}
 
 	.drawer-container {
