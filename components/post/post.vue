@@ -4,7 +4,7 @@
 			<view class="post-container" v-for="(post, index) in postList" :key="index">
 
 				<view class="user-container">
-					<view class="user-info">
+					<view class="user-info" @click="turnToPerson(post.uid)">
 						<image class="user-icon icon" :src="post.user.iconUrl" />
 						<view class="username  username-font" style="padding-left: 20rpx; font-weight: 500; ">
 							{{ post.user.username }}
@@ -70,6 +70,11 @@
 			getFormatDate(data) {
 				return getTimeAgo(data);
 			},
+			turnToPerson(uid) {
+				uni.navigateTo({
+					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
+				})
+			}
 		}
 	}
 </script>
