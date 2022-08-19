@@ -44,6 +44,7 @@
 					},
 					success: (res) => {
 						that.postList = res.data;
+						that.bpid = that.postList[that.postList.length - 1].pid;
 					}
 				});
 			},
