@@ -77,6 +77,9 @@
 				this.getMoreUser();
 			}
 		},
+		onShow() {
+			this.init()
+		},
 
 		methods: {
 			onFocusInput: function(event) {
