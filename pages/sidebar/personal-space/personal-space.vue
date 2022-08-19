@@ -158,12 +158,16 @@
 
 
 
-				<view style="height: 200rpx;">
+				<view style="height: 100rpx;">
 
 				</view>
 				<!-- 保存信息 -->
 				<view>
 					<button class="save-button" @click="save_inf()">保存信息</button>
+				</view>
+
+				<view style="height: 50rpx;">
+
 				</view>
 			</view>
 		</view>
@@ -890,15 +894,24 @@
 	}
 
 	.save-button {
-		position: fixed;
-		bottom: 34rpx;
-		left: 84.6rpx;
-		right: 84.6rpx;
+
+		/* left: 84.6rpx;
 		height: 115.2rpx;
 		border-radius: 36rpx;
 		background-color: #4605AD;
 		color: #ffffff;
-		line-height: 110rpx;
+		line-height: 110rpx; */
+		height: 115.2rpx;
+		margin-left: 84.6rpx;
+		margin-right: 84.6rpx;
+		border-radius: 36rpx;
+		background-color: rgb(70, 5, 173);
+		color: #ffffff;
+		font-size: 43.2rpx;
+		font-weight: 400;
+		text-align: center;
+		line-height: 110.4rpx;
+
 	}
 
 	.input_btn {
