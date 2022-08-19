@@ -130,7 +130,7 @@
 			//跳转到个人空间-帖子页面
 			turnToPost() {
 				uni.navigateTo({
-					url: '/pages/sidebar/personal-space/personal-space?key = 0'
+					url: '/pages/sidebar/personal-space/personal-space?key = false'
 				})
 			},
 			//跳转到我的关注
@@ -142,7 +142,7 @@
 			//跳转到个人空间-个人信息页面
 			turnToPersonalSpace() {
 				uni.navigateTo({
-					url: '/pages/sidebar/personal-space/personal-space?key = 1'
+					url: '/pages/sidebar/personal-space/personal-space?key = true'
 				})
 			},
 			//跳转到设置
