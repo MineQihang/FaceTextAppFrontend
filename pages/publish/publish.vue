@@ -149,7 +149,12 @@
 						if (res.statusCode == 200) {
 							console.log("成功发布");
 							uni.switchTab({
-								url: "/pages/homepage/explore/explore"
+								url: "/pages/homepage/explore/explore",
+								success() {
+									let page = getCurrentPages().pop(); //跳转页面成功之后
+									if (!page) return;
+									page.init(); //如果页面存在，则重新刷新页面
+								}
 							})
 						} else {
 							uni.showToast({

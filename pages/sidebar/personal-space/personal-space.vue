@@ -10,12 +10,12 @@
 			</image>
 			<!-- 返回按钮 -->
 			<view class="" style="display: flex;">
-				<view class="" @click="goBack()" style="padding-top: 36rpx;padding-left: 36rpx;">
+				<view class="" @click="goBack()" style="z-index: 0!important; padding-top: 36rpx;padding-left: 36rpx;">
 					<image src="/static/icons/leftArrow.svg" style="width: 54rpx;height: 54rpx;" mode=""></image>
 				</view>
 
 				<view class=""
-					style="padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
+					style="z-index: 0!important;padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
 					<view class="">
 						个人空间
 					</view>
@@ -671,8 +671,8 @@
 					count: 1,
 					sourceType: ['album'], //从相册选择
 					crop: {
-						width: "250px",
-						height: "250px"
+						width: "1500px",
+						height: "760px"
 					},
 					success: function(res) {
 						// console.log(res.tempFilePaths[0])
@@ -696,38 +696,28 @@
 			// #endif
 
 			// #ifdef H5
+			// 上传背景图片
 			setBackgroundIcon() {
 				let that = this;
 				uni.chooseImage({
 					count: 1,
 					sourceType: ['album'], //从相册选择
 					success: function(res) {
-						// console.log(res.tempFilePaths[0])
-						that.$refs.helangCompress.compress({
-							src: res.tempFilePaths[0],
-							maxSize: 250,
-							fileType: "jpg",
-							minSize: 250
-						}).then((res2) => {
-							// console.log(res2);
-							// this.compressPaths = [res];
-							uni.uploadFile({
-								url: 'http://124.221.253.187:5000/service/upload_img',
-								filePath: res2,
-								name: "img",
-								success: (res3) => {
-									// console.log(JSON.parse(res3.data)["url"])
-									that.iconUrl = JSON.parse(res3.data)["url"];
-									console.log("头像上传成功")
-								},
-								fail(res3) {
-									console.log(res3);
-									console.log("头像上传失败")
-								}
-							});
-						}).catch((err) => {
-							console.log(err);
-						})
+						that.back_icon = res.tempFilePaths[0];
+						uni.uploadFile({
+							url: 'http://124.221.253.187:5000/service/upload_img',
+							filePath: res.tempFilePaths[0],
+							name: "img",
+							success: (res3) => {
+								// console.log(JSON.parse(res3.data)["url"])
+								// that.back_icon = JSON.parse(res3.data)["url"];
+								console.log("没接口")
+							},
+							fail(res3) {
+								console.log(res3);
+								console.log("背景图上传失败")
+							}
+						});
 					}
 				});
 			},
@@ -739,15 +729,15 @@
 
 <style>
 	.picture-background {
+		width: 100%;
 		position: absolute;
 		height: 368.2rpx;
-		z-index: 0 !important;
 	}
 
 	.head-purple {
 		height: 368.2rpx;
 		background-color: rgb(192, 190, 253);
-		z-index: -1 !important;
+		z-index: -2 !important;
 	}
 
 	.head-white {
