@@ -455,6 +455,10 @@
 			this.getselfpost();
 		},
 		methods: {
+
+			goBack() {
+
+			},
 			subscribe() {
 				console.log(this.uid)
 				console.log(this.othersId)
