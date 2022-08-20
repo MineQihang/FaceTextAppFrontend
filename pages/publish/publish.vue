@@ -132,6 +132,9 @@
 					imgUrls.push(img.url);
 				}
 				// console.log("图片云端地址: ",imgUrls)
+				uni.showLoading({
+					title:"正在发布"
+				})
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/create',
 					method: 'POST',
@@ -145,6 +148,7 @@
 						"imgUrls": imgUrls,
 						"tags": this.tags
 					},
+					
 					success: (res) => {
 						// console.log(res);
 						this.title = "";
@@ -153,6 +157,7 @@
 						this.imgUrls = [];
 						if (res.statusCode == 200) {
 							console.log("成功发布");
+							uni.hideLoading()
 							uni.switchTab({
 								url: "/pages/homepage/explore/explore",
 								success() {

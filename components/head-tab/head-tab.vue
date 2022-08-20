@@ -15,7 +15,7 @@
 			<uni-drawer ref="showLeft" mode="left" :width="280" @change="change($event,'showLeft')"
 				style="z-index: 99999;">
 				<view class="drawer-container">
-					<view class="user-info">
+					<view class="user-info" @click="turnToPersonalSpace()">
 						<!-- 发帖人头像	 -->
 						<view>
 							<image class="user-icon" :src="userInfo.iconUrl">
@@ -302,7 +302,7 @@
 	}
 
 	.username {
-		font-size: 24px;
+		font-size: 28px;
 		font-weight: 700;
 		line-height: 70.2rpx;
 		text-overflow: ellipsis;
@@ -316,7 +316,7 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		max-width: 400rpx;
-		height: 18px;
+		height: 21px;
 		font-size: 18px;
 		// text-align: center;
 		// font-weight: 400;
