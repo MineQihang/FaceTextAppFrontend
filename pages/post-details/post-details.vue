@@ -7,10 +7,10 @@
 			<image src="/static/icons/delete.svg" />
 		</view>
 		<view class="collect">
-			<image @tap="collect" v-show="iscollect" src="/static/icons/star_purple.svg" />
+			<image @click="collect" v-show="iscollect" src="/static/icons/star_purple.svg" />
 		</view>
 		<view class="collect">
-			<image @tap="collect" v-show="!iscollect" src="/static/icons/star.svg" />
+			<image @click="collect" v-show="!iscollect" src="/static/icons/star.svg" />
 		</view>
 
 		<view class="post-content">
@@ -32,9 +32,9 @@
 
 			<!-- 帖子的图片 -->
 			<view class="photo" v-if="len">
-				<swiper circular indicator-dots>
+				<swiper circular indicator-dots @change="change_pic">
 					<swiper-item v-for="item in swipers">
-						<image :src="item" mode="aspectFit"></image>
+						<image :src="item" mode="aspectFit" @click="see_photo(current_pic)"></image>
 
 					</swiper-item>
 
@@ -188,6 +188,7 @@
 				iscollect: false,
 				ismypost: false,
 				icon: '@/static/icons/info.svg', //发帖人头像
+				current_pic: 0,
 				username: '', //发帖用户名
 				time: '', //发帖时间
 				numberComment: 0, //评论数
@@ -304,6 +305,16 @@
 				uni.navigateTo({
 					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
 				})
+			},
+			see_photo(index) {
+				// console.log(index);
+				uni.previewImage({
+					urls: this.swipers,
+					current: index,
+				})
+			},
+			change_pic(e) {
+				this.current_pic = e.detail.current;
 			},
 			pushUpCommentInput(item) {
 				this.postOrComment = !this.postOrComment;
