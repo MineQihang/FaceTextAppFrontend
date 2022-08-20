@@ -15,7 +15,7 @@
 			<uni-drawer ref="showLeft" mode="left" :width="280" @change="change($event,'showLeft')"
 				style="z-index: 99999;">
 				<view class="drawer-container">
-					<view class="user-info">
+					<view class="user-info" @click="turnToPersonalSpace()">
 						<!-- 发帖人头像	 -->
 						<view>
 							<image class="user-icon" :src="userInfo.iconUrl">
