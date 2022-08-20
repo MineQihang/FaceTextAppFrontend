@@ -326,7 +326,7 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		width: 450rpx;
-		height: 18px;
+		height: 24px;
 		margin-top: 60rpx;
 		margin-left: 30rpx;
 		color: #212121;

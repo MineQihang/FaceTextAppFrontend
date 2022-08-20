@@ -26,10 +26,10 @@
 						</view>
 						<!-- 个性签名 -->
 						<view class="user-motto">
-							<view style="width: 10%;">{{"  "}}</view>
-							<view>{{userInfo.motto}}</view>
-							<view  style="width: 10%;">{{"  "}}</view>
-							
+<!-- 							<view style="width: 10%;">{{"  "}}</view>
+ -->							<view>{{userInfo.motto}}</view>
+<!-- 							<view  style="width: 10%;">{{"  "}}</view>
+ -->							
 						</view>
 					</view>
 					<view class="sidebar-list">
@@ -314,18 +314,15 @@
 
 	.user-motto {
 		/* motto */
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		width: 100%;
-		
-		font-size: 18px;
-		font-weight: 400;
-		line-height: 21px;
-		
-		
+		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		width: 400rpx;
+		height: 24px;
+		font-size: 18px;
+		text-align: center;
+		// font-weight: 400;
+		// line-height: 21px;
 		// letter-spacing: 0.1rpx;
 	}
 </style>
