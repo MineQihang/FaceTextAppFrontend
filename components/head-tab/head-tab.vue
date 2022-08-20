@@ -302,7 +302,7 @@
 	}
 
 	.username {
-		font-size: 24px;
+		font-size: 28px;
 		font-weight: 700;
 		line-height: 70.2rpx;
 		text-overflow: ellipsis;
@@ -316,8 +316,8 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		max-width: 400rpx;
-		height: 24px;
-		font-size: 24px;
+		height: 21px;
+		font-size: 18px;
 		// text-align: center;
 		// font-weight: 400;
 		// line-height: 21px;
