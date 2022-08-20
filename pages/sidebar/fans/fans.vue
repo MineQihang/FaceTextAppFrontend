@@ -188,38 +188,50 @@
 	}
 
 	.list-content-username {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		position: absolute;
-		width: 400rpx;
+		width: 470rpx;
 		height: 70.2rpx;
-		margin-top: 0rpx;
+		margin-top: 15rpx;
 		margin-bottom: 46.8rpx;
 		margin-left: 142.2rpx;
 		color: rgb(0, 0, 0);
 		font-weight: 400;
-		line-height: 50.4rpx;
-		letter-spacing: 0rpx;
-		text-align: left;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		// text-shadow: 1rpx 1rpx #21;
+		
 	}
 
 	.list-content-motto {
 		/* mottomottomottomotto */
 		/* mottomottomottomotto */
-		position: absolute;
-		width: 360rpx;
-		height: 70.2rpx;
-		margin-top: 46.8rpx;
-		margin-left: 142.2rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 450rpx;
+		height: 18px;
+		margin-top: 60rpx;
+		margin-left: 30rpx;
 		color: #212121;
+		
+	}
+
+	.list-content-fans {
+		/* +关注 */
+		position: absolute;
+		width: 130rpx;
+		height: 59.4rpx;
+		margin-top: 36rpx;
+		right: 10rpx;
+		margin-bottom: 21.6rpx;
+		color: rgb(70, 5, 173);
+		font-weight: 700;
 		line-height: 37.8rpx;
 		letter-spacing: 0rpx;
-		text-align: right;
-		display: flex;
+		text-align: left;
 		flex-direction: row;
 		align-items: center;
+	
 	}
 
 	.list-content-fans {
