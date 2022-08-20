@@ -77,7 +77,9 @@
 
 		},
 		onShow() {
-			this.init();
+			if (this.showCollection) {
+				this.getPost(10, 0);
+			}
 		},
 		methods: {
 			getPost(limit = 10, type = 0) { //0:收藏 1:关注

@@ -26,7 +26,10 @@
 						</view>
 						<!-- 个性签名 -->
 						<view class="user-motto">
-							{{userInfo.motto}}
+							<view style="width: 10%;">{{"  "}}</view>
+							<view>{{userInfo.motto}}</view>
+							<view  style="width: 10%;">{{"  "}}</view>
+							
 						</view>
 					</view>
 					<view class="sidebar-list">
@@ -117,22 +120,9 @@
 			// 打开窗口
 			showDrawer(e) {
 				this.$refs[e].open();
-				// let page = getCurrentPages().pop();
-				// console.log(page);
-				// page.init();
-				// let that = this;
-				// sendRequest( {
-				// 	url: '/user/user-info', // 路径
-				// 	success:(res) => {
-				// 		that.iconUrl = res.data.iconUrl;
-				// 		that.username = res.data.username;
-				// 		that.motto = res.data.motto;
-				// 		that.postNum = res.data.postNum;
-				// 		that.fansNum = res.data.fansNum;
-				// 		that.subscribeNum = res.data.subscribeNum
-
-				// 	}
-				// })
+				let page = getCurrentPages().pop();
+				
+				page.getUser()
 			},
 			// 关闭窗口
 			closeDrawer(e) {
@@ -317,7 +307,6 @@
 		font-size: 24px;
 		font-weight: 700;
 		line-height: 70.2rpx;
-		width: 450rpx;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		
@@ -325,10 +314,16 @@
 
 	.user-motto {
 		/* motto */
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		width: 100%;
+		
 		font-size: 18px;
 		font-weight: 400;
 		line-height: 21px;
-		width: 450rpx;
+		
+		
 		text-overflow: ellipsis;
 		overflow: hidden;
 		// letter-spacing: 0.1rpx;
