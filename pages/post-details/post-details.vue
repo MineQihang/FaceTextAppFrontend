@@ -279,7 +279,7 @@
 									that.len = that.swipers.length;
 									that.iscollect = res.data.is_collected;
 									that.features = res.data.features;
-									if (that.allComments.length) that.get_features = true;
+									if (that.swipers.length) that.get_features = true;
 									console.log(that.features)
 									if (res.data.comments && res.data.comments.length) {
 										if (res.data.comments.user) {
