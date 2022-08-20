@@ -126,15 +126,8 @@
 	}
 
 	.container .content-container .post-container .title {
-		/* overflow: hidden; */
-		/* display: -webkit-box; */
-		/* -webkit-box-orient: vertical; */
-		/* -webkit-line-clamp: 2; */
-		/* word-wrap: break-word; */
-		/* word-break: break-all; */
 		text-align: left;
 		margin: 45rpx 45rpx;
-		/* padding: 0.2em 0.5em; */
 	}
 
 	.container .content-container .post-container .text {
@@ -146,7 +139,7 @@
 		word-break: break-all;
 		text-align: left;
 		margin-left: 45rpx;
-		/* padding: 0.2em 0.5em; */
+		margin-bottom: 25rpx;
 	}
 
 	.container .content-container .post-container .info {
