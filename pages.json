@@ -9,7 +9,8 @@
 		{
 			"path": "pages/index/login/login",
 			"style": {
-				"navigationBarTitleText": "登录"
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -17,6 +18,7 @@
 			"style": {
 				"navigationBarTitleText": "注册",
 				"backgroundColor": "#ffffff"
+
 			}
 		},
 		{

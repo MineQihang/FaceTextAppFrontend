@@ -15,7 +15,7 @@
 			<uni-drawer ref="showLeft" mode="left" :width="280" @change="change($event,'showLeft')"
 				style="z-index: 99999;">
 				<view class="drawer-container">
-					<view class="user-info">
+					<view class="user-info" @click="turnToPersonalSpace()">
 						<!-- 发帖人头像	 -->
 						<view>
 							<image class="user-icon" :src="userInfo.iconUrl">
@@ -26,10 +26,8 @@
 						</view>
 						<!-- 个性签名 -->
 						<view class="user-motto">
-							<view style="width: 10%;">{{"  "}}</view>
-							<view>{{userInfo.motto}}</view>
-							<view  style="width: 10%;">{{"  "}}</view>
-							
+							{{userInfo.motto}}
+
 						</view>
 					</view>
 					<view class="sidebar-list">
@@ -121,7 +119,7 @@
 			showDrawer(e) {
 				this.$refs[e].open();
 				let page = getCurrentPages().pop();
-				
+
 				page.getUser()
 			},
 			// 关闭窗口
@@ -304,28 +302,25 @@
 	}
 
 	.username {
-		font-size: 24px;
+		font-size: 28px;
 		font-weight: 700;
 		line-height: 70.2rpx;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		
+
 	}
 
 	.user-motto {
 		/* motto */
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		width: 100%;
-		
-		font-size: 18px;
-		font-weight: 400;
-		line-height: 21px;
-		
-		
+		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		max-width: 400rpx;
+		height: 21px;
+		font-size: 18px;
+		// text-align: center;
+		// font-weight: 400;
+		// line-height: 21px;
 		// letter-spacing: 0.1rpx;
 	}
 </style>
