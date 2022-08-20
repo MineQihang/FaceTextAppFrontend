@@ -316,8 +316,8 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		max-width: 400rpx;
-		height: 18px;
-		font-size: 18px;
+		height: 24px;
+		font-size: 24px;
 		// text-align: center;
 		// font-weight: 400;
 		// line-height: 21px;
