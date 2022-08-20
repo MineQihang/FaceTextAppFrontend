@@ -305,8 +305,12 @@
 	}
 
 	.list-content-username {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		word-break: break-all;
 		position: absolute;
-		width: 400rpx;
+		width: 470rpx;
 		height: 70.2rpx;
 		margin-top: 0rpx;
 		margin-bottom: 46.8rpx;
@@ -321,12 +325,15 @@
 		align-items: center;
 		// text-shadow: 1rpx 1rpx #21;
 	}
-
+	
 	.list-content-motto {
 		/* mottomottomottomotto */
 		/* mottomottomottomotto */
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		position: absolute;
-		width: 360rpx;
+		width: 470rpx;
 		height: 70.2rpx;
 		margin-top: 46.8rpx;
 		margin-left: 142.2rpx;
