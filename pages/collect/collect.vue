@@ -154,6 +154,13 @@
 						url: "/user/user-info",
 						success: (res) => {
 							that.userInfo = res.data;
+						},
+						failRequest: (res) => {
+							if (res.statusCode == 401) {
+								uni.reLaunch({
+									url: '/pages/index/login/login'
+								})
+							}
 						}
 					})
 				} catch (e) {

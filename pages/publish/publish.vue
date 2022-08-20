@@ -17,7 +17,7 @@
 				</view>
 				<view class="context">
 					<view class="title-font" style="align-self: flex-start; margin-bottom:18rpx">正文</view>
-					<v-model="context" placeholder="编辑内容" maxlength=500></textarea>
+					<textarea v-model="context" placeholder="编辑内容" maxlength=500></textarea>
 				</view>
 			</view>
 
@@ -42,7 +42,7 @@
 				title: "",
 				context: "",
 				fileList1: [],
-				imgUrls: [],
+				// imgUrls: [],
 			}
 		},
 		methods: {
@@ -102,11 +102,10 @@
 							filePath: res2,
 							name: "img",
 							success: (res3) => {
-								// console.log(JSON.parse(res3.data)["url"])
-								that.imgUrls.push(JSON.parse(res3.data)["url"]);
+								// console.log(that.fileList1)
 								setTimeout(() => {
-									resolve("")
-								}, 1000)
+									resolve(JSON.parse(res3.data)["url"])
+								}, 600)
 							},
 							fail(res3) {
 								console.log(res3);
@@ -128,6 +127,11 @@
 					return
 				}
 				const authorization = uni.getStorageSync('authorization');
+				let imgUrls = [];
+				for (let img of this.fileList1) {
+					imgUrls.push(img.url);
+				}
+				// console.log("图片云端地址: ",imgUrls)
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/create',
 					method: 'POST',
@@ -138,7 +142,7 @@
 					data: {
 						"title": this.title,
 						"context": this.context,
-						"imgUrls": this.imgUrls,
+						"imgUrls": imgUrls,
 						"tags": this.tags
 					},
 					success: (res) => {
