@@ -76,9 +76,9 @@
 			}
 
 		},
-		onShow() {
-			this.init();
-		},
+		// onShow() {
+		// 	this.init();
+		// },
 		methods: {
 			getPost(limit = 10, type = 0) { //0:收藏 1:关注
 				let that = this;
