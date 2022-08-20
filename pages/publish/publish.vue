@@ -29,6 +29,7 @@
 					</u-upload>
 				</view>
 			</view>
+			<view style="height: 100px;"></view>
 		</view>
 		<button class="publish-btn" @click="publish()">确认发布</button>
 		<helang-compress ref="helangCompress"></helang-compress>
@@ -133,7 +134,7 @@
 				}
 				// console.log("图片云端地址: ",imgUrls)
 				uni.showLoading({
-					title:"正在发布"
+					title: "正在发布"
 				})
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/create',
@@ -148,7 +149,7 @@
 						"imgUrls": imgUrls,
 						"tags": this.tags
 					},
-					
+
 					success: (res) => {
 						// console.log(res);
 						this.title = "";
