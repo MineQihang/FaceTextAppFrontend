@@ -50,10 +50,12 @@
 			<!-- 帖子 -->
 			<view class="text" @click="com2post()">
 				<!-- 标题 -->
-				<view class="title">
-					{{post_title}}
+				<view style="display: flex;justify-content: space-between;align-items: center;">
+					<view class="title">
+						{{post_title}}
+					</view>
+					<image src='/static/icons/voice.svg' class='voice' @click="play_voice()"></image>
 				</view>
-
 				<!-- 正文 -->
 				<view class="mainText">
 					{{post_main}}
@@ -215,6 +217,7 @@
 				comment_text: '', //给这个帖子的评论
 				post_title: '', //帖子标题
 				features: [], //人脸特征
+				voice: '', //音频url
 				feature_items: [
 					['score', '颜值'],
 					['sex', '性别'],
@@ -279,8 +282,9 @@
 									that.len = that.swipers.length;
 									that.iscollect = res.data.is_collected;
 									that.features = res.data.features;
+									that.voice = res.data.voice;
 									if (that.swipers.length) that.get_features = true;
-									console.log(that.features)
+									// console.log(that.features)
 									if (res.data.comments && res.data.comments.length) {
 										if (res.data.comments.user) {
 											that.comment1_cid = res.data.comments.cid;
@@ -361,6 +365,18 @@
 				if (!this.postOrComment && !this.inner_click)
 					this.postOrComment = true;
 				this.inner_click = false;
+			},
+			play_voice() {
+				const innerAudioContext = uni.createInnerAudioContext();
+				innerAudioContext.autoplay = true;
+				innerAudioContext.src = this.voice;
+				innerAudioContext.onPlay(() => {
+					console.log('开始播放');
+				});
+				innerAudioContext.onError((res) => {
+					console.log(res.errMsg);
+					console.log(res.errCode);
+				});
 			},
 			send_comment_for_comment() {
 				let that = this;
@@ -618,6 +634,12 @@
 		padding-left: 20rpx;
 		font-size: 19px;
 		line-height: 1.4em;
+	}
+
+	.voice {
+		width: 24px;
+		height: 24px;
+		padding: 20rpx 20rpx 4rpx 10rpx;
 	}
 
 	.mainText {
