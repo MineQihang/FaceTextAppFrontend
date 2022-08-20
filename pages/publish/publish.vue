@@ -29,7 +29,7 @@
 					</u-upload>
 				</view>
 			</view>
-			<view style="height: 100px;"></view>
+			<view style="height: 40px;"></view>
 		</view>
 		<button class="publish-btn" @click="publish()">确认发布</button>
 		<helang-compress ref="helangCompress"></helang-compress>
@@ -187,6 +187,7 @@
 	.container {
 		display: flex;
 		flex-direction: column;
+		// background-color: #fff;
 	}
 
 	.navibar {
@@ -273,13 +274,15 @@
 	}
 
 	.publish-btn {
-		position: fixed;
-		bottom: 76rpx;
-		margin: 5% 15%;
+		position: relative;
+		// bottom: 76rpx;
+		// margin: 5% 15%;
 		width: 70%;
 		background-color: $our-purple;
 		color: white;
+		margin-bottom: 40px;
 		font-weight: 400;
 		border-radius: 40rpx;
+		z-index: 10;
 	}
 </style>
