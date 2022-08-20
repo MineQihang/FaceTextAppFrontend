@@ -317,6 +317,10 @@
 		font-size: 24px;
 		font-weight: 700;
 		line-height: 70.2rpx;
+		width: 450rpx;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		
 	}
 
 	.user-motto {
@@ -324,15 +328,9 @@
 		font-size: 18px;
 		font-weight: 400;
 		line-height: 21px;
-
-		text {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			display: -webkit-box;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-		}
-
+		width: 450rpx;
+		text-overflow: ellipsis;
+		overflow: hidden;
 		// letter-spacing: 0.1rpx;
 	}
 </style>

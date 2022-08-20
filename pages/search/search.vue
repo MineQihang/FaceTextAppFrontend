@@ -310,7 +310,7 @@
 		white-space: nowrap;
 		word-break: break-all;
 		position: absolute;
-		width: 470rpx;
+		width: 450rpx;
 		height: 70.2rpx;
 		margin-top: 0rpx;
 		margin-bottom: 46.8rpx;
@@ -333,7 +333,7 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		position: absolute;
-		width: 470rpx;
+		width: 450rpx;
 		height: 70.2rpx;
 		margin-top: 46.8rpx;
 		margin-left: 142.2rpx;
