@@ -26,10 +26,8 @@
 						</view>
 						<!-- 个性签名 -->
 						<view class="user-motto">
-<!-- 							<view style="width: 10%;">{{"  "}}</view>
- -->							<view>{{userInfo.motto}}</view>
-<!-- 							<view  style="width: 10%;">{{"  "}}</view>
- -->							
+							{{userInfo.motto}}
+
 						</view>
 					</view>
 					<view class="sidebar-list">
@@ -121,7 +119,7 @@
 			showDrawer(e) {
 				this.$refs[e].open();
 				let page = getCurrentPages().pop();
-				
+
 				page.getUser()
 			},
 			// 关闭窗口
@@ -309,7 +307,7 @@
 		line-height: 70.2rpx;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		
+
 	}
 
 	.user-motto {
@@ -317,10 +315,10 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		width: 400rpx;
-		height: 24px;
+		max-width: 400rpx;
+		height: 18px;
 		font-size: 18px;
-		text-align: center;
+		// text-align: center;
 		// font-weight: 400;
 		// line-height: 21px;
 		// letter-spacing: 0.1rpx;
