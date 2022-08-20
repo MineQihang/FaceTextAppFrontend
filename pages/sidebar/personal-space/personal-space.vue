@@ -147,7 +147,8 @@
 					</view>
 
 					<view class="max-input">
-						<input type="text" class="" v-model="motto" style="padding-top: 30rpx;padding-left: 18rpx;">
+						<input type="text" class="" v-model="motto" maxlength="15"
+							style="padding-top: 30rpx;padding-left: 18rpx;">
 					</view>
 				</view>
 				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
@@ -503,11 +504,14 @@
 		},
 		methods: {
 
-			goBack() {
-
+			goBack() { //返回并刷新
+				let pages = getCurrentPages(); // 当前页面
+				let beforePage = pages[pages.length - 2]; // 上一页
 				uni.navigateBack({
-
-				});
+					success: function() {
+						beforePage.init();
+					}
+				})
 			},
 			subscribe() {
 				let that = this
