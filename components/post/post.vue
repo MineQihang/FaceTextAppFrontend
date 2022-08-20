@@ -31,8 +31,9 @@
 
 					<view class="like">
 						<uni-icons class="like-icons" type="hand-up-filled" color="rgb(97, 97, 211)" size="30"
-							v-if="post.is_liked"></uni-icons>
-						<uni-icons class="like-icons" type="hand-up" color="rgb(97, 97, 211)" size="30" v-else>
+							v-if="post.is_liked" @click="like(index,post.is_liked,post.likeNum)"></uni-icons>
+						<uni-icons class="like-icons" type="hand-up" color="rgb(97, 97, 211)" size="30" v-else
+							@click="like(index,post.is_liked,post.likeNum)">
 						</uni-icons>
 						<view class="likeNum">{{ post.likeNum }}</view>
 					</view>
@@ -75,6 +76,26 @@
 				uni.navigateTo({
 					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
 				})
+			},
+			like(index, is_liked, likeNum) {
+				if (is_liked) {
+					this.postList[index].likeNum--;
+					this.postList[index].is_liked = false;
+				} else {
+					this.postList[index].likeNum++;
+					this.postList[index].is_liked = true;
+				}
+				this.sendRequest({
+					url: "/post/like",
+					method: 'POST',
+					requestDataType: "form",
+					data: {
+						pid: this.postList[index].pid,
+					},
+					success: (res) => {
+						console.log("gun");
+					}
+				});
 			}
 		}
 	}
