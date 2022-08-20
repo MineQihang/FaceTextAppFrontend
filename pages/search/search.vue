@@ -19,16 +19,17 @@
 			<view class="content" v-show="userList.length">
 
 				<view class="list-content" v-for="(item, index) in userList" :key="index">
-					<view class="list-content-icon" @click="to_fans()">
+					<view class="list-content-icon" @click="turnToPerson(item.uid)">
 						<image class="iconUrl" :src='item.iconUrl' mode="aspectFill">
 					</view>
-					<view class="list-content-username title-font">
+					<view class="list-content-username title-font"  @click="turnToPerson(item.uid)">
 						{{item.username}}
 					</view>
-					<view class="list-content-motto text-font">
+					<view class="list-content-motto text-font"  @click="turnToPerson(item.uid)">
 						{{item.motto}}
 					</view>
-					<view class="list-content-fans text-font" v-if="!item.is_subscribed" @click="trueisSubscribed(index);">
+					<view class="list-content-fans text-font" v-if="!item.is_subscribed"
+						@click="trueisSubscribed(index);">
 						+关注
 					</view>
 					<view class="list-content-fans text-font" v-else @click="falseisSubscribed(index);">
@@ -58,7 +59,6 @@
 			};
 		},
 		onLoad: function(option) {
-			this.init();
 			setTimeout(function() {}, 1000);
 			uni.startPullDownRefresh();
 		},
@@ -70,7 +70,15 @@
 		},
 		onReachBottom() {
 			// 触底的时候请求数据，即为上拉加载更多
-			this.getMore();
+			if (this.postList.length) {
+				this.getMore();
+			}
+			else{
+				this.getMoreUser();
+			}
+		},
+		onShow() {
+			this.init()
 		},
 
 		methods: {
@@ -96,6 +104,12 @@
 				this.text = '';
 				this.bpid = 9660530943306;
 				this.postList = [];
+				this.userList = [];
+			},
+			turnToPerson(uid) {
+				uni.navigateTo({
+					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
+				})
 			},
 			postSubscribed(uid) {
 				this.sendRequest({
@@ -112,7 +126,7 @@
 						});
 					}
 				});
-			
+
 			},
 			trueisSubscribed(index) {
 				this.userList[index]["is_subscribed"] = true;
@@ -120,12 +134,12 @@
 			},
 			falseisSubscribed(index) {
 				this.userList[index]["is_subscribed"] = false;
-			    this.postSubscribed(this.userList[index]["uid"])
+				this.postSubscribed(this.userList[index]["uid"])
 			},
 			onKeyInput: function(event) {
 				// this.text = event.target.value;
-				this.searchUser();
-				console.log("发送请求")
+				this.postList = [];
+				this.searchUser()
 			},
 			searchUser() {
 				let that = this;
@@ -180,6 +194,8 @@
 							if (datas && datas.length != 0) {
 								console.log(datas);
 								that.postList = res.data;
+								that.bpid = that.postList[that.postList.length - 1].pid;
+
 							} else {
 								that.postList = [];
 								uni.showToast({
@@ -209,6 +225,9 @@
 					}
 				});
 			},
+			getMoreUser(limit = 10){
+				
+			}
 
 		}
 
@@ -286,8 +305,12 @@
 	}
 
 	.list-content-username {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		word-break: break-all;
 		position: absolute;
-		width: 400rpx;
+		width: 450rpx;
 		height: 70.2rpx;
 		margin-top: 0rpx;
 		margin-bottom: 46.8rpx;
@@ -302,12 +325,15 @@
 		align-items: center;
 		// text-shadow: 1rpx 1rpx #21;
 	}
-
+	
 	.list-content-motto {
 		/* mottomottomottomotto */
 		/* mottomottomottomotto */
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		position: absolute;
-		width: 360rpx;
+		width: 450rpx;
 		height: 70.2rpx;
 		margin-top: 46.8rpx;
 		margin-left: 142.2rpx;
@@ -323,10 +349,10 @@
 	.list-content-fans {
 		/* +关注 */
 		position: absolute;
-		width: 108rpx;
+		width: 130rpx;
 		height: 59.4rpx;
 		margin-top: 36rpx;
-		right: 36rpx;
+		right: 10rpx;
 		margin-bottom: 21.6rpx;
 		color: rgb(70, 5, 173);
 		font-weight: 700;
@@ -335,6 +361,6 @@
 		text-align: left;
 		flex-direction: row;
 		align-items: center;
-
+	
 	}
 </style>

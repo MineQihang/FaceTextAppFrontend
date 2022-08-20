@@ -3,34 +3,35 @@
 		<!-- 头部个人信息 -->
 		<head-tab :userInfo="userInfo"></head-tab>
 
-		<view class="white-header"></view>
+		<view class="head-bar">
 
-		<!-- 导航栏：我的收藏 -->
-		<view class="collection-click" v-if="showCollection">
-			<view class="collection-information-click">我的收藏</view>
-		</view>
+			<!-- 导航栏：我的收藏 -->
+			<view class="collection-click" v-if="showCollection">
+				<view class="collection-information-click">我的收藏</view>
+			</view>
 
-		<view class="collection-unclick" v-if="showAttention" @click="changeToCollection()">
-			<view class="collection-information-unclick">我的收藏</view>
-		</view>
+			<view class="collection-unclick" v-if="showAttention" @click="changeToCollection()">
+				<view class="collection-information-unclick">我的收藏</view>
+			</view>
 
-		<!-- 导航栏：关注的人 -->
-		<view class="attention-click" v-if="showAttention">
-			<view class="attention-information-click">关注的人</view>
-		</view>
+			<!-- 导航栏：关注的人 -->
+			<view class="attention-click" v-if="showAttention">
+				<view class="attention-information-click">关注的人</view>
+			</view>
 
-		<view class="attention-unclick" v-if="showCollection" @click="changeToAttention()">
-			<view class="attention-information-unclick">关注的人</view>
+			<view class="attention-unclick" v-if="showCollection" @click="changeToAttention()">
+				<view class="attention-information-unclick">关注的人</view>
+			</view>
 		</view>
 
 		<!-- 展示收藏帖子 -->
-		<view v-if="showCollection" class="collection-post" style="margin-top: 50rpx;">
+		<view v-if="showCollection" class="posts">
 			<post :postList="postList"></post>
 		</view>
 
 
 		<!-- 展示关注帖子 -->
-		<view v-if="showAttention" class="attention-post" style="margin-top: 50rpx;">
+		<view v-if="showAttention" class="posts">
 			<post :postList="postList"></post>
 		</view>
 
@@ -153,6 +154,13 @@
 						url: "/user/user-info",
 						success: (res) => {
 							that.userInfo = res.data;
+						},
+						failRequest: (res) => {
+							if (res.statusCode == 401) {
+								uni.reLaunch({
+									url: '/pages/index/login/login'
+								})
+							}
 						}
 					})
 				} catch (e) {
@@ -212,93 +220,66 @@
 		flex-direction: column;
 	}
 
-	.white-header {
+	.head-bar {
 		position: fixed;
-		background-color: #ffff;
 		width: 100%;
-		height: 81rpx;
-		top: 50px;
-		z-index: 999;
-		border-bottom: solid #F2F3F5;
+		height: 88rpx;
+		top: 106rpx;
+		background-color: #fff;
+		z-index: 99;
 	}
 
-	.collection-click {
+	.head-bar>view {
 		position: fixed;
-		background-color: rgb(242, 243, 245);
-		width: 252rpx;
-		height: 81rpx;
-		top: 50px;
-		left: 72rpx;
+		width: 35%;
+		height: 76rpx;
+		top: 118rpx;
+		/* 88+106-76 */
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
-		z-index: 999;
+		z-index: 99;
 	}
 
-	.collection-unclick {
-		position: fixed;
-		background-color: #ffff;
-		width: 252rpx;
-		height: 81rpx;
-		top: 50px;
-		left: 72rpx;
-		border-radius: 36rpx 36rpx 0rpx 0rpx;
-		z-index: 999;
-	}
-
-	.collection-information-click {
-		font-size: 43.2rpx;
-		font-weight: 700;
-		line-height: 50.4rpx;
-		margin-top: 12.8rpx;
-		margin-left: 36rpx;
-		color: #4605AD;
-	}
-
-	.collection-information-unclick {
-		font-size: 43.2rpx;
-		font-weight: 700;
-		line-height: 50.4rpx;
-		margin-top: 12.8rpx;
-		margin-left: 36rpx;
-		color: black;
-	}
-
-	.attention-click {
-		position: fixed;
-		background-color: rgb(242, 243, 245);
-		width: 252rpx;
-		height: 81rpx;
-		top: 50px;
-		right: 72rpx;
-		border-radius: 36rpx 36rpx 0rpx 0rpx;
-		z-index: 999;
-	}
-
-	.attention-unclick {
-		position: fixed;
-		background-color: #ffffff;
-		width: 252rpx;
-		height: 81rpx;
-		top: 50px;
-		right: 72rpx;
-		border-radius: 36rpx 36rpx 0rpx 0rpx;
-		z-index: 999;
-	}
-
-	.attention-information-click {
-		font-size: 43.2rpx;
-		font-weight: 700;
-		line-height: 50.4rpx;
-		margin-top: 12.8rpx;
-		color: #4605AD;
-		text-align: center;
-	}
-
+	.collection-information-click,
+	.collection-information-unclick,
+	.attention-information-click,
 	.attention-information-unclick {
-		font-size: 43.2rpx;
+		font-size: 22px;
 		font-weight: 700;
-		line-height: 50.4rpx;
-		margin-top: 12.8rpx;
-		color: #000000;
-		text-align: center;
+		line-height: 76rpx;
+		margin-left: 36rpx;
+	}
+
+	.posts {
+		margin-top: 92rpx;
+	}
+
+	.collection-click,
+	.collection-unclick {
+		left: 15%;
+	}
+
+	.attention-click,
+	.attention-unclick {
+		right: 15%;
+	}
+
+	.collection-click,
+	.attention-click {
+		background-color: rgb(242, 243, 245);
+	}
+
+	.collection-unclick,
+	.attention-unclick {
+		background-color: #fff;
+	}
+
+	.collection-information-click,
+	.attention-information-click {
+		color: #4605AD;
+	}
+
+	.collection-information-unclick,
+	.attention-information-unclick {
+		color: rgb(90, 90, 90);
 	}
 </style>

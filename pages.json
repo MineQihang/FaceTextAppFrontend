@@ -9,7 +9,8 @@
 		{
 			"path": "pages/index/login/login",
 			"style": {
-				"navigationBarTitleText": "登录"
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -17,6 +18,7 @@
 			"style": {
 				"navigationBarTitleText": "注册",
 				"backgroundColor": "#ffffff"
+
 			}
 		},
 		{
@@ -37,15 +39,7 @@
 				"navigationStyle": "custom"
 			}
 		},
-		{
-			"path": "pages/publish/edit-post",
-			"style": {
-				"backgroundColor": "transparent",
-				"navigationBarTitleText": "修改",
-				"enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-			}
-		},
+
 		{
 			"path": "pages/sidebar/personal-center/personal-center",
 			"style": {
@@ -60,13 +54,6 @@
 				"navigationBarTitleText": "设置",
 				"enablePullDownRefresh": false,
 				"navigationStyle": "custom"
-			}
-		}, {
-			"path": "pages/sidebar/reset-user-info/reset-user-info",
-			"style": {
-				"navigationBarTitleText": "编辑信息",
-				"backgroundColor": "#ffffff",
-				"enablePullDownRefresh": false
 			}
 		},
 		{

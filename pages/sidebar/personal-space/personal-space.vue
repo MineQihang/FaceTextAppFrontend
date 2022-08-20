@@ -1,22 +1,20 @@
 <template>
 	<view>
 		<!-- 上面的紫色部分 -->
-		<view class="head-purple">
+		<view class="head-purple" style="">
 			<!-- 用户自定义背景 -->
-			<image :src="back_icon" v-if="uid!=othersId && othersId!=-1" mode="aspectFill" class="picture-background">
-			</image>
-			<image :src="back_icon" v-if="uid===othersId || othersId===-1" @click="setBackgroundIcon()"
-				mode="aspectFill" class="picture-background">
-			</image>
+
 			<!-- 返回按钮 -->
 			<view class="" style="display: flex;">
-				<view class="" @click="goBack()" style="z-index: 0!important; padding-top: 36rpx;padding-left: 36rpx;">
-					<image src="/static/icons/leftArrow.svg" style="width: 54rpx;height: 54rpx;" mode=""></image>
+				<view class="" @click="goBack()"
+					style="color: #4605AD;z-index: 2!important; padding-top: 36rpx;padding-left: 36rpx;">
+					<image src="/static/icons/leftArrow.svg" style="width: 54rpx;height: 54rpx;color: #4605AD;" mode="">
+					</image>
 				</view>
 
 				<view class=""
-					style="z-index: 0!important;padding-left: 36rpx;width: 100%; padding-top: 36rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD">
-					<view class="">
+					style="color: #4605AD;z-index: 2!important;padding-left: 36rpx;width: 100%; padding-top: 40rpx;font-size: 43.2rpx;font-weight: 700;">
+					<view class="" style="color: #4605AD">
 						个人空间
 					</view>
 				</view>
@@ -30,10 +28,16 @@
 						已关注
 					</view>
 				</view>
-
 			</view>
-
 		</view>
+		<image :src="back_icon" v-if="uid!=othersId && othersId!=-1" @click="setBackgroundIcon()" mode="aspectFill"
+			class="picture-background">
+		</image>
+		<image :src="back_icon" v-if="uid===othersId || othersId===-1" @click="setBackgroundIcon()" mode="aspectFill"
+			class="picture-background">
+		</image>
+
+
 
 		<!-- 上面的白色部分 -->
 		<view class="head-white">
@@ -292,10 +296,10 @@
 								<view class="like" style="">
 
 
-									<uni-icons type="hand-up" size="30"
+									<uni-icons type="hand-up" size="30" color="#6161d3"
 										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="!item.is_liked">
 									</uni-icons>
-									<uni-icons type="hand-up-filled" size="30"
+									<uni-icons type="hand-up-filled" size="30" color="#6161d3"
 										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="item.is_liked">
 									</uni-icons>
 
@@ -395,8 +399,9 @@
 									that.motto1 = res.data.motto;
 									that.mail = res.data.mail;
 									that.iconUrl = res.data.iconUrl;
-									// console.log(res.data.data);
+									// console.log(res.data);
 									that.uid = res.data.uid;
+									that.back_icon = res.data.bgUrl;
 								}
 							}
 						})
@@ -422,6 +427,7 @@
 										// console.log(res.data.data);
 									}
 								}
+
 							}),
 							this.sendRequest({
 								url: '/user/user-info', // 路径
@@ -442,6 +448,7 @@
 									}
 								}
 							})
+
 					}
 				}
 			} catch (e) {
@@ -706,7 +713,8 @@
 								name: "img",
 								success: (res3) => {
 									// console.log(JSON.parse(res3.data)["url"])
-									that.iconUrl = JSON.parse(res3.data)["url"];
+									that.iconUrl = JSON.parse(res3.data)[
+										"url"];
 									console.log("头像上传成功")
 								},
 								fail(res3) {
@@ -771,7 +779,18 @@
 							success: (res3) => {
 								// console.log(JSON.parse(res3.data)["url"])
 								// that.back_icon = JSON.parse(res3.data)["url"];
-								console.log("没接口")
+								that.sendRequest({
+									url: "/user/change_background_img",
+									method: 'POST',
+									requestDataType: "form",
+									data: {
+										url: JSON.parse(res3.data)["url"],
+									},
+									success: (res4) => {
+										console.log("背景图上传成功")
+									}
+								});
+
 							},
 							fail(res3) {
 								console.log(res3);
@@ -791,13 +810,18 @@
 	.picture-background {
 		width: 100%;
 		position: absolute;
+		top: 0;
 		height: 368.2rpx;
-		z-index: -2 !important;
+		z-index: 1 !important;
+		text-shadow: 0 0 5px white;
+
 	}
 
 	.head-purple {
 		height: 368.2rpx;
 		background-color: rgb(192, 190, 253);
+		z-index: 0 !important;
+
 	}
 
 	.head-white {
@@ -813,14 +837,14 @@
 		height: 162rpx;
 		border-radius: 162rpx;
 		background-color: rgb(72, 189, 79);
-		z-index: 1 !important;
+		z-index: 2 !important;
 	}
 
 	.portrait {
 		width: 162rpx;
 		height: 162rpx;
 		border-radius: 162rpx;
-		z-index: 1 !important;
+		z-index: 2 !important;
 	}
 
 	.username {
@@ -829,7 +853,8 @@
 		left: 253.8rpx;
 		font-size: 43.2rpx;
 		font-weight: 700;
-		z-index: 1 !important;
+		text-shadow: 0 0 4px white;
+		z-index: 2 !important;
 	}
 
 	.motto {
