@@ -504,11 +504,14 @@
 		},
 		methods: {
 
-			goBack() {
-
+			goBack() { //返回并刷新
+				let pages = getCurrentPages(); // 当前页面
+				let beforePage = pages[pages.length - 2]; // 上一页
 				uni.navigateBack({
-
-				});
+					success: function() {
+						beforePage.init();
+					}
+				})
 			},
 			subscribe() {
 				let that = this
