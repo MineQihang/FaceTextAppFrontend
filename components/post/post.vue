@@ -21,22 +21,24 @@
 					<view class="photo-content" v-for="(url, index2) in post.imgUrls" :key="index2" v-if="index2 == 0">
 						<image class="post-photo" :src="url" mode="widthFix" />
 					</view>
+				</view>
 
-					<view class="info text-font">
-						<view class="comment">
-							<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
-							<view class="commentNum">{{ post.commentNum }}</view>
-						</view>
+				<view class="info text-font">
+					<view class="comment" @click="turnToPost(post.pid,index)">
+						<uni-icons type="chat" size="30" class="comment-icon"></uni-icons>
+						<view class="commentNum">{{ post.commentNum }}</view>
+					</view>
 
-						<view class="like">
-							<uni-icons class="like-icons" type="hand-up-filled" color="rgb(97, 97, 211)" size="30"
-								v-if="post.is_liked"></uni-icons>
-							<uni-icons class="like-icons" type="hand-up" color="rgb(97, 97, 211)" size="30" v-else>
-							</uni-icons>
-							<view class="likeNum">{{ post.likeNum }}</view>
-						</view>
+					<view class="like">
+						<uni-icons class="like-icons" type="hand-up-filled" color="rgb(97, 97, 211)" size="30"
+							v-if="post.is_liked" @click="like(index,post.is_liked,post.likeNum)"></uni-icons>
+						<uni-icons class="like-icons" type="hand-up" color="rgb(97, 97, 211)" size="30" v-else
+							@click="like(index,post.is_liked,post.likeNum)">
+						</uni-icons>
+						<view class="likeNum">{{ post.likeNum }}</view>
 					</view>
 				</view>
+
 			</view>
 		</view>
 	</view>
@@ -74,6 +76,26 @@
 				uni.navigateTo({
 					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
 				})
+			},
+			like(index, is_liked, likeNum) {
+				if (is_liked) {
+					this.postList[index].likeNum--;
+					this.postList[index].is_liked = false;
+				} else {
+					this.postList[index].likeNum++;
+					this.postList[index].is_liked = true;
+				}
+				this.sendRequest({
+					url: "/post/like",
+					method: 'POST',
+					requestDataType: "form",
+					data: {
+						pid: this.postList[index].pid,
+					},
+					success: (res) => {
+						console.log("gun");
+					}
+				});
 			}
 		}
 	}
