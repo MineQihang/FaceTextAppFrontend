@@ -17,7 +17,7 @@
 				</view>
 				<view class="context">
 					<view class="title-font" style="align-self: flex-start; margin-bottom:18rpx">正文</view>
-					<v-model="context" placeholder="编辑内容" maxlength=500></textarea>
+					<textarea v-model="context" placeholder="编辑内容" maxlength=500></textarea>
 				</view>
 			</view>
 
@@ -103,6 +103,7 @@
 							name: "img",
 							success: (res3) => {
 								// console.log(JSON.parse(res3.data)["url"])
+								console.log(that.fileList1)
 								that.imgUrls.push(JSON.parse(res3.data)["url"]);
 								setTimeout(() => {
 									resolve("")
