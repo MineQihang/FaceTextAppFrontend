@@ -285,11 +285,6 @@
 					}
 				});
 			},
-			edit() {
-				uni.navigateTo({
-					url: "/pages/publish/edit-post?pid=" + this.pid
-				})
-			},
 			trash() {
 				let that = this;
 				this.sendRequest({
