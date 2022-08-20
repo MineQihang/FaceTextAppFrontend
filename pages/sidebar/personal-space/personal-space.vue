@@ -21,12 +21,12 @@
 					</view>
 				</view>
 
-				<view class="" v-if="uid!=othersId && othersId!=-1" @click="subscribe()"
-					style="padding-top: 36rpx;margin-right:43.2rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
+				<view class="" @click="subscribe()" v-if="uid!=othersId&&othersId!=-1"
+					style="z-index: 100!important;padding-top: 36rpx;margin-right:43.2rpx;font-size: 43.2rpx;font-weight: 700;color: #4605AD;">
 					<view class="" style="width: 144rpx;text-align: end;" v-if="subscribe_or_not===false">
 						+关注
 					</view>
-					<view class="" style="width: 144rpx;text-align: end;" v-if="!subscribe_or_not===false">
+					<view class="" style="width: 144rpx;text-align: end;" v-if="subscribe_or_not===true">
 						已关注
 					</view>
 				</view>
@@ -134,15 +134,6 @@
 					</view>
 				</view>
 
-				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
-					<view class="" style="font-size: 43.2rpx;font-weight: 400;">
-						邮箱
-					</view>
-					<view class="big-input">
-						<input type="text" class="" v-model="mail" style="padding-top: 30rpx;padding-left: 18rpx;">
-					</view>
-
-				</view>
 
 				<!-- 个人简介 -->
 				<view style="margin-left: 36rpx;
@@ -155,6 +146,17 @@
 						<input type="text" class="" v-model="motto" style="padding-top: 30rpx;padding-left: 18rpx;">
 					</view>
 				</view>
+				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
+					<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+						邮箱
+					</view>
+					<view class="big-input">
+						<input type="text" class="" v-model="mail" style="padding-top: 30rpx;padding-left: 18rpx;">
+					</view>
+
+				</view>
+
+
 
 
 
@@ -215,6 +217,20 @@
 
 					</view>
 
+
+					<!-- 个人简介 -->
+					<view style=" margin-top: 33.2rpx;">
+						<view class="" style="font-size: 43.2rpx;font-weight: 400;">
+							个性签名
+						</view>
+
+						<view class="max-input">
+							<view class="" style="font-size: 18px; padding-top: 30rpx;padding-left: 18rpx;">
+								{{otherMotto}}
+							</view>
+						</view>
+
+					</view>
 					<view style="margin-top: 33.2rpx;">
 						<view class="" style="font-size: 43.2rpx;font-weight: 400;">
 							邮箱
@@ -225,22 +241,12 @@
 							</view>
 
 						</view>
-
-						<!-- 个人简介 -->
-						<view style=" margin-top: 33.2rpx;">
-							<view class="" style="font-size: 43.2rpx;font-weight: 400;">
-								个性签名
-							</view>
-
-							<view class="max-input">
-								<view class="" style="font-size: 18px; padding-top: 30rpx;padding-left: 18rpx;">
-									{{otherMotto}}
-								</view>
-							</view>
-							<view style="height: 200rpx;">
-							</view>
+						<view style="height: 200rpx;">
 						</view>
 					</view>
+
+
+
 				</view>
 			</view>
 		</view>
@@ -369,6 +375,8 @@
 		},
 		mounted() {
 			let that = this;
+			// console.log(that.othersId)
+			// console.log(that.uid)
 			try {
 				const authorization = uni.getStorageSync('authorization');
 				if (!authorization) throw DOMException("Nope!");
@@ -394,27 +402,46 @@
 						})
 					} else {
 						this.sendRequest({
-							url: '/user/other-info', // 路径
-							method: 'POST', // 请求方法
-							requestDataType: 'form',
-							data: {
-								uid2: that.othersId
-							}, //发送的数据
-							success: (res) => {
-								if (res.code == 200) {
-									that.otherUsername = res.data.username;
-									that.otherUsername1 = res.data.username;
-									that.otherStudentIndex = res.data.gender;
-									that.otherAge = res.data.age;
-									that.otherMotto = res.data.motto;
-									that.otherMotto1 = res.data.motto;
-									that.otherMail = res.data.mail;
-									that.otherIconUrl = res.data.iconUrl;
-									that.studentIndex1 = res.data.gender;
-									// console.log(res.data.data);
+								url: '/user/other-info', // 路径
+								method: 'POST', // 请求方法
+								requestDataType: 'form',
+								data: {
+									uid2: that.othersId
+								}, //发送的数据
+								success: (res) => {
+									if (res.code == 200) {
+										that.otherUsername = res.data.username;
+										that.otherUsername1 = res.data.username;
+										that.otherStudentIndex = res.data.gender;
+										that.otherAge = res.data.age;
+										that.otherMotto = res.data.motto;
+										that.otherMotto1 = res.data.motto;
+										that.otherMail = res.data.mail;
+										that.otherIconUrl = res.data.iconUrl;
+										that.studentIndex1 = res.data.gender;
+										// console.log(res.data.data);
+									}
 								}
-							}
-						})
+							}),
+							this.sendRequest({
+								url: '/user/user-info', // 路径
+								requestDataType: 'form',
+								success: (res) => {
+									if (res.code == 200) {
+										console.log(res)
+										that.username = res.data.username;
+										that.username1 = res.data.username;
+										that.studentIndex = res.data.gender;
+										that.age = res.data.age;
+										that.motto = res.data.motto;
+										that.motto1 = res.data.motto;
+										that.mail = res.data.mail;
+										that.iconUrl = res.data.iconUrl;
+										// console.log(res.data.data);
+										that.uid = res.data.uid;
+									}
+								}
+							})
 					}
 				}
 			} catch (e) {
@@ -429,9 +456,19 @@
 					uid2: that.othersId
 				}, //发送的数据
 				success: (res) => {
-					that.subscribe_or_not = res.is_subscribe
+					that.subscribe_or_not = res.is_subscribed
 				}
 			})
+			// console.log(that.uid)
+			// console.log(that.othersId)
+		},
+		onShow() {
+			this.flowList = []
+			if (this.othersId === -1) {
+				this.init1();
+			} else {
+				this.init();
+			}
 		},
 		onLoad: function(option) {
 			if (option.uid) {
@@ -440,11 +477,6 @@
 			} else {
 				this.othersId = -1;
 				this.choose1 = option.key === "false";
-			}
-			if (this.othersId === -1) {
-				this.init1();
-			} else {
-				this.init();
 			}
 
 			setTimeout(function() {
@@ -460,12 +492,15 @@
 		},
 		onReachBottom() {
 			// 触底的时候请求数据，即为上拉加载更多
-			this.getselfpost();
+			this.getselfpost2();
 		},
 		methods: {
 
 			goBack() {
-				uni.navigateBack({});
+
+				uni.navigateBack({
+
+				});
 			},
 			subscribe() {
 				let that = this
@@ -481,7 +516,7 @@
 						uid2: that.othersId
 					}, //发送的数据
 					success: (res) => {
-						console.log(res)
+						// console.log(res)
 					}
 				})
 			},
@@ -502,8 +537,8 @@
 				try {
 					const authorization = uni.getStorageSync('authorization');
 					this.sendRequest({
-						url: '/user/change', // 路径
-						method: 'POST', // 请求方法
+						url: '/user/change',
+						method: 'POST',
 						requestDataType: 'json',
 						data: {
 							uid: that.uid,
@@ -515,11 +550,17 @@
 							iconUrl: that.iconUrl
 						}, //发送的数据
 						success: (res) => {
+							let pages = getCurrentPages(); // 当前页面
+							let beforePage = pages[pages.length - 2]; // 上一页
 							uni.showToast({
 								title: '保存成功',
 							});
 							setTimeout(() => {
-								uni.navigateBack();
+								uni.navigateBack({
+									success: function() {
+										beforePage.init();
+									}
+								})
 							}, 800)
 						}
 					})
@@ -529,13 +570,13 @@
 				}
 			},
 			getselfpost(limit = 10) {
-				let that = this;
+				let that = this; //他人的空间获取帖子
 				this.sendRequest({
 					url: "/post/get_post_by_uid",
 					data: {
 						limit: limit,
 						bpid: that.bpid,
-						uid: ((that.othersId === -1) ? that.uid : that.othersId)
+						uid: that.othersId
 					},
 					success: (res) => {
 						// console.log(res.data);
@@ -548,7 +589,7 @@
 				});
 			},
 
-			getselfpost1(limit = 10) {
+			getselfpost1(limit = 10) { //自己的空间获取帖子
 				let that = this;
 				this.sendRequest({
 					url: "/post/get_self_posts",
@@ -566,6 +607,25 @@
 					}
 				});
 			},
+			getselfpost2(limit = 10) { //共有的获取帖子
+				let that = this;
+				this.sendRequest({
+					url: "/post/get_post_by_uid",
+					data: {
+						limit: limit,
+						bpid: that.bpid,
+						uid: ((that.othersId === -1) ? that.uid : that.othersId)
+					},
+					success: (res) => {
+						let datas = res.data;
+						if (datas && datas.length != 0) {
+							that.flowList.push.apply(that.flowList, datas);
+							that.bpid = that.flowList[that.flowList.length - 1].pid;
+						}
+					}
+				});
+			},
+
 
 			init() {
 				this.bpid = 9660530943306;
@@ -732,12 +792,12 @@
 		width: 100%;
 		position: absolute;
 		height: 368.2rpx;
+		z-index: -2 !important;
 	}
 
 	.head-purple {
 		height: 368.2rpx;
 		background-color: rgb(192, 190, 253);
-		z-index: -2 !important;
 	}
 
 	.head-white {
