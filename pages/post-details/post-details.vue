@@ -370,13 +370,12 @@
 				let pit = uni.getStorageSync('pit')
 				let vol = uni.getStorageSync('vol')
 				let per = uni.getStorageSync('per')
-				let text = that.post_title + ' 。' + that.post_main
-				uni.request({
-					url: 'http://124.221.253.187:5000/service/speech_synthesis',
+				let text = this.post_title + ' 。' + this.post_main
+				console.log(pit)
+				this.sendRequest({
+					url: "/service/speech_synthesis",
 					method: 'POST',
-					header: {
-						"content-type": "application/form-data"
-					},
+					requestDataType: "form",
 					data: {
 						text: text,
 						spd: spd,
@@ -387,7 +386,7 @@
 					success: (res) => {
 						const innerAudioContext = uni.createInnerAudioContext();
 						innerAudioContext.autoplay = true;
-						innerAudioContext.src = res.data.url;
+						innerAudioContext.src = res.url;
 						innerAudioContext.onPlay(() => {
 							console.log('开始播放');
 						});
@@ -395,9 +394,8 @@
 							console.log(res.errMsg);
 							console.log(res.errCode);
 						});
-					}
-				})
-
+					},
+				});
 			},
 			send_comment_for_comment() {
 				let that = this;
