@@ -119,7 +119,7 @@
 			},
 
 			publish() {
-				if (this.fileList1[this.fileList1.length - 1].status == "uploading") {
+				if (this.fileList1.length && this.fileList1[this.fileList1.length - 1].status == "uploading") {
 					uni.showToast({
 						title: '请等待图片上传完成哦',
 						icon: 'none'
