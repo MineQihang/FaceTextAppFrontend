@@ -233,4 +233,8 @@
 		text-align: center;
 		line-height: 110.4rpx;
 	}
+
+	navigator:hover {
+		background-color: white;
+	}
 </style>

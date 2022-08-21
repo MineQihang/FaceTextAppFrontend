@@ -25,7 +25,7 @@
 
 				<view class="box1">
 					<view class="lock-picture">
-						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
+						<image src="@/static/icons/VerificationCode.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
 						<input class="uni-input input-box" type="password" style="font-size: 16px;" placeholder="请输入验证码"
