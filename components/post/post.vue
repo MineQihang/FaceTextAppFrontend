@@ -162,6 +162,7 @@
 		word-wrap: break-word;
 		word-break: break-all;
 		text-align: left;
+		padding-right: 10rpx;
 		margin-left: 45rpx;
 		margin-bottom: 25rpx;
 		/* 		margin-top: 20rpx; */
