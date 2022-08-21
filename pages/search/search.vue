@@ -8,12 +8,14 @@
 				<image class="search-icon" src="/static/icons/search.svg" @click="search()"></image>
 			</view>
 		</view>
+		<view class="not-found" v-show="this.notFoundUser||this.notFoundPost">{{"抱歉，没有搜索到相关结果。"}}</view>
+
 		<view class="post-container">
 			<view clss="post-list" v-show="postList.length">
 				<post :postList="postList" style=" display:flex;"></post>
 			</view>
 
-			<view class="backgrount-icon" v-show="!(postList.length||userList.length)">
+			<view class="backgrount-icon" v-show="!(postList.length||userList.length||this.notFoundUser||this.notFoundPost)">
 				<image src="../../static/icons/searchBackground.svg" style="width:684rpx; height: 507.6rpx;"></image>
 			</view>
 			<view class="content" v-show="userList.length">
@@ -22,10 +24,10 @@
 					<view class="list-content-icon" @click="turnToPerson(item.uid)">
 						<image class="iconUrl" :src='item.iconUrl' mode="aspectFill">
 					</view>
-					<view class="list-content-username title-font"  @click="turnToPerson(item.uid)">
+					<view class="list-content-username title-font" @click="turnToPerson(item.uid)">
 						{{item.username}}
 					</view>
-					<view class="list-content-motto text-font"  @click="turnToPerson(item.uid)">
+					<view class="list-content-motto text-font" @click="turnToPerson(item.uid)">
 						{{item.motto}}
 					</view>
 					<view class="list-content-fans text-font" v-if="!item.is_subscribed"
@@ -55,7 +57,9 @@
 				iconUrl: '',
 				uid: '',
 				isSubscribed: '',
-				userList: []
+				userList: [],
+				notFoundUser:false,
+				notFoundPost:false
 			};
 		},
 		onLoad: function(option) {
@@ -72,8 +76,7 @@
 			// 触底的时候请求数据，即为上拉加载更多
 			if (this.postList.length) {
 				this.getMore();
-			}
-			else{
+			} else {
 				this.getMoreUser();
 			}
 		},
@@ -158,12 +161,13 @@
 							let datas = res.data;
 							if (datas && datas.length != 0) {
 								that.userList = res.data;
+								that.notFoundPost = false;
+								that.notFoundUser = false
 							} else {
 								that.userList = [];
-								uni.showToast({
-									title: "没有找到用户",
-									icon: "none"
-								})
+								that.notFoundUser = true;
+								that.notFoundPost = false
+								
 							}
 						}
 					});
@@ -192,16 +196,15 @@
 						success: (res) => {
 							let datas = res.data;
 							if (datas && datas.length != 0) {
-								console.log(datas);
 								that.postList = res.data;
 								that.bpid = that.postList[that.postList.length - 1].pid;
-
+								that.notFoundUser = false;
+								that.notFoundPost = false;
+								
 							} else {
 								that.postList = [];
-								uni.showToast({
-									title: "没有找到",
-									icon: "none"
-								})
+								that.notFoundPost = true;
+								that.notFoundUser = false
 							}
 						}
 					});
@@ -225,8 +228,8 @@
 					}
 				});
 			},
-			getMoreUser(limit = 10){
-				
+			getMoreUser(limit = 10) {
+
 			}
 
 		}
@@ -245,28 +248,44 @@
 		background-color: $our-gray;
 	}
 
+	.post-container {
+		background-color: $our-gray;
+	}
+
 	.search-bar {
-		margin: 19.8rpx 36rpx 19.8rpx 36rpx;
+		margin: 30rpx 36rpx 19.8rpx 36rpx;
 		border-radius: 20px;
 		width: 84%;
 		height: 100rpx;
 		background-color: white;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 	}
 
 	.search-icon {
-		width: 100rpx;
-		height: 100rpx;
+		width: 70rpx;
+		height: 70rpx;
 		margin-right: 30rpx;
 	}
+
+	.not-found {
+		width: 100%;
+		height: 174.6rpx;
+		display: flex;
+		align-items: center;
+		background-color: white;
+		font-size: 18px;
+		font-weight: 400;
+	}
+
 
 	.backgrount-icon {
 		margin-top: 439.2rpx;
 		width: 100%;
 		display: flex;
 		justify-content: center;
-
+		background-color: $our-gray;
 	}
 
 	.content {
@@ -316,7 +335,7 @@
 		margin-left: 142.2rpx;
 		color: rgb(0, 0, 0);
 		font-weight: 400;
-		
+
 	}
 
 	.list-content-motto {
@@ -330,7 +349,7 @@
 		margin-top: 60rpx;
 		margin-left: 30rpx;
 		color: #212121;
-		
+
 	}
 
 	.list-content-fans {
@@ -348,6 +367,6 @@
 		text-align: left;
 		flex-direction: row;
 		align-items: center;
-	
+
 	}
 </style>
