@@ -282,7 +282,6 @@
 									that.len = that.swipers.length;
 									that.iscollect = res.data.is_collected;
 									that.features = res.data.features;
-									that.voice = res.data.voice;
 									if (that.swipers.length) that.get_features = true;
 									// console.log(that.features)
 									if (res.data.comments && res.data.comments.length) {
@@ -367,15 +366,35 @@
 				this.inner_click = false;
 			},
 			play_voice() {
-				const innerAudioContext = uni.createInnerAudioContext();
-				innerAudioContext.autoplay = true;
-				innerAudioContext.src = this.voice;
-				innerAudioContext.onPlay(() => {
-					console.log('开始播放');
-				});
-				innerAudioContext.onError((res) => {
-					console.log(res.errMsg);
-					console.log(res.errCode);
+				let spd = uni.getStorageSync('spd')
+				let pit = uni.getStorageSync('pit')
+				let vol = uni.getStorageSync('vol')
+				let per = uni.getStorageSync('per')
+				let text = this.post_title + ' 。' + this.post_main
+				console.log(pit)
+				this.sendRequest({
+					url: "/service/speech_synthesis",
+					method: 'POST',
+					requestDataType: "form",
+					data: {
+						text: text,
+						spd: spd,
+						pit: pit,
+						vol: vol,
+						per: per
+					},
+					success: (res) => {
+						const innerAudioContext = uni.createInnerAudioContext();
+						innerAudioContext.autoplay = true;
+						innerAudioContext.src = res.url;
+						innerAudioContext.onPlay(() => {
+							console.log('开始播放');
+						});
+						innerAudioContext.onError((res) => {
+							console.log(res.errMsg);
+							console.log(res.errCode);
+						});
+					},
 				});
 			},
 			send_comment_for_comment() {

@@ -216,24 +216,7 @@
 		
 	}
 
-	.list-content-fans {
-		/* +关注 */
-		position: absolute;
-		width: 130rpx;
-		height: 59.4rpx;
-		margin-top: 36rpx;
-		right: 10rpx;
-		margin-bottom: 21.6rpx;
-		color: rgb(70, 5, 173);
-		font-weight: 700;
-		line-height: 37.8rpx;
-		letter-spacing: 0rpx;
-		text-align: left;
-		flex-direction: row;
-		align-items: center;
 	
-	}
-
 	.list-content-fans {
 		/* +关注 */
 		position: absolute;

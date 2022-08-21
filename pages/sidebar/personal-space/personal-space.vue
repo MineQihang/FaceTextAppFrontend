@@ -15,7 +15,7 @@
 				<view class=""
 					style="color: #4605AD;z-index: 2!important;padding-left: 36rpx;width: 100%; padding-top: 40rpx;font-size: 43.2rpx;font-weight: 700;">
 					<view class="" style="color: #4605AD">
-						个人空间
+
 					</view>
 				</view>
 
@@ -147,8 +147,8 @@
 					</view>
 
 					<view class="max-input">
-						<input type="text" class="" v-model="motto" maxlength="15"
-							style="padding-top: 30rpx;padding-left: 18rpx;">
+						<input type="text" class="" v-model="motto" @input="descInput"
+							style="padding-top: 30rpx;padding-left: 18rpx;" v-if="display">
 					</view>
 				</view>
 				<view style="margin-left: 36rpx;margin-right: 36rpx;margin-top: 33.2rpx;">
@@ -275,7 +275,7 @@
 
 							</view>
 							<view class="title title-font">{{item.title}}</view>
-							<view class="context text-font">{{item.context}}</view>
+							<view class="context text-font" v-if="item.context">{{item.context}}</view>
 							<view class="itemContent" style="background-color: #ffffff;"
 								v-for="(img,index2) in item.imgUrls" :key="index2" v-if="index2==0">
 								<image class="" style="width: 100%;" :src="img" mode="widthFix">
@@ -285,26 +285,18 @@
 						<view class="info">
 							<view class="info-up">
 								<view class="comment" style="">
-
-
 									<uni-icons type="chat" size="30"
-										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;">
+										style="width: 36rpx;height: 36rpx;padding-top: 15rpx;">
 									</uni-icons>
-
-
 									<view class="commentNum">{{item.commentNum}}</view>
 								</view>
 								<view class="like" style="">
-
-
 									<uni-icons type="hand-up" size="30" color="#6161d3"
-										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="!item.is_liked">
+										style="width: 36rpx;height: 36rpx;padding-top: 15rpx;" v-if="!item.is_liked">
 									</uni-icons>
 									<uni-icons type="hand-up-filled" size="30" color="#6161d3"
-										style="width: 36rpx;height: 36rpx;padding-top: 8rpx;" v-if="item.is_liked">
+										style="width: 36rpx;height: 36rpx;padding-top: 15rpx;" v-if="item.is_liked">
 									</uni-icons>
-
-
 
 									<view class="likeNum">{{item.likeNum}}</view>
 								</view>
@@ -377,6 +369,8 @@
 				otherMail: '',
 				otherIconUrl: '',
 				studentIndex1: 0,
+				remnant: "0",
+				display: true
 			}
 		},
 		mounted() {
@@ -505,6 +499,25 @@
 			this.getselfpost2();
 		},
 		methods: {
+			onchange(e) {
+				console.log(e);
+				this.$set(this.obj, this.motto, e);
+			},
+			descInput: function(event) {
+				var value = event.target.value
+				if (value.length > 20) {
+					var value1 = value.slice(0, 20);
+					this.motto = value1;
+					uni.showToast({
+						title: "字数超过限制"
+					})
+					this.display = false;
+					setTimeout(() => {
+						this.display = true;
+					}, 10)
+
+				}
+			},
 			previewImg(imgUrl) {
 				let imgsArray = [];
 				imgsArray[0] = imgUrl;
@@ -674,38 +687,7 @@
 				}
 			},
 
-			// #ifdef APP-PLUS
-			setIcon() {
-				let that = this;
-				uni.chooseImage({
-					count: 1,
-					sourceType: ['album'], //从相册选择
-					crop: {
-						width: "250px",
-						height: "250px"
-					},
-					success: function(res) {
-						// console.log(res.tempFilePaths[0])
-						uni.uploadFile({
-							url: 'http://124.221.253.187:5000/service/upload_img',
-							filePath: res.tempFilePaths[0],
-							name: "img",
-							success: (res2) => {
-
-								that.iconUrl = JSON.parse(res2.data)["url"]
-								console.log("头像上传成功")
-							},
-							fail(res2) {
-								console.log(res2);
-								console.log("头像上传失败")
-							}
-						});
-					}
-				});
-			},
-			// #endif
-
-			// #ifdef H5
+			// 上传头像
 			setIcon() {
 				let that = this;
 				uni.chooseImage({
@@ -753,9 +735,8 @@
 					}
 				});
 			},
-			// #endif
 
-			// #ifdef H5
+
 			// 上传背景图片
 			setBackgroundIcon() {
 				let that = this;
@@ -800,7 +781,7 @@
 					}
 				});
 			},
-			// #endif
+
 
 		}
 	}
@@ -830,7 +811,7 @@
 	}
 
 	.user-portrait {
-		border: #4605AD 2rpx;
+		border: #ffffff solid 2rpx;
 		position: absolute;
 		top: 287.2rpx;
 		left: 64.8rpx;
@@ -865,6 +846,7 @@
 		font-size: 32.4rpx;
 		font-weight: 400;
 		margin-top: 8rpx;
+		padding-right: 20rpx;
 		z-index: 1 !important;
 	}
 
@@ -1065,8 +1047,9 @@
 		overflow: hidden;
 		color: #333;
 		text-align: left;
-		padding-top: 15rpx;
+		padding-top: 20rpx;
 		padding-left: 36rpx;
+		padding-bottom: 20rpx;
 	}
 
 	.info {
@@ -1089,6 +1072,7 @@
 		background-color: white;
 		padding-left: 459.6rpx;
 		display: flex;
+		margin-bottom: 15rpx;
 	}
 
 
@@ -1098,7 +1082,7 @@
 		line-height: center;
 		float: right;
 		font-weight: 400;
-		margin-top: 5rpx;
+		margin-top: 10rpx;
 	}
 
 
@@ -1107,12 +1091,14 @@
 		padding-left: 35.2rpx;
 		background-color: white;
 		width: 500rpx;
+		margin-top: 10rpx;
 	}
 
 	.likeNum {
 		/* 		margin-left: 5rpx; */
 		margin-right: 18rpx;
-		margin-top: 5rpx;
+		margin-top: 3rpx;
+		margin-bottom: 10rpx;
 		flex-direction: row;
 		font-size: 32.4rpx;
 		line-height: center;
@@ -1137,11 +1123,11 @@
 	}
 
 	.context {
-		padding-top: 15rpx;
 		padding-left: 36rpx;
 		padding-right: 36rpx;
 		line-height: center;
 		background-color: white;
-		line-height: 36rpx;
+		line-height: 45rpx;
+		margin-bottom: 20rpx;
 	}
 </style>
