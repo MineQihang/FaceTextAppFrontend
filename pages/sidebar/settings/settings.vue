@@ -13,17 +13,17 @@
 			<view class="music">
 				<view class="title title-font">语速</view>
 				<view>
-					<slider class="slider" value="5" @change="setspd()" step="1" min="0" max="9" show-value height=20rpx />
+					<slider class="slider" :value="spd" @change="setspd" step="1" min="0" max="9" show-value height=20rpx />
 				</view>
 
 				<view class="title title-font">音调</view>
 				<view>
-					<slider class="slider" value="5" @change="setpit()" step="1" min="0" max="9" show-value />
+					<slider class="slider" :value="pit" @change="setpit" step="1" min="0" max="9" show-value />
 				</view>
 
 				<view class="title title-font">音量</view>
 				<view>
-					<slider class="slider" value="5" @change="setvol()" step="1" min="0" max="15" show-value />
+					<slider class="slider" :value="vol" @change="setvol" step="1" min="0" max="15" show-value />
 				</view>
 				<view class="title title-font">发音人选择</view>
 				<view>
@@ -33,8 +33,10 @@
 						</view>
 						
 						<view class="uni-list-cell-db text-font" style="margin-top: 0rpx; margin-left:37rpx ">
-							<picker class="picker" @change="perchange()" :value="indexper" :range="array">
-								<view class="uni-input" style="background-color:white; height=100rpx margin-left:20rpx">{{array[indexper]}}</view>
+							<picker class="picker" @change="perchange" :value="indexper" :range="array">
+								<view class="uni-input" style="background-color:white; height=100rpx margin-left:20rpx">
+								{{array[indexper]}}
+								</view>
 							</picker>
 						</view>
 					</view>
@@ -62,11 +64,22 @@
 				motto: '',
 				icon: '',
 				uid: '',
-				
+				spd:5,
+				pit:5,
+				vol:5,
+				per:'0',
 				indexper:0,
 				array: ['度小美(默认)', '度小宇', '度逍遥(基础)', '度丫丫', '度逍遥(精品)', '度小鹿', '度博文', '度小童', '度小萌', '度米朵', '度小娇'],
 				arrayper: [0, 1, 3, 4, 5003, 5118, 106, 110, 111, 103, 5],
 			}
+		},
+		onLoad(){
+			this.spd = uni.getStorageSync("spd");
+			this.pit = uni.getStorageSync("pit");
+			this.vol = uni.getStorageSync("vol");
+			this.per = uni.getStorageSync("per");
+			this.indexper = uni.getStorageSync("indexper");
+			this.indexper = this.indexper ? this.indexper : 0;
 		},
 		onShow() {
 
@@ -124,16 +137,20 @@
 			
 			
 			setspd(e){
-				uni.setStorageSync('spd', res.e.detail.value)
+
+				uni.setStorageSync('spd', e.detail.value)
+				
 			},
 			setpit(e){
-				uni.setStorageSync('pit', res.e.detail.value)
+				uni.setStorageSync('pit', e.detail.value)
 			},
 			setvol(e){
-				uni.setStorageSync('vol', res.e.detail.value)
+				uni.setStorageSync('vol', e.detail.value)
 			},
             perchange:function(e){
-				uni.setStorageSync('per', arrayper[res.e.detail.value])
+				uni.setStorageSync('per', this.arrayper[e.detail.value])
+				uni.setStorageSync('indexper', e.detail.value)
+				this.indexper = e.detail.value;
 			},
 			back() {
 				uni.navigateBack()

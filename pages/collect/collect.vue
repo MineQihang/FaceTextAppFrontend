@@ -64,6 +64,9 @@
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
+			uni.showLoading({
+				title:"正在加载帖子呢"
+			})
 			this.init();
 			setTimeout(function() {
 				uni.stopPullDownRefresh();
@@ -95,6 +98,7 @@
 							bpid: 9660530943306
 						},
 						success: (res) => {
+							uni.hideLoading();
 							that.postList = res.data;
 							that.bpid1 = that.postList[that.postList.length - 1].pid;
 						}
@@ -107,6 +111,7 @@
 							bpid: 9660530943306
 						},
 						success: (res) => {
+							uni.hideLoading();
 							that.postList = res.data;
 							that.bpid0 = that.postList[that.postList.length - 1].pid;
 						}
@@ -124,6 +129,7 @@
 							bpid: that.bpid1
 						},
 						success: (res) => {
+							uni.hideLoading();
 							console.log(res);
 							let datas = res.data;
 							if (datas && datas.length != 0) {
