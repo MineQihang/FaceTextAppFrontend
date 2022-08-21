@@ -27,12 +27,15 @@
 		<!-- 展示收藏帖子 -->
 		<view v-if="showCollection" class="posts">
 			<post :postList="postList"></post>
+			<view class = "not-found" v-show="!postList.length">{{"您还没有收藏帖子"}}</view>
 		</view>
 
 
 		<!-- 展示关注帖子 -->
 		<view v-if="showAttention" class="posts">
 			<post :postList="postList"></post>
+			<view class = "not-found" v-show="!postList.length">{{"您还没有关注的人"}}</view>
+			
 		</view>
 
 	</view>
@@ -283,5 +286,15 @@
 	.collection-information-unclick,
 	.attention-information-unclick {
 		color: rgb(90, 90, 90);
+	}
+	.not-found {
+		width: 100%;
+		height: 174.6rpx;
+		display: flex;
+		align-items: center;
+		background-color: $our-gray;
+		font-size: 18px;
+		font-weight: 400;
+		justify-content: center;
 	}
 </style>
