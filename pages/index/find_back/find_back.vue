@@ -2,8 +2,8 @@
 	<view class="">
 
 		<!-- 空白部分 -->
-		<view class="blank" style="background-color:#4605AD;">
-			<image src="@/static/icons/logo.svg" alt="" style="width:30%;top: 7%;margin-left: 38%;">
+		<view class="blank" style=" background-color:#4605AD;height: 100vh;">
+			<image src="@/static/icons/logo.svg" alt="" style="width:30%;margin-left: 38%;">
 		</view>
 
 		<!-- 主体 -->
@@ -246,6 +246,8 @@
 	}
 
 	.white_next {
+		animation: downToUp 1s;
+		-webkit-animation: downToUp 1s;
 		border-radius: 90rpx;
 		height: 1100rpx;
 		background-color: #ffffff;

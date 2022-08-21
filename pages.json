@@ -17,7 +17,8 @@
 			"path": "pages/index/register/register",
 			"style": {
 				"navigationBarTitleText": "注册",
-				"backgroundColor": "#ffffff"
+				"backgroundColor": "#ffffff",
+				"navigationStyle": "custom"
 
 			}
 		},
@@ -130,7 +131,8 @@
 			"style": {
 				"navigationBarTitleText": "修改密码",
 				"enablePullDownRefresh": false,
-				"backgroundColor": "#ffffff"
+				"backgroundColor": "#ffffff",
+				"navigationStyle": "custom"
 			}
 
 		}
