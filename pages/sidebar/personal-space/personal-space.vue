@@ -506,6 +506,20 @@
 			this.getselfpost2();
 		},
 		methods: {
+			// throttle: function() {   //保存信息节流
+			// 	let timer = true;
+			// 	return function() {
+			// 		let that = this;
+			// 		if(!timer){
+			// 		   return false;
+			// 		}
+			// 		timer = false;
+			// 		setTimeout(() => {
+			// 			this.save_inf();
+			// 			timer = true;
+			// 		}, 3000)
+			// 	}
+			// }
 			onchange(e) {
 				console.log(e);
 				this.$set(this.obj, this.motto, e);
@@ -866,7 +880,7 @@
 		background-color: rgb(242, 243, 245);
 		width: 252rpx;
 		height: 81rpx;
-		top: 529rpx;
+		top: 526rpx;
 		left: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
@@ -876,7 +890,7 @@
 		background-color: #ffff;
 		width: 252rpx;
 		height: 81rpx;
-		top: 529rpx;
+		top: 526rpx;
 		left: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
@@ -905,7 +919,7 @@
 		background-color: rgb(242, 243, 245);
 		width: 252rpx;
 		height: 81rpx;
-		top: 529rpx;
+		top: 526rpx;
 		right: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
@@ -915,7 +929,7 @@
 		background-color: #ffffff;
 		width: 252rpx;
 		height: 81rpx;
-		top: 529rpx;
+		top: 526rpx;
 		right: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
