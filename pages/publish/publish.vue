@@ -119,6 +119,13 @@
 			},
 
 			publish() {
+				if (this.fileList1[this.fileList1.length - 1].status == "uploading") {
+					uni.showToast({
+						title: '请等待图片上传完成哦',
+						icon: 'none'
+					})
+					return
+				}
 				let title_p = /^\s+$/;
 				if (this.title == '' || title_p.test(this.title)) {
 					uni.showToast({

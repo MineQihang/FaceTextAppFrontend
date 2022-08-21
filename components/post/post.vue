@@ -16,7 +16,7 @@
 				<view class="click-container" @click="turnToPost(post.pid,index)">
 					<view class="title title-font">{{ post.title }}</view>
 
-					<view class="text text-font">{{ post.context }}</view>
+					<view class="text text-font" v-if="post.context">{{ post.context }}</view>
 
 					<view class="photo-content" v-for="(url, index2) in post.imgUrls" :key="index2" v-if="index2 == 0">
 						<image class="post-photo" :src="url" mode="widthFix" />
@@ -139,7 +139,7 @@
 
 
 	.container .content-container .post-container .photo-content {
-		margin-top: 10rpx;
+		/* margin-top: 10rpx; */
 	}
 
 	.container .content-container .post-container .photo-content .post-photo {
@@ -149,7 +149,9 @@
 
 	.container .content-container .post-container .title {
 		text-align: left;
-		margin: 45rpx 45rpx;
+		margin-left: 45rpx;
+		margin-top: 30rpx;
+		margin-bottom: 16rpx;
 	}
 
 	.container .content-container .post-container .text {
@@ -162,6 +164,7 @@
 		text-align: left;
 		margin-left: 45rpx;
 		margin-bottom: 25rpx;
+		/* 		margin-top: 20rpx; */
 	}
 
 	.container .content-container .post-container .info {
@@ -170,7 +173,9 @@
 	}
 
 	.container .content-container .post-container .info .comment {
-		margin-left: 60%;
+		margin-top: 15rpx;
+		margin-bottom: 10rpx;
+		margin-left: 65%;
 		display: flex;
 		flex-direction: row;
 		/* background-color: gray; */
@@ -181,9 +186,11 @@
 	.container .content-container .post-container .info .comment .commentNum {}
 
 	.container .content-container .post-container .info .like {
+		margin-top: 15rpx;
+		margin-bottom: 10rpx;
 		display: flex;
 		flex-direction: row;
-		padding-left: 15%;
-		margin-right: 10%;
+		padding-left: 10%;
+		margin-right: 15%;
 	}
 </style>
