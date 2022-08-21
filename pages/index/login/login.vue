@@ -1,5 +1,5 @@
 <template>
-	<view class="">
+	<view class="container">
 
 		<!-- 空白部分 -->
 		<view class="blank" style="background-color:#4605AD;">
@@ -128,6 +128,15 @@
 	}
 </script>
 <style>
+	.container {
+		background-color: #4605AD;
+		height: 100vh;
+	}
+	.white_next {
+		animation: downToUp 1s;
+		-webkit-animation: downToUp 1s;
+	}
+
 	.reg {
 		font-size: 43.2rpx;
 		font-weight: 400;
@@ -174,11 +183,10 @@
 	}
 
 	.white_next {
-		border-radius: 90rpx;
+		border-radius: 90rpx 90rpx 0 0 ;
 		height: 1100rpx;
 		background-color: #ffffff;
 		width: 100%;
-		/* 		top: 544rpx; */
 		z-index: 10！important;
 		position: absolute;
 		margin-top: 532.8rpx;

@@ -10,3 +10,32 @@
 view {
 	font-family: "Meslo LG", sans-serif;
 }
+
+@keyframes downToUp {
+		from {
+			opacity: 0;
+			-webkit-transform: translate(0, 1000px);
+			transform: stranslate(0, 1000px);
+		}
+
+		to {
+			opacity: 1;
+			-webkit-transform: translate(0, 10px);
+			transform: stranslate(0, 10px);
+		}
+	}
+
+@keyframes leftToRight {
+		from {
+			opacity: 0;
+			-webkit-transform: translate(-1000px, 0);
+			transform: stranslate(-1000px, 0);
+		}
+
+		to {
+			opacity: 1;
+			-webkit-transform: translate(0px, 0);
+			transform: stranslate(0px, 0);
+		}
+	}
+
