@@ -39,7 +39,7 @@
 					</swiper-item>
 
 				</swiper>
-				<view class="photo-info" @click="photo_info">
+				<view class="photo-info" @click="photo_info(current_pic)">
 					<!-- <image src="@/static/icons/info.svg" v-if="len"></image> -->
 					<uni-icons type="info-filled" v-if="len" size="28" color="rgb(74, 129, 226)"></uni-icons>
 				</view>
@@ -50,10 +50,12 @@
 			<!-- 帖子 -->
 			<view class="text" @click="com2post()">
 				<!-- 标题 -->
-				<view class="title">
-					{{post_title}}
+				<view style="display: flex;justify-content: space-between;align-items: center;">
+					<view class="title">
+						{{post_title}}
+					</view>
+					<image src='/static/icons/voice.svg' class='voice' @click="play_voice()"></image>
 				</view>
-
 				<!-- 正文 -->
 				<view class="mainText">
 					{{post_main}}
@@ -153,6 +155,24 @@
 				<button @click="send_comment_for_comment()">发表</button>
 			</view>
 		</view>
+
+		<uni-popup ref="popup" type="bottom" class="popup" background-color="#fff" v-if="get_features">
+			<view class="popup-content">
+				<view class="feature-title">识别结果</view>
+				<view class="features">
+					<view class="res">
+						<view class="" v-for="(item,index) in feature_items">
+							{{item[1] + ': ' + features[current_pic][item[0]].res}}
+						</view>
+					</view>
+					<view class="rate">
+						<view class="" v-for="(item,index) in feature_items">
+							{{'置信度: ' + format_rate(features[current_pic][item[0]].rate)}}
+						</view>
+					</view>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -188,7 +208,7 @@
 				iscollect: false,
 				ismypost: false,
 				icon: '@/static/icons/info.svg', //发帖人头像
-				current_pic: 0,
+				current_pic: 0, //当前图的index
 				username: '', //发帖用户名
 				time: '', //发帖时间
 				numberComment: 0, //评论数
@@ -196,6 +216,15 @@
 				allComments: [], //所有评论
 				comment_text: '', //给这个帖子的评论
 				post_title: '', //帖子标题
+				features: [], //人脸特征
+				voice: '', //音频url
+				feature_items: [
+					['score', '颜值'],
+					['sex', '性别'],
+					['age', '年龄'],
+					['expression', '表情']
+				],
+				get_features: false,
 				post_main: '',
 				comuser_1: '',
 				comuser_2: '',
@@ -252,7 +281,10 @@
 									that.ismypost = that.uid == my_uid ? true : false;
 									that.len = that.swipers.length;
 									that.iscollect = res.data.is_collected;
-
+									that.features = res.data.features;
+									that.voice = res.data.voice;
+									if (that.swipers.length) that.get_features = true;
+									// console.log(that.features)
 									if (res.data.comments && res.data.comments.length) {
 										if (res.data.comments.user) {
 											that.comment1_cid = res.data.comments.cid;
@@ -316,6 +348,12 @@
 			change_pic(e) {
 				this.current_pic = e.detail.current;
 			},
+			photo_info(index) {
+				this.$refs.popup.open()
+			},
+			format_rate(rate) {
+				return (Number(rate) * 100).toFixed(0) + '%'
+			},
 			pushUpCommentInput(item) {
 				this.postOrComment = !this.postOrComment;
 				this.inner_click = true;
@@ -327,6 +365,18 @@
 				if (!this.postOrComment && !this.inner_click)
 					this.postOrComment = true;
 				this.inner_click = false;
+			},
+			play_voice() {
+				const innerAudioContext = uni.createInnerAudioContext();
+				innerAudioContext.autoplay = true;
+				innerAudioContext.src = this.voice;
+				innerAudioContext.onPlay(() => {
+					console.log('开始播放');
+				});
+				innerAudioContext.onError((res) => {
+					console.log(res.errMsg);
+					console.log(res.errCode);
+				});
 			},
 			send_comment_for_comment() {
 				let that = this;
@@ -586,6 +636,12 @@
 		line-height: 1.4em;
 	}
 
+	.voice {
+		width: 24px;
+		height: 24px;
+		padding: 20rpx 20rpx 4rpx 10rpx;
+	}
+
 	.mainText {
 		padding-top: 10rpx;
 		padding-left: 20rpx;
@@ -646,5 +702,23 @@
 
 	.comment1 {
 		display: flex;
+	}
+
+	.popup {}
+
+	.feature-title {
+		font-size: 16px;
+		margin: 10rpx 16rpx;
+		color: rgb(74, 129, 226);
+	}
+
+	.features {
+		display: flex;
+		font-size: 16px;
+		margin: 8rpx 16rpx;
+	}
+
+	.rate {
+		margin-left: 50rpx;
 	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view style="background">
 		<!--<head-tab></head-tab>-->
 		<view class="container">
 			<view class="search-bar">
@@ -245,7 +245,7 @@
 		flex-wrap: wrap;
 		align-items: flex-start;
 		justify-content: center;
-		background-color: $our-gray;
+		background-color: #f5f5f5;
 	}
 
 	.post-container {
@@ -264,8 +264,8 @@
 	}
 
 	.search-icon {
-		width: 70rpx;
-		height: 70rpx;
+		width: 24px;
+		height: 24px;
 		margin-right: 30rpx;
 	}
 
@@ -274,9 +274,10 @@
 		height: 174.6rpx;
 		display: flex;
 		align-items: center;
-		background-color: white;
+		background-color: $our-gray;
 		font-size: 18px;
 		font-weight: 400;
+		justify-content: center;
 	}
 
 
@@ -292,9 +293,9 @@
 		width: 100%;
 		justify-content: center;
 		margin-top: 28.8rpx;
+		
 	}
 
-	.list {}
 
 	.list-content {
 		/* 这是list中的内容捏 */

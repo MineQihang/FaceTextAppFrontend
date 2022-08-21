@@ -15,7 +15,8 @@
 						<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue" />
+						<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue"
+							maxlength="11" />
 					</view>
 				</view>
 			</view>
@@ -26,8 +27,8 @@
 						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="password" placeholder="请输入密码"
-							v-model="passwordValue" />
+						<input class="uni-input input-box" type="password" placeholder="请输入密码" v-model="passwordValue"
+							maxlength="32" />
 					</view>
 				</view>
 			</view>
