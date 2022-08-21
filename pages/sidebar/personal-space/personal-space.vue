@@ -755,40 +755,6 @@
 			},
 			// #endif
 
-
-			// 上传背景图片
-			// #ifdef APP-PLUS
-			setBackgroundIcon() {
-				let that = this;
-				uni.chooseImage({
-					count: 1,
-					sourceType: ['album'], //从相册选择
-					crop: {
-						width: "1500px",
-						height: "760px"
-					},
-					success: function(res) {
-						// console.log(res.tempFilePaths[0])
-						uni.uploadFile({
-							url: 'http://124.221.253.187:5000/service/upload_img',
-							filePath: res.tempFilePaths[0],
-							name: "img",
-							success: (res2) => {
-
-								that.iconUrl = JSON.parse(res2.data)["url"]
-
-								console.log("背景上传成功")
-							},
-							fail(res2) {
-								console.log(res2);
-								console.log("背景上传失败")
-							}
-						});
-					}
-				});
-			},
-			// #endif
-
 			// #ifdef H5
 			// 上传背景图片
 			setBackgroundIcon() {
@@ -797,32 +763,40 @@
 					count: 1,
 					sourceType: ['album'], //从相册选择
 					success: function(res) {
-						that.back_icon = res.tempFilePaths[0];
-						uni.uploadFile({
-							url: 'http://124.221.253.187:5000/service/upload_img',
-							filePath: res.tempFilePaths[0],
-							name: "img",
-							success: (res3) => {
-								// console.log(JSON.parse(res3.data)["url"])
-								// that.back_icon = JSON.parse(res3.data)["url"];
-								that.sendRequest({
-									url: "/user/change_background_img",
-									method: 'POST',
-									requestDataType: "form",
-									data: {
-										url: JSON.parse(res3.data)["url"],
-									},
-									success: (res4) => {
-										console.log("背景图上传成功")
-									}
-								});
-
-							},
-							fail(res3) {
-								console.log(res3);
-								console.log("背景图上传失败")
-							}
-						});
+						that.$refs.helangCompress.compress({
+							src: res.tempFilePaths[0],
+							maxSize: 1080,
+							fileType: "jpg",
+							minSize: 1080
+						}).then((res2) => {
+							that.back_icon = res2;
+							uni.uploadFile({
+								url: 'http://124.221.253.187:5000/service/upload_img',
+								filePath: res2,
+								name: "img",
+								success: (res3) => {
+									// console.log(JSON.parse(res3.data)["url"])
+									// that.back_icon = JSON.parse(res3.data)["url"];
+									that.sendRequest({
+										url: "/user/change_background_img",
+										method: 'POST',
+										requestDataType: "form",
+										data: {
+											url: JSON.parse(res3.data)["url"],
+										},
+										success: (res4) => {
+											console.log("背景图上传成功")
+										}
+									});
+								},
+								fail(res3) {
+									console.log(res3);
+									console.log("背景图上传失败")
+								}
+							});
+						}).catch((err) => {
+							console.log(err);
+						})
 					}
 				});
 			},
