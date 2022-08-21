@@ -344,8 +344,8 @@
 						name: '保密'
 					}
 				],
-				back_icon: '', //背景图
-				other_back_icon: '', //别人空间背景图
+				back_icon: 'https://baotangguo.cn:8081/', //背景图
+				other_back_icon: 'https://baotangguo.cn:8081/', //别人空间背景图
 				studentIndex: 0,
 				username: '',
 				username1: '',
@@ -397,7 +397,10 @@
 									that.iconUrl = res.data.iconUrl;
 									// console.log(res.data);
 									that.uid = res.data.uid;
-									that.back_icon = res.data.bgUrl;
+									that.back_icon = (res.data.bgUrl === null ?
+										'https://baotangguo.cn:8081/' :
+										res.data.bgUrl);
+
 								}
 							}
 						})
@@ -420,7 +423,9 @@
 										that.otherMail = res.data.mail;
 										that.otherIconUrl = res.data.iconUrl;
 										that.studentIndex1 = res.data.gender;
-										that.other_back_icon = res.data.bgUrl;
+										that.other_back_icon = (res.data.bgUrl === null ?
+											'https://baotangguo.cn:8081/' :
+											res.data.bgUrl);
 										// console.log(res.data.data);
 									}
 								}
@@ -441,7 +446,9 @@
 										that.iconUrl = res.data.iconUrl;
 										// console.log(res.data.data);
 										that.uid = res.data.uid;
-										that.back_icon = res.data.bgUrl;
+										that.back_icon = (res.data.bgUrl === null ?
+											'https://baotangguo.cn:8081/' :
+											res.data.bgUrl);
 									}
 								}
 							})
@@ -509,7 +516,8 @@
 					var value1 = value.slice(0, 20);
 					this.motto = value1;
 					uni.showToast({
-						title: "字数超过限制"
+						title: "字数超过限制",
+						icon: 'none'
 					})
 					this.display = false;
 					setTimeout(() => {
@@ -697,36 +705,35 @@
 						// console.log(res.tempFilePaths[0])
 						that.$refs.helangCompress.compress({
 							src: res.tempFilePaths[0],
-							maxSize: 250,
+							maxSize: 400,
 							fileType: "jpg",
-							minSize: 250
+							minSize: 400
 						}).then((res2) => {
+							uni.showLoading({
+								title: "正在上传"
+							})
 							that.iconUrl = res2;
-							// console.log(res2);
 							// this.compressPaths = [res];
 							uni.uploadFile({
 								url: 'http://124.221.253.187:5000/service/upload_img',
 								filePath: res2,
 								name: "img",
 								success: (res3) => {
-									// that.sendRequest({
-									// 	url: "/user/change",
-									// 	method: 'POST',
-									// 	requestDataType: "json",
-									// 	data: {
-									// 		iconUrl: JSON.parse(res3.data)["url"],
-
-									// 	},
-									// 	success: (res4) => {
-									// 		console.log("头像上传成功")
-									// 	}
-									// });
-
-
+									that.sendRequest({
+										url: "/user/change_icon_img",
+										method: 'POST',
+										requestDataType: "form",
+										data: {
+											url: JSON.parse(res3.data)["url"],
+										},
+										success: (res4) => {
+											uni.hideLoading();
+											// console.log("头像上传成功")
+										}
+									});
 								},
 								fail(res3) {
-									console.log(res3);
-									console.log("头像上传失败")
+									// console.log("头像上传失败")
 								}
 							});
 						}).catch((err) => {
@@ -750,6 +757,9 @@
 							fileType: "jpg",
 							minSize: 1080
 						}).then((res2) => {
+							uni.showLoading({
+								title: "正在上传"
+							})
 							that.back_icon = res2;
 							uni.uploadFile({
 								url: 'http://124.221.253.187:5000/service/upload_img',
@@ -766,7 +776,8 @@
 											url: JSON.parse(res3.data)["url"],
 										},
 										success: (res4) => {
-											console.log("背景图上传成功")
+											// console.log("背景图上传成功")
+											uni.hideLoading();
 										}
 									});
 								},
