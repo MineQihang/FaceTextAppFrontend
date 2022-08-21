@@ -18,7 +18,8 @@
 			<view class="poster-head">
 				<!-- 发帖人头像	 -->
 				<view class="portrait" @click="go_person(uid)">
-					<image :src="icon" alt="" v-model="icon" style=" border-radius: 80rpx;height: 80rpx;width:80rpx;">
+					<image :src="icon" alt="" v-model="icon" mode="aspectFill"
+						style=" border-radius: 80rpx;height: 80rpx;width:80rpx;">
 				</view>
 				<!-- 发帖人昵称 -->
 				<view class="nickname username-font">
@@ -97,7 +98,7 @@
 				<view class="comment1" v-for="(item,index) in allComments" :key="index"
 					style="margin-left: 1rpx;padding-top: 0;">
 					<view class="" style="display:flex;width: 100%;">
-						<image :src="item.user.iconUrl" @click="go_person(item.uid)"
+						<image :src="item.user.iconUrl" @click="go_person(item.uid)" mode="aspectFill"
 							style="width: 74rpx;height: 74rpx;border-radius: 50%;margin: 10rpx 10rpx 10rpx 18rpx; ">
 						</image>
 						<view class="" style="flex: 1 0;">
@@ -115,7 +116,8 @@
 							<view class="" v-for="(item1,index1) in item.comments" :key="index1"
 								style="margin-top: 5rpx;">
 								<view class="" style="display: flex;">
-									<image @click="go_person(item1.uid)" :src="item1.user.iconUrl" class="head-icon1">
+									<image @click="go_person(item1.uid)" :src="item1.user.iconUrl" mode="aspectFill"
+										class="head-icon1">
 									</image>
 									<view @click="pushUpCommentInput(item1)" style="flex: 1 0;">
 										<view class="" style="height: 20px;font-weight: 400;" v-if="item1.reply">

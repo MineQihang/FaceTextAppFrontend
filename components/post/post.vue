@@ -5,7 +5,7 @@
 
 				<view class="user-container">
 					<view class="user-info" @click="turnToPerson(post.uid)">
-						<image class="user-icon icon" :src="post.user.iconUrl" />
+						<image class="user-icon icon" :src="post.user.iconUrl" mode="aspectFill" />
 						<view class="username  username-font" style="padding-left: 20rpx; font-weight: 500; ">
 							{{ post.user.username }}
 						</view>
