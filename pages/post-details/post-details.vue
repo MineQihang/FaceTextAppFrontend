@@ -175,8 +175,6 @@
 				</view>
 			</view>
 		</uni-popup>
-		<!-- <uni-transition mode-class="fade" :styles="{'width':'100%','height':'100%','backgroundColor':'red'}"
-			:show="show" @change="change" /> -->
 	</view>
 </template>
 
