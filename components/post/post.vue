@@ -149,7 +149,7 @@
 
 	.container .content-container .post-container .title {
 		text-align: left;
-		margin: 45rpx 45rpx;
+		margin: 20rpx 45rpx;
 	}
 
 	.container .content-container .post-container .text {
@@ -170,6 +170,8 @@
 	}
 
 	.container .content-container .post-container .info .comment {
+		margin-top: 15rpx;
+		margin-bottom: 10rpx;
 		margin-left: 60%;
 		display: flex;
 		flex-direction: row;
@@ -181,6 +183,8 @@
 	.container .content-container .post-container .info .comment .commentNum {}
 
 	.container .content-container .post-container .info .like {
+		margin-top: 15rpx;
+		margin-bottom: 10rpx;
 		display: flex;
 		flex-direction: row;
 		padding-left: 15%;

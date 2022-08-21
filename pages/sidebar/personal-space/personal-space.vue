@@ -30,8 +30,7 @@
 				</view>
 			</view>
 		</view>
-		<image :src="back_icon" v-if="uid!=othersId && othersId!=-1" @click="setBackgroundIcon()" mode="aspectFill"
-			class="picture-background">
+		<image :src="other_back_icon" v-if="uid!=othersId && othersId!=-1" mode="aspectFill" class="picture-background">
 		</image>
 		<image :src="back_icon" v-if="uid===othersId || othersId===-1" @click="setBackgroundIcon()" mode="aspectFill"
 			class="picture-background">
@@ -48,7 +47,7 @@
 			<image :src="iconUrl" mode="aspectFill" @click="setIcon()" v-if="uid===othersId|| othersId===-1"
 				class="portrait"></image>
 			<image :src="otherIconUrl" mode="aspectFill" @click="previewImg(otherIconUrl)" class="portrait"
-				v-if="uid!=othersId"></image>
+				v-if="uid!=othersId && othersId!=-1"></image>
 		</view>
 
 		<!-- 昵称 -->
@@ -354,6 +353,7 @@
 					}
 				],
 				back_icon: '', //背景图
+				other_back_icon: '', //别人空间背景图
 				studentIndex: 0,
 				username: '',
 				username1: '',
@@ -426,6 +426,7 @@
 										that.otherMail = res.data.mail;
 										that.otherIconUrl = res.data.iconUrl;
 										that.studentIndex1 = res.data.gender;
+										that.other_back_icon = res.data.bgUrl;
 										// console.log(res.data.data);
 									}
 								}
@@ -446,6 +447,7 @@
 										that.iconUrl = res.data.iconUrl;
 										// console.log(res.data.data);
 										that.uid = res.data.uid;
+										that.back_icon = res.data.bgUrl;
 									}
 								}
 							})
@@ -717,6 +719,7 @@
 							fileType: "jpg",
 							minSize: 250
 						}).then((res2) => {
+							that.iconUrl = res2;
 							// console.log(res2);
 							// this.compressPaths = [res];
 							uni.uploadFile({
@@ -724,10 +727,20 @@
 								filePath: res2,
 								name: "img",
 								success: (res3) => {
-									// console.log(JSON.parse(res3.data)["url"])
-									that.iconUrl = JSON.parse(res3.data)[
-										"url"];
-									console.log("头像上传成功")
+									// that.sendRequest({
+									// 	url: "/user/change",
+									// 	method: 'POST',
+									// 	requestDataType: "json",
+									// 	data: {
+									// 		iconUrl: JSON.parse(res3.data)["url"],
+
+									// 	},
+									// 	success: (res4) => {
+									// 		console.log("头像上传成功")
+									// 	}
+									// });
+
+
 								},
 								fail(res3) {
 									console.log(res3);
@@ -763,11 +776,12 @@
 							success: (res2) => {
 
 								that.iconUrl = JSON.parse(res2.data)["url"]
-								console.log("头像上传成功")
+
+								console.log("背景上传成功")
 							},
 							fail(res2) {
 								console.log(res2);
-								console.log("头像上传失败")
+								console.log("背景上传失败")
 							}
 						});
 					}
@@ -842,6 +856,7 @@
 	}
 
 	.user-portrait {
+		border: #4605AD 2rpx;
 		position: absolute;
 		top: 287.2rpx;
 		left: 64.8rpx;
