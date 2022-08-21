@@ -338,7 +338,6 @@
 		font-weight: 400;
 
 	}
-
 	.list-content-motto {
 		/* mottomottomottomotto */
 		/* mottomottomottomotto */
