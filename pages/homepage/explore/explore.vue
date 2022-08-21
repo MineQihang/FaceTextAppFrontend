@@ -24,6 +24,9 @@
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
+			uni.showLoading({
+				title:"正在获取广场帖子"
+			})
 			this.init();
 			setTimeout(function() {
 				uni.stopPullDownRefresh();
@@ -43,6 +46,7 @@
 						bpid: 9660530943306
 					},
 					success: (res) => {
+						uni.hideLoading();
 						that.postList = res.data;
 						that.bpid = that.postList[that.postList.length - 1].pid;
 					}
