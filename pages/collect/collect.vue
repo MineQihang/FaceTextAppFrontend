@@ -251,7 +251,6 @@
 		font-size: 22px;
 		font-weight: 700;
 		line-height: 76rpx;
-		margin-left: 36rpx;
 	}
 
 	.posts {
@@ -260,12 +259,16 @@
 
 	.collection-click,
 	.collection-unclick {
+		display: flex;
 		left: 15%;
+		justify-content: center;
 	}
 
 	.attention-click,
 	.attention-unclick {
 		right: 15%;
+		display: flex;
+		justify-content: center;
 	}
 
 	.collection-click,
