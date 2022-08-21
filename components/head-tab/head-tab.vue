@@ -184,7 +184,7 @@
 
 <style lang="scss">
 	.container {
-		background-color: #F7F7F7;
+		background-color: #fff;
 		position: fixed;
 		width: 100%;
 		z-index: 99;

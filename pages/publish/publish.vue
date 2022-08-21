@@ -29,6 +29,7 @@
 					</u-upload>
 				</view>
 			</view>
+			<view style="height: 40px;"></view>
 		</view>
 		<button class="publish-btn" @click="publish()">确认发布</button>
 		<helang-compress ref="helangCompress"></helang-compress>
@@ -118,6 +119,13 @@
 			},
 
 			publish() {
+				if (this.fileList1[this.fileList1.length - 1].status == "uploading") {
+					uni.showToast({
+						title: '请等待图片上传完成哦',
+						icon: 'none'
+					})
+					return
+				}
 				let title_p = /^\s+$/;
 				if (this.title == '' || title_p.test(this.title)) {
 					uni.showToast({
@@ -133,7 +141,7 @@
 				}
 				// console.log("图片云端地址: ",imgUrls)
 				uni.showLoading({
-					title:"正在发布"
+					title: "正在发布"
 				})
 				uni.request({
 					url: 'http://124.221.253.187:5000/post/create',
@@ -148,7 +156,7 @@
 						"imgUrls": imgUrls,
 						"tags": this.tags
 					},
-					
+
 					success: (res) => {
 						// console.log(res);
 						this.title = "";
@@ -186,6 +194,7 @@
 	.container {
 		display: flex;
 		flex-direction: column;
+		// background-color: #fff;
 	}
 
 	.navibar {
@@ -272,13 +281,15 @@
 	}
 
 	.publish-btn {
-		position: fixed;
-		bottom: 76rpx;
-		margin: 5% 15%;
+		position: relative;
+		// bottom: 76rpx;
+		// margin: 5% 15%;
 		width: 70%;
 		background-color: $our-purple;
 		color: white;
+		margin-bottom: 40px;
 		font-weight: 400;
 		border-radius: 40rpx;
+		z-index: 10;
 	}
 </style>
