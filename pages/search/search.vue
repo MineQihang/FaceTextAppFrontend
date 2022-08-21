@@ -22,10 +22,10 @@
 					<view class="list-content-icon" @click="turnToPerson(item.uid)">
 						<image class="iconUrl" :src='item.iconUrl' mode="aspectFill">
 					</view>
-					<view class="list-content-username title-font"  @click="turnToPerson(item.uid)">
+					<view class="list-content-username title-font" @click="turnToPerson(item.uid)">
 						{{item.username}}
 					</view>
-					<view class="list-content-motto text-font"  @click="turnToPerson(item.uid)">
+					<view class="list-content-motto text-font" @click="turnToPerson(item.uid)">
 						{{item.motto}}
 					</view>
 					<view class="list-content-fans text-font" v-if="!item.is_subscribed"
@@ -72,8 +72,7 @@
 			// 触底的时候请求数据，即为上拉加载更多
 			if (this.postList.length) {
 				this.getMore();
-			}
-			else{
+			} else {
 				this.getMoreUser();
 			}
 		},
@@ -199,7 +198,7 @@
 							} else {
 								that.postList = [];
 								uni.showToast({
-									title: "没有找到",
+									title: "没有找到帖子",
 									icon: "none"
 								})
 							}
@@ -225,8 +224,8 @@
 					}
 				});
 			},
-			getMoreUser(limit = 10){
-				
+			getMoreUser(limit = 10) {
+
 			}
 
 		}
@@ -316,7 +315,7 @@
 		margin-left: 142.2rpx;
 		color: rgb(0, 0, 0);
 		font-weight: 400;
-		
+
 	}
 	.list-content-motto {
 		/* mottomottomottomotto */
@@ -329,7 +328,7 @@
 		margin-top: 60rpx;
 		margin-left: 30rpx;
 		color: #212121;
-		
+
 	}
 
 	.list-content-fans {
@@ -347,6 +346,6 @@
 		text-align: left;
 		flex-direction: row;
 		align-items: center;
-	
+
 	}
 </style>

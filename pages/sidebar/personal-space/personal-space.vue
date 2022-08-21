@@ -47,7 +47,8 @@
 		<view class="user-portrait" style="">
 			<image :src="iconUrl" mode="aspectFill" @click="setIcon()" v-if="uid===othersId|| othersId===-1"
 				class="portrait"></image>
-			<image :src="otherIconUrl" mode="aspectFill" class="portrait" v-if="uid!=othersId"></image>
+			<image :src="otherIconUrl" mode="aspectFill" @click="previewImg(otherIconUrl)" class="portrait"
+				v-if="uid!=othersId"></image>
 		</view>
 
 		<!-- 昵称 -->
@@ -435,7 +436,6 @@
 								requestDataType: 'form',
 								success: (res) => {
 									if (res.code == 200) {
-										console.log(res)
 										that.username = res.data.username;
 										that.username1 = res.data.username;
 										that.studentIndex = res.data.gender;
@@ -503,7 +503,15 @@
 			this.getselfpost2();
 		},
 		methods: {
+			previewImg(imgUrl) {
+				let imgsArray = [];
+				imgsArray[0] = imgUrl;
+				uni.previewImage({
+					current: 0,
+					urls: imgsArray
+				});
 
+			},
 			goBack() { //返回并刷新
 				let pages = getCurrentPages(); // 当前页面
 				let beforePage = pages[pages.length - 2]; // 上一页
