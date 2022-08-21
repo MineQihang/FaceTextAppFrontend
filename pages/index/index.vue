@@ -2,9 +2,10 @@
 	<view class="container">
 		<view class="content-container">
 			<image src="/static/icons/logo.svg" style="width:270rpx; height:270rpx;"></image>
-			<text class="app-name">
-				看看你的
-			</text>
+			<view class="name-container" mode-class="fade">
+				<image src="/static/icons/LookAtYours.svg"></image>
+				<text class="app-name">记录·分享·交流</text>
+			</view>
 		</view>
 	</view>
 </template>
@@ -12,8 +13,7 @@
 <script>
 	export default {
 		data() {
-			return {
-			}
+			return {}
 		},
 		mounted() {
 			this.sendRequest({
@@ -26,14 +26,6 @@
 					}, 1000)
 				},
 				failRequest: () => {
-					setTimeout(() => {
-						uni.showToast({
-							title: '请登录或注册',
-							icon: 'none',
-							duration: 1000
-						});
-					}, 500)
-					
 					setTimeout(() => {
 						uni.redirectTo({
 							url: '/pages/index/login/login'
@@ -66,16 +58,36 @@
 		align-items: center;
 		background-color: $our-purple;
 	}
+
 	.content-container {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+		margin-bottom: 100rpx;
 	}
-	.app-name{
-		margin-top: 342rpx;
+
+	.app-name {
 		color: white;
-		font-size: 115.2rpx;
+		font-size: 35rpx;
 		font-weight: 700;
+	}
+
+	.name-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		animation: fadenum 0.5s;
+	}
+
+	@keyframes fadenum {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
 	}
 </style>

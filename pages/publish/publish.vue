@@ -5,7 +5,7 @@
 				<!-- <view class="back">
 					<uni-icons type="arrow-left" size="30" @click="back()"></uni-icons>
 				</view> -->
-				<view class="publish">记录~分享~交流</view>
+				<view class="publish">记录·分享·交流</view>
 			</view>
 		</view>
 

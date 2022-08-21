@@ -719,9 +719,9 @@
 						// console.log(res.tempFilePaths[0])
 						that.$refs.helangCompress.compress({
 							src: res.tempFilePaths[0],
-							maxSize: 250,
+							maxSize: 400,
 							fileType: "jpg",
-							minSize: 250
+							minSize: 400
 						}).then((res2) => {
 							uni.showLoading({
 								title: "正在上传"
