@@ -687,38 +687,7 @@
 				}
 			},
 
-			// #ifdef APP-PLUS
-			setIcon() {
-				let that = this;
-				uni.chooseImage({
-					count: 1,
-					sourceType: ['album'], //从相册选择
-					crop: {
-						width: "250px",
-						height: "250px"
-					},
-					success: function(res) {
-						// console.log(res.tempFilePaths[0])
-						uni.uploadFile({
-							url: 'http://124.221.253.187:5000/service/upload_img',
-							filePath: res.tempFilePaths[0],
-							name: "img",
-							success: (res2) => {
-
-								that.iconUrl = JSON.parse(res2.data)["url"]
-								console.log("头像上传成功")
-							},
-							fail(res2) {
-								console.log(res2);
-								console.log("头像上传失败")
-							}
-						});
-					}
-				});
-			},
-			// #endif
-
-			// #ifdef H5
+			// 上传头像
 			setIcon() {
 				let that = this;
 				uni.chooseImage({
@@ -766,9 +735,8 @@
 					}
 				});
 			},
-			// #endif
 
-			// #ifdef H5
+
 			// 上传背景图片
 			setBackgroundIcon() {
 				let that = this;
@@ -813,7 +781,7 @@
 					}
 				});
 			},
-			// #endif
+
 
 		}
 	}

@@ -73,7 +73,10 @@
 			}
 		},
 		mounted() {
-
+			uni.setStorageSync('spd', 5)
+			uni.setStorageSync('pit', 5)
+			uni.setStorageSync('vol', 5)
+			uni.setStorageSync('per', '0')
 		},
 		methods: {
 			isMobile(str) {
