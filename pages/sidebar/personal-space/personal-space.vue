@@ -133,7 +133,8 @@
 							年龄
 						</view>
 						<view class="small-input">
-							<input type="number" class="" v-model="age" style="padding-top: 30rpx;padding-left: 18rpx;">
+							<input type="number" class="" v-model="age" maxlength="3"
+								style="padding-top: 30rpx;padding-left: 18rpx;">
 						</view>
 					</view>
 				</view>
@@ -552,6 +553,13 @@
 			},
 			save_inf() {
 				let that = this
+				if (!(that.age >= 0 && that.age <= 125)) {
+					uni.showToast({
+						title: '年龄似乎不太对劲哦',
+						icon: "none"
+					})
+					return
+				}
 				if (!this.checkEmail(that.mail)) {
 					uni.showToast({
 						title: '邮箱格式错误',
