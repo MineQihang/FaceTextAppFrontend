@@ -1,6 +1,13 @@
 <template>
 	<view class="">
-
+		<view class="our-gray">
+			<view class="top">
+				<view class="return-path" @click="back()">
+					<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
+				</view>
+				<view class="focusme our-purple">注册</view>
+			</view>
+		</view>
 		<!-- 空白部分 -->
 		<view class="blank" style="height: 100vh; background-color:#4605AD;">
 			<image src="@/static/icons/logo.svg" alt="" style="width:30%;margin-left: 38%;">
@@ -221,6 +228,25 @@
 	}
 </script>
 <style>
+	.top {
+		display: flex;
+		align-items: center;
+		height: 126rpx;
+		background-color: white;
+	}
+
+	.focusme {
+		font-size: 24px;
+		font-weight: 700;
+	}
+
+	.path-icon {
+		width: 54rpx;
+		height: 54rpx;
+		margin: 40rpx 40rpx 27rpx 28.8rpx;
+		background-color: white;
+	}
+
 	.box {
 		height: 115.2rpx;
 		margin-left: 84.6rpx;
