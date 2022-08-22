@@ -13,7 +13,7 @@ Vue.prototype.serverUrl = serverUrl;
 Vue.prototype.sendRequest = sendRequest;
 
 App.mpType = 'app';
-
+console.log = function() {};
 const app = new Vue({
 	...App
 })

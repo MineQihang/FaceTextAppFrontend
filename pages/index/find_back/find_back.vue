@@ -1,68 +1,76 @@
 <template>
-	<view class="">
-
-		<!-- 空白部分 -->
-		<view class="blank" style=" background-color:#4605AD;height: 100vh;">
-			<image src="@/static/icons/logo.svg" alt="" style="width:30%;margin-left: 38%;">
+	<view>
+		<view class="our-gray">
+			<view class="top">
+				<view class="return-path" @click="back()">
+					<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
+				</view>
+				<view class="focusme our-purple">修改密码</view>
+			</view>
 		</view>
 
-		<!-- 主体 -->
-		<view class="white_next">
-
-			<view class="" style="margin-top: 158.4rpx; height: 115.2rpx;">
-				<view class="box">
-					<view class="phone-picture">
-						<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
-					</view>
-					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="number" style="font-size: 16px;" placeholder="请输入手机号码"
-							v-model="iphoneValue" />
-					</view>
-				</view>
+			<!-- 空白部分 -->
+			<view class="blank" style=" background-color:#4605AD;height: 100vh;">
+				<image src="@/static/icons/logo.svg" alt="" style="width:30%;margin-left: 38%;">
 			</view>
 
-			<view class="" style="margin-top: 52.2rpx;height: 115.2rpx;display: flex;">
+			<!-- 主体 -->
+			<view class="white_next">
 
-				<view class="box1">
-					<view class="lock-picture">
-						<image src="@/static/icons/VerificationCode.svg" class="picture" mode=""></image>
-					</view>
-					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="password" style="font-size: 16px;" placeholder="请输入验证码"
-							v-model="code" />
-					</view>
-
-				</view>
-				<view class="code-button-container">
-					<view class="code-button" style="color: #4605AD;font-size: 16px;" @click="getCode()">
-						{{getCodeText}}
+				<view class="" style="margin-top: 158.4rpx; height: 115.2rpx;">
+					<view class="box">
+						<view class="phone-picture">
+							<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
+						</view>
+						<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
+							<input class="uni-input input-box" type="number" style="font-size: 16px;"
+								placeholder="请输入手机号码" v-model="iphoneValue" />
+						</view>
 					</view>
 				</view>
+
+				<view class="" style="margin-top: 52.2rpx;height: 115.2rpx;display: flex;">
+
+					<view class="box1">
+						<view class="lock-picture">
+							<image src="@/static/icons/VerificationCode.svg" class="picture" mode=""></image>
+						</view>
+						<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
+							<input class="uni-input input-box" type="password" style="font-size: 16px;"
+								placeholder="请输入验证码" v-model="code" />
+						</view>
+
+					</view>
+					<view class="code-button-container">
+						<view class="code-button" style="color: #4605AD;font-size: 16px;" @click="getCode()">
+							{{getCodeText}}
+						</view>
+					</view>
+
+
+				</view>
+
+				<view class="" style="margin-top: 52.2rpx; height: 115.2rpx;">
+					<view class="box">
+						<view class="lock-picture">
+							<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
+						</view>
+						<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
+							<input class="uni-input input-box" style="font-size: 16px;" type="password"
+								placeholder="请输入密码" v-model="passwordValue" />
+						</view>
+					</view>
+				</view>
+
+				<view><button @click="reg()" class="login-btn">
+						确认
+					</button></view>
 
 
 			</view>
-
-			<view class="" style="margin-top: 52.2rpx; height: 115.2rpx;">
-				<view class="box">
-					<view class="lock-picture">
-						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
-					</view>
-					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" style="font-size: 16px;" type="password" placeholder="请输入密码"
-							v-model="passwordValue" />
-					</view>
-				</view>
-			</view>
-
-			<view><button @click="reg()" class="login-btn">
-					确认
-				</button></view>
 
 
 		</view>
-
-
-	</view>
 </template>
 
 <script>
@@ -78,6 +86,11 @@
 			}
 		},
 		methods: {
+			back(){
+			uni.navigateTo({
+				url: '/pages/sidebar/settings/settings' 
+			})
+			},
 
 			Timer() {},
 			isMobile(str) {
@@ -194,6 +207,27 @@
 	}
 </script>
 <style>
+	.top {
+		display: flex;
+		align-items: center;
+		height: 126rpx;
+		background-color: white;
+	}
+
+	.focusme {
+		font-size: 24px;
+		font-weight: 700;
+	}
+
+	.return-path {}
+
+	.path-icon {
+		width: 54rpx;
+		height: 54rpx;
+		margin: 40rpx 40rpx 27rpx 28.8rpx;
+		background-color: white;
+	}
+
 	.box {
 		height: 115.2rpx;
 		margin-left: 84.6rpx;

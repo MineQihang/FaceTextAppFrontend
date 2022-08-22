@@ -19,13 +19,13 @@
 		},
 		onLoad: function(option) {
 			setTimeout(function() {
-				console.log('start pulldown');
+				// console.log('start pulldown');
 			}, 1000);
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
 			uni.showLoading({
-				title: "正在获取广场帖子"
+				title: "正在加载"
 			})
 			this.init();
 			setTimeout(function() {
@@ -90,7 +90,7 @@
 						}
 					})
 				} catch (e) {
-					console.log(e)
+					// console.log(e)
 				};
 			},
 			init() {
@@ -116,9 +116,15 @@
 			// 这个方法就是B页面中调用$vm注册的方法，参数为B页面中传递过来的数据
 			pass2explore(obj) {
 				if (obj) {
-					this.postList[obj.index].commentNum = obj.numberComment;
-					this.postList[obj.index].is_liked = obj.is_liked;
-					this.postList[obj.index].likeNum = obj.numberLike;
+					if (obj.isTrashed) {
+						// console.log("删了");
+						this.postList.splice(obj.index, 1);
+					} else {
+						this.postList[obj.index].commentNum = obj.numberComment;
+						this.postList[obj.index].is_liked = obj.is_liked;
+						this.postList[obj.index].likeNum = obj.numberLike;
+						console.log("传回来了");
+					}
 				}
 			}
 		},

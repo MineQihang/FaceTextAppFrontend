@@ -520,6 +520,12 @@
 			// 		}, 3000)
 			// 	}
 			// }
+			checkEmail(email) {
+				return RegExp(
+						/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)
+					.test(email);
+			},
+
 			onchange(e) {
 				console.log(e);
 				this.$set(this.obj, this.motto, e);
@@ -590,40 +596,49 @@
 			},
 			save_inf() {
 				let that = this
-				try {
-					const authorization = uni.getStorageSync('authorization');
-					this.sendRequest({
-						url: '/user/change',
-						method: 'POST',
-						requestDataType: 'json',
-						data: {
-							uid: that.uid,
-							username: that.username,
-							gender: that.studentIndex,
-							age: that.age,
-							mail: that.mail,
-							motto: that.motto,
-							iconUrl: that.iconUrl
-						}, //发送的数据
-						success: (res) => {
-							let pages = getCurrentPages(); // 当前页面
-							let beforePage = pages[pages.length - 2]; // 上一页
-							uni.showToast({
-								title: '保存成功',
-							});
-							setTimeout(() => {
-								uni.navigateBack({
-									success: function() {
-										beforePage.init();
-									}
-								})
-							}, 800)
-						}
+				if (!this.checkEmail(that.mail)) {
+					uni.showToast({
+						title: '邮箱格式错误',
+						icon: "none"
 					})
+				} else {
+					try {
+						const authorization = uni.getStorageSync('authorization');
+						this.sendRequest({
+							url: '/user/change',
+							method: 'POST',
+							requestDataType: 'json',
+							data: {
+								uid: that.uid,
+								username: that.username,
+								gender: that.studentIndex,
+								age: that.age,
+								mail: that.mail,
+								motto: that.motto,
+								iconUrl: that.iconUrl
+							}, //发送的数据
+							success: (res) => {
+								let pages = getCurrentPages(); // 当前页面
+								let beforePage = pages[pages.length - 2]; // 上一页
+								uni.showToast({
+									title: '保存成功',
+								});
+								setTimeout(() => {
+									uni.navigateBack({
+										success: function() {
+											beforePage.init();
+										}
+									})
+								}, 800)
+							}
+						})
 
-				} catch (e) {
-					console.log(e)
+					} catch (e) {
+						console.log(e)
+					}
 				}
+
+
 			},
 			getselfpost(limit = 10) {
 				let that = this; //他人的空间获取帖子
@@ -705,7 +720,6 @@
 				if (obj) {
 					this.flowList[obj.index].is_liked = obj.is_liked;
 					this.flowList[obj.index].likeNum = obj.numberLike;
-					console.log("传回来了");
 				}
 			},
 
@@ -796,8 +810,7 @@
 									});
 								},
 								fail(res3) {
-									console.log(res3);
-									console.log("背景图上传失败")
+									// console.log("背景图上传失败")
 								}
 							});
 						}).catch((err) => {
@@ -877,20 +890,20 @@
 
 	.personal-information-click {
 		position: absolute;
-		background-color: rgb(242, 243, 245);
+		background-color: rgb(245, 245, 245);
 		width: 252rpx;
 		height: 81rpx;
-		top: 526rpx;
+		top: 527rpx;
 		left: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
 
 	.personal-information-unclick {
 		position: absolute;
-		background-color: #ffff;
+		background-color: #ffffff;
 		width: 252rpx;
 		height: 81rpx;
-		top: 526rpx;
+		top: 527rpx;
 		left: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
@@ -919,7 +932,7 @@
 		background-color: rgb(242, 243, 245);
 		width: 252rpx;
 		height: 81rpx;
-		top: 526rpx;
+		top: 527rpx;
 		right: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
@@ -1055,6 +1068,8 @@
 	.itemContent {
 		width: 100%;
 		display: block;
+		max-height: 850rpx;
+		overflow: hidden;
 		/* height: 250px; */
 		/* border: 2px solid red; */
 	}

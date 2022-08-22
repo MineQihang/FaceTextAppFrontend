@@ -55,7 +55,8 @@
 					<view class="title">
 						{{post_title}}
 					</view>
-					<image src='/static/icons/voice.svg' class='voice' @click="play_voice()"></image>
+					<uni-icons :type="voicing?'sound-filled':'sound'" size="26" class='voice' @click="play_voice()">
+					</uni-icons>
 				</view>
 				<!-- 正文 -->
 				<view class="mainText">
@@ -103,8 +104,7 @@
 						</image>
 						<view class="" style="flex: 1 0;">
 							<view @click="pushUpCommentInput(item)">
-								<view class=""
-									style="position:relative; height: 40rpx;font-weight: 700;margin-top: 4px;">
+								<view class="" style="position:relative; height: 40rpx;margin-top: 4px;">
 									{{item.user.username}}
 								</view>
 								<view @click="com2com()"
@@ -120,12 +120,12 @@
 										class="head-icon1">
 									</image>
 									<view @click="pushUpCommentInput(item1)" style="flex: 1 0;">
-										<view class="" style="height: 20px;font-weight: 400;" v-if="item1.reply">
-											<text style="font-weight: bold;">{{item1.user.username+' '}}</text>
+										<view class="" style="height: 20px;" v-if="item1.reply">
+											<text style="">{{item1.user.username+' '}}</text>
 											<text style="color: rgb(70, 70, 70);">回复</text>
-											<text style="font-weight: bold;">{{' '+item1.reply.username}}</text>
+											<text style="">{{' '+item1.reply.username}}</text>
 										</view>
-										<view style="height: 20px;font-weight: bold;" v-else>
+										<view style="height: 20px;" v-else>
 											{{item1.user.username}}
 										</view>
 										<view style="padding-bottom:5px; padding-right: 10rpx; color: rgb(70, 70, 70);">
@@ -209,7 +209,7 @@
 				like: 0, //是否给这篇帖子点赞了
 				iscollect: false,
 				ismypost: false,
-				icon: '@/static/icons/info.svg', //发帖人头像
+				icon: '/static/icons/info.svg', //发帖人头像
 				current_pic: 0, //当前图的index
 				username: '', //发帖用户名
 				time: '', //发帖时间
@@ -220,6 +220,9 @@
 				post_title: '', //帖子标题
 				features: [], //人脸特征
 				voice: '', //音频url
+				voicing: false,
+				paused: false,
+				innerAudioContext: Object,
 				feature_items: [
 					['score', '颜值'],
 					['sex', '性别'],
@@ -239,20 +242,20 @@
 			}
 		},
 		onPullDownRefresh() {
-			this.sendRequest_();
+			this.get_post();
 			setTimeout(
 				() => {
 					uni.stopPullDownRefresh();
 				}, 700)
 		},
 		mounted() {
-			this.sendRequest_();
+			this.get_post();
 		},
 		onBackPress() {
 			this.back();
 		},
 		methods: {
-			sendRequest_() {
+			get_post() {
 				let that = this;
 				try {
 					const authorization = uni.getStorageSync('authorization');
@@ -297,6 +300,7 @@
 											that.comment2_cid = res.data.comments.comment.cid;
 										}
 									}
+									this.get_voice()
 								}
 							}
 						})
@@ -304,6 +308,28 @@
 				} catch (e) {
 					console.log(e)
 				}
+			},
+			get_voice() {
+				let spd = uni.getStorageSync('spd')
+				let pit = uni.getStorageSync('pit')
+				let vol = uni.getStorageSync('vol')
+				let per = uni.getStorageSync('per')
+				let text = this.post_title + ' 。' + this.post_main
+				this.sendRequest({
+					url: "/service/speech_synthesis",
+					method: 'POST',
+					requestDataType: "form",
+					data: {
+						text: text,
+						spd: spd,
+						pit: pit,
+						vol: vol,
+						per: per
+					},
+					success: (res) => {
+						this.voice = res.url
+					},
+				});
 			},
 			collect() {
 				this.iscollect = !this.iscollect;
@@ -329,8 +355,20 @@
 						pid: this.pid,
 					},
 					success: (res) => {
+						var pages = getCurrentPages(); // 获取页面栈
+						var prevPage = pages[pages.length - 2]; // 上一个页面
+						let obj = {
+							isTrashed: 1,
+							numberComment: this.numberComment,
+							numberLike: this.numberLike,
+							is_liked: this.like,
+							index: this.lastIndex
+						}
+						// 调用$vm 注册一个自定义方法 将参数传入进去
+						prevPage.$vm.pass2explore(obj)
 						// console.log("成功删除");
 						uni.navigateBack();
+						// this.back();
 					},
 				});
 			},
@@ -368,36 +406,19 @@
 				this.inner_click = false;
 			},
 			play_voice() {
-				let spd = uni.getStorageSync('spd')
-				let pit = uni.getStorageSync('pit')
-				let vol = uni.getStorageSync('vol')
-				let per = uni.getStorageSync('per')
-				let text = this.post_title + ' 。' + this.post_main
-				// console.log(pit)
-				this.sendRequest({
-					url: "/service/speech_synthesis",
-					method: 'POST',
-					requestDataType: "form",
-					data: {
-						text: text,
-						spd: spd,
-						pit: pit,
-						vol: vol,
-						per: per
-					},
-					success: (res) => {
-						const innerAudioContext = uni.createInnerAudioContext();
-						innerAudioContext.autoplay = true;
-						innerAudioContext.src = res.url;
-						innerAudioContext.onPlay(() => {
-							console.log('开始播放');
-						});
-						innerAudioContext.onError((res) => {
-							console.log(res.errMsg);
-							console.log(res.errCode);
-						});
-					},
-				});
+				if (this.voicing) {
+					this.innerAudioContext.stop()
+					this.voicing = false
+					return
+				}
+				this.voicing = true;
+				this.innerAudioContext = uni.createInnerAudioContext();
+				this.innerAudioContext.autoplay = true;
+				this.innerAudioContext.src = this.voice;
+				this.innerAudioContext.play();
+				this.innerAudioContext.onEnded(() => {
+					this.voicing = false
+				})
 			},
 			send_comment_for_comment() {
 				let that = this;
@@ -420,7 +441,7 @@
 								this.text = 'request success';
 								if (res.code == 200) {
 									that.comment_text = '';
-									this.sendRequest_();
+									this.get_post();
 									console.log(res.detail)
 								}
 							}
@@ -536,6 +557,7 @@
 					console.log(e)
 				}
 			}, //给这个帖子点赞
+			init() {}
 		}
 	}
 </script>
@@ -653,7 +675,7 @@
 
 	.post_time {
 		position: absolute;
-		right: 5%;
+		right: 24rpx;
 		margin-top: 25rpx;
 		font-weight: 150;
 		font-size: 14px;
@@ -672,7 +694,7 @@
 	.title {
 		padding-top: 20rpx;
 		padding-left: 20rpx;
-		font-size: 19px;
+		font-size: 20px;
 		line-height: 1.4em;
 	}
 
@@ -686,8 +708,7 @@
 		padding-top: 10rpx;
 		padding-left: 20rpx;
 		padding-right: 20rpx;
-		font-size: 30rpx;
-		font-weight: 200;
+		font-size: 17px;
 		line-height: 1.5em;
 		color: rgb(40, 40, 40);
 	}

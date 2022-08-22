@@ -10,7 +10,7 @@
 							{{ post.user.username }}
 						</view>
 					</view>
-					<view class=" date text-font">{{ getFormatDate(post.updatedTime) }}</view>
+					<view class=" date">{{ getFormatDate(post.updatedTime) }}</view>
 				</view>
 
 				<view class="click-container" @click="turnToPost(post.pid,index)">
@@ -134,7 +134,8 @@
 	}
 
 	.container .content-container .post-container .user-container .date {
-		margin-right: 45rpx;
+		margin-right: 30rpx;
+		font-size: 16px;
 	}
 
 
