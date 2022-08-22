@@ -520,6 +520,12 @@
 			// 		}, 3000)
 			// 	}
 			// }
+			checkEmail(email) {
+				return RegExp(
+						/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)
+					.test(email);
+			},
+
 			onchange(e) {
 				console.log(e);
 				this.$set(this.obj, this.motto, e);
@@ -590,40 +596,49 @@
 			},
 			save_inf() {
 				let that = this
-				try {
-					const authorization = uni.getStorageSync('authorization');
-					this.sendRequest({
-						url: '/user/change',
-						method: 'POST',
-						requestDataType: 'json',
-						data: {
-							uid: that.uid,
-							username: that.username,
-							gender: that.studentIndex,
-							age: that.age,
-							mail: that.mail,
-							motto: that.motto,
-							iconUrl: that.iconUrl
-						}, //发送的数据
-						success: (res) => {
-							let pages = getCurrentPages(); // 当前页面
-							let beforePage = pages[pages.length - 2]; // 上一页
-							uni.showToast({
-								title: '保存成功',
-							});
-							setTimeout(() => {
-								uni.navigateBack({
-									success: function() {
-										beforePage.init();
-									}
-								})
-							}, 800)
-						}
+				if (!this.checkEmail(that.mail)) {
+					uni.showToast({
+						title: '邮箱格式错误',
+						icon: "none"
 					})
+				} else {
+					try {
+						const authorization = uni.getStorageSync('authorization');
+						this.sendRequest({
+							url: '/user/change',
+							method: 'POST',
+							requestDataType: 'json',
+							data: {
+								uid: that.uid,
+								username: that.username,
+								gender: that.studentIndex,
+								age: that.age,
+								mail: that.mail,
+								motto: that.motto,
+								iconUrl: that.iconUrl
+							}, //发送的数据
+							success: (res) => {
+								let pages = getCurrentPages(); // 当前页面
+								let beforePage = pages[pages.length - 2]; // 上一页
+								uni.showToast({
+									title: '保存成功',
+								});
+								setTimeout(() => {
+									uni.navigateBack({
+										success: function() {
+											beforePage.init();
+										}
+									})
+								}, 800)
+							}
+						})
 
-				} catch (e) {
-					console.log(e)
+					} catch (e) {
+						console.log(e)
+					}
 				}
+
+
 			},
 			getselfpost(limit = 10) {
 				let that = this; //他人的空间获取帖子
@@ -705,7 +720,6 @@
 				if (obj) {
 					this.flowList[obj.index].is_liked = obj.is_liked;
 					this.flowList[obj.index].likeNum = obj.numberLike;
-					console.log("传回来了");
 				}
 			},
 
@@ -796,8 +810,7 @@
 									});
 								},
 								fail(res3) {
-									console.log(res3);
-									console.log("背景图上传失败")
+									// console.log("背景图上传失败")
 								}
 							});
 						}).catch((err) => {
