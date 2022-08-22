@@ -134,7 +134,13 @@
 					})
 					return
 				}
-				if (this.publishing) return;
+				if (this.publishing) {
+					uni.showToast({
+						title: '人像分析中',
+						icon: 'none'
+					})
+					return;
+				}
 				this.publishing = true
 				const authorization = uni.getStorageSync('authorization');
 				let imgUrls = [];
