@@ -68,6 +68,8 @@
 		},
 		onPullDownRefresh() {
 			this.init();
+			this.postList = [];
+			this.text = '';
 			setTimeout(function() {
 				uni.stopPullDownRefresh();
 			}, 1000);
@@ -104,9 +106,9 @@
 				this.$emit("cancel");
 			},
 			init() {
-				this.text = '';
+				// this.text = '';
 				this.bpid = 9660530943306;
-				this.postList = [];
+				//this.postList = [];
 				this.userList = [];
 			},
 			turnToPerson(uid) {
@@ -228,10 +230,14 @@
 					}
 				});
 			},
-			getMoreUser(limit = 10) {
-
+			pass2explore(obj) {
+				if (obj) {
+					this.postList[obj.index].commentNum = obj.numberComment;
+					this.postList[obj.index].is_liked = obj.is_liked;
+					this.postList[obj.index].likeNum = obj.numberLike;
+					console.log("传回来了");
+				}
 			}
-
 		}
 
 	}
@@ -274,7 +280,6 @@
 		height: 174.6rpx;
 		display: flex;
 		align-items: center;
-		background-color: $our-gray;
 		font-size: 18px;
 		font-weight: 400;
 		justify-content: center;

@@ -121,7 +121,6 @@
 			getMore(limit = 10, type = 0) { //0:收藏 1:关注
 				let that = this;
 				if (type) {
-					console.log("开始获取关注");
 					this.sendRequest({
 						url: "/user/all_subscribed_posts",
 						data: {
@@ -147,7 +146,6 @@
 							bpid: that.bpid0
 						},
 						success: (res) => {
-							console.log(res);
 							let datas = res.data;
 							if (datas && datas.length != 0) {
 								that.postList.push.apply(that.postList, datas);
