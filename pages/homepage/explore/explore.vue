@@ -25,7 +25,7 @@
 		},
 		onPullDownRefresh() {
 			uni.showLoading({
-				title:"正在获取广场帖子"
+				title: "正在加载"
 			})
 			this.init();
 			setTimeout(function() {
