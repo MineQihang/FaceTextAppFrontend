@@ -27,15 +27,15 @@
 		<!-- 展示收藏帖子 -->
 		<view v-if="showCollection" class="posts">
 			<post :postList="postList"></post>
-			<view class = "not-found" v-show="!postList.length">{{"您还没有收藏帖子"}}</view>
+			<view class="not-found" v-show="!postList.length">{{"您还没有收藏帖子"}}</view>
 		</view>
 
 
 		<!-- 展示关注帖子 -->
 		<view v-if="showAttention" class="posts">
 			<post :postList="postList"></post>
-			<view class = "not-found" v-show="!postList.length">{{"您还没有关注的人"}}</view>
-			
+			<view class="not-found" v-show="!postList.length">{{"您还没有关注的人"}}</view>
+
 		</view>
 
 	</view>
@@ -59,13 +59,13 @@
 		},
 		onLoad: function(option) {
 			setTimeout(function() {
-				console.log('start pulldown');
+				// console.log('start pulldown');
 			}, 1000);
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
 			uni.showLoading({
-				title:"正在加载帖子呢"
+				title: "正在加载帖子呢"
 			})
 			this.init();
 			setTimeout(function() {
@@ -77,7 +77,7 @@
 			if (this.showCollection) {
 				this.getMore(10, 0);
 			} else {
-				console.log("获取更多的关注的人");
+				// console.log("获取更多的关注的人");
 				this.getMore(10, 1);
 			}
 
@@ -173,7 +173,7 @@
 						}
 					})
 				} catch (e) {
-					console.log(e)
+					// console.log(e)
 				};
 			},
 			init() {
@@ -190,7 +190,7 @@
 
 			},
 			turnToPost(pid) {
-				console.log(pid);
+				// console.log(pid);
 				let url1 = '/pages/post-details/post-details?pid=' + pid;
 				uni.navigateTo({
 					url: url1
@@ -216,7 +216,7 @@
 				if (obj) {
 					this.postList[obj.index].is_liked = obj.is_liked;
 					this.postList[obj.index].likeNum = obj.numberLike;
-					console.log("传回来了");
+					// console.log("传回来了");
 				}
 			}
 		}
@@ -294,6 +294,7 @@
 	.attention-information-unclick {
 		color: rgb(90, 90, 90);
 	}
+
 	.not-found {
 		width: 100%;
 		height: 174.6rpx;

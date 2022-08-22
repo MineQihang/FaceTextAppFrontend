@@ -209,7 +209,7 @@
 				like: 0, //是否给这篇帖子点赞了
 				iscollect: false,
 				ismypost: false,
-				icon: '@/static/icons/info.svg', //发帖人头像
+				icon: '/static/icons/info.svg', //发帖人头像
 				current_pic: 0, //当前图的index
 				username: '', //发帖用户名
 				time: '', //发帖时间
@@ -330,7 +330,6 @@
 						this.voice = res.url
 					},
 				});
-				get_voice = function() {}
 			},
 			collect() {
 				this.iscollect = !this.iscollect;
@@ -558,6 +557,7 @@
 					console.log(e)
 				}
 			}, //给这个帖子点赞
+			init() {}
 		}
 	}
 </script>
@@ -675,7 +675,7 @@
 
 	.post_time {
 		position: absolute;
-		right: 5%;
+		right: 24rpx;
 		margin-top: 25rpx;
 		font-weight: 150;
 		font-size: 14px;

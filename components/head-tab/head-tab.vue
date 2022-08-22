@@ -2,7 +2,7 @@
 	<view style="width: 100%;">
 		<view class="container">
 			<view class="user-container" @click="showDrawer('showLeft')">
-				<view class="icon-container">
+				<view>
 					<image class="self-icon" :src="userInfo.iconUrl" mode="aspectFill"></image>
 				</view>
 				<view class="self-username">{{ userInfo.username }}</view>
@@ -194,7 +194,7 @@
 	.user-container {
 		display: flex;
 		align-items: center;
-		padding: 4rpx 30rpx;
+		padding: 10rpx 0 5rpx 30rpx;
 	}
 
 	.drawer-container {
