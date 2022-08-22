@@ -175,8 +175,6 @@
 				</view>
 			</view>
 		</uni-popup>
-		<!-- <uni-transition mode-class="fade" :styles="{'width':'100%','height':'100%','backgroundColor':'red'}"
-			:show="show" @change="change" /> -->
 	</view>
 </template>
 
@@ -331,8 +329,20 @@
 						pid: this.pid,
 					},
 					success: (res) => {
+						var pages = getCurrentPages(); // 获取页面栈
+						var prevPage = pages[pages.length - 2]; // 上一个页面
+						let obj = {
+							isTrashed: 1,
+							numberComment: this.numberComment,
+							numberLike: this.numberLike,
+							is_liked: this.like,
+							index: this.lastIndex
+						}
+						// 调用$vm 注册一个自定义方法 将参数传入进去
+						prevPage.$vm.pass2explore(obj)
 						// console.log("成功删除");
 						uni.navigateBack();
+						// this.back();
 					},
 				});
 			},
@@ -436,6 +446,7 @@
 				var pages = getCurrentPages(); // 获取页面栈
 				var prevPage = pages[pages.length - 2]; // 上一个页面
 				let obj = {
+					numberComment: this.numberComment,
 					numberLike: this.numberLike,
 					is_liked: this.like,
 					index: this.lastIndex

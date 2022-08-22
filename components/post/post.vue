@@ -18,8 +18,8 @@
 
 					<view class="text text-font" v-if="post.context">{{ post.context }}</view>
 
-					<view class="photo-content" v-for="(url, index2) in post.imgUrls" :key="index2" v-if="index2 == 0"  style="max-height: 600rpx; overflow:hidden; ">
-						<image class="post-photo" :src="url" mode="widthFix"/>
+					<view class="photo-content" v-for="(url, index2) in post.imgUrls" :key="index2" v-if="index2 == 0">
+						<image class="post-photo" :src="url" mode="widthFix" />
 					</view>
 				</view>
 
@@ -139,7 +139,8 @@
 
 
 	.container .content-container .post-container .photo-content {
-		/* margin-top: 10rpx; */
+		max-height: 850rpx;
+		overflow: hidden;
 	}
 
 	.container .content-container .post-container .photo-content .post-photo {

@@ -43,7 +43,7 @@
 				title: "",
 				context: "",
 				fileList1: [],
-				// imgUrls: [],
+				publishing: false
 			}
 		},
 		methods: {
@@ -134,6 +134,14 @@
 					})
 					return
 				}
+				if (this.publishing) {
+					uni.showToast({
+						title: '人像分析中',
+						icon: 'none'
+					})
+					return;
+				}
+				this.publishing = true
 				const authorization = uni.getStorageSync('authorization');
 				let imgUrls = [];
 				for (let img of this.fileList1) {
@@ -164,8 +172,9 @@
 						this.fileList1 = [];
 						this.imgUrls = [];
 						if (res.statusCode == 200) {
-							console.log("成功发布");
+							// console.log("成功发布");
 							uni.hideLoading()
+							this.publishing = false
 							uni.switchTab({
 								url: "/pages/homepage/explore/explore",
 								success() {
