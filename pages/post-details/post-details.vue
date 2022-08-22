@@ -359,20 +359,25 @@
 					},
 				});
 			},
+			init() {},
+			// 点击个人头像
 			go_person(uid) {
 				uni.navigateTo({
 					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
 				})
 			},
 			see_photo(index) {
+				//在Safari上预览图片后退出会有约1秒白屏，推测是uni的api适配有问题
 				uni.previewImage({
 					urls: this.swipers,
 					current: index,
 				})
 			},
+			// 滑动图片
 			change_pic(e) {
 				this.current_pic = e.detail.current;
 			},
+			// 查看图片人脸信息
 			photo_info(index) {
 				this.$refs.popup.open()
 			},
@@ -445,7 +450,6 @@
 				}
 				// 调用$vm 注册一个自定义方法 将参数传入进去
 				prevPage.$vm.pass2explore(obj)
-				// uni.navigateBack();
 			},
 			send_comment() {
 				let that = this;
@@ -464,31 +468,31 @@
 							success: (res) => {
 								this.text = 'request success';
 								if (res.code == 200) {
-									that.comment_text = '',
-										that.sendRequest({
-											url: '/post/get_post_by_pid',
-											method: 'POST',
-											requestDataType: 'form',
-											data: {
-												pid: that.pid
-											},
-											success: (res) => {
-												this.text = 'request success';
-												that.numberComment = res.data.commentNum;
-												that.numberLike = res.data.likeNum;
-												that.post_title = res.data.title;
-												that.post_main = res.data.context;
-												that.time = getTimeAgo(res.data.createdTime);
-												that.swipers = res.data.imgUrls;
-												that.allComments = res.data.comments;
-												that.icon = res.data.iconUrl;
-												that.username = res.data.username;
-												that.like = res.data.is_liked == true ? 1 : 0;
-												that.uid = res.data.uid;
-												that.len = that.swipers.length;
+									that.comment_text = '';
+									that.sendRequest({
+										url: '/post/get_post_by_pid',
+										method: 'POST',
+										requestDataType: 'form',
+										data: {
+											pid: that.pid
+										},
+										success: (res) => {
+											this.text = 'request success';
+											that.numberComment = res.data.commentNum;
+											that.numberLike = res.data.likeNum;
+											that.post_title = res.data.title;
+											that.post_main = res.data.context;
+											that.time = getTimeAgo(res.data.createdTime);
+											that.swipers = res.data.imgUrls;
+											that.allComments = res.data.comments;
+											that.icon = res.data.iconUrl;
+											that.username = res.data.username;
+											that.like = res.data.is_liked == true ? 1 : 0;
+											that.uid = res.data.uid;
+											that.len = that.swipers.length;
 
-											}
-										})
+										}
+									})
 
 								}
 							}
@@ -498,6 +502,7 @@
 					console.log(e)
 				}
 			},
+			// 点赞或取消点赞
 			like_it() {
 				let that = this;
 				if (that.like == 0) {
@@ -537,7 +542,6 @@
 					console.log(e)
 				}
 			},
-			init() {}
 		}
 	}
 </script>
@@ -546,12 +550,13 @@
 	.post-content,
 	.comment-area,
 	.give_comment {
-		animation: fade 0.5s linear;
+		animation: fade 0.5s;
 	}
 
 	@keyframes fade {
 		0% {
 			opacity: 0;
+
 		}
 
 		100% {
@@ -667,8 +672,6 @@
 		justify-content: flex-end;
 		align-items: center;
 	}
-
-	.text {}
 
 	.title {
 		padding-top: 20rpx;

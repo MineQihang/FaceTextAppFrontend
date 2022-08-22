@@ -20,7 +20,7 @@
 			<view class="" style="margin-top: 158.4rpx; height: 115.2rpx;">
 				<view class="box">
 					<view class="phone-picture">
-						<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
+						<image src="/static/icons/phone.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
 						<input class="uni-input input-box" type="number" style="font-size: 16px;" placeholder="请输入手机号码"
@@ -33,7 +33,7 @@
 
 				<view class="box1">
 					<view class="lock-picture">
-						<image src="@/static/icons/VerificationCode.svg" class="picture" mode=""></image>
+						<image src="/static/icons/VerificationCode.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
 						<input class="uni-input input-box" type="password" style="font-size: 16px;" placeholder="请输入验证码"
@@ -47,15 +47,14 @@
 					</view>
 				</view>
 
-
 			</view>
 
 			<view class="" style="margin-top: 52.2rpx; height: 115.2rpx;">
 				<view class="box">
 					<view class="lock-picture">
-						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
+						<image src="/static/icons/lock.svg" class="picture"></image>
 					</view>
-					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
+					<view style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
 						<input class="uni-input input-box" style="font-size: 16px;" type="password" placeholder="请输入密码"
 							v-model="passwordValue" maxlength="32" />
 					</view>
@@ -65,11 +64,7 @@
 			<view><button @click="submit()" class="login-btn">
 					确认
 				</button></view>
-
-
 		</view>
-
-
 	</view>
 </template>
 
