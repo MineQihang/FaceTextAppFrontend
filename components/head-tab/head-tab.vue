@@ -3,7 +3,7 @@
 		<view class="container">
 			<view class="user-container" @click="showDrawer('showLeft')">
 				<view class="icon-container">
-					<image class="self-icon" :src="userInfo.iconUrl"></image>
+					<image class="self-icon" :src="userInfo.iconUrl" mode="aspectFill"></image>
 				</view>
 				<view class="self-username">{{ userInfo.username }}</view>
 			</view>
@@ -18,7 +18,7 @@
 					<view class="user-info" @click="turnToPersonalSpace()">
 						<!-- 发帖人头像	 -->
 						<view>
-							<image class="user-icon" :src="userInfo.iconUrl">
+							<image class="user-icon" :src="userInfo.iconUrl" mode="aspectFill">
 						</view>
 						<!-- 发帖人昵称 -->
 						<view class="username">

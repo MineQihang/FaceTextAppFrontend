@@ -1,5 +1,5 @@
 <template>
-	<view style="">
+	<view style="transition: opacity 3s linear 0s;">
 		<!-- <view class="edit" v-if="ismypost" @click="edit">
 			<image src="/static/icons/edit.svg" />
 		</view> -->
@@ -373,7 +373,7 @@
 				let vol = uni.getStorageSync('vol')
 				let per = uni.getStorageSync('per')
 				let text = this.post_title + ' 。' + this.post_main
-				console.log(pit)
+				// console.log(pit)
 				this.sendRequest({
 					url: "/service/speech_synthesis",
 					method: 'POST',
@@ -540,16 +540,19 @@
 </script>
 
 <style lang="scss">
-	.edit {
-		position: fixed;
-		z-index: 1000;
-		top: 0;
-		right: 80px;
-		padding: 10px 8px;
+	.post-content,
+	.comment-area,
+	.give_comment {
+		animation: fade 0.6s linear;
+	}
 
-		image {
-			height: 24px;
-			width: 24px;
+	@keyframes fade {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 100;
 		}
 	}
 
@@ -578,6 +581,21 @@
 			width: 24px;
 		}
 	}
+
+	.edit {
+		position: fixed;
+		z-index: 1000;
+		top: 0;
+		right: 80px;
+		padding: 10px 8px;
+
+		image {
+			height: 24px;
+			width: 24px;
+		}
+	}
+
+
 
 	.post-content {
 		position: relative;

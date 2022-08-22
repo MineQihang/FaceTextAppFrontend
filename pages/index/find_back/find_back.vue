@@ -2,8 +2,8 @@
 	<view class="">
 
 		<!-- 空白部分 -->
-		<view class="blank" style="background-color:#4605AD;">
-			<image src="@/static/icons/logo.svg" alt="" style="width:30%;top: 7%;margin-left: 38%;">
+		<view class="blank" style=" background-color:#4605AD;height: 100vh;">
+			<image src="@/static/icons/logo.svg" alt="" style="width:30%;margin-left: 38%;">
 		</view>
 
 		<!-- 主体 -->
@@ -15,7 +15,8 @@
 						<image src="@/static/icons/phone.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="number" placeholder="请输入手机号码" v-model="iphoneValue" />
+						<input class="uni-input input-box" type="number" style="font-size: 16px;" placeholder="请输入手机号码"
+							v-model="iphoneValue" />
 					</view>
 				</view>
 			</view>
@@ -24,15 +25,16 @@
 
 				<view class="box1">
 					<view class="lock-picture">
-						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
+						<image src="@/static/icons/VerificationCode.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="password" placeholder="请输入验证码" v-model="code" />
+						<input class="uni-input input-box" type="password" style="font-size: 16px;" placeholder="请输入验证码"
+							v-model="code" />
 					</view>
 
 				</view>
 				<view class="code-button-container">
-					<view class="code-button" style="color: #4605AD;" @click="getCode()">
+					<view class="code-button" style="color: #4605AD;font-size: 16px;" @click="getCode()">
 						{{getCodeText}}
 					</view>
 				</view>
@@ -46,7 +48,7 @@
 						<image src="@/static/icons/lock.svg" class="picture" mode=""></image>
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
-						<input class="uni-input input-box" type="password" placeholder="请输入密码"
+						<input class="uni-input input-box" style="font-size: 16px;" type="password" placeholder="请输入密码"
 							v-model="passwordValue" />
 					</view>
 				</view>
@@ -246,6 +248,8 @@
 	}
 
 	.white_next {
+		animation: downToUp 1s;
+		-webkit-animation: downToUp 1s;
 		border-radius: 90rpx;
 		height: 1100rpx;
 		background-color: #ffffff;
@@ -291,7 +295,7 @@
 		border-radius: 36rpx;
 		background-color: rgb(70, 5, 173);
 		color: #ffffff;
-		font-size: 43.2rpx;
+		font-size: 16px;
 		font-weight: 400;
 		text-align: center;
 		line-height: 110.4rpx;
