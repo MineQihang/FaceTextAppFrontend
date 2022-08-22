@@ -434,6 +434,7 @@
 				var pages = getCurrentPages(); // 获取页面栈
 				var prevPage = pages[pages.length - 2]; // 上一个页面
 				let obj = {
+					numberComment: this.numberComment,
 					numberLike: this.numberLike,
 					is_liked: this.like,
 					index: this.lastIndex
