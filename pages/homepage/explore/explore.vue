@@ -19,7 +19,7 @@
 		},
 		onLoad: function(option) {
 			setTimeout(function() {
-				console.log('start pulldown');
+				// console.log('start pulldown');
 			}, 1000);
 			uni.startPullDownRefresh();
 		},
@@ -90,7 +90,7 @@
 						}
 					})
 				} catch (e) {
-					console.log(e)
+					// console.log(e)
 				};
 			},
 			init() {

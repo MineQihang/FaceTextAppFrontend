@@ -8,12 +8,13 @@
 		</view>
 
 		<view class="bottom_view">
-			<view class="btn1 " >音色</view>
+			<view class="btn1 ">语音播报设置</view>
 			<view class="line"></view>
 			<view class="music">
 				<view class="title title-font">语速</view>
 				<view>
-					<slider class="slider" :value="spd" @change="setspd" step="1" min="0" max="9" show-value height=20rpx />
+					<slider class="slider" :value="spd" @change="setspd" step="1" min="0" max="9" show-value
+						height=20rpx />
 				</view>
 
 				<view class="title title-font">音调</view>
@@ -23,19 +24,21 @@
 
 				<view class="title title-font">音量</view>
 				<view>
-					<slider class="slider" :value="vol" @change="setvol" step="1" min="0" max="15" show-value />
+					<slider class="slider" :value="vol" @change="setvol" step="1" min="0" max="15" show-value
+						style="margin-bottom: 35rpx;" />
 				</view>
 				<view class="title title-font">发音人选择</view>
 				<view>
 					<view class="percontain">
-						<view class="uni-list-cell-left text-font" style="margin-top: 40rpx; margin-left:37rpx">
+						<!-- <view class="uni-list-cell-left text-font" style="margin-top: 40rpx; margin-left:37rpx">
 							当前选择
-						</view>
-						
-						<view class="uni-list-cell-db text-font" style="margin-top: 0rpx; margin-left:37rpx ">
+						</view> -->
+
+						<view class="text-font" style="margin-top: 30rpx; margin-left:37rpx ">
 							<picker class="picker" @change="perchange" :value="indexper" :range="array">
-								<view class="uni-input" style="background-color:white; height=100rpx margin-left:20rpx">
-								{{array[indexper]}}
+								<view class="uni-input"
+									style="background-color:white; height=100rpx margin-left:20rpx;padding-left:20rpx;border-radius:10px">
+									{{array[indexper]}}
 								</view>
 							</picker>
 						</view>
@@ -64,16 +67,16 @@
 				motto: '',
 				icon: '',
 				uid: '',
-				spd:5,
-				pit:5,
-				vol:5,
-				per:'0',
-				indexper:0,
+				spd: 5,
+				pit: 5,
+				vol: 5,
+				per: '0',
+				indexper: 0,
 				array: ['度小美(默认)', '度小宇', '度逍遥(基础)', '度丫丫', '度逍遥(精品)', '度小鹿', '度博文', '度小童', '度小萌', '度米朵', '度小娇'],
 				arrayper: [0, 1, 3, 4, 5003, 5118, 106, 110, 111, 103, 5],
 			}
 		},
-		onLoad(){
+		onLoad() {
 			this.spd = uni.getStorageSync("spd");
 			this.pit = uni.getStorageSync("pit");
 			this.vol = uni.getStorageSync("vol");
@@ -134,20 +137,20 @@
 					url: '/pages/index/find_back/find_back'
 				})
 			},
-			
-			
-			setspd(e){
+
+
+			setspd(e) {
 
 				uni.setStorageSync('spd', e.detail.value)
-				
+
 			},
-			setpit(e){
+			setpit(e) {
 				uni.setStorageSync('pit', e.detail.value)
 			},
-			setvol(e){
+			setvol(e) {
 				uni.setStorageSync('vol', e.detail.value)
 			},
-            perchange:function(e){
+			perchange: function(e) {
 				uni.setStorageSync('per', this.arrayper[e.detail.value])
 				uni.setStorageSync('indexper', e.detail.value)
 				this.indexper = e.detail.value;
@@ -169,7 +172,7 @@
 	}
 
 	.focusme {
-		font-size: 24px;
+		font-size: 22px;
 		font-weight: 700;
 	}
 
@@ -187,7 +190,7 @@
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
-		height: 1488.6rpx;
+		height: 80vh;
 		z-index: 1 !important;
 		/* 		 position:fixed; */
 	}
@@ -195,43 +198,49 @@
 	.music {
 		margin-top: 50rpx;
 	}
+
 	.line {
-		margin: 150rpx 10% 15rpx 4.8%;
-		width: 84.5%;
+		margin: 150rpx 6% 15rpx 6%;
+		width: 88%;
 		height: 0;
-		border: solid 2rpx;
-		border-color: black;
+		// border: solid 2rpx;
+		// border-color: black;
 		background-color: black;
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
 	}
-	.title{
-		margin-left:37rpx;
+
+	.title {
+		margin-left: 37rpx;
 	}
 
 	.slider {
 		margin-top: 30rpx;
 	}
-	.percontain{
+
+	.percontain {
 		margin-top: 15rpx;
 	}
-    .picker{
+
+	.picker {
 		margin-top: 1rpx;
 		margin-right: 80rpx;
 	}
-	.uni-input{
+
+	.uni-input {
 		height: 100rpx;
 		line-height: 100rpx;
-		
+
 	}
+
 	.btn1 {
 		position: absolute;
-		width: 100rpx;
+		width: 80%;
 		height: 50rpx;
-		top: 190rpx;
-		background: $our-gray;
-		margin-left: 33rpx;
+		top: 150rpx;
+		margin-left: 10%;
+		margin-right: 10%;
 		color: black;
 		font-size: 24px;
 		font-weight: 700;
@@ -245,15 +254,14 @@
 	.btn2 {
 		position: absolute;
 		width: 500rpx;
-		height: 115.2rpx;
-		top: 1280rpx;
-		background: $our-purple;
+		height: 55px;
+		top: 1020rpx;
+		background: linear-gradient(120deg, rgb(70, 5, 173), rgb(19, 93, 173));
 		border-radius: 36px;
 		color: #ffffff;
-		font-size: 24px;
-		font-weight: 400;
+		font-size: 20px;
 		text-align: center;
-		line-height: 60px;
+		line-height: 55px;
 		bottom: 57.6rpx;
 		left: 84.6rpx;
 		right: 84.6rpx;
@@ -263,15 +271,14 @@
 	.btn3 {
 		position: absolute;
 		width: 500rpx;
-		height: 115.2rpx;
-		top: 1450rpx;
-		background: $our-purple;
+		height: 55px;
+		top: 1200rpx;
+		background: linear-gradient(120deg, rgb(70, 5, 173), rgb(19, 93, 173));
 		border-radius: 36px;
 		color: #ffffff;
-		font-size: 24px;
-		font-weight: 400;
+		font-size: 20px;
 		text-align: center;
-		line-height: 60px;
+		line-height: 55px;
 		bottom: 57.6rpx;
 		left: 84.6rpx;
 		right: 84.6rpx;
