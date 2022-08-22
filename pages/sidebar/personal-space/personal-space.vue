@@ -2,7 +2,6 @@
 	<view>
 		<!-- 上面的紫色部分 -->
 		<view class="head-purple" style="">
-			<!-- 用户自定义背景 -->
 
 			<!-- 返回按钮 -->
 			<view class="" style="display: flex;">
@@ -30,6 +29,8 @@
 				</view>
 			</view>
 		</view>
+
+		<!-- 背景图片 -->
 		<image :src="other_back_icon" v-if="uid!=othersId && othersId!=-1" mode="aspectFill" class="picture-background">
 		</image>
 		<image :src="back_icon" v-if="uid===othersId || othersId===-1" @click="setBackgroundIcon()" mode="aspectFill"
@@ -116,7 +117,6 @@
 							性别
 						</view>
 						<view class="" style="">
-							<!-- <input type="text" class="small-input" style=""> -->
 							<view class="input_btn" style="background-color: #ffffff;">
 
 								<picker style="" mode="selector" :range="checkStudents" range-key="name"
@@ -161,10 +161,6 @@
 
 				</view>
 
-
-
-
-
 				<view style="height: 100rpx;">
 
 				</view>
@@ -198,7 +194,6 @@
 								性别
 							</view>
 
-							<!-- <input type="text" class="small-input" style=""> -->
 							<view class="input_btn" style="background-color: #ffffff;">
 								<view style="font-size:18px;" class=" slect">
 									{{checkStudents[studentIndex1].name}}
@@ -217,8 +212,6 @@
 								</view>
 							</view>
 						</view>
-
-
 
 					</view>
 
@@ -250,16 +243,9 @@
 						</view>
 					</view>
 
-
-
 				</view>
 			</view>
 		</view>
-
-
-
-
-
 
 		<!-- 点这里展示我的帖子 -->
 		<view v-show="choose1">
@@ -272,7 +258,6 @@
 							<view class="date text-font " v-if="(index==0)||((index!=0)&&((flowList[index].createdTime.split('T'
 							)[0])!=flowList[index-1].createdTime.split('T')[0]))">
 								{{item.createdTime.split('T')[0]}}
-
 							</view>
 							<view class="title title-font">{{item.title}}</view>
 							<view class="context text-font" v-if="item.context">{{item.context}}</view>
@@ -375,8 +360,6 @@
 		},
 		mounted() {
 			let that = this;
-			// console.log(that.othersId)
-			// console.log(that.uid)
 			try {
 				const authorization = uni.getStorageSync('authorization');
 				if (!authorization) throw DOMException("Nope!");
@@ -406,12 +389,12 @@
 						})
 					} else {
 						this.sendRequest({
-								url: '/user/other-info', // 路径
-								method: 'POST', // 请求方法
+								url: '/user/other-info',
+								method: 'POST',
 								requestDataType: 'form',
 								data: {
 									uid2: that.othersId
-								}, //发送的数据
+								},
 								success: (res) => {
 									if (res.code == 200) {
 										that.otherUsername = res.data.username;
@@ -426,13 +409,12 @@
 										that.other_back_icon = (res.data.bgUrl === null ?
 											'https://baotangguo.cn:8081/' :
 											res.data.bgUrl);
-										// console.log(res.data.data);
 									}
 								}
 
 							}),
 							this.sendRequest({
-								url: '/user/user-info', // 路径
+								url: '/user/user-info',
 								requestDataType: 'form',
 								success: (res) => {
 									if (res.code == 200) {
@@ -465,13 +447,11 @@
 				requestDataType: 'form',
 				data: {
 					uid2: that.othersId
-				}, //发送的数据
+				},
 				success: (res) => {
 					that.subscribe_or_not = res.is_subscribed
 				}
 			})
-			// console.log(that.uid)
-			// console.log(that.othersId)
 		},
 		onShow() {
 			this.flowList = []
@@ -490,9 +470,7 @@
 				this.choose1 = option.key === "false";
 			}
 
-			setTimeout(function() {
-				// console.log('start pulldown');
-			}, 1000);
+			setTimeout(function() {}, 1000);
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
@@ -506,30 +484,11 @@
 			this.getselfpost2();
 		},
 		methods: {
-			// throttle: function() {   //保存信息节流
-			// 	let timer = true;
-			// 	return function() {
-			// 		let that = this;
-			// 		if(!timer){
-			// 		   return false;
-			// 		}
-			// 		timer = false;
-			// 		setTimeout(() => {
-			// 			this.save_inf();
-			// 			timer = true;
-			// 		}, 3000)
-			// 	}
-			// }
 			checkEmail(email) {
 				return RegExp(
 						/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)
 					.test(email);
-			},
-
-			onchange(e) {
-				console.log(e);
-				this.$set(this.obj, this.motto, e);
-			},
+			}, //邮箱校验
 			descInput: function(event) {
 				var value = event.target.value
 				if (value.length > 20) {
@@ -546,7 +505,7 @@
 
 				}
 			},
-			previewImg(imgUrl) {
+			previewImg(imgUrl) { //预览他人头像
 				let imgsArray = [];
 				imgsArray[0] = imgUrl;
 				uni.previewImage({
@@ -566,9 +525,6 @@
 			},
 			subscribe() {
 				let that = this
-				// console.log(that.uid)
-				// console.log(that.othersId)
-				// console.log(that.authorization)
 				that.subscribe_or_not = !that.subscribe_or_not
 				this.sendRequest({
 					url: '/user/subscribe',
@@ -576,9 +532,9 @@
 					requestDataType: 'form',
 					data: {
 						uid2: that.othersId
-					}, //发送的数据
+					},
 					success: (res) => {
-						// console.log(res)
+
 					}
 				})
 			},
@@ -616,7 +572,7 @@
 								mail: that.mail,
 								motto: that.motto,
 								iconUrl: that.iconUrl
-							}, //发送的数据
+							},
 							success: (res) => {
 								let pages = getCurrentPages(); // 当前页面
 								let beforePage = pages[pages.length - 2]; // 上一页
@@ -714,7 +670,6 @@
 					url: '@/pages/sidebar/settings/settings'
 				})
 			},
-			// 这个方法就是B页面中调用$vm注册的方法，参数为B页面中传递过来的数据
 			pass2explore(obj) {
 
 				if (obj) {
@@ -741,7 +696,6 @@
 								title: "正在上传"
 							})
 							that.iconUrl = res2;
-							// this.compressPaths = [res];
 							uni.uploadFile({
 								url: 'http://124.221.253.187:5000/service/upload_img',
 								filePath: res2,
@@ -756,13 +710,10 @@
 										},
 										success: (res4) => {
 											uni.hideLoading();
-											// console.log("头像上传成功")
 										}
 									});
 								},
-								fail(res3) {
-									// console.log("头像上传失败")
-								}
+								fail(res3) {}
 							});
 						}).catch((err) => {
 							console.log(err);
@@ -794,8 +745,6 @@
 								filePath: res2,
 								name: "img",
 								success: (res3) => {
-									// console.log(JSON.parse(res3.data)["url"])
-									// that.back_icon = JSON.parse(res3.data)["url"];
 									that.sendRequest({
 										url: "/user/change_background_img",
 										method: 'POST',
@@ -804,14 +753,11 @@
 											url: JSON.parse(res3.data)["url"],
 										},
 										success: (res4) => {
-											// console.log("背景图上传成功")
 											uni.hideLoading();
 										}
 									});
 								},
-								fail(res3) {
-									// console.log("背景图上传失败")
-								}
+								fail(res3) {}
 							});
 						}).catch((err) => {
 							console.log(err);
@@ -903,7 +849,7 @@
 		background-color: #ffffff;
 		width: 252rpx;
 		height: 81rpx;
-		top: 527rpx;
+		top: 526rpx;
 		left: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
@@ -913,7 +859,7 @@
 		font-size: 43.2rpx;
 		font-weight: 700;
 		line-height: 50.4rpx;
-		margin-top: 12.8rpx;
+		margin-top: 13.8rpx;
 		margin-left: 36rpx;
 		color: black;
 	}
@@ -929,7 +875,7 @@
 
 	.personal-post-click {
 		position: absolute;
-		background-color: rgb(242, 243, 245);
+		background-color: rgb(245, 245, 245);
 		width: 252rpx;
 		height: 81rpx;
 		top: 527rpx;
@@ -960,7 +906,7 @@
 		font-size: 43.2rpx;
 		font-weight: 700;
 		line-height: 50.4rpx;
-		margin-top: 12.8rpx;
+		margin-top: 13.8rpx;
 		color: #000000;
 		text-align: center;
 	}
