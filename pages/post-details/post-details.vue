@@ -1,8 +1,6 @@
 <template>
-	<view style="transition: opacity 3s linear 0s;">
-		<!-- <view class="edit" v-if="ismypost" @click="edit">
-			<image src="/static/icons/edit.svg" />
-		</view> -->
+	<view>
+		<!-- 顶部导航栏 -->
 		<view class="delete" v-if="ismypost" @click="trash">
 			<image src="/static/icons/delete.svg" />
 		</view>
@@ -38,17 +36,13 @@
 						<image :src="item" mode="aspectFit" @click="see_photo(current_pic)"></image>
 
 					</swiper-item>
-
 				</swiper>
 				<view class="photo-info" @click="photo_info(current_pic)">
-					<!-- <image src="@/static/icons/info.svg" v-if="len"></image> -->
 					<uni-icons type="info-filled" v-if="len" size="28" color="rgb(74, 129, 226)"></uni-icons>
 				</view>
 			</view>
 
-
-
-			<!-- 帖子 -->
+			<!-- 帖子文本 -->
 			<view class="text" @click="com2post()">
 				<!-- 标题 -->
 				<view style="display: flex;justify-content: space-between;align-items: center;">
@@ -62,7 +56,6 @@
 				<view class="mainText">
 					{{post_main}}
 				</view>
-
 			</view>
 
 			<!-- 帖子的评论数和点赞数 -->
@@ -73,7 +66,6 @@
 					<view style="">
 						{{numberComment}}
 					</view>
-
 				</view>
 				<!-- 点赞数 -->
 				<view style="display:flex; justify-content: flex-end; align-items: center; 
@@ -83,18 +75,14 @@
 					<view style="width: 40rpx;">
 						{{numberLike}}
 					</view>
-
 				</view>
 			</view>
 		</view>
 
 		<!-- 评论区 -->
 		<view class="comment-area" @click="com2post()" v-show="allComments.length">
-
-			<view class="" style="background-color: white; margin-top: 8px; padding:14rpx">
-				<!-- <text style="font-size:20px; font-weight:550;">评论</text> -->
-			</view>
-
+			<view class="" style="background-color: white; margin-top: 8px; padding:14rpx"></view>
+			<!-- 第一级评论 -->
 			<view class="" style="background-color: #fff;">
 				<view class="comment1" v-for="(item,index) in allComments" :key="index"
 					style="margin-left: 1rpx;padding-top: 0;">
@@ -112,7 +100,7 @@
 									{{item.context}}
 								</view>
 							</view>
-
+							<!-- 第二级评论 -->
 							<view class="" v-for="(item1,index1) in item.comments" :key="index1"
 								style="margin-top: 5rpx;">
 								<view class="" style="display: flex;">
@@ -135,7 +123,6 @@
 								</view>
 							</view>
 						</view>
-
 					</view>
 				</view>
 				<view style="height: 64px; width: 100%;"></view>
@@ -157,7 +144,7 @@
 				<button @click="send_comment_for_comment()">发表</button>
 			</view>
 		</view>
-
+		<!-- 人脸信息弹出层 -->
 		<uni-popup ref="popup" type="bottom" class="popup" background-color="#fff" v-if="get_features">
 			<view class="popup-content">
 				<view class="feature-title">识别结果</view>
@@ -204,11 +191,10 @@
 				len: 0,
 				uid: 0, //帖主的id
 				pid: 0, //帖子的id
+
 				comment1_cid: 0,
 				comment2_cid: 0, //评论的id
 				like: 0, //是否给这篇帖子点赞了
-				iscollect: false,
-				ismypost: false,
 				icon: '/static/icons/info.svg', //发帖人头像
 				current_pic: 0, //当前图的index
 				username: '', //发帖用户名
@@ -223,6 +209,8 @@
 				voicing: false,
 				paused: false,
 				innerAudioContext: Object,
+				iscollect: false,
+				ismypost: false,
 				feature_items: [
 					['score', '颜值'],
 					['sex', '性别'],
@@ -309,6 +297,7 @@
 					console.log(e)
 				}
 			},
+			// 获取远程语音合成结果
 			get_voice() {
 				let spd = uni.getStorageSync('spd')
 				let pit = uni.getStorageSync('pit')
@@ -331,6 +320,7 @@
 					},
 				});
 			},
+			// 收藏帖子
 			collect() {
 				this.iscollect = !this.iscollect;
 				this.sendRequest({
@@ -345,6 +335,7 @@
 					}
 				});
 			},
+			// 删除帖子(仅自己的)
 			trash() {
 				let that = this;
 				this.sendRequest({
@@ -364,11 +355,8 @@
 							is_liked: this.like,
 							index: this.lastIndex
 						}
-						// 调用$vm 注册一个自定义方法 将参数传入进去
 						prevPage.$vm.pass2explore(obj)
-						// console.log("成功删除");
 						uni.navigateBack();
-						// this.back();
 					},
 				});
 			},
@@ -378,7 +366,6 @@
 				})
 			},
 			see_photo(index) {
-				// console.log(index);
 				uni.previewImage({
 					urls: this.swipers,
 					current: index,
@@ -424,7 +411,6 @@
 				let that = this;
 				try {
 					const authorization = uni.getStorageSync('authorization');
-					console.log(authorization)
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						that.sendRequest({
@@ -437,12 +423,10 @@
 								parent: that.replycid
 							},
 							success: (res) => {
-								console.log(res)
 								this.text = 'request success';
 								if (res.code == 200) {
 									that.comment_text = '';
 									this.get_post();
-									console.log(res.detail)
 								}
 							}
 						})
@@ -468,7 +452,6 @@
 				let that = this;
 				try {
 					const authorization = uni.getStorageSync('authorization');
-					console.log(authorization)
 					if (!authorization) throw DOMException("Nope!");
 					else {
 						that.sendRequest({
@@ -480,7 +463,6 @@
 								context: that.comment_text
 							},
 							success: (res) => {
-								console.log(res)
 								this.text = 'request success';
 								if (res.code == 200) {
 									that.comment_text = '',
@@ -542,7 +524,6 @@
 								uid: that.uid
 							},
 							success: (res) => {
-								console.log(res)
 								this.text = 'request success';
 								if (res.statusCode == 200) {} else {
 									uni.showToast({
@@ -556,7 +537,7 @@
 				} catch (e) {
 					console.log(e)
 				}
-			}, //给这个帖子点赞
+			},
 			init() {}
 		}
 	}
@@ -682,7 +663,6 @@
 	}
 
 	.com_like {
-		// background-color: aquamarine;
 		height: 88rpx;
 		display: flex;
 		justify-content: flex-end;
@@ -736,7 +716,6 @@
 		position: fixed;
 		width: 100%;
 		height: 70rpx;
-		// background-color: gainsboro;
 	}
 
 	.give_comment input {
