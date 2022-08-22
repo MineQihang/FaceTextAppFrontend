@@ -11,6 +11,7 @@
 		<view style="height: calc(90rpx + 2 * 0rpx); "></view>
 		<view class="swiper">
 		</view>
+		<!--侧边栏-->
 		<view>
 			<uni-drawer ref="showLeft" mode="left" :width="280" @change="change($event,'showLeft')"
 				style="z-index: 99999;">
@@ -31,6 +32,7 @@
 						</view>
 					</view>
 					<view class="sidebar-list">
+						<!--下方三个数值-->
 						<view class="title">
 							<view class="title-detail" @click="turnToPost()">
 								<view style="color:rgb(70, 5, 173);">
@@ -58,6 +60,7 @@
 							</view>
 						</view>
 						<view class="line"></view>
+						<!--个人空间-->
 						<view class="button" @click="turnToPersonalSpace()">
 							<view>
 								<image src="/static/icons/personalSpace.svg" class="image-style"></image>
@@ -67,6 +70,7 @@
 							</view>
 						</view>
 						<view class="line"></view>
+						<!--设置-->
 						<view class="button" @click="turnToSetting()">
 							<view>
 								<image src="/static/icons/settings.svg" class="image-style"></image>

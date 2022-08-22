@@ -8,16 +8,19 @@
 				<image class="search-icon" src="/static/icons/search.svg" @click="search()"></image>
 			</view>
 		</view>
+		<!--显示没有找到的页面-->
 		<view class="not-found" v-show="this.notFoundUser||this.notFoundPost">{{"抱歉，没有搜索到相关结果。"}}</view>
-
+		
 		<view class="post-container">
+			<!--显示帖子-->
 			<view clss="post-list" v-show="postList.length">
 				<post :postList="postList" style=" display:flex;"></post>
 			</view>
-
+			<!--现实背景图-->
 			<view class="backgrount-icon" v-show="!(postList.length||userList.length||this.notFoundUser||this.notFoundPost)">
 				<image src="../../static/icons/searchBackground.svg" style="width:684rpx; height: 507.6rpx;"></image>
 			</view>
+			<!--显示用户列表-->
 			<view class="content" v-show="userList.length">
 
 				<view class="list-content" v-for="(item, index) in userList" :key="index">
@@ -66,6 +69,7 @@
 			setTimeout(function() {}, 1000);
 			uni.startPullDownRefresh();
 		},
+		//下拉刷新
 		onPullDownRefresh() {
 			this.init();
 			this.postList = [];
@@ -111,11 +115,13 @@
 				//this.postList = [];
 				this.userList = [];
 			},
+			//跳转到个人空间
 			turnToPerson(uid) {
 				uni.navigateTo({
 					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
 				})
 			},
+			//关注某人
 			postSubscribed(uid) {
 				this.sendRequest({
 					url: "/user/subscribe",
@@ -133,6 +139,7 @@
 				});
 
 			},
+			//获取是否关注
 			trueisSubscribed(index) {
 				this.userList[index]["is_subscribed"] = true;
 				this.postSubscribed(this.userList[index]["uid"]);
@@ -141,11 +148,13 @@
 				this.userList[index]["is_subscribed"] = false;
 				this.postSubscribed(this.userList[index]["uid"])
 			},
+			//实时获取键盘输入
 			onKeyInput: function(event) {
 				// this.text = event.target.value;
 				this.postList = [];
 				this.searchUser()
 			},
+			//查找用户
 			searchUser() {
 				let that = this;
 				that.postList = [];
@@ -176,6 +185,7 @@
 				}
 
 			},
+			//查找帖子
 			search() {
 				let that = this;
 				that.userList = [];
@@ -212,6 +222,7 @@
 					});
 				}
 			},
+			//触底获取更多帖子
 			getMore(limit = 10) {
 				let that = this;
 				this.sendRequest({
@@ -230,12 +241,12 @@
 					}
 				});
 			},
+			//接收上一页的参数
 			pass2explore(obj) {
 				if (obj) {
 					this.postList[obj.index].commentNum = obj.numberComment;
 					this.postList[obj.index].is_liked = obj.is_liked;
 					this.postList[obj.index].likeNum = obj.numberLike;
-					console.log("传回来了");
 				}
 			}
 		}
