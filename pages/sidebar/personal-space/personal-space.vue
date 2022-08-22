@@ -720,7 +720,6 @@
 				if (obj) {
 					this.flowList[obj.index].is_liked = obj.is_liked;
 					this.flowList[obj.index].likeNum = obj.numberLike;
-					console.log("传回来了");
 				}
 			},
 
@@ -811,8 +810,7 @@
 									});
 								},
 								fail(res3) {
-									console.log(res3);
-									console.log("背景图上传失败")
+									// console.log("背景图上传失败")
 								}
 							});
 						}).catch((err) => {
