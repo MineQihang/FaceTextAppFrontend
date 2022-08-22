@@ -1,15 +1,13 @@
 <template>
 	<view class="container">
 		<view class="navibar">
-			<view class="">
-				<!-- <view class="back">
-					<uni-icons type="arrow-left" size="30" @click="back()"></uni-icons>
-				</view> -->
+			<view>
 				<view class="publish">记录·分享·交流</view>
 			</view>
 		</view>
 
 		<view class="content">
+			<!-- 文本编辑 -->
 			<view class="text">
 				<view class="title">
 					<view class="title-font" style="align-self: flex-start;; margin-bottom:18rpx">标题</view>
@@ -20,17 +18,17 @@
 					<textarea v-model="context" placeholder="编辑内容" maxlength=500></textarea>
 				</view>
 			</view>
-
+			<!-- 图片上传 -->
 			<view class="upload">
 				<view class="">
 					<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="9"
 						multiple maxSize="10485760" @oversize="oversize">
-						<!-- 10MB -->
 					</u-upload>
 				</view>
 			</view>
 			<view style="height: 40px;"></view>
 		</view>
+
 		<button class="publish-btn" @click="publish()">确认发布</button>
 		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
@@ -47,15 +45,11 @@
 			}
 		},
 		methods: {
-
-			back() {
-				uni.navigateBack();
-			},
-
+			// 删除图片
 			deletePic(event) {
 				this[`fileList${event.name}`].splice(event.index, 1)
 			},
-
+			// 读取图片
 			async afterRead(event) {
 				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
 				let lists = [].concat(event.file)
@@ -80,14 +74,12 @@
 			},
 
 			oversize(event) {
-				// console.log(event)
 				uni.showToast({
 					title: "图片过大",
 					icon: "none"
 				})
 			},
-
-
+			//上传图片
 			uploadFilePromise(url) {
 				let that = this;
 				return new Promise((resolve, reject) => {
@@ -97,13 +89,11 @@
 						fileType: "jpg",
 						minSize: 1920
 					}).then((res2) => {
-						// console.log(res2);
 						uni.uploadFile({
 							url: 'http://124.221.253.187:5000/service/upload_img',
 							filePath: res2,
 							name: "img",
 							success: (res3) => {
-								// console.log(that.fileList1)
 								setTimeout(() => {
 									resolve(JSON.parse(res3.data)["url"])
 								}, 600)
@@ -117,7 +107,7 @@
 					})
 				})
 			},
-
+			// 发布
 			publish() {
 				if (this.fileList1.length && this.fileList1[this.fileList1.length - 1].status == "uploading") {
 					uni.showToast({
@@ -147,7 +137,6 @@
 				for (let img of this.fileList1) {
 					imgUrls.push(img.url);
 				}
-				// console.log("图片云端地址: ",imgUrls)
 				uni.showLoading({
 					title: "正在发布"
 				})
@@ -166,13 +155,11 @@
 					},
 
 					success: (res) => {
-						// console.log(res);
 						this.title = "";
 						this.context = "";
 						this.fileList1 = [];
 						this.imgUrls = [];
 						if (res.statusCode == 200) {
-							// console.log("成功发布");
 							uni.hideLoading()
 							this.publishing = false
 							uni.switchTab({
@@ -203,7 +190,6 @@
 	.container {
 		display: flex;
 		flex-direction: column;
-		// background-color: #fff;
 	}
 
 	.navibar {
@@ -219,11 +205,6 @@
 		align-items: center;
 		height: 90rpx;
 		width: 90%;
-	}
-
-	.back {
-		display: flex;
-		align-items: center;
 	}
 
 	.publish {
@@ -291,8 +272,6 @@
 
 	.publish-btn {
 		position: relative;
-		// bottom: 76rpx;
-		// margin: 5% 15%;
 		width: 70%;
 		background-color: $our-purple;
 		color: white;
