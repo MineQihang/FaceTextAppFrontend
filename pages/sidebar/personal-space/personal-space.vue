@@ -877,20 +877,20 @@
 
 	.personal-information-click {
 		position: absolute;
-		background-color: rgb(242, 243, 245);
+		background-color: rgb(245, 245, 245);
 		width: 252rpx;
 		height: 81rpx;
-		top: 526rpx;
+		top: 527rpx;
 		left: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
 
 	.personal-information-unclick {
 		position: absolute;
-		background-color: #ffff;
+		background-color: #ffffff;
 		width: 252rpx;
 		height: 81rpx;
-		top: 526rpx;
+		top: 527rpx;
 		left: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
@@ -919,7 +919,7 @@
 		background-color: rgb(242, 243, 245);
 		width: 252rpx;
 		height: 81rpx;
-		top: 526rpx;
+		top: 527rpx;
 		right: 72rpx;
 		border-radius: 36rpx 36rpx 0rpx 0rpx;
 	}
@@ -1055,6 +1055,8 @@
 	.itemContent {
 		width: 100%;
 		display: block;
+		max-height: 850rpx;
+		overflow: hidden;
 		/* height: 250px; */
 		/* border: 2px solid red; */
 	}
