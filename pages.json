@@ -131,7 +131,7 @@
 			"style": {
 				"navigationBarTitleText": "修改密码",
 				"enablePullDownRefresh": false,
-				"backgroundColor": "#ffffff",
+				"backgroundColor": "#ffffff",	
 				"navigationStyle": "custom"
 			}
 
