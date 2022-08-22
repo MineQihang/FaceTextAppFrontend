@@ -118,7 +118,6 @@
 				if (obj) {
 					this.postList[obj.index].is_liked = obj.is_liked;
 					this.postList[obj.index].likeNum = obj.numberLike;
-					console.log("传回来了");
 				}
 			}
 		},
