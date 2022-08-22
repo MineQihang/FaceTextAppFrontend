@@ -244,7 +244,7 @@
 
 	.btn2 {
 		position: absolute;
-		width: 576rpx;
+		width: 500rpx;
 		height: 115.2rpx;
 		top: 1280rpx;
 		background: $our-purple;
@@ -262,7 +262,7 @@
 
 	.btn3 {
 		position: absolute;
-		width: 576rpx;
+		width: 500rpx;
 		height: 115.2rpx;
 		top: 1450rpx;
 		background: $our-purple;
