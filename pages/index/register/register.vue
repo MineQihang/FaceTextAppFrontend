@@ -91,7 +91,9 @@
 			uni.setStorageSync('per', '0')
 		},
 		methods: {
-
+			back() {
+				uni.navigateBack()
+			},
 			Timer() {},
 			isMobile(str) {
 				let reg = /^1\d{10}$/;

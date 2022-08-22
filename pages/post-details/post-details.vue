@@ -191,7 +191,6 @@
 				len: 0,
 				uid: 0, //帖主的id
 				pid: 0, //帖子的id
-
 				comment1_cid: 0,
 				comment2_cid: 0, //评论的id
 				like: 0, //是否给这篇帖子点赞了
