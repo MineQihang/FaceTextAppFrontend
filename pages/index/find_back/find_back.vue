@@ -57,7 +57,7 @@
 					</view>
 					<view class="" style="margin-left: 50rpx;margin-top: 10rpx;width: 100%;">
 						<input class="uni-input input-box" style="font-size: 16px;" type="password" placeholder="请输入密码"
-							v-model="passwordValue" />
+							v-model="passwordValue" maxlength="32" />
 					</view>
 				</view>
 			</view>
@@ -167,6 +167,13 @@
 				if (!that.code) {
 					uni.showToast({
 						title: '请输入验证码',
+						icon: 'none'
+					})
+					return false
+				}
+				if (that.passwordValue.length < 6) {
+					uni.showToast({
+						title: '请输入6位以上密码',
 						icon: 'none'
 					})
 					return false
