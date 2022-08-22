@@ -25,7 +25,7 @@
 		},
 		onPullDownRefresh() {
 			uni.showLoading({
-				title:"正在获取广场帖子"
+				title: "正在获取广场帖子"
 			})
 			this.init();
 			setTimeout(function() {
@@ -116,6 +116,7 @@
 			// 这个方法就是B页面中调用$vm注册的方法，参数为B页面中传递过来的数据
 			pass2explore(obj) {
 				if (obj) {
+					this.postList[obj.index].commentNum = obj.numberComment;
 					this.postList[obj.index].is_liked = obj.is_liked;
 					this.postList[obj.index].likeNum = obj.numberLike;
 				}
