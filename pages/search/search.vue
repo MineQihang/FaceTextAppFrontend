@@ -291,7 +291,7 @@
 		width: 100%;
 		display: flex;
 		justify-content: center;
-		background-color: $our-gray;
+		background-color: #f5f5f5;
 	}
 
 	.content {
