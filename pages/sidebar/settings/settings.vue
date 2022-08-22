@@ -8,43 +8,43 @@
 		</view>
 
 		<view class="bottom_view">
-			<view class="btn1 ">语音播报设置</view>
+			<view class="title ">语音播报设置</view>
 			<view class="line"></view>
 			<view class="music">
-				<view class="title">语速</view>
+				<view class="subtitle">语速</view>
 				<view>
 					<slider class="slider" :value="spd" @change="setspd" step="1" min="0" max="9" show-value
 						height=20rpx />
 				</view>
 
-				<view class="title">音调</view>
+				<view class="subtitle">音调</view>
 				<view>
 					<slider class="slider" :value="pit" @change="setpit" step="1" min="0" max="9" show-value />
 				</view>
 
-				<view class="title">音量</view>
+				<view class="subtitle">音量</view>
 				<view>
 					<slider class="slider" :value="vol" @change="setvol" step="1" min="0" max="15" show-value
 						style="margin-bottom: 35rpx;" />
 				</view>
-				<view class="title">发音人选择</view>
+				<view class="subtitle">发音人选择</view>
 				<view>
 					<view class="percontain">
 						<!-- <view class="uni-list-cell-left text-font" style="margin-top: 40rpx; margin-left:37rpx">
 							当前选择
 						</view> -->
 
-						<view class="text-font" style="margin-top: 30rpx; margin-left:37rpx ">
+						<view class="" style="margin-top: 30rpx; margin-left:37rpx ">
 							<picker class="picker" @change="perchange" :value="indexper" :range="array">
 								<view class="uni-input"
-									style="background-color:white; height=100rpx margin-left:20rpx;padding-left:20rpx;border-radius:10px">
+									style="font-size: 16px; background-color:white; height=100rpx margin-left:20rpx;padding-left:20rpx;border-radius:10px">
 									{{array[indexper]}}
 								</view>
 							</picker>
 						</view>
 					</view>
 				</view>
-				<view style="display: flex; align-items:center; height: 100rpx; padding-left:40rpx;">
+				<view style="display: flex; align-items:center; height: 100rpx; padding-left:40rpx; margin-top:10rpx;">
 					<text style="font-size: 18px;">点击试听: </text>
 					<uni-icons :type="voicing?'sound-filled':'sound'" size="30" class='voice' @click="voice()">
 					</uni-icons>
@@ -212,7 +212,7 @@
 
 	.focusme {
 		font-size: 22px;
-		font-weight: 700;
+		// font-weight: 700;
 	}
 
 	.return-path {}
@@ -239,7 +239,7 @@
 	}
 
 	.line {
-		margin: 150rpx 6% 15rpx 6%;
+		margin: 100rpx 6% 15rpx 6%;
 		width: 88%;
 		height: 0;
 		// border: solid 2rpx;
@@ -250,9 +250,9 @@
 		flex-direction: column;
 	}
 
-	.title {
+	.subtitle {
 		margin-left: 37rpx;
-		font-size: 20px;
+		font-size: 19px;
 	}
 
 	.slider {
@@ -269,24 +269,24 @@
 	}
 
 	.uni-input {
-		height: 100rpx;
-		line-height: 100rpx;
+		height: 90rpx;
+		line-height: 90rpx;
 
 	}
 
-	.btn1 {
+	.title {
 		position: absolute;
 		width: 80%;
-		height: 50rpx;
+		// height: 50rpx;
 		top: 150rpx;
 		margin-left: 10%;
 		margin-right: 10%;
 		color: black;
 		font-size: 24px;
-		font-weight: 700;
+		// font-weight: 700;
 		text-align: center;
 		line-height: 60px;
-		bottom: 57.6rpx;
+		// bottom: 57.6rpx;
 		// left: 84.6rpx;
 		// right: 84.6rpx;
 	}
@@ -295,11 +295,11 @@
 		position: absolute;
 		width: 500rpx;
 		height: 55px;
-		top: 1020rpx;
+		top: 1100rpx;
 		background: linear-gradient(120deg, rgb(70, 5, 173), rgb(19, 93, 173));
 		border-radius: 36px;
 		color: #ffffff;
-		font-size: 20px;
+		font-size: 19px;
 		text-align: center;
 		line-height: 55px;
 		bottom: 57.6rpx;
@@ -312,11 +312,11 @@
 		position: absolute;
 		width: 500rpx;
 		height: 55px;
-		top: 1200rpx;
+		top: 1280rpx;
 		background: linear-gradient(120deg, rgb(70, 5, 173), rgb(19, 93, 173));
 		border-radius: 36px;
 		color: #ffffff;
-		font-size: 20px;
+		font-size: 19px;
 		text-align: center;
 		line-height: 55px;
 		bottom: 57.6rpx;
@@ -326,6 +326,7 @@
 	}
 
 	.voice {
+		padding-top: 3rpx;
 		padding-left: 20rpx;
 	}
 </style>
