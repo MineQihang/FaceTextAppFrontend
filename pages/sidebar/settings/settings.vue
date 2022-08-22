@@ -11,23 +11,23 @@
 			<view class="btn1 ">语音播报设置</view>
 			<view class="line"></view>
 			<view class="music">
-				<view class="title title-font">语速</view>
+				<view class="title">语速</view>
 				<view>
 					<slider class="slider" :value="spd" @change="setspd" step="1" min="0" max="9" show-value
 						height=20rpx />
 				</view>
 
-				<view class="title title-font">音调</view>
+				<view class="title">音调</view>
 				<view>
 					<slider class="slider" :value="pit" @change="setpit" step="1" min="0" max="9" show-value />
 				</view>
 
-				<view class="title title-font">音量</view>
+				<view class="title">音量</view>
 				<view>
 					<slider class="slider" :value="vol" @change="setvol" step="1" min="0" max="15" show-value
 						style="margin-bottom: 35rpx;" />
 				</view>
-				<view class="title title-font">发音人选择</view>
+				<view class="title">发音人选择</view>
 				<view>
 					<view class="percontain">
 						<!-- <view class="uni-list-cell-left text-font" style="margin-top: 40rpx; margin-left:37rpx">
@@ -43,6 +43,11 @@
 							</picker>
 						</view>
 					</view>
+				</view>
+				<view style="display: flex; align-items:center; height: 100rpx; padding-left:40rpx;">
+					<text style="font-size: 18px;">点击试听: </text>
+					<uni-icons :type="voicing?'sound-filled':'sound'" size="30" class='voice' @click="voice()">
+					</uni-icons>
 				</view>
 
 
@@ -74,6 +79,7 @@
 				indexper: 0,
 				array: ['度小美(默认)', '度小宇', '度逍遥(基础)', '度丫丫', '度逍遥(精品)', '度小鹿', '度博文', '度小童', '度小萌', '度米朵', '度小娇'],
 				arrayper: [0, 1, 3, 4, 5003, 5118, 106, 110, 111, 103, 5],
+				voicing: false
 			}
 		},
 		onLoad() {
@@ -157,8 +163,41 @@
 			},
 			back() {
 				uni.navigateBack()
+			},
+			voice() {
+				if (this.voicing) {
+					this.innerAudioContext.stop()
+					this.voicing = false
+					return
+				}
+				let spd = uni.getStorageSync('spd')
+				let pit = uni.getStorageSync('pit')
+				let vol = uni.getStorageSync('vol')
+				let per = uni.getStorageSync('per')
+				let text = "天气炎热，请大家注意避暑，节约用电"
+				this.voicing = true;
+				this.sendRequest({
+					url: "/service/speech_synthesis",
+					method: 'POST',
+					requestDataType: "form",
+					data: {
+						text: text,
+						spd: spd,
+						pit: pit,
+						vol: vol,
+						per: per
+					},
+					success: (res) => {
+						this.innerAudioContext = uni.createInnerAudioContext();
+						this.innerAudioContext.autoplay = true;
+						this.innerAudioContext.src = res.url;
+						this.innerAudioContext.play();
+						this.innerAudioContext.onEnded(() => {
+							this.voicing = false
+						})
+					},
+				});
 			}
-
 		}
 	}
 </script>
@@ -213,6 +252,7 @@
 
 	.title {
 		margin-left: 37rpx;
+		font-size: 20px;
 	}
 
 	.slider {
@@ -283,5 +323,9 @@
 		left: 84.6rpx;
 		right: 84.6rpx;
 		border-radius: 36rpx;
+	}
+
+	.voice {
+		padding-left: 20rpx;
 	}
 </style>

@@ -566,7 +566,7 @@
 	.post-content,
 	.comment-area,
 	.give_comment {
-		animation: fade 0.6s linear;
+		animation: fade 0.5s linear;
 	}
 
 	@keyframes fade {
