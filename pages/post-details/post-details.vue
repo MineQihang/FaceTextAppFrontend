@@ -104,8 +104,7 @@
 						</image>
 						<view class="" style="flex: 1 0;">
 							<view @click="pushUpCommentInput(item)">
-								<view class=""
-									style="position:relative; height: 40rpx;font-weight: 700;margin-top: 4px;">
+								<view class="" style="position:relative; height: 40rpx;margin-top: 4px;">
 									{{item.user.username}}
 								</view>
 								<view @click="com2com()"
@@ -121,12 +120,12 @@
 										class="head-icon1">
 									</image>
 									<view @click="pushUpCommentInput(item1)" style="flex: 1 0;">
-										<view class="" style="height: 20px;font-weight: 400;" v-if="item1.reply">
-											<text style="font-weight: bold;">{{item1.user.username+' '}}</text>
+										<view class="" style="height: 20px;" v-if="item1.reply">
+											<text style="">{{item1.user.username+' '}}</text>
 											<text style="color: rgb(70, 70, 70);">回复</text>
-											<text style="font-weight: bold;">{{' '+item1.reply.username}}</text>
+											<text style="">{{' '+item1.reply.username}}</text>
 										</view>
-										<view style="height: 20px;font-weight: bold;" v-else>
+										<view style="height: 20px;" v-else>
 											{{item1.user.username}}
 										</view>
 										<view style="padding-bottom:5px; padding-right: 10rpx; color: rgb(70, 70, 70);">
