@@ -1,4 +1,5 @@
 <template>
+	<!-- 启动界面 -->
 	<view class="container">
 		<view class="content-container">
 			<image src="/static/icons/logo.svg" style="width:270rpx; height:270rpx;"></image>
@@ -40,11 +41,6 @@
 					url: '/pages/log/log'
 				});
 			},
-			register() {
-				uni.navigateTo({
-					url: '/pages/reg/reg'
-				});
-			}
 		}
 	}
 </script>
