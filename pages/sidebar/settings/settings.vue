@@ -1,12 +1,13 @@
 <template>
 	<view>
+		<!-- 顶部组件 -->
 		<view class="top">
 			<view class="return-path" @click="back()">
 				<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
 			</view>
 			<view class="focusme our-purple">设置</view>
 		</view>
-
+		<!-- 使用滚动条来设置语音 -->
 		<view class="bottom_view">
 			<view class="title ">语音播报设置</view>
 			<view class="line"></view>
@@ -30,10 +31,6 @@
 				<view class="subtitle">发音人选择</view>
 				<view>
 					<view class="percontain">
-						<!-- <view class="uni-list-cell-left text-font" style="margin-top: 40rpx; margin-left:37rpx">
-							当前选择
-						</view> -->
-
 						<view class="" style="margin-top: 30rpx; margin-left:37rpx ">
 							<picker class="picker" @change="perchange" :value="indexper" :range="array">
 								<view class="uni-input"
@@ -44,13 +41,14 @@
 						</view>
 					</view>
 				</view>
+				<!-- 音频试听 -->
 				<view style="display: flex; align-items:center; height: 100rpx; padding-left:40rpx; margin-top:10rpx;">
 					<text style="font-size: 18px;">点击试听: </text>
 					<uni-icons :type="voicing?'sound-filled':'sound'" size="30" class='voice' @click="voice()">
 					</uni-icons>
 				</view>
 
-
+				<!-- 修改密码，退出登录button -->
 				<button class="btn2" @click="reset()">修改密码</button>
 				<button class="btn3" @click="index()">退出登录</button>
 			</view>
@@ -96,6 +94,7 @@
 
 		},
 		methods: {
+			// 获取用户信息
 			get_inf() {
 				let that = this;
 				try {
@@ -123,6 +122,7 @@
 					console.log(e)
 				}
 			},
+			// 退出登录,remove用户信息
 			index() {
 				try {
 					uni.removeStorageSync('authorization');
@@ -133,21 +133,24 @@
 					url: '/pages/index/login/login'
 				})
 			},
+			//修改密码方法
 			reset() {
 				uni.navigateTo({
 					url: '/pages/index/find_back/find_back'
 				})
 			},
 
-
+			// 语速设置方法
 			setspd(e) {
 
 				uni.setStorageSync('spd', e.detail.value)
 
 			},
+			// 音调设置方法
 			setpit(e) {
 				uni.setStorageSync('pit', e.detail.value)
 			},
+			// 音量设置方法
 			setvol(e) {
 				uni.setStorageSync('vol', e.detail.value)
 			},
@@ -159,18 +162,21 @@
 			back() {
 				uni.navigateBack()
 			},
+			// 发音人选择
 			voice() {
 				if (this.voicing) {
 					this.innerAudioContext.stop()
 					this.voicing = false
 					return
 				}
+				// 输入当前的相关参数
 				let spd = uni.getStorageSync('spd')
 				let pit = uni.getStorageSync('pit')
 				let vol = uni.getStorageSync('vol')
 				let per = uni.getStorageSync('per')
 				let text = "天气炎热，请大家注意避暑，节约用电"
 				this.voicing = true;
+				// 从后端获取试听语音
 				this.sendRequest({
 					url: "/service/speech_synthesis",
 					method: 'POST',
@@ -207,7 +213,6 @@
 
 	.focusme {
 		font-size: 22px;
-		// font-weight: 700;
 	}
 
 	.return-path {}
@@ -226,7 +231,6 @@
 		align-items: center;
 		height: 80vh;
 		z-index: 1 !important;
-		/* 		 position:fixed; */
 	}
 
 	.music {
@@ -237,8 +241,6 @@
 		margin: 100rpx 6% 15rpx 6%;
 		width: 88%;
 		height: 0;
-		// border: solid 2rpx;
-		// border-color: black;
 		background-color: black;
 		display: flex;
 		justify-content: center;
@@ -272,18 +274,13 @@
 	.title {
 		position: absolute;
 		width: 80%;
-		// height: 50rpx;
 		top: 150rpx;
 		margin-left: 10%;
 		margin-right: 10%;
 		color: black;
 		font-size: 24px;
-		// font-weight: 700;
 		text-align: center;
 		line-height: 60px;
-		// bottom: 57.6rpx;
-		// left: 84.6rpx;
-		// right: 84.6rpx;
 	}
 
 	.btn2 {

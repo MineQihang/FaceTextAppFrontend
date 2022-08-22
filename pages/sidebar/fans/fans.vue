@@ -159,8 +159,6 @@
 	.list {}
 
 	.list-content {
-		/* 这是list中的内容捏 */
-		// width: 745.2rpx;
 		height: 117rpx;
 		background-color: white;
 		width: 100%;
@@ -200,8 +198,6 @@
 	}
 
 	.list-content-motto {
-		/* mottomottomottomotto */
-		/* mottomottomottomotto */
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -215,7 +211,6 @@
 
 	
 	.list-content-fans {
-		/* +关注 */
 		position: absolute;
 		width: 130rpx;
 		height: 59.4rpx;

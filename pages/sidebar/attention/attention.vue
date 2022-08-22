@@ -53,7 +53,6 @@
 
 		methods: {
 			onLoad: function(option) {
-				// this.init();
 				setTimeout(function() {
 					console.log('start pulldown');
 				}, 1000);
@@ -159,8 +158,6 @@
 	.list {}
 
 	.list-content {
-		/* 这是list中的内容捏 */
-		// width: 745.2rpx;
 		height: 117rpx;
 		background-color: white;
 		width: 100%;
@@ -197,12 +194,9 @@
 		margin-left: 142.2rpx;
 		color: rgb(0, 0, 0);
 		font-weight: 400;
-		
 	}
 
 	.list-content-motto {
-		/* mottomottomottomotto */
-		/* mottomottomottomotto */
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -210,12 +204,10 @@
 		height: 24px;
 		margin-top: 60rpx;
 		margin-left: 30rpx;
-		color: #212121;
-		
+		color: #212121;	
 	}
 
 	.list-content-fans {
-		/* +关注 */
 		position: absolute;
 		width: 130rpx;
 		height: 59.4rpx;
@@ -229,7 +221,6 @@
 		text-align: left;
 		flex-direction: row;
 		align-items: center;
-	
 	}
 
 	.bottom-picture {
@@ -238,6 +229,5 @@
 		justify-content: center;
 		margin-top: 113.4rpx;
 		margin-bottom: 100rpx;
-
 	}
 </style>

@@ -19,7 +19,6 @@
 		},
 		onLoad: function(option) {
 			setTimeout(function() {
-				// console.log('start pulldown');
 			}, 1000);
 			uni.startPullDownRefresh();
 		},
@@ -77,9 +76,6 @@
 						success: (res) => {
 							that.userInfo = res.data;
 							uni.setStorageSync('uid', res.data.uid)
-							// console.log("收到uid为",res.data.uid)
-							// that.username = res.data.username;
-							// console.log("收到的", that.uid);
 						},
 						failRequest: (res) => {
 							if (res.statusCode == 401) {
@@ -90,7 +86,6 @@
 						}
 					})
 				} catch (e) {
-					// console.log(e)
 				};
 			},
 			init() {
@@ -117,13 +112,11 @@
 			pass2explore(obj) {
 				if (obj) {
 					if (obj.isTrashed) {
-						// console.log("删了");
 						this.postList.splice(obj.index, 1);
 					} else {
 						this.postList[obj.index].commentNum = obj.numberComment;
 						this.postList[obj.index].is_liked = obj.is_liked;
 						this.postList[obj.index].likeNum = obj.numberLike;
-						console.log("传回来了");
 					}
 				}
 			}
