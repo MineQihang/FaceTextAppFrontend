@@ -62,7 +62,7 @@
 				</view>
 			</view>
 
-			<view><button @click="reg()" class="login-btn">
+			<view><button @click="submit()" class="login-btn">
 					确认
 				</button></view>
 
@@ -87,9 +87,7 @@
 		},
 		methods: {
 			back() {
-				uni.navigateTo({
-					url: '/pages/sidebar/settings/settings'
-				})
+				uni.navigateBack()
 			},
 
 			Timer() {},
@@ -157,7 +155,7 @@
 					holdTime--;
 				}, 1000)
 			},
-			reg() {
+			submit() {
 				let that = this
 				if (!that.passwordValue) {
 					uni.showToast({
@@ -173,7 +171,7 @@
 					})
 					return false
 				}
-
+				uni.removeStorageSync('authorization');
 				this.sendRequest({
 					url: '/user/retrieve',
 					method: 'POST',
@@ -190,7 +188,7 @@
 								icon: 'none'
 							})
 							setTimeout(() => {
-								uni.navigateTo({
+								uni.reLaunch({
 									url: '/pages/index/login/login'
 								});
 							}, 400)

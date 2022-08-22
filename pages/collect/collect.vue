@@ -259,6 +259,7 @@
 
 	.posts {
 		margin-top: 92rpx;
+		background-color: rgb(242, 243, 245);
 	}
 
 	.collection-click,

@@ -134,12 +134,7 @@
 				})
 			},
 			reset() {
-				try {
-					uni.removeStorageSync('authorization');
-				} catch (e) {
-					console.log(e)
-				}
-				uni.reLaunch({
+				uni.navigateTo({
 					url: '/pages/index/find_back/find_back'
 				})
 			},
