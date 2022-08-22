@@ -1,5 +1,6 @@
 <template>
 	<view class="our-gray">
+		<!-- 顶部组件 -->
 		<view class="top">
 			<view class="return-path" @click="back()">
 				<image class="path-icon" src="../../../static/icons/leftArrow.svg"></image>
@@ -8,17 +9,17 @@
 		</view>
 		<view class="content">
 
-			<view class="list-content"  v-for="(item, index) in flowList" :key="index">
-				<view class="list-content-icon" @click="turnToPerson(item.uid)">
+			<view class="list-content"  v-for="(item, index) in flowList" :key="index"> <!-- 对flowList遍历 -->
+				<view class="list-content-icon" @click="turnToPerson(item.uid)"> <!-- 获取用户头像 -->
 					<image class="iconUrl" :src='item.iconUrl' mode="aspectFill">
 				</view>
-				<view class="list-content-username title-font" @click="turnToPerson(item.uid)">
+				<view class="list-content-username title-font" @click="turnToPerson(item.uid)"><!-- 获取用户名字 -->
 					{{item.username}}
 				</view>
-				<view class="list-content-motto text-font" @click="turnToPerson(item.uid)">
+				<view class="list-content-motto text-font" @click="turnToPerson(item.uid)"> <!-- 获取用户motto -->
 					{{item.motto}}
 				</view>
-				<view class="list-content-fans text-font" v-if="!item.isSubscribed" @click="trueisSubscribed(index);">
+				<view class="list-content-fans text-font" v-if="!item.isSubscribed" @click="trueisSubscribed(index);"> <!-- 获取用户是否被我关注 -->
 					+关注
 				</view>
 				<view class="list-content-fans text-font" v-else @click="falseisSubscribed(index);">
@@ -26,7 +27,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="bottom-picture" v-if="flowList.length<6">
+		<view class="bottom-picture" v-if="flowList.length<6"> <!-- 如果列表数小于六 显示图片 -->
 			<image src='../../../static/icons/likeBackground.svg'></image>
 		</view>
 	</view>
@@ -103,13 +104,7 @@
 					this.sendRequest({
 						url: "/user/all_subscribed",
 						success: (res) => {
-							// that.username = res.data.username;
-							// that.uid = res.data.uid;
-							// that.iconUrl=res.data.iconUrl;
-							// that.motto=res.data.motto;
-							//that.isSubscribed=res.data.isSubscribed;
 							that.flowList = res.data;
-							console.log("关注收到的", that.uid);
 						}
 					})
 				} catch (e) {

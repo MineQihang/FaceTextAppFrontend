@@ -8,7 +8,7 @@
 		</view>
 		<view class="content">
 
-			<view class="list-content"  v-for="(item, index) in flowList" :key="index">
+			<view class="list-content"  v-for="(item, index) in flowList" :key="index"><!-- 把flowlist遍历 -->
 				<view class="list-content-icon"  @click="turnToPerson(item.uid)">
 					<image class="iconUrl" :src='item.iconUrl' mode="aspectFill">
 				</view>
@@ -26,7 +26,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="bottom-picture" v-if="flowList.length<6">
+		<view class="bottom-picture" v-if="flowList.length<6"><!-- 列表小于6，显示 -->
 			<image src="@/static/icons/fansBackground.svg"></image>
 		</view>
 	</view>
@@ -51,7 +51,8 @@
 			this.init();
 		},
 		methods: {
-			onLoad: function(option) {
+			// 刷新设置
+			onLoad: function(option) { 
 				// this.init();
 				setTimeout(function() {
 					console.log('start pulldown');
@@ -69,6 +70,7 @@
 					url: '/pages/sidebar/personal-space/personal-space?uid=' + uid
 				})
 			},
+			// 发送关注 已关注请求
 			postSubscribed(uid) {
 				this.sendRequest({
 					url: "/user/subscribe",
@@ -86,7 +88,7 @@
 				});
 			
 			},
-			
+			//按钮关注点击事件
 			trueisSubscribed(index) {
 				this.flowList[index]["isSubscribed"] = true;
 				this.postSubscribed(this.flowList[index]["uid"])
@@ -96,17 +98,13 @@
 				this.flowList[index]["isSubscribed"] = false;
 			    this.postSubscribed(this.flowList[index]["uid"])
 			},
+			// 获取我的粉丝的data
 			getUser() {
 				let that = this;
 				try {
 					this.sendRequest({
 						url: "/user/all_fans",
 						success: (res) => {
-							// that.username = res.data.username;
-							// that.uid = res.data.uid;
-							// that.iconUrl=res.data.iconUrl;
-							// that.motto=res.data.motto;
-							// that.isSubscribed=res.data.isSubscribed;
 							that.flowList = res.data;
 						}
 					})
@@ -122,7 +120,6 @@
 				let beforePage = pages[pages.length - 2]; // 上一页
 				uni.navigateBack({
 				    success: function() {
-						console.log("hhh")
 				        beforePage.init();
 				    }
 				});
