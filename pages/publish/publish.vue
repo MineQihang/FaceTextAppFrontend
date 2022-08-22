@@ -153,7 +153,6 @@
 						"imgUrls": imgUrls,
 						"tags": this.tags
 					},
-
 					success: (res) => {
 						this.title = "";
 						this.context = "";

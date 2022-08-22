@@ -427,7 +427,6 @@
 										that.motto1 = res.data.motto;
 										that.mail = res.data.mail;
 										that.iconUrl = res.data.iconUrl;
-										// console.log(res.data.data);
 										that.uid = res.data.uid;
 										that.back_icon = (res.data.bgUrl === null ?
 											'https://baotangguo.cn:8081/' :

@@ -223,7 +223,6 @@
 		align-items: center;
 		justify-content: space-around;
 		background-color: white;
-
 		font-size: 18px;
 		font-weight: 700;
 		line-height: 21px;
@@ -322,9 +321,5 @@
 		max-width: 400rpx;
 		height: 21px;
 		font-size: 18px;
-		// text-align: center;
-		// font-weight: 400;
-		// line-height: 21px;
-		// letter-spacing: 0.1rpx;
 	}
 </style>

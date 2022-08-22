@@ -275,7 +275,6 @@
 									that.iscollect = res.data.is_collected;
 									that.features = res.data.features;
 									if (that.swipers.length) that.get_features = true;
-									// console.log(that.features)
 									if (res.data.comments && res.data.comments.length) {
 										if (res.data.comments.user) {
 											that.comment1_cid = res.data.comments.cid;
@@ -529,7 +528,7 @@
 							},
 							success: (res) => {
 								this.text = 'request success';
-								if (res.statusCode == 200) {} else {
+								if (res.statusCode != 200) {
 									uni.showToast({
 										title: res.data.detail,
 										icon: 'none'

@@ -1,4 +1,5 @@
 <template>
+	<!-- 首页 -->
 	<view class="container">
 		<!-- 头部个人信息 -->
 		<head-tab :userInfo="userInfo"></head-tab>
@@ -18,8 +19,7 @@
 			}
 		},
 		onLoad: function(option) {
-			setTimeout(function() {
-			}, 1000);
+			setTimeout(function() {}, 1000);
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
@@ -85,19 +85,13 @@
 							}
 						}
 					})
-				} catch (e) {
-				};
+				} catch (e) {};
 			},
 			init() {
 				this.bpid = 9660530943306;
 				this.postList = [];
 				this.getUser();
 				this.getPost();
-			},
-			turnToLogin() {
-				uni.redirectTo({
-					url: '/pages/index/login/login'
-				});
 			},
 			turnToPost(pid, index) {
 				let url1 = '/pages/post-details/post-details?pid=' + pid + '&index=' + index;
