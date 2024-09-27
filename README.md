@@ -3,3 +3,7 @@
 
 ## 软件架构
 Uniapp + uView
+
+## 后端
+
+链接在[这里](https://gitee.com/mine-qihang/face-text-app-backend)
