@@ -4,6 +4,8 @@
 ## 软件架构
 Uniapp + uView
 
-## 后端
+## 演示视频
+[B站](https://www.bilibili.com/video/BV1dD4y1z7rz)
 
-链接在[这里](https://gitee.com/mine-qihang/face-text-app-backend)
+## 后端
+[链接](https://gitee.com/mine-qihang/face-text-app-backend)
